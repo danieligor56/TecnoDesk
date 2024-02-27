@@ -33,5 +33,8 @@ public class Usuarios implements Serializable{
 	
 	@Column(name = "password",nullable = false,unique = false)
 	private String pass;
+	
+	@Column(name = "FlgAtvReg",nullable = false)
+	private boolean atvReg;
 
 }
