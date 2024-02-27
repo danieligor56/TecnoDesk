@@ -1,4 +1,4 @@
-package br.com.tecnoDesk.TecnoDesk.Entities;
+package br.com.tecnoDesk.TecnoDesk.Enums;
 
 public enum Ocupacao {
 	

@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
+import br.com.tecnoDesk.TecnoDesk.Enums.Ocupacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +44,7 @@ public class Colaborador {
 	private String cel1;
 	
 	// BLOCO ENDEREÇO// 
+	
 	@Column(name = "UF",nullable = true)
 	private String estado;
 	@Column(name = "MUNIC",nullable = true)
@@ -53,7 +55,8 @@ public class Colaborador {
 	private int numero;
 	@Column(name = "OBS",nullable = true)
 	private String obs;
-	// *** // 
+	// *** //
+	
 	@Column(name = "FlgAtvReg",nullable = false)
 	private boolean atvReg;
 	
