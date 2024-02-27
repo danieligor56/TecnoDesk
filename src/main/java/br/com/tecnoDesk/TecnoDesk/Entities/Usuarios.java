@@ -29,9 +29,9 @@ public class Usuarios implements Serializable{
 	private long id;
 	
 	@Column(name = "login",nullable = false,unique = true)
-	private String emailLogin;
+	private String email;
 	
 	@Column(name = "password",nullable = false,unique = false)
-	private String plvPass;
+	private String pass;
 
 }
