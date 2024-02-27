@@ -39,7 +39,7 @@ public class Colaborador {
 	private String email;
 	@Column(name = "tel",nullable = true,unique = true)
 	private String tel1;
-	@Column(name = "cal",nullable = true,unique = true)
+	@Column(name = "cel",nullable = true,unique = true)
 	private String cel1;
 	
 	// BLOCO ENDEREÇO// 
