@@ -1,6 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
-import br.com.tecnoDesk.TecnoDesk.Enums.Ocupacao;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
