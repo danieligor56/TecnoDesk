@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
+import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,8 +11,23 @@ public class OS {
 
 	private long id;
 	
+	private long numOS;
+	
 	private Cliente cliente;
 	
-	private long aparelho;
+	private Aparelhos aparelhos;
+	
+	private String descricaoModelo;
+	
+	private String checkList;
+	
+	private String corpoChamado;
+	
+	
+	
+	
+	
+	
+	
 	
 }
