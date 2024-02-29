@@ -18,13 +18,16 @@ public class colaboradorService {
 	ModelMapper modelMapper;
 	
 	@Autowired
+	ColaboradorRespository colaboradorRespository;
 	
 	
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO) {
 		
 		var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
-		
+		colaboradorRespository.save(addNovCob);
+		return null;
 		
 	}
+	
 
 }
