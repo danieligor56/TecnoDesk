@@ -14,47 +14,47 @@ import lombok.var;
 @Service
 
 public class ColaboradorService {
-	
+
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@Autowired
 	ColaboradorRespository colaboradorRespository;
-	
-	
+
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO) {
-		
+
 		var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
 		colaboradorRespository.save(addNovCob);
 		return null;
-		
+
 	}
-	
+
 	public List<Colaborador> encontraColaboradorPNome(String nome) {
 		return colaboradorRespository.buscarPornome(nome);
 
 	}
-	
-	public List<Colaborador> listarColaboradores(){
+
+	public List<Colaborador> listarColaboradores() {
 		return colaboradorRespository.findAll();
 	}
-	
-	public Colaborador buscarPorID(Long id){
+
+	public Colaborador buscarPorID(Long id) {
 		Optional<Colaborador> colab = colaboradorRespository.findById(id);
-			
-			if(colab.isPresent())
-				
-				return colab.get();
-			
-			else {
-				
-				throw new NotFound("Não há usuários cadastrados com esse ID");
-			}
-		
-		
+
+		if (colab.isPresent())
+
+			return colab.get();
+
+		else {
+
+			throw new NotFound("Não há usuários cadastrados com esse ID");
+		}
+
 	}
-	
-	
-	
+
+	public Colaborador deletarColaborador(long id) {
+		colaboradorRespository.deleteById(id);
+		return null;
+	}
 
 }
