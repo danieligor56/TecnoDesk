@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.tecnoDesk.TecnoDesk.DTO.ColaboradorDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
+import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Services.ColaboradorService;
 
 @Controller
@@ -38,7 +40,13 @@ public class ColaboradorController {
 		public ResponseEntity<List<Colaborador>>listarColaboradores(){
 			return ResponseEntity.ok().body(colaboradorService.listarColaboradores());
 		}
+	
+	@GetMapping("/buscarporID")
+	public ResponseEntity<Colaborador> colaboradorServicebuscarPorId(@RequestParam Long id){
+		return ResponseEntity.ok().body(colaboradorService.buscarPorID(id));
+	}
 		
+	
 	
 
 }
