@@ -33,8 +33,11 @@ public class ColaboradorService {
 	public List<Colaborador> encontraColaboradorPNome(String nome) {
 
 		return colaboradorRespository.buscarPornome(nome);
-		
-		
+
+	}
+	
+	public List<Colaborador> listarColaboradores(){
+		return colaboradorRespository.findAll();
 	}
 	
 
