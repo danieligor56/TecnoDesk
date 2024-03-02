@@ -16,6 +16,7 @@ public interface ColaboradorRespository extends JpaRepository<Colaborador, Long>
 	List<Colaborador>findAll();
 	
 	Colaborador findItById(long id);
+	
 
 	
 }

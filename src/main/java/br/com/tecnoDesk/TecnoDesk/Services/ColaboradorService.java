@@ -17,7 +17,7 @@ public class ColaboradorService {
 
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@Autowired
 	ColaboradorRespository colaboradorRespository;
 
@@ -62,21 +62,21 @@ public class ColaboradorService {
 
 		throw new NotFound("Não há colaboradores cadastrados com esse ID");
 	}
-	
+
 	public void alterColab(Long id, ColaboradorDTO colaboradorDTO) {
 		Optional<Colaborador> colab = colaboradorRespository.findById(id);
-		
+
 		if (colab.isPresent()) {
-			
+
 			Colaborador colaborador = modelMapper.map(colaboradorDTO, Colaborador.class);
 			colaborador.setId(id);
 			colaboradorRespository.save(colaborador);
-		
+
 		}
-		
+
 		throw new NotFound("Não há colaboradores cadastrados com esse ID");
 	}
-	
+
 	public void desativaColaborador(long id) {
 		
 		try {
@@ -85,17 +85,28 @@ public class ColaboradorService {
 			colab.setAtvReg(false);
 			
 		} catch (Exception e) {
+			
 			throw new NotFound("Não há colaboradores cadastrados com esse ID");
 		}
+	}
+		
+
+	public void ativaColaborador(long id) {
+		
+		try {
+			
+			Colaborador colab = colaboradorRespository.findItById(id);
+			colab.setAtvReg(true);
+	
+			
+		} catch (Exception e) {
+			
+		throw new NotFound("Não há colaboradores cadastrados com esse ID");
 		
 		}
-	
-	public void ativaColaborador(long id) {
-		Colaborador colab = colaboradorRespository.findItById(id);
-			colab.setAtvReg(true);
-		}
+	}
 	
 	
-
+		
 
 }
