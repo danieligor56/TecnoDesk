@@ -53,8 +53,14 @@ public class ColaboradorService {
 	}
 
 	public Colaborador deletarColaborador(long id) {
-		colaboradorRespository.deleteById(id);
-		return null;
+		Optional<Colaborador> existeCob = colaboradorRespository.findById(id);
+		if (existeCob.isPresent()) {
+
+			colaboradorRespository.deleteById(id);
+			return null;
+		}
+
+		throw new NotFound("Não há usuários cadastrados com esse ID");
 	}
 
 }
