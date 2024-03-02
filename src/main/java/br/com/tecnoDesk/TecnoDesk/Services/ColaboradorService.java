@@ -76,5 +76,26 @@ public class ColaboradorService {
 		
 		throw new NotFound("Não há colaboradores cadastrados com esse ID");
 	}
+	
+	public void desativaColaborador(long id) {
+		
+		try {
+			
+			Colaborador colab = colaboradorRespository.findItById(id);
+			colab.setAtvReg(false);
+			
+		} catch (Exception e) {
+			throw new NotFound("Não há colaboradores cadastrados com esse ID");
+		}
+		
+		}
+	
+	public void ativaColaborador(long id) {
+		Colaborador colab = colaboradorRespository.findItById(id);
+			colab.setAtvReg(true);
+		}
+	
+	
+
 
 }
