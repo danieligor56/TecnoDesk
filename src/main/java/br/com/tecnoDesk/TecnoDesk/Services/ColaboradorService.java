@@ -64,17 +64,17 @@ public class ColaboradorService {
 	}
 	
 	public void alterColab(Long id, ColaboradorDTO colaboradorDTO) {
-		//Optional<Colaborador> colab = colaboradorRespository.findById(id);
+		Optional<Colaborador> colab = colaboradorRespository.findById(id);
 		
-		//if (colab.isPresent()) {
+		if (colab.isPresent()) {
 			
 			Colaborador colaborador = modelMapper.map(colaboradorDTO, Colaborador.class);
 			colaborador.setId(id);
 			colaboradorRespository.save(colaborador);
 		
-		//}
+		}
 		
-		//throw new NotFound("Não há colaboradores cadastrados com esse ID");
+		throw new NotFound("Não há colaboradores cadastrados com esse ID");
 	}
 
 }
