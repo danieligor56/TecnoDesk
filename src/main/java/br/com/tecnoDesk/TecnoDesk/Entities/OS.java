@@ -1,6 +1,8 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
+import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
+import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ import lombok.Setter;
 public class OS {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID",nullable = false,unique = true)
 	private long id;
 	
@@ -50,6 +52,9 @@ public class OS {
 	
 	@Column(name = "ldoChamado",nullable = false)
 	private String laudoChamado;
+	
+	@Column(name = "stsOs",nullable = true)
+	private StatusOS statusOS;
 	
 	
 	

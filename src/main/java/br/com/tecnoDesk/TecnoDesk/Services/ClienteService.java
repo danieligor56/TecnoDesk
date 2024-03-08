@@ -45,5 +45,12 @@ public class ClienteService {
 		return clienteRepository.buscarPornome(nome);
 	}
 	
+	public Cliente alterarCliente(long id,ClienteDTO clienteDTO) {
+		Cliente clienteAlt = modelMapper.map(clienteDTO, Cliente.class);
+		clienteAlt.setId(id);
+		return clienteRepository.save(clienteAlt);
+		
+	}
+	
 
 }
