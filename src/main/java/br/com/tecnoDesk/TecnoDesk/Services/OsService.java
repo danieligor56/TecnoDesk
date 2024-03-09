@@ -2,6 +2,7 @@ package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,12 @@ public class OsService {
 		
 	public OS crianova(OsDTO osDTO) {
 	OS novaOs =	modelMapper.map(osDTO, OS.class);
-	LocalDate now = LocalDate.now(); 
-	novaOs.setDataAbertura(now);
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	LocalDate now = LocalDate.now();
+	formatter.format(now);
+	
+	novaOs.setDataAbertura(formatter.format(now));
 	osRepository.save(novaOs);
 	return null;
 	}

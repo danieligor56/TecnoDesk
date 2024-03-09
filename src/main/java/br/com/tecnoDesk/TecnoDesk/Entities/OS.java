@@ -2,7 +2,6 @@ package br.com.tecnoDesk.TecnoDesk.Entities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.Column;
@@ -36,9 +35,9 @@ public class OS {
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
 	@Column(name = "dtAbert",nullable = false)
-	private LocalDate dataAbertura;
+	private String dataAbertura;
 
 	@Column(name = "aparelho", nullable = false)
 	private Aparelhos aparelhos;
