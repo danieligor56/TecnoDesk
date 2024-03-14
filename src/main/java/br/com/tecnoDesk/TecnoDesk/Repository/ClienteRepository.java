@@ -18,4 +18,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	@Query("SELECT c FROM Cliente c WHERE LOWER(c.nome) LIKE LOWER(CONCAT('%', :nome, '%'))")
     List<Cliente>buscarPornome(String nome);
+	
+	Cliente findByDocumento(long documento);
+	
+	boolean existsByDocumento(long documento);
 }
