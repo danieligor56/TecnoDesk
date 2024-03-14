@@ -60,5 +60,14 @@ public class ClienteService {
 		Cliente cli = clienteRepository.findByDocumento(doc);
 		return cli;
 	}
+	
+	public void deletarCliente(long id) {
+	
+		if (!clienteRepository.existsById(id)) {
+			throw new NotFound("Cliente não encontrado");
+		}
+		
+		clienteRepository.deleteById(id);
+	}
 
 }
