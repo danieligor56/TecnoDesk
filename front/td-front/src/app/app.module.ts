@@ -10,8 +10,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
-
-
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,8 @@ import { HomeComponent } from './components/home/home.component';
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
 
   ],
   providers: [],

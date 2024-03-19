@@ -1,0 +1,11 @@
+.card{
+    width: 85%;
+    margin:auto;
+    background-color:#ececee;
+
+}
+
+img{
+    height: 20rem;
+    padding: .5px .5px .5px .5px;
+}
