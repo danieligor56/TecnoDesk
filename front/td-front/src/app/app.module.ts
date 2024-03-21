@@ -12,13 +12,15 @@ import {MatButtonModule} from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
 import {MatCardModule} from '@angular/material/card';
 import { HeaderComponent } from './components/header/header.component';
+import { ColaboradorListComponent } from './components/colaborador/colaborador-list/colaborador-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ColaboradorListComponent
   ],
   imports: [
     BrowserModule,
