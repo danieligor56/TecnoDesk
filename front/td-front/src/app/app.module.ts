@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import {MatCardModule} from '@angular/material/card';
 import { HeaderComponent } from './components/header/header.component';
 import { ColaboradorListComponent } from './components/colaborador/colaborador-list/colaborador-list.component';
+import { MatPaginator,MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,13 @@ import { ColaboradorListComponent } from './components/colaborador/colaborador-l
     MatListModule,
     MatMenuModule,
     MatButtonModule,
-    MatCardModule
-
+    MatCardModule,
+    MatPaginator,
+    MatPaginatorModule,
+    MatTableModule,
+    MatTableDataSource,
+    MatDialog
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
