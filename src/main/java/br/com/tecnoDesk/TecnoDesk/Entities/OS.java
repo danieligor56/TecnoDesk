@@ -20,8 +20,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "OS")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 

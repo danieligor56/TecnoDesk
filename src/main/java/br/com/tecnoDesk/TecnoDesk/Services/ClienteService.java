@@ -9,7 +9,6 @@ import br.com.tecnoDesk.TecnoDesk.DTO.ClienteDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Cliente;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import exception.NotFound;
-import lombok.experimental.var;
 
 @Service
 public class ClienteService {

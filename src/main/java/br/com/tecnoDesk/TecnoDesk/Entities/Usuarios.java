@@ -13,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +36,13 @@ public class Usuarios implements Serializable,UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@NotNull
+	@NotEmpty
 	@Column(name = "login",nullable = false,unique = true)
 	private String email;
 	
+	@NotNull
+	@NotEmpty
 	@Column(name = "password",nullable = false,unique = false)
 	private String pass;
 	
@@ -86,6 +92,14 @@ public class Usuarios implements Serializable,UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg) {
+		super();
+		this.email = email;
+		this.pass = pass;
+		this.role = role;
+		this.atvReg = atvReg;
 	}
 
 }
