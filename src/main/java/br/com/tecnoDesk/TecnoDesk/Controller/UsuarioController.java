@@ -20,16 +20,11 @@ import jakarta.validation.Valid;
 public class UsuarioController {
 	
 	@Autowired
-	AuthenticationManager authenticationManager;
-	
-	@Autowired
 	UsuarioService usuarioService;
 	
-	
-	@PostMapping("login")
-	public ResponseEntity<Usuarios>login(@RequestBody @Valid UsuarioDTO usuarioDTO ) {
-		var usernamePassword = new UsernamePasswordAuthenticationToken(usuarioDTO.email, usuarioDTO.pass);
-		var auth = this.authenticationManager.authenticate(usernamePassword);
+	@PostMapping("/login")
+	public ResponseEntity<Usuarios> login(@RequestBody @Valid UsuarioDTO usuarioDTO ) {
+		usuarioService.login(usuarioDTO);
 		return ResponseEntity.ok().build();
 	}
 	
