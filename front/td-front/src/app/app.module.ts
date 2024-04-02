@@ -17,6 +17,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
+import {MatInputModule} from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { LoginComponent } from './components/login/login.component';
     MatTableModule,
     MatPaginatorModule,
     MatTableModule,
+    MatInputModule
     
    
   ],
