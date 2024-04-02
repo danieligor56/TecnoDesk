@@ -1,4 +1,5 @@
 export interface Colaborador{
+
     id?:any;
 	nome:string;
     //DOCUMNTO VAI FICAR any ENQUANTO COLOCO A FUNÇÃO PARA TRATAR
@@ -20,7 +21,7 @@ export interface Colaborador{
 	// ********* //
 	
     atvReg:boolean;
-	
 
+ 
 
 }
