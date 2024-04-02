@@ -16,6 +16,7 @@ import { ColaboradorListComponent } from './components/colaborador/colaborador-l
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     NavComponent,
     HomeComponent,
     HeaderComponent,
-    ColaboradorListComponent
+    ColaboradorListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
