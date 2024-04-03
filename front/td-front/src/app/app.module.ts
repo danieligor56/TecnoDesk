@@ -19,8 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -51,11 +50,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+   ToastrModule.forRoot({
+      timeOut:4000,
+      closeButton:true,
+      progressBar:true
+    }),
     
+          
 
 
     
-   
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
