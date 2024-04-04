@@ -20,6 +20,9 @@ import { LoginComponent } from './components/login/login.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from "@auth0/angular-jwt";
+
 
 
 @NgModule({
@@ -55,7 +58,9 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton:true,
       progressBar:true
     }),
-    
+    HttpClientModule,
+    JwtModule
+
           
 
 
