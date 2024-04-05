@@ -1,6 +1,6 @@
 <mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" mode="side">
-      <img src="assets/img/side-image.svg" alt="img-menu-nav">
+      <img src="assets/img/img-svg-sidenavdef.svg" alt="img-menu-nav">
       <mat-nav-list class="nav-list">
         <a mat-list-item routerLink="/home">
             <i class="material-icons">home</i>Home
@@ -14,7 +14,7 @@
     <a mat-list-item routerLink="/">
       <i class="material-icons">assignment</i>Ordem de serviço
   </a>
-  <a mat-list-item routerLink="/">
+  <a mat-list-item (click)="logout()">
     <i class="material-icons">logout</i>Logout
 </a>
     
