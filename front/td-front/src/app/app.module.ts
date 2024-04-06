@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 
 
@@ -55,7 +56,7 @@ import { JwtModule } from "@auth0/angular-jwt";
     ReactiveFormsModule,
     FormsModule,
    ToastrModule.forRoot({
-      timeOut:4000,
+      timeOut:3000,
       closeButton:true,
       progressBar:true
     }),
@@ -68,7 +69,7 @@ import { JwtModule } from "@auth0/angular-jwt";
     
   
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
