@@ -8,24 +8,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.tecnoDesk.TecnoDesk.DTO.LoginResponseDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
+import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
+import br.com.tecnoDesk.TecnoDesk.Services.TokenService;
 import br.com.tecnoDesk.TecnoDesk.Services.UsuarioService;
 import jakarta.validation.Valid;
 
 
 @RestController
 @RequestMapping("auth")
-
 public class UsuarioController {
 	
 	@Autowired
-	UsuarioService usuarioService;
+	AuthenticationManager authenticationManager;
 	
+	@Autowired
+	UsuarioService usuarioService;
+
+	@Autowired
+	TokenService tokenService;
+	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
+    
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/login")
-	public ResponseEntity<Usuarios> login(@RequestBody @Valid UsuarioDTO usuarioDTO ) {
-		usuarioService.login(usuarioDTO);
-		return ResponseEntity.ok().build();
+	public ResponseEntity login(@RequestBody @Valid UsuarioDTO usuarioDTO ) {
+		var usernamePassword = new UsernamePasswordAuthenticationToken(usuarioDTO.email(),usuarioDTO.pass());
+		var auth = this.authenticationManager.authenticate(usernamePassword);
+		var token = tokenService.generateToken((Usuarios)auth.getPrincipal());
+		return ResponseEntity.ok(new LoginResponseDTO(token));
+		
+		
 	}
 	
 	@PostMapping("/register")

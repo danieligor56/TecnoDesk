@@ -62,11 +62,6 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     }),
     HttpClientModule,
     JwtModule
-
-          
-
-
-    
   
   ],
   providers: [AuthInterceptorProvider],

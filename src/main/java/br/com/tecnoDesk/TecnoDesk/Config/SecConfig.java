@@ -13,15 +13,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import Component.SecurityFilter;
 
-@Configuration
+import br.com.tecnoDesk.TecnoDesk.Component.SecFilter;
+
 @EnableWebSecurity
+@Configuration
 
 public class SecConfig {
 	
 	@Autowired
-	SecurityFilter securityFilter;
+	SecFilter secFilter;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -33,12 +34,12 @@ public class SecConfig {
 						.anyRequest().permitAll()
 						)
 				
-				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 				
 	}
 	@Bean
-	public AuthenticationManager aurAuthenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
 	return authenticationConfiguration.getAuthenticationManager();
 }	
 	

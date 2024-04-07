@@ -6,12 +6,16 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Roles;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -36,9 +40,13 @@ public class Usuarios implements Serializable,UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@ManyToOne
+	@JoinColumn(name = "codGrpEmp_id",nullable = false)
+	private Empresa codEmpresa;
+	
 	@NotNull
 	@NotEmpty
-	@Column(name = "login",nullable = false,unique = true)
+	@Column(name = "email",nullable = false,unique = true)
 	private String email;
 	
 	@NotNull
@@ -94,12 +102,14 @@ public class Usuarios implements Serializable,UserDetails{
 		return true;
 	}
 
-	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg) {
+	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg,Empresa codEmpresa) {
 		super();
 		this.email = email;
 		this.pass = pass;
 		this.role = role;
 		this.atvReg = atvReg;
+		this.codEmpresa = codEmpresa;
+	
 	}
 
 }

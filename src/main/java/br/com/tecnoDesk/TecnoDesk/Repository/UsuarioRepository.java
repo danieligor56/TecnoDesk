@@ -10,7 +10,6 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 public interface UsuarioRepository extends JpaRepository<Usuarios, Long>{
 	
 	UserDetails findByEmail(String email);
-	
-	
+
 }
 
