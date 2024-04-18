@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Colaborador } from 'src/app/models/Colaborador';
+import { ColaboradorService } from 'src/app/services/colaborador.service';
 
 @Component({
   selector: 'app-colaborador-list',
@@ -10,38 +11,30 @@ import { Colaborador } from 'src/app/models/Colaborador';
 })
 export class ColaboradorListComponent implements AfterViewInit {
 
-  ELEMENT_DATA: Colaborador[] = [
-    {
-      id:1,
-	    nome:'Daniel Igor',
-      documento:'036.853.133-39',
-      ocupacao:'Técnico',
-	    email:'daniel.vale@gmail.com',
-    	tel1:85985727393,
-	    cel1:85985727393,
-	    estado:'CE',
-	    cidade:'Fortaleza',
-	    logradouro:'Henrrique Autran 46',	
-	    numero:46,
-	    obs:'Utma casa da vila',	
-      atvReg:true
-      
-    }
-  ]
+  ELEMENT_DATA: Colaborador[] = []
   
   displayedColumns: string[] = ['id', 'name', 'weight', 'symbol','acoes','email'];
   dataSource = new MatTableDataSource<Colaborador>(this.ELEMENT_DATA);
 
-  constructor() { }
+  constructor(
+    private colabService: ColaboradorService
+
+  ) { }
 
   ngOnInit(): void {
+    this.findAll();
   }
-
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  findAll(){
+    this.colabService.findAll().subscribe(resposta => {
+      this.ELEMENT_DATA= resposta;
+      this.dataSource = new MatTableDataSource<Colaborador>(resposta);
+    })
   }
 
 };

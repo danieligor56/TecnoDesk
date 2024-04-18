@@ -68,3 +68,7 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+//É para ficar em providers, a classe está comentada durante a verificação do trecho de código. 
+//AuthInterceptorProvider
