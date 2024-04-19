@@ -61,7 +61,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
       progressBar:true
     }),
     HttpClientModule,
-    JwtModule
+    JwtModule,
+   
   
   ],
   providers: [AuthInterceptorProvider],

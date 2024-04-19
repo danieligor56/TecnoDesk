@@ -10,3 +10,11 @@ table {
 .paginator{
   background-color:#ececee;
 }
+
+mat-form-field{
+  width: 100%;
+}
+
+button{
+  width: 100%;
+}
