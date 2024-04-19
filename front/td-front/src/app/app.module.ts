@@ -23,6 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 
 
 
@@ -34,7 +35,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     HomeComponent,
     HeaderComponent,
     ColaboradorListComponent,
-    LoginComponent
+    LoginComponent,
+    ColaboradorCreateComponent
   ],
   imports: [
     BrowserModule,
