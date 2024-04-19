@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ColaboradorListComponent } from './components/colaborador/colaborador-list/colaborador-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,9 @@ const routes: Routes = [
   {
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[
       {path:'home',component:HomeComponent},
-      {path:'colaborador',component:ColaboradorListComponent}
+      
+      {path:'colaborador',component:ColaboradorListComponent},
+      {path:'colaborador/create',component:ColaboradorCreateComponent}
     ]
   }
 ];
