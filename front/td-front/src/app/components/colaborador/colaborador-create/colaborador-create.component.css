@@ -1,0 +1,38 @@
+.container{
+    width: 35rem;
+    margin: 1rem auto;
+    padding: 1rem 1rem 3rem 1rem;
+    border-radius: .6rem;
+}
+
+.fullWidth{
+    width: 100%;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.section{
+    margin-bottom: 1rem;
+    display:flex;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+img{
+    
+    height: 8rem;
+}
+
+button{
+    margin-top: .7rem;
+}
+
+mat-icon{
+        opacity: .5;
+    }
+.isUser{
+    width: 100%;
+}

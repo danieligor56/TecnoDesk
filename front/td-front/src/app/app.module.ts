@@ -24,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -64,6 +65,8 @@ import { ColaboradorCreateComponent } from './components/colaborador/colaborador
     }),
     HttpClientModule,
     JwtModule,
+    MatCheckboxModule,
+    MatFormFieldModule
    
   
   ],

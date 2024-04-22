@@ -1,1 +1,68 @@
-<p>colaborador-create works!</p>
+<div class="container mat-elevation-z8">
+   <form class="form">
+    
+    <h1 class="fullWidth">Cadastrar colaborador</h1>
+    
+    <img class="fullWidth" src="/assets/img/colaborador-create.svg" alt="create-new-colaborador">
+   
+    <section class="section">
+        <mat-checkbox class="example-margin" color="primary">Técnico</mat-checkbox>
+        <mat-checkbox class="example-margin" color="primary">Atendente</mat-checkbox>
+        <mat-checkbox class="example-margin" color="primary">Gestor</mat-checkbox>
+        
+
+        <mat-checkbox [(ngModel)]="this.isUsuario" name="check" class="example-margin" color="primary">Usuário</mat-checkbox> 
+      </section>
+
+      <h4>Informações pessoais:</h4>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input
+        [formControl]="nome"
+        required 
+        matInput placeholder="Exp: João">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>CPF/CNPJ</mat-label>
+        <input
+        [formControl]="documento"
+        required
+        matInput placeholder="Exp: xxx.xxx.xxx-xx">
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Contato</mat-label>
+        <input
+        [formControl]="cel1"
+        required
+        matInput placeholder="">
+        <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input 
+        [formControl]="email"
+        required
+        matInput placeholder="joao@exemplo.com">
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="this.isUsuario" class="isUser" appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput placeholder="">
+        <mat-icon matSuffix>password</mat-icon>
+      </mat-form-field>
+
+      <button [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
+      <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
+
+    
+
+    </form>
+</div>
+ 
