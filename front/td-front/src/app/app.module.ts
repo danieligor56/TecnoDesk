@@ -26,6 +26,11 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { NgxMaskModule } from 'ngx-mask'
+
+
+
+
 
 
 
@@ -63,10 +68,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
       closeButton:true,
       progressBar:true
     }),
+    NgxMaskModule.forRoot({
+      
+    }),
     HttpClientModule,
     JwtModule,
     MatCheckboxModule,
     MatFormFieldModule
+    
    
   
   ],

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, MinLengthValidator, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Creds } from 'src/app/models/creds';
 
 @Component({
   selector: 'app-colaborador-create',
@@ -14,6 +15,8 @@ export class ColaboradorCreateComponent implements OnInit {
   cel1:FormControl = new FormControl(null,Validators.minLength(11))
   
   isUsuario:boolean = false;
+
+
 
   constructor() { }
 

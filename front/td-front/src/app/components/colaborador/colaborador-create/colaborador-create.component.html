@@ -26,11 +26,11 @@
       </mat-form-field>
 
       <mat-form-field class="fullWidth" appearance="fill">
-        <mat-label>CPF/CNPJ</mat-label>
+        <mat-label>CPF</mat-label>
         <input
         [formControl]="documento"
         required
-        matInput placeholder="Exp: xxx.xxx.xxx-xx">
+        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
         <mat-icon matSuffix>badge</mat-icon>
       </mat-form-field>
 
@@ -39,7 +39,7 @@
         <input
         [formControl]="cel1"
         required
-        matInput placeholder="">
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
         <mat-icon matSuffix>call</mat-icon>
       </mat-form-field>
 
@@ -54,7 +54,15 @@
 
       <mat-form-field *ngIf="this.isUsuario" class="isUser" appearance="fill">
         <mat-label>Senha</mat-label>
-        <input matInput placeholder="">
+        <input
+         matInput placeholder="">
+        <mat-icon matSuffix>password</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="this.isUsuario" class="isUser" appearance="fill">
+        <mat-label>Confirmar senha</mat-label>
+        <input
+        matInput placeholder="">
         <mat-icon matSuffix>password</mat-icon>
       </mat-form-field>
 
