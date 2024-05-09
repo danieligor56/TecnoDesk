@@ -13,6 +13,7 @@ export interface Colaborador{
 	logradouro:string;	
 	numero:number;
 	obs:string;
+	cep:String;
 	// ********* //
     atvReg:boolean;
 

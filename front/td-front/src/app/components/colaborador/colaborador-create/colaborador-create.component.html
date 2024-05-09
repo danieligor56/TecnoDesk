@@ -1,5 +1,5 @@
 <div class="container mat-elevation-z8">
-   <form class="form">
+   
     
     <h1 class="fullWidth">Cadastrar colaborador</h1>
     
@@ -10,16 +10,71 @@
         <mat-checkbox class="example-margin" color="primary">Atendente</mat-checkbox>
         <mat-checkbox class="example-margin" color="primary">Gestor</mat-checkbox>
         
-
-        <mat-checkbox [(ngModel)]="this.isUsuario" name="check" class="example-margin" color="primary">Usuário</mat-checkbox> 
+        <mat-checkbox [(ngModel)]="this.isUsuario" name="check" class="example-margin" (click)="returnToSetSenha()" color="primary">Usuário</mat-checkbox> 
       </section>
+      
+      <form [formGroup]="colaboradorCreateForm" *ngIf="form2"   class="form2">
+        <h4>Endereco:</h4>
 
+        <mat-form-field   class="fullWidth" appearance="fill">
+          <mat-label>Cep</mat-label>
+          <input
+          formControlName="cep"
+          matInput placeholder="00.000-000" mask="00.000-000" name="cep" (blur)="autoCep(colaboradorCreateForm.get('cep').value)">
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="fill">
+          <mat-label>Cidade</mat-label>
+          <input
+          formControlName="cidade"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="smallPut" appearance="fill">
+          <mat-label>Estado</mat-label>
+          <input
+          formControlName="estado"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>numero</mat-label>
+          <input
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>Bairro</mat-label>
+          <input
+          formControlName="bairro"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>OBS:</mat-label>
+          <input 
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="fill">
+          <mat-label>logradouro</mat-label>
+          <input 
+          formControlName="logradouro"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <button [disabled]="!validaCampos()"  class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Salvar colaborador</button>
+      <button  (click)="cadastraInfoPessoal()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Voltar</button>
+  
+      </form>
+      
+      <form [formGroup]="colaboradorCreateForm" *ngIf="form1" name="form1" class="form">
       <h4>Informações pessoais:</h4>
 
       <mat-form-field class="fullWidth" appearance="fill">
         <mat-label>Nome</mat-label>
         <input
-        [formControl]="nome"
+        formControlName="nome"
         required 
         matInput placeholder="Exp: João">
         <mat-icon matSuffix>person</mat-icon>
@@ -28,7 +83,7 @@
       <mat-form-field class="fullWidth" appearance="fill">
         <mat-label>CPF</mat-label>
         <input
-        [formControl]="documento"
+        formControlName="documento"
         required
         matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
         <mat-icon matSuffix>badge</mat-icon>
@@ -37,7 +92,7 @@
       <mat-form-field class="fullWidth" appearance="fill">
         <mat-label>Contato</mat-label>
         <input
-        [formControl]="cel1"
+        formControlName="cel1"
         required
         matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
         <mat-icon matSuffix>call</mat-icon>
@@ -46,31 +101,42 @@
       <mat-form-field class="fullWidth" appearance="fill">
         <mat-label>Email</mat-label>
         <input 
-        [formControl]="email"
+        formControlName="email"
         required
         matInput placeholder="joao@exemplo.com">
         <mat-icon matSuffix>mail</mat-icon>
       </mat-form-field>
 
-      <mat-form-field *ngIf="this.isUsuario" class="isUser" appearance="fill">
+      <mat-form-field *ngIf="isUsuario" class="fullWidth" id="senha" name="senha" appearance="fill">
         <mat-label>Senha</mat-label>
-        <input
-         matInput placeholder="">
+        <input 
+        formControlName="senha"
+        required
+        type="password"
+        matInput placeholder="Insira sua senha"  >
         <mat-icon matSuffix>password</mat-icon>
       </mat-form-field>
-
-      <mat-form-field *ngIf="this.isUsuario" class="isUser" appearance="fill">
-        <mat-label>Confirmar senha</mat-label>
-        <input
-        matInput placeholder="">
-        <mat-icon matSuffix>password</mat-icon>
+      
+      <mat-form-field *ngIf="isUsuario" id="confirmasenha" name="confirmaSenha"class="fullWidth"  appearance="fill">
+        <mat-label>Confirme sua senha</mat-label>
+         <input
+          formControlName="confirmaSenha"
+          required
+          matInput
+          type="password"
+          placeholder="Insira a senha novamente">
+         <mat-icon matSuffix>password</mat-icon>
+         <mat-error *ngIf="colaboradorCreateForm.get('confirmaSenha').invalid && colaboradorCreateForm.get('confirmaSenha').touched">
+          Confirmação de senha é obrigatória e deve coincidir com a senha.
+        </mat-error>
       </mat-form-field>
 
-      <button [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
+
+      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
       <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
+    
+    </form>
 
     
-
-    </form>
 </div>
  

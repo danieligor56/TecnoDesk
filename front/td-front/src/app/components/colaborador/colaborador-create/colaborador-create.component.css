@@ -36,3 +36,14 @@ mat-icon{
 .isUser{
     width: 100%;
 }
+
+.medPut{
+    margin-left: .5rem;
+    width: 8rem;
+}
+
+.smallPut{
+    
+    margin-left: 2rem;
+    width: 5rem;
+}
