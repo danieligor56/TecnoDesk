@@ -23,7 +23,7 @@ public class SecConfig {
 	
 	@Autowired
 	SecFilter secFilter;
-	
+	//
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.csrf(csrf -> csrf.disable())
@@ -31,7 +31,7 @@ public class SecConfig {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
 						.requestMatchers(HttpMethod.DELETE,"api/v1/cliente").hasRole("ADMIN")
-						.anyRequest().authenticated()
+						.anyRequest().permitAll()
 						)
 				
 				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
