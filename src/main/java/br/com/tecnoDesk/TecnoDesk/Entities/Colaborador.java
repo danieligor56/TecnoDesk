@@ -1,5 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
+import java.util.List;
+
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +21,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
 public class Colaborador {
 	
 	@Id
@@ -38,13 +39,14 @@ public class Colaborador {
 	
 	@Column(name = "EMAIL",nullable = true,unique = true)
 	private String email;
+	
 	@Column(name = "tel",nullable = true,unique = true)
 	private String tel1;
+	
 	@Column(name = "cel",nullable = true,unique = true)
 	private String cel1;
 	
 	// BLOCO ENDEREÇO// 
-	
 	@Column(name = "UF",nullable = true)
 	private String estado;
 	@Column(name = "MUNIC",nullable = true)
@@ -55,6 +57,8 @@ public class Colaborador {
 	private int numero;
 	@Column(name = "OBS",nullable = true)
 	private String obs;
+	@Column(name="CEP",nullable = true)
+	private String cep;
 	// *** //
 	
 	@Column(name = "FlgAtvReg",nullable = false)

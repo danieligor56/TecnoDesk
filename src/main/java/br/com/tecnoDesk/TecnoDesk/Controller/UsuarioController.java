@@ -16,9 +16,9 @@ import br.com.tecnoDesk.TecnoDesk.Services.TokenService;
 import br.com.tecnoDesk.TecnoDesk.Services.UsuarioService;
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("auth")
+
 public class UsuarioController {
 	
 	@Autowired

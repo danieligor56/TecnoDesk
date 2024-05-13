@@ -27,8 +27,11 @@ public class SecFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
 		var token = this.recoverToken(request);
+		
 		if(token != null) {
+			
 			var login = tokenService.validadorToken(token);
 			UserDetails user = usuarioRepository.findByEmail(login);
 			
@@ -44,7 +47,7 @@ public class SecFilter extends OncePerRequestFilter {
 		var authHeader = request.getHeader("Authorization");
 		
 		if(authHeader == null) return null;
-		return authHeader.replace("Bearer", "");
+		return authHeader.replace("Bearer ", "");
 		
 		
 		

@@ -31,7 +31,7 @@ public class SecConfig {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
 						.requestMatchers(HttpMethod.DELETE,"api/v1/cliente").hasRole("ADMIN")
-						.anyRequest().permitAll()
+						.anyRequest().authenticated()
 						)
 				
 				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
