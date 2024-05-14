@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { Colaborador } from 'src/app/models/Colaborador';
 import { CepService } from 'src/app/services/autoCep.service';
+import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Validation from 'src/app/validators/validadorSenha';
-
-
 
 @Component({
   selector: 'app-colaborador-create',
@@ -15,23 +15,19 @@ import Validation from 'src/app/validators/validadorSenha';
 })
 
 export class ColaboradorCreateComponent implements OnInit {
- 
-
   colaboradorCreateForm: FormGroup;
-  
-  //
   validadorDeSenhas:boolean = false;
   isUsuario:boolean = false;
   form2:boolean = false;
   form1:boolean = true;
-
-  constructor(private fb: FormBuilder,private servCep: CepService, private toast: ToastrService) 
-  {
+  
     
- 
- 
-}
-   ngOnInit(): void {
+
+  constructor(private fb: FormBuilder,private servCep: CepService, private toast: ToastrService,private colaboradorService:ColaboradorService,private router:Router) 
+  {}
+   
+  ngOnInit(): void {
+
     this.colaboradorCreateForm = this.fb.group({
       nome: [
         null,
@@ -45,6 +41,8 @@ export class ColaboradorCreateComponent implements OnInit {
       estado: [null],
       bairro: [null],
       numero: [null],
+      obs: [null],
+      atvReg:[true],
       senha:  [null,Validators.required],
       confirmaSenha: [
         null,
@@ -52,9 +50,11 @@ export class ColaboradorCreateComponent implements OnInit {
       ,{
         validators: [Validation.match('senha','confirmaSenha')]
     }
-  )}
+  )
+ 
+}
 
-  cadastrarEndereco(){
+ cadastrarEndereco(){
   this.form1 = false;
    this.form2 = true;
   }
@@ -106,6 +106,17 @@ export class ColaboradorCreateComponent implements OnInit {
 
       return false;
 
+  }
+
+  create(): void {
+    this.colaboradorCreateForm.get('')
+    this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
+      this.toast.success("Cadastro realizado com sucesso ! ");
+      this.router.navigate(['colaborador'])
+    }, ex => {
+      console.log(ex);
+    }
+    )
   }
 
 

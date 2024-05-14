@@ -25,6 +25,10 @@ public class ColaboradorDTO {
 	private String cel1;
 	 
 	private String estado;
+	
+	private String cep;
+	
+	private String bairro;
 
 	private String cidade;
 

@@ -5,10 +5,9 @@ export interface Colaborador{
 	documento:any
     ocupacao:any;
 	email:string;
-	tel1:any;
-	cel1:any;
-	// BLOCO ENDEREÇO//
+	cel1:string;
 	estado:string;
+	bairro:string;
 	cidade:string;	
 	logradouro:string;	
 	numero:number;

@@ -40,8 +40,9 @@ public class Colaborador {
 	@Column(name = "EMAIL",nullable = true,unique = true)
 	private String email;
 	
-	@Column(name = "tel",nullable = true,unique = true)
-	private String tel1;
+	/*
+	 * @Column(name = "tel",nullable = true,unique = true) private String tel1;
+	 */
 	
 	@Column(name = "cel",nullable = true,unique = true)
 	private String cel1;
@@ -59,6 +60,9 @@ public class Colaborador {
 	private String obs;
 	@Column(name="CEP",nullable = true)
 	private String cep;
+	@Column(name="BAIRRO",nullable = true)
+	private String bairro;
+	
 	// *** //
 	
 	@Column(name = "FlgAtvReg",nullable = false)
