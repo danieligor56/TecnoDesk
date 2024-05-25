@@ -3,6 +3,7 @@ import { Creds } from '../models/creds';
 import { HttpClient } from '@angular/common/http';
 import { API_COONFIG } from '../config/api.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,13 @@ export class AuthService {
 
   succesLogin(authToken:string) {
     localStorage.setItem('token',authToken);
+  }
+
+  getCodGrpEmp(cred:Creds){
+    return this.http.get("http://localhost:8080/auth/getCodEmp/${creds.email}",{
+      observe:'response',
+      responseType:'text'
+    })
   }
 
   isAuth(){

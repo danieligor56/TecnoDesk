@@ -1,14 +1,11 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
-import java.util.concurrent.atomic.LongAccumulator;
-
-import org.apache.catalina.webresources.EmptyResourceSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.access.event.PublicInvocationEvent;
-import org.springframework.security.authentication.AuthenticationManager;
-import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioDTO;
+
+import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioRegisterDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Roles;
@@ -27,7 +24,8 @@ public class UsuarioService {
 	@Autowired
 	TokenService tokenService;
 	
-	public void registrarUsuario(UsuarioDTO usuarioDTO) {
+	
+	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO) {
 
 		if(this.usuarioRepository.findByEmail(usuarioDTO.email()) != null)
 			throw new BadRequest("Email já cadastrado");
@@ -35,6 +33,16 @@ public class UsuarioService {
 		String maskPassword = new BCryptPasswordEncoder().encode(usuarioDTO.pass());
 		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,usuarioDTO.empresa());
 		usuarioRepository.save(novoUsuario);
+	}
+	
+	public Empresa getCodEmprsa(String email) {
+			Usuarios user = usuarioRepository.findItByEmail(email);
+		if(user != null) {
+			return user.getCodEmpresa();
+		}
+		
+		throw new BadRequest("Usuario não encontrado");
+		
 	}
 
 	

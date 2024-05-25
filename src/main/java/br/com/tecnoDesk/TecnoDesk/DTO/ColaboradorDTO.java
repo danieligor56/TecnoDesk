@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
+import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class ColaboradorDTO {
+	
+	private Empresa codEmpresa;
 
 	private String nome;
 	

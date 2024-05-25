@@ -1,6 +1,7 @@
 export interface Colaborador{
 
     id?:any;
+	codEmpresa:bigint
 	nome:string;
 	documento:any
     ocupacao:any;
@@ -15,7 +16,5 @@ export interface Colaborador{
 	cep:String;
 	// ********* //
     atvReg:boolean;
-
- 
 
 }

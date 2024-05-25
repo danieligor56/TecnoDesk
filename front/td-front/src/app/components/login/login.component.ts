@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     this.service.anthenticate(this.cred).subscribe(resposta => {
       this.service.succesLogin(resposta.body.substring(10).replace(/["}]/g, ''));
         this.router.navigate(['']);
+          this.service.getCodGrpEmp(this.cred)
     }, ()=> {
       this.toast.error('Usuário e/ou senha inválidos');
     } );

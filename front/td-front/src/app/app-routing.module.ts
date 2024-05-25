@@ -6,6 +6,7 @@ import { ColaboradorListComponent } from './components/colaborador/colaborador-l
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
+import { OSComponent } from './components/os/os.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
       {path:'home',component:HomeComponent},
       
       {path:'colaborador',component:ColaboradorListComponent},
-      {path:'colaborador/create',component:ColaboradorCreateComponent}
+      {path:'colaborador/create',component:ColaboradorCreateComponent},
+      {path:'os',component:OSComponent}
     ]
   }
 ];

@@ -26,7 +26,10 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule } from 'ngx-mask';
+import { OSComponent } from './components/os/os.component'
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -42,7 +45,8 @@ import { NgxMaskModule } from 'ngx-mask'
     HeaderComponent,
     ColaboradorListComponent,
     LoginComponent,
-    ColaboradorCreateComponent
+    ColaboradorCreateComponent,
+    OSComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,9 @@ import { NgxMaskModule } from 'ngx-mask'
     HttpClientModule,
     JwtModule,
     MatCheckboxModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatGridListModule,
+    MatSelectModule
     
    
   

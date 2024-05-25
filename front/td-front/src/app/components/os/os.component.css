@@ -1,0 +1,82 @@
+
+     body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+     }
+
+    .container {
+      width: 50%;
+      height: 40rem;
+      margin: auto;
+      border: 1px solid #000;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .os{
+      display: flex;
+    }
+
+    .content-cliente{
+     
+      margin-top: 1rem;
+      padding: 10px;
+      width: 38rem;
+    }
+
+    .editLabel {
+      background-color: rgba(206, 206, 206, 0.5);
+      text-align: center;
+    }
+    
+    .cliente {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+      gap: 10px;
+    }
+
+    .header{
+      text-align: center;
+      height: 4rem;
+    }
+
+    .aparelho{
+      margin-top: 1rem;
+      margin-left: 1rem;
+      width: 20rem;
+      height: 11.5rem;
+      padding: 10px;
+      
+    }
+
+    .selecionarAparelho{
+      text-align: center;
+      width: 100%;
+    }
+
+    .reclamacao{
+
+      padding: 10px;
+      margin-top: 1rem;
+     
+    }
+
+    .recCliente{
+      resize: none;
+      width: 99.6%;
+      height: 6rem;
+      font-size: 18px;
+      
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
