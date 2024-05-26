@@ -18,12 +18,27 @@ export class LoginComponent implements OnInit {
     pass:''
   }
 
+  dados:any;
+
   email = new FormControl(null,Validators.email)
   pass = new FormControl(null,Validators.minLength(3))
 
   validaInput():boolean {
      return this.email.valid && this.pass.valid
     }
+  
+  
+  getCodEmpresa(obj){
+    
+    this.service.getCodEmpresa(obj).subscribe(response => {
+        this.service.isOk(response)
+      },
+
+      (error) => {
+        console.error('Erro ao buscar dados na api:',error)
+      }
+    )
+  }  
 
   constructor(
     private toast: ToastrService,
@@ -32,16 +47,30 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+      
     }
-
+    
   logar(){
+
     localStorage.clear();
+   
     this.service.anthenticate(this.cred).subscribe(resposta => {
       this.service.succesLogin(resposta.body.substring(10).replace(/["}]/g, ''));
         this.router.navigate(['']);
-          this.service.getCodGrpEmp(this.cred)
-    }, ()=> {
+          this.getCodEmpresa (this.cred.email);
+          
+        
+          
+      },
+
+      
+          
+
+  
+      ()=> {
       this.toast.error('Usuário e/ou senha inválidos');
     } );
-  } 
+  }
+
+ 
 }

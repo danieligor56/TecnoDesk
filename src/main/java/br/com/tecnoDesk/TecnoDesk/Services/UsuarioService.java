@@ -35,10 +35,10 @@ public class UsuarioService {
 		usuarioRepository.save(novoUsuario);
 	}
 	
-	public Empresa getCodEmprsa(String email) {
+	public long getCodEmpresa(String email) {
 			Usuarios user = usuarioRepository.findItByEmail(email);
 		if(user != null) {
-			return user.getCodEmpresa();
+			return user.getCodEmpresa().getId();
 		}
 		
 		throw new BadRequest("Usuario não encontrado");

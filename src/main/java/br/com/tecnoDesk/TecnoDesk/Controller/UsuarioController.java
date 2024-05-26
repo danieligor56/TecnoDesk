@@ -54,8 +54,8 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/getCodEmp")
-	public ResponseEntity<Empresa> getCodEmpresa(String email) {
-		return ResponseEntity.ok().body(usuarioService.getCodEmprsa(email));
+	public Long getCodEmpresa(String email) {
+		return usuarioService.getCodEmpresa(email);
 	}
 	
 	

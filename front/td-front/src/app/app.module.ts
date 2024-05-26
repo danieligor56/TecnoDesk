@@ -30,8 +30,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { OSComponent } from './components/os/os.component'
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
-
-
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 
@@ -80,7 +79,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
     
    
   

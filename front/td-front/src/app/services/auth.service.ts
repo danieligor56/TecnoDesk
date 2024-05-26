@@ -5,6 +5,7 @@ import { API_COONFIG } from '../config/api.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   jwtService: JwtHelperService = new JwtHelperService();
+  private apiUrl = 'http://localhost:8080/auth/getCodEmp';
 
   constructor(private http:HttpClient) { }
   
@@ -22,15 +24,21 @@ export class AuthService {
     }) 
   }
 
+  
+
   succesLogin(authToken:string) {
     localStorage.setItem('token',authToken);
   }
+  
+  
 
-  getCodGrpEmp(cred:Creds){
-    return this.http.get("http://localhost:8080/auth/getCodEmp/${creds.email}",{
-      observe:'response',
-      responseType:'text'
-    })
+  getCodEmpresa(email: string): Observable<any> {
+      return this.http.get<bigint>(`http://localhost:8080/auth/getCodEmp?email=${email}`);
+    
+  }
+
+  isOk(codEmp:string){
+    localStorage.setItem('codEmp',codEmp)
   }
 
   isAuth(){
@@ -45,4 +53,8 @@ export class AuthService {
     localStorage.clear();
   }
 
+}
+
+function tap(arg0: (empresaId: any) => void): import("rxjs").OperatorFunction<number, void> {
+  throw new Error('Function not implemented.');
 }

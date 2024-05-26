@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-os',
@@ -8,12 +9,20 @@ import { FormControl } from '@angular/forms';
 })
 export class OSComponent implements OnInit {
 
-  disableSelect = new FormControl(false);
+  clienteCreateForm:FormGroup;
 
-    constructor() { }
+ 
+
+    constructor(private fb:FormBuilder) { }
+   
 
     ngOnInit(): void {
-  }
+      this.clienteCreateForm = this.fb.group({
+        nome:[],
+        
+
+      })
+    }
   
     
   

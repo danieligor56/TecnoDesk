@@ -37,14 +37,9 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "DOCUMENTO",nullable = false,unique = true)
 	private long documento;
-	
-	@Column(name = "tel",nullable = true,unique = true)
-	private long tel;
-	@Column(name = "cel1",nullable = false,unique = true)
-	private long cel1;
-	@Column(name = "cel2",nullable = true,unique = true)
-	private long cel2;
-	
+
+	@Column(name = "contato",nullable = false,unique = true)
+	private long contato;
 	
 	//BLOCO ENDEREÇO// 
 
