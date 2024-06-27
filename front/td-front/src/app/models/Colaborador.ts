@@ -1,7 +1,9 @@
+import { Empresa } from "./Empresa";
+
 export interface Colaborador{
 
     id?:any;
-	codEmpresa:bigint
+	empresa:Empresa;
 	nome:string;
 	documento:any
     ocupacao:any;

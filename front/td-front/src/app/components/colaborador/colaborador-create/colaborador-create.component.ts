@@ -4,6 +4,8 @@ import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, Form
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Colaborador } from 'src/app/models/Colaborador';
+import { Creds } from 'src/app/models/creds';
+import { AuthService } from 'src/app/services/auth.service';
 import { CepService } from 'src/app/services/autoCep.service';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Validation from 'src/app/validators/validadorSenha';
@@ -23,10 +25,18 @@ export class ColaboradorCreateComponent implements OnInit {
   
     
 
-  constructor(private fb: FormBuilder,private servCep: CepService, private toast: ToastrService,private colaboradorService:ColaboradorService,private router:Router) 
+  constructor(private fb: FormBuilder,private servCep: CepService,
+     private toast: ToastrService,private colaboradorService:ColaboradorService,
+     private router:Router,
+     private service:AuthService,
+     
+    ) 
   {}
    
   ngOnInit(): void {
+
+    
+
 
     this.colaboradorCreateForm = this.fb.group({
       nome: [
@@ -42,6 +52,7 @@ export class ColaboradorCreateComponent implements OnInit {
       bairro: [null],
       numero: [null],
       obs: [null],
+      empresa: [],
       atvReg:[true],
       senha:  [null,Validators.required],
       confirmaSenha: [
@@ -108,8 +119,11 @@ export class ColaboradorCreateComponent implements OnInit {
 
   }
 
+
+
   create(): void {
     this.colaboradorCreateForm.get('')
+    
     this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
       this.toast.success("Cadastro realizado com sucesso ! ");
       this.router.navigate(['colaborador'])

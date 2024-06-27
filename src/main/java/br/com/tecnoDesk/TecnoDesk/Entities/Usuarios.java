@@ -3,6 +3,8 @@ package br.com.tecnoDesk.TecnoDesk.Entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import org.hibernate.annotations.TenantId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,9 +42,10 @@ public class Usuarios implements Serializable,UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	
 	@ManyToOne
-	@JoinColumn(name = "codGrpEmp_id",nullable = false)
-	private Empresa codEmpresa;
+	@JoinColumn(name = "codigo_empresa",nullable = false)
+	private Empresa empresa;
 	
 	@NotNull
 	@NotEmpty
@@ -102,13 +105,13 @@ public class Usuarios implements Serializable,UserDetails{
 		return true;
 	}
 
-	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg,Empresa codEmpresa) {
+	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg,Empresa empresa) {
 		super();
 		this.email = email;
 		this.pass = pass;
 		this.role = role;
 		this.atvReg = atvReg;
-		this.codEmpresa = codEmpresa;
+		this.empresa = empresa;
 	
 	}
 

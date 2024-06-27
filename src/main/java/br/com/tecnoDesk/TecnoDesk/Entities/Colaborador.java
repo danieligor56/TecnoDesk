@@ -30,8 +30,8 @@ public class Colaborador {
 	private long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "codGrpEmp_id",nullable = false)
-	private Empresa codEmpresa;
+	@JoinColumn(name = "codigo_empresa",nullable = false)
+	private Empresa empresa;
 
 	@Column(name = "NOME",nullable = false,unique = true)
 	private String nome;

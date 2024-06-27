@@ -13,33 +13,29 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   jwtService: JwtHelperService = new JwtHelperService();
+  
   private apiUrl = 'http://localhost:8080/auth/getCodEmp';
 
   constructor(private http:HttpClient) { }
   
   anthenticate(cred:Creds){
+    
     return this.http.post("http://localhost:8080/auth/login",cred,{
       observe:'response',
       responseType:'text'
+      
     }) 
   }
 
   
 
-  succesLogin(authToken:string) {
+  succesLogin(authToken:string){
     localStorage.setItem('token',authToken);
   }
   
-  
-
-  getCodEmpresa(email: string): Observable<any> {
-      return this.http.get<bigint>(`http://localhost:8080/auth/getCodEmp?email=${email}`);
-    
-  }
-
-  isOk(codEmp:string){
-    localStorage.setItem('codEmp',codEmp)
-  }
+  getCodEmpresa(email: string){
+    return this.http.get<string>(`http://localhost:8080/auth/getCodEmp?email=${email}`,{responseType:'text' as 'json'});
+    }
 
   isAuth(){
     let token = localStorage.getItem('token')
@@ -51,6 +47,7 @@ export class AuthService {
 
   logout(){
     localStorage.clear();
+    sessionStorage.clear();
   }
 
 }

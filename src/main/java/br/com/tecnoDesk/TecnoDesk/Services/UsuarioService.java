@@ -38,7 +38,7 @@ public class UsuarioService {
 	public long getCodEmpresa(String email) {
 			Usuarios user = usuarioRepository.findItByEmail(email);
 		if(user != null) {
-			return user.getCodEmpresa().getId();
+			return user.getEmpresa().getId();
 		}
 		
 		throw new BadRequest("Usuario não encontrado");

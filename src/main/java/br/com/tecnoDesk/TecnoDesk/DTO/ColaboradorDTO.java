@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,8 +14,8 @@ import lombok.Setter;
 
 public class ColaboradorDTO {
 	
-	private Empresa codEmpresa;
-
+	private Empresa empresa;
+	
 	private String nome;
 	
 	private long documento;

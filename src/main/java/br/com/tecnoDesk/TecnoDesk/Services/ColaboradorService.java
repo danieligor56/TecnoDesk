@@ -2,17 +2,23 @@ package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.ColaboradorDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
+import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
+import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
+import exception.BadRequest;
 import exception.NotFound;
-import lombok.var;
+
+
 
 @Service
-
 public class ColaboradorService {
 
 	@Autowired
@@ -20,13 +26,37 @@ public class ColaboradorService {
 
 	@Autowired
 	ColaboradorRespository colaboradorRespository;
+	
+	@Autowired
+	EmpresaRepository empresaRepository;
+	
+	@Autowired
+	EncryptionUtil secUtil;
 
-	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO) {
-
-		var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
-		colaboradorRespository.save(addNovCob);
-		return null;
-
+	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO, String codEmpresa) throws Exception {
+			
+		
+		
+		try {
+				
+			var decriptCodEmp = secUtil.decrypt(codEmpresa);
+			
+			
+				
+				Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptCodEmp));
+				
+				colaboradorDTO.setEmpresa(empresa);
+				var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
+				
+			
+				colaboradorRespository.save(addNovCob);
+				
+				return null;
+				
+			} catch (Exception e) {
+				throw new BadRequestException("Não localizamos contrato ativo",e);
+			}
+			
 	}
 
 	public List<Colaborador> encontraColaboradorPNome(String nome) {
@@ -34,8 +64,8 @@ public class ColaboradorService {
 
 	}
 
-	public List<Colaborador> listarColaboradores() {
-		return colaboradorRespository.findAll();
+	public List<Colaborador> listarColaboradores(long id) {
+		return colaboradorRespository.listAll(id);
 	}
 
 	public Colaborador buscarPorID(Long id) {
@@ -61,7 +91,8 @@ public class ColaboradorService {
 		}
 
 		throw new NotFound("Não há colaboradores cadastrados com esse ID");
-	}
+		
+		}
 
 	public void alterColab(Long id, ColaboradorDTO colaboradorDTO) {
 		Optional<Colaborador> colab = colaboradorRespository.findById(id);
@@ -84,7 +115,7 @@ public class ColaboradorService {
 			Colaborador colab = colaboradorRespository.findItById(id);
 			colab.setAtvReg(false);
 			
-		} catch (Exception e) {
+		} catch (Exception e) {  
 			
 			throw new NotFound("Não há colaboradores cadastrados com esse ID");
 		}
@@ -105,6 +136,13 @@ public class ColaboradorService {
 		
 		}
 	}
+	
+	
+	public List<Colaborador> encontrarColaborador(long id){
+		return colaboradorRespository.findByCodEmpresa(id);
+	}
+
+	
 	
 	
 		
