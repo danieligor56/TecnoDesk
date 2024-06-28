@@ -5,10 +5,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioRegisterDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Roles;
+import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
 import exception.BadRequest;
 
@@ -24,14 +26,24 @@ public class UsuarioService {
 	@Autowired
 	TokenService tokenService;
 	
+	@Autowired
+	EncryptionUtil secUtil;
 	
-	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO) {
+	@Autowired
+	EmpresaRepository empresaRepository;
+	
+	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO,String codEmpresa) throws Exception {
 
+		var decryCodEmp = secUtil.decrypt(codEmpresa);
+		long codEmp = Long.valueOf(decryCodEmp);
+		
+		
 		if(this.usuarioRepository.findByEmail(usuarioDTO.email()) != null)
 			throw new BadRequest("Email já cadastrado");
 	
 		String maskPassword = new BCryptPasswordEncoder().encode(usuarioDTO.pass());
-		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,usuarioDTO.empresa());
+		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmp));
+		
 		usuarioRepository.save(novoUsuario);
 	}
 	

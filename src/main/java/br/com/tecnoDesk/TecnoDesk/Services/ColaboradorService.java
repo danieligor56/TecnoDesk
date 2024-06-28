@@ -38,11 +38,9 @@ public class ColaboradorService {
 		
 		
 		try {
-				
-			var decriptCodEmp = secUtil.decrypt(codEmpresa);
 			
+				var decriptCodEmp = secUtil.decrypt(codEmpresa);
 			
-				
 				Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptCodEmp));
 				
 				colaboradorDTO.setEmpresa(empresa);

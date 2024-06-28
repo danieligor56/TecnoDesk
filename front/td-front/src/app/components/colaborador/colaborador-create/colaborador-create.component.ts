@@ -4,11 +4,14 @@ import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, Form
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Colaborador } from 'src/app/models/Colaborador';
+import { Usuarios } from 'src/app/models/Usuarios';
 import { Creds } from 'src/app/models/creds';
 import { AuthService } from 'src/app/services/auth.service';
 import { CepService } from 'src/app/services/autoCep.service';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import Validation from 'src/app/validators/validadorSenha';
+
 
 @Component({
   selector: 'app-colaborador-create',
@@ -21,14 +24,15 @@ export class ColaboradorCreateComponent implements OnInit {
   validadorDeSenhas:boolean = false;
   isUsuario:boolean = false;
   form2:boolean = false;
-  form1:boolean = true;
-  
-    
+  form1:boolean = true;  
 
   constructor(private fb: FormBuilder,private servCep: CepService,
      private toast: ToastrService,private colaboradorService:ColaboradorService,
      private router:Router,
      private service:AuthService,
+     private usuarioService:UsuarioService,
+    
+
      
     ) 
   {}
@@ -109,6 +113,7 @@ export class ColaboradorCreateComponent implements OnInit {
     if(this.isUsuario == true){
       if(nomeValid && documentoValid && emailValid && cel1Valid && confirmaSenhaValid ){
         return true
+        
         }
       }else{
         if(nomeValid && documentoValid && emailValid && cel1Valid)
@@ -119,19 +124,50 @@ export class ColaboradorCreateComponent implements OnInit {
 
   }
 
-
+  usuario : Usuarios = {
+    email:'',
+    pass:''  
+  }
 
   create(): void {
     this.colaboradorCreateForm.get('')
+   
+    if(this.isUsuario = true) {
+      {    
+        try {
+          
+          this.usuario.email=(this.colaboradorCreateForm.get('email').value);
+          this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
+          
+          this.usuarioService.criarUsuario(this.usuario).subscribe(resp => {
+            this.toast.success("Cadastro de usuario realizado  com sucesso ! ");
+            this.router.navigate(['colaborador']);
+          });
+
+            this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
+            this.toast.success("Cadastro realizado  com sucesso ! ");
+            this.router.navigate(['colaborador']); 
+          })
+
+          } catch (error) {
+          this.toast.error("Não foi possível realizar o cadastro.");
+        }       
+      }
+
+    } else {
+      this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
+        this.toast.success("Cadastro realizado com sucesso ! ");
+          this.router.navigate(['colaborador'])
+      
+
     
-    this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
-      this.toast.success("Cadastro realizado com sucesso ! ");
-      this.router.navigate(['colaborador'])
+          
+
     }, ex => {
       console.log(ex);
     }
     )
   }
-
+  }
 
 }

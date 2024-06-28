@@ -79,8 +79,8 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Usuarios> registrar(@RequestBody @Valid UsuarioRegisterDTO usuarioDTO) {
-		usuarioService.registrarUsuario(usuarioDTO);
+public ResponseEntity<Usuarios> registrar(@RequestBody @Valid UsuarioRegisterDTO usuarioDTO,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		usuarioService.registrarUsuario(usuarioDTO,codEmpresa);
 		return ResponseEntity.ok().build();
 	}
 	
