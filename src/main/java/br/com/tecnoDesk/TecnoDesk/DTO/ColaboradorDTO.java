@@ -1,5 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
+import java.util.List;
+
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class ColaboradorDTO {
 	
 	private long documento;
 	
-	private Ocupacao ocupacao;
+	private List<Ocupacao> ocupacao;
 	
 	private String email;
 

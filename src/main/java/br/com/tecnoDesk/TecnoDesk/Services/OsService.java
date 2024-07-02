@@ -2,6 +2,8 @@ package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +32,8 @@ public class OsService {
 			
 			throw new BadRequestException("O colaborador selecionado não existe");
 				
-		}else {
-
-			if (osDTO.getColaborador().getOcupacao() != Ocupacao.TECNICO) {
-			
-				throw new BadRequestException("O colaborador selecionado não é um técnico");
-			}
-			
-			else {
+		}
+		  else {
 
 					OS novaOs = modelMapper.map(osDTO, OS.class);
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -46,7 +42,7 @@ public class OsService {
 					novaOs.setDataAbertura(formatter.format(now));
 					osRepository.save(novaOs);
 
-				}
+				
 
 			}
 			

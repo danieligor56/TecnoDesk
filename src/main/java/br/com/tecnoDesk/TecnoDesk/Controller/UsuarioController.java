@@ -1,7 +1,5 @@
 package br.com.tecnoDesk.TecnoDesk.Controller;
 
-import java.net.http.HttpHeaders;
-
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +16,6 @@ import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.LoginResponseDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.UsuarioRegisterDTO;
-import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
 import br.com.tecnoDesk.TecnoDesk.Services.TokenService;
@@ -27,12 +23,9 @@ import br.com.tecnoDesk.TecnoDesk.Services.UsuarioService;
 import exception.NotFound;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.websocket.Session;
-
 
 @RestController
 @RequestMapping("auth")
-
 public class UsuarioController {
 	
 	@Autowired

@@ -15,6 +15,7 @@ export class ColaboradorListComponent implements OnInit {
   
   displayedColumns: string[] = ['id', 'name', 'weight', 'symbol','email','acoes'];
   dataSource = new MatTableDataSource<Colaborador>(this.ELEMENT_DATA);
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
   constructor(

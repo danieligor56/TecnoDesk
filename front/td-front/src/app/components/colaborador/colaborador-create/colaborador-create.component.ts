@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { Ocupacao } from 'src/app/enuns/Ocupacao';
 import { Colaborador } from 'src/app/models/Colaborador';
 import { Usuarios } from 'src/app/models/Usuarios';
 import { Creds } from 'src/app/models/creds';
@@ -11,7 +12,6 @@ import { CepService } from 'src/app/services/autoCep.service';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Validation from 'src/app/validators/validadorSenha';
-
 
 @Component({
   selector: 'app-colaborador-create',
@@ -24,29 +24,32 @@ export class ColaboradorCreateComponent implements OnInit {
   validadorDeSenhas:boolean = false;
   isUsuario:boolean = false;
   form2:boolean = false;
-  form1:boolean = true;  
+  form1:boolean = true;
+  
+  listOcupacao:Ocupacao[] = [];
+  isTecnico:boolean = false;
+  isAtendente:boolean = false;
+  isGestor: boolean = false;
 
-  constructor(private fb: FormBuilder,private servCep: CepService,
+  constructor(
+     private fb: FormBuilder,
+     private servCep: CepService,
      private toast: ToastrService,private colaboradorService:ColaboradorService,
      private router:Router,
      private service:AuthService,
      private usuarioService:UsuarioService,
     
-
-     
     ) 
   {}
    
   ngOnInit(): void {
-
-    
-
 
     this.colaboradorCreateForm = this.fb.group({
       nome: [
         null,
         Validators.minLength(4)],
       documento: [null,Validators.minLength(11)],
+      ocupacao: [Validators.required,Validators.minLength(1)],
       email: [null,Validators.email],
       cel1: [null,Validators.minLength(11)],
       logradouro: [null],
@@ -68,6 +71,22 @@ export class ColaboradorCreateComponent implements OnInit {
   )
  
 }
+
+  
+    setOcupacao(){
+      if(this.isTecnico === true){
+        this.listOcupacao.push(Ocupacao.TECNICO);
+      }
+      if(this.isAtendente === true ){
+        this.listOcupacao.push(Ocupacao.ATENDENTE);
+     }
+      if(this.isGestor === true){
+        this.listOcupacao.push(Ocupacao.GESTOR);
+      }
+
+      this.colaboradorCreateForm.get('ocupacao').setValue(this.listOcupacao);
+      
+    }
 
  cadastrarEndereco(){
   this.form1 = false;
@@ -108,8 +127,6 @@ export class ColaboradorCreateComponent implements OnInit {
     const senhaValid = this.colaboradorCreateForm.get('senha').valid;
     const confirmaSenhaValid = this.colaboradorCreateForm.get('confirmaSenha').valid;
     
-    
-
     if(this.isUsuario == true){
       if(nomeValid && documentoValid && emailValid && cel1Valid && confirmaSenhaValid ){
         return true
@@ -132,21 +149,23 @@ export class ColaboradorCreateComponent implements OnInit {
   create(): void {
     this.colaboradorCreateForm.get('')
    
-    if(this.isUsuario = true) {
+    if(this.isUsuario == true) {
       {    
         try {
           
-          this.usuario.email=(this.colaboradorCreateForm.get('email').value);
-          this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
+            this.usuario.email=(this.colaboradorCreateForm.get('email').value);
+            this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
           
-          this.usuarioService.criarUsuario(this.usuario).subscribe(resp => {
+            this.usuarioService.criarUsuario(this.usuario).subscribe(resp => {
             this.toast.success("Cadastro de usuario realizado  com sucesso ! ");
             this.router.navigate(['colaborador']);
+          
           });
 
             this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
             this.toast.success("Cadastro realizado  com sucesso ! ");
             this.router.navigate(['colaborador']); 
+          
           })
 
           } catch (error) {

@@ -1,31 +1,39 @@
 <mat-drawer-container class="container" autosize>
-    <mat-drawer #drawer class="sidenav" mode="side">
-      <img src="assets/img/img-svg-sidenavdef.svg" alt="img-menu-nav">
+    
+  <mat-drawer #drawer class="sidenav" mode="side">
+      
+       <div class="logoSidenav">
+          <h1>Tecno Desk</h1>
+       </div>
+
       <mat-nav-list class="nav-list">
+        
         <a mat-list-item routerLink="/home">
             <i class="material-icons">home</i>Home
         </a>
+        
         <a mat-list-item routerLink="/colaborador">
           <i class="material-icons">account_circle</i>Colaborador
-      </a>
-      <a mat-list-item routerLink="/">
-        <i class="material-icons">people</i>Clientes
-    </a>
-    <a mat-list-item routerLink="/os">
-      <i class="material-icons">assignment</i>Ordem de serviço
-  </a>
-  <a mat-list-item (click)="logout()">
-    <i class="material-icons">logout</i>Logout
-</a>
+        </a>
+      
+        <a mat-list-item routerLink="/">
+          <i class="material-icons">people</i>Clientes
+        </a>
+    
+        <a mat-list-item routerLink="/os">
+          <i class="material-icons">assignment</i>Ordem de serviço
+        </a>
+  
+        <a mat-list-item (click)="logout()">
+          <i class="material-icons">logout</i>Logout
+        </a>
     
       </mat-nav-list>
+    
     </mat-drawer>
-  
+
     <div class="sidenav-content">
-      <app-header></app-header>
-      <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
-        <mat-icon>menu</mat-icon>
-      </button>
+      <app-header (toggleSidenav)="drawer.toggle()"></app-header>
       <router-outlet></router-outlet>
     </div>
   

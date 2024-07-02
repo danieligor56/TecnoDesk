@@ -1,3 +1,4 @@
+
 <div class="container mat-elevation-z8">
    
     
@@ -6,9 +7,10 @@
     <img class="fullWidth" src="/assets/img/colaborador-create.svg" alt="create-new-colaborador">
    
     <section class="section">
-        <mat-checkbox class="example-margin" color="primary">Técnico</mat-checkbox>
-        <mat-checkbox class="example-margin" color="primary">Atendente</mat-checkbox>
-        <mat-checkbox class="example-margin" color="primary">Gestor</mat-checkbox>
+        
+        <mat-checkbox [(ngModel)]="this.isTecnico" (blur)="setOcupacao()" name="isTec" class="example-margin" color="primary">Técnico</mat-checkbox>
+        <mat-checkbox [(ngModel)]="this.isAtendente" name="isAtend"  class="example-margin" color="primary">Atendente</mat-checkbox>
+        <mat-checkbox [(ngModel)]="this.isGestor" name="isGest" class="example-margin" color="primary">Gestor</mat-checkbox>
         
         <mat-checkbox [(ngModel)]="this.isUsuario" name="check" class="example-margin" (click)="returnToSetSenha()" color="primary">Usuário</mat-checkbox> 
       </section>
@@ -132,7 +134,7 @@
       </mat-form-field>
 
 
-      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
+      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
       <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
     
     </form>

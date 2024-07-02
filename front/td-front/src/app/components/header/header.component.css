@@ -1,14 +1,30 @@
 .container{
-    display: flex;
+    background-color:#1F66FE;
+    height: 30px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
     align-items: center;
-    justify-content: center;
+    color:aliceblue;
+    margin-bottom: 4rem;
+}
+
+.menu{
+    height: 100%;
+}
+
+.wellcome{
+
+    justify-content: end;
+    display: flex;
+    color: #ececee;
     
 }
 
-h1{
-    margin-top: 1rem;
-    border: 1px solid rgb(161,159,159);
-    padding: 1rem 10%;
-    border-radius: 2rem;
-    background-color:#ececee;
-}   
+.wellcome i{
+    margin-right:5px;
+    margin-top: 3.4px;
+    color: #EBEFF2;
+    
+}
+

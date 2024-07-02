@@ -1,3 +1,4 @@
+import { Ocupacao } from "../enuns/Ocupacao";
 import { Empresa } from "./Empresa";
 
 export interface Colaborador{
@@ -5,8 +6,8 @@ export interface Colaborador{
     id?:any;
 	empresa:Empresa;
 	nome:string;
-	documento:any
-    ocupacao:any;
+	documento:any;
+    ocupacao:Ocupacao[];
 	email:string;
 	cel1:string;
 	estado:string;
