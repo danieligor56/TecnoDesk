@@ -13,6 +13,18 @@ export class ColaboradorService {
   
 
   constructor(private http: HttpClient) { }
+
+  findByID(id:bigint): Observable<Colaborador>{
+
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+
+    const options = { headers: headers }
+
+
+    return this.http.get<Colaborador>(`http://localhost:8080/api/v1/Colaborador/buscarporID?id=${id}`,options)
+  }
   
   findAll(): Observable<Colaborador[]> {
     const headers = new HttpHeaders({

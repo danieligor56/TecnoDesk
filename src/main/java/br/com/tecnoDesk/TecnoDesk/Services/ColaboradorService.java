@@ -66,19 +66,29 @@ public class ColaboradorService {
 		return colaboradorRespository.listAll(id);
 	}
 
-	public Colaborador buscarPorID(Long id) {
-		Optional<Colaborador> colab = colaboradorRespository.findById(id);
+	public Colaborador buscarPorID(Long id,String codEmpresa) throws Exception {
+		
+		try {
+			
+				Colaborador colab = colaboradorRespository.findItById(id);
+				
+				var decriptCodEmp = secUtil.decrypt(codEmpresa);
+			
+				if(colab.getEmpresa().getId() == Long.valueOf(decriptCodEmp)) {
+				return colab;
+				}
+				
+				else {
+					throw new NotFound("Não há colaboradores cadastrados com esse ID");
+				}
+			
+				} 
+		
+				catch (Exception e) {
+				throw new BadRequest("Não foi possível atender sua solicitação nesse moemnto");
+				}
 
-		if (colab.isPresent())
-
-			return colab.get();
-
-		else {
-
-			throw new NotFound("Não há colaboradores cadastrados com esse ID");
-		}
-
-	}
+				}
 
 	public Colaborador deletarColaborador(long id) {
 		Optional<Colaborador> existeCob = colaboradorRespository.findById(id);
@@ -111,7 +121,7 @@ public class ColaboradorService {
 		try {
 			
 			Colaborador colab = colaboradorRespository.findItById(id);
-			colab.setAtvReg(false);
+			colab.setAtvReg("DESATIVADO");
 			
 		} catch (Exception e) {  
 			
@@ -125,7 +135,7 @@ public class ColaboradorService {
 		try {
 			
 			Colaborador colab = colaboradorRespository.findItById(id);
-			colab.setAtvReg(true);
+			colab.setAtvReg("ATIVO");
 	
 			
 		} catch (Exception e) {

@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 import { OSComponent } from './components/os/os.component';
+import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
+      {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'os',component:OSComponent}
     ]
   }

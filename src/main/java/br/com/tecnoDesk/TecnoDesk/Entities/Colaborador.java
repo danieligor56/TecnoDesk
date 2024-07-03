@@ -37,7 +37,7 @@ public class Colaborador {
 	private String nome;
 	
 	@Column(name = "DOCUMENTO",nullable = false,unique = true)
-	private long documento;
+	private String documento;
 	
 	@Column(name = "FUNCAO",nullable = true,unique = false)
 	private List<Ocupacao>ocupacao;
@@ -71,7 +71,7 @@ public class Colaborador {
 	// *** //
 	
 	@Column(name = "FlgAtvReg",nullable = false)
-	private boolean atvReg;
+	private String atvReg;
 	
 	
 	

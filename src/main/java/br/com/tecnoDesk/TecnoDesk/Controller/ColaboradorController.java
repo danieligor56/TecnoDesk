@@ -64,8 +64,8 @@ public class ColaboradorController {
 		}
 	
 	@GetMapping("/buscarporID")
-	public ResponseEntity<Colaborador> colaboradorServicebuscarPorId(@RequestParam Long id){
-		return ResponseEntity.ok().body(colaboradorService.buscarPorID(id));
+	public ResponseEntity<Colaborador> colaboradorServicebuscarPorId(@RequestParam Long id,@RequestHeader("CodEmpresa") String codemp) throws Exception{
+		return ResponseEntity.ok().body(colaboradorService.buscarPorID(id,codemp));
 	}
 	
 	@DeleteMapping("/deletarColaborador")

@@ -31,6 +31,7 @@ import { OSComponent } from './components/os/os.component'
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
+import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 
 
 
@@ -45,7 +46,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     ColaboradorListComponent,
     LoginComponent,
     ColaboradorCreateComponent,
-    OSComponent
+    OSComponent,
+    ColaboradorUpdateComponent
   ],
   imports: [
     BrowserModule,

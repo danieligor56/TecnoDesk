@@ -1,17 +1,10 @@
 package br.com.tecnoDesk.TecnoDesk.Repository;
 
 import java.util.List;
-
-import org.hibernate.query.NativeQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
-
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
-import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
-import lombok.extern.java.Log;
 
 @Repository
 

@@ -18,6 +18,6 @@ export interface Colaborador{
 	obs:string;
 	cep:String;
 	// ********* //
-    atvReg:boolean;
+    atvReg:string;
 
 }
