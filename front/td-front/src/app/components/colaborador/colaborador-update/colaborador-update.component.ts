@@ -1,7 +1,8 @@
 
 import { SelectionChange } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
@@ -10,6 +11,7 @@ import { CepService } from 'src/app/services/autoCep.service';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Validation from 'src/app/validators/validadorSenha';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-colaborador-update',
@@ -36,13 +38,17 @@ export class ColaboradorUpdateComponent implements OnInit {
      private router:Router,
      private service:AuthService,
      private usuarioService:UsuarioService,
-     private route:ActivatedRoute
+     private route:ActivatedRoute,
+     private dialog:MatDialog,
+
+     public dialogRef: MatDialogRef<ColaboradorUpdateComponent>,
+     @Inject(MAT_DIALOG_DATA) public data: { id: string }
   ) { }
 
   ngOnInit(): void {
 
     this.colaboradorCreateForm = this.fb.group({
-      id:[this.route.snapshot.paramMap.get('id')],
+      id:[this.data.id],
       nome: [
         null,
         Validators.minLength(4)],
@@ -158,8 +164,11 @@ validaCampos():boolean{
     .subscribe(resposta =>
   {
       this.toast.success('Alteração realizado com sucesso');
-        this.router.navigate(['colaborador']);  
+        this.router.navigate(['colaborador']); 
+          this.dialogRef.close(); 
     })
   }
+
+  
 
 }

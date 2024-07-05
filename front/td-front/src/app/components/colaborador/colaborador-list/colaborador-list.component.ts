@@ -45,18 +45,15 @@ export class ColaboradorListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
   openDialog(event: Event, id: string): void {
-    event.stopPropagation(); // Impede a propagação do evento de clique
-
-    const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {
-      width: '250px',
-      data: { id: id } // Passa o ID como dados para o modal
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('O modal foi fechado', result);
+    
+    const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {   
+      data: { id: id }
     });
   }
+
+ 
 
 
 
