@@ -6,7 +6,7 @@ export interface Colaborador{
     id?:any;
 	empresa:Empresa;
 	nome:string;
-	documento:any;
+	documento:string;
     ocupacao:Ocupacao[];
 	email:string;
 	cel1:string;
@@ -18,6 +18,6 @@ export interface Colaborador{
 	obs:string;
 	cep:String;
 	// ********* //
-    atvReg:string;
+    atvReg:boolean;
 
 }

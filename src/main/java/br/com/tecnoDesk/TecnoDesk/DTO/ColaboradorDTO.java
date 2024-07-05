@@ -20,7 +20,7 @@ public class ColaboradorDTO {
 	
 	private String nome;
 	
-	private long documento;
+	private String documento;
 	
 	private List<Ocupacao> ocupacao;
 	

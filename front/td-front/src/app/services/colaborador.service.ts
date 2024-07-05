@@ -14,6 +14,19 @@ export class ColaboradorService {
 
   constructor(private http: HttpClient) { }
 
+
+  alterarColaborador(id:bigint,colaborador:Colaborador): Observable<Colaborador> {
+
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+
+    const options = { headers: headers }
+
+     return this.http.put<Colaborador>(`http://localhost:8080/api/v1/Colaborador/alterarColab/{id}?id=${id}`,colaborador,options)
+    
+  }
+
   findByID(id:bigint): Observable<Colaborador>{
 
     const headers = new HttpHeaders({

@@ -7,6 +7,7 @@ import org.modelmapper.internal.bytebuddy.asm.Advice.OffsetMapping.ForOrigin.Ren
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,9 +74,13 @@ public class ColaboradorController {
 			return ResponseEntity.ok().body(colaboradorService.deletarColaborador(id));
 	}
 	
-	@PutMapping("/alterarColab/id")
-	public ResponseEntity<Colaborador> alterarColab(@RequestParam long id,@RequestBody ColaboradorDTO colaboradorDTO){
-		colaboradorService.alterColab(id, colaboradorDTO);
+	 
+	@PutMapping("/alterarColab/{id}")
+	public ResponseEntity<Colaborador> alterarColab(@RequestParam long id,
+			@RequestBody ColaboradorDTO colaboradorDTO,
+			@RequestHeader("CodEmpresa") String codemp){
+		
+		colaboradorService.alterColab(id, colaboradorDTO,codemp);
 		return ResponseEntity.ok().build();
 	}
 	

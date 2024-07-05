@@ -1,7 +1,8 @@
 <div class="container">
 
-  <h1 style="text-align: center; font-size: 50px; margin-bottom: 20px;">Colaborador</h1>
-
+  <div class="titleEnt mat-elevation-z4">
+    <h1 style="font-size: 50px;">Colaborador</h1>
+  </div>
   <button routerLink="create" class="mat-elevation-z8" mat-stroked-button color="primary">Novo colaborador</button>
 
   <mat-form-field appearance="standard">
@@ -47,6 +48,7 @@
             <i class="material-icons" id="delete">delete</i>
           </a>
         </td>
+        
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

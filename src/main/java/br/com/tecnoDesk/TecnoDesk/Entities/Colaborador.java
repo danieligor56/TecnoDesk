@@ -71,7 +71,7 @@ public class Colaborador {
 	// *** //
 	
 	@Column(name = "FlgAtvReg",nullable = false)
-	private String atvReg;
+	private boolean atvReg;
 	
 	
 	

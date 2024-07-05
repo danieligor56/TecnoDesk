@@ -1,5 +1,5 @@
 
-<div class="container mat-elevation-z8">
+<div class="container">
    
     
     <h1 class="fullWidth">Editar colaborador</h1>
@@ -62,7 +62,7 @@
           matInput placeholder="">
         </mat-form-field>
 
-        <button [disabled]="!validaCampos()"   class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Salvar colaborador</button>
+        <button [disabled]="!validaCampos()" (click)="updateColaborador()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Salvar colaborador</button>
       <button  (click)="cadastraInfoPessoal()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Voltar</button>
   
       </form>
@@ -108,7 +108,7 @@
         <mat-icon matSuffix>mail</mat-icon>
       </mat-form-field>
 
-      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco()"  class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
+      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco();setOcupacao()"  class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
       <button routerLink="../../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
     
     </form>

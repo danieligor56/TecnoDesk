@@ -146,5 +146,20 @@ validaCampos():boolean{
 
     return false;
 }
+  
+  updateColaborador(): void{
+
+
+
+    const id = this.colaboradorCreateForm.get('id').value;
+    const colaboradorData = this.colaboradorCreateForm.value;
+
+    this.colaboradorService.alterarColaborador(id,this.colaboradorCreateForm.value)
+    .subscribe(resposta =>
+  {
+      this.toast.success('Alteração realizado com sucesso');
+        this.router.navigate(['colaborador']);  
+    })
+  }
 
 }

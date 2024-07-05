@@ -102,18 +102,28 @@ public class ColaboradorService {
 		
 		}
 
-	public void alterColab(Long id, ColaboradorDTO colaboradorDTO) {
-		Optional<Colaborador> colab = colaboradorRespository.findById(id);
-
-		if (colab.isPresent()) {
-
-			Colaborador colaborador = modelMapper.map(colaboradorDTO, Colaborador.class);
-			colaborador.setId(id);
-			colaboradorRespository.save(colaborador);
-
+	public void alterColab(Long id, ColaboradorDTO colaboradorDTO,String codEmpresa) {
+		
+		try {
+			
+			Colaborador colab = colaboradorRespository.findItById(id);
+			var decriptCodEmp = secUtil.decrypt(codEmpresa);
+			
+			if (colaboradorRespository.existsById(colab.getId())) {
+			
+				if(colab.getEmpresa().getId() == Long.valueOf(decriptCodEmp)) {
+				
+					Colaborador colaborador = modelMapper.map(colaboradorDTO, Colaborador.class);
+					colaborador.setId(id);
+					colaboradorRespository.save(colaborador);
+				}
+			
+			}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-
-		throw new NotFound("Não há colaboradores cadastrados com esse ID");
+	
 	}
 
 	public void desativaColaborador(long id) {
@@ -121,7 +131,7 @@ public class ColaboradorService {
 		try {
 			
 			Colaborador colab = colaboradorRespository.findItById(id);
-			colab.setAtvReg("DESATIVADO");
+			colab.setAtvReg(true);
 			
 		} catch (Exception e) {  
 			
@@ -135,7 +145,7 @@ public class ColaboradorService {
 		try {
 			
 			Colaborador colab = colaboradorRespository.findItById(id);
-			colab.setAtvReg("ATIVO");
+			colab.setAtvReg(false);
 	
 			
 		} catch (Exception e) {

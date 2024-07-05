@@ -28,3 +28,18 @@ button{
 #delete{
   color: red;
 }
+
+.titleEnt{
+  background-color:#E6E6E6;
+  margin-bottom: 10px;
+  height: 50px;
+  padding: 8px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.titleEnt h1{
+  color: #5E5E5E;
+  margin-top: 8px;
+  
+}
