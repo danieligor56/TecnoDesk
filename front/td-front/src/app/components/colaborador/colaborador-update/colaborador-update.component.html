@@ -3,9 +3,10 @@
    
     
     <h1 class="fullWidth">Editar colaborador</h1>
-    
-    <!-- <img class="fullWidth" src="/assets/img/colaborador-create.svg" alt="create-new-colaborador"> -->
-   
+    <div class="imgDiv">
+    <img src="/assets/img/colab-Edit.svg">
+
+     </div>
      <section class="section"> 
         <mat-checkbox [(ngModel)]="this.isTecnico" (blur)="setOcupacao()" name="isTec" class="example-margin" color="primary">Técnico</mat-checkbox>
         <mat-checkbox [(ngModel)]="this.isAtendente" name="isAtend"  class="example-margin" color="primary">Atendente</mat-checkbox>

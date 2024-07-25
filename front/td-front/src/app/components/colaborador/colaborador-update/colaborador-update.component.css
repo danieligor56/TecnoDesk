@@ -3,6 +3,7 @@
     margin: 1rem auto;
     padding: 1rem 1rem 3rem 1rem;
     border-radius: .6rem;
+   
 }
 
 .fullWidth{
@@ -15,15 +16,11 @@ h1{
 }
 
 .section{
+    margin-top: 2rem;
     margin-bottom: 1rem;
     display:flex;
     justify-content: space-between;
     padding-left: 10px;
-}
-
-img{
-    
-    height: 8rem;
 }
 
 button{
@@ -33,8 +30,14 @@ button{
 mat-icon{
         opacity: .5;
     }
+
+img{
+    height: 10rem;
+    width: 250px;
+}    
 .isUser{
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .medPut{
@@ -47,3 +50,12 @@ mat-icon{
     margin-left: 2rem;
     width: 5rem;
 }
+
+.imgDiv{
+    width: 100%;
+    height: 150px;
+    text-align: center;
+    justify-content: center;
+}
+
+

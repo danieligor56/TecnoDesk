@@ -66,14 +66,13 @@ public class ColaboradorController {
 	
 	@GetMapping("/buscarporID")
 	public ResponseEntity<Colaborador> colaboradorServicebuscarPorId(@RequestParam Long id,@RequestHeader("CodEmpresa") String codemp) throws Exception{
-		return ResponseEntity.ok().body(colaboradorService.buscarPorID(id,codemp));
+			return ResponseEntity.ok().body(colaboradorService.buscarPorID(id,codemp));
 	}
 	
 	@DeleteMapping("/deletarColaborador")
-	public ResponseEntity<Colaborador> deletarColaboradoResponseEntity(@RequestParam Long id) {
-			return ResponseEntity.ok().body(colaboradorService.deletarColaborador(id));
+	public ResponseEntity<Colaborador> deletarColaboradoResponseEntity(@RequestParam Long id,@RequestHeader("CodEmpresa") String codemp) throws Exception {
+			return ResponseEntity.ok().body(colaboradorService.deletarColaborador(id,codemp));
 	}
-	
 	 
 	@PutMapping("/alterarColab/{id}")
 	public ResponseEntity<Colaborador> alterarColab(@RequestParam long id,

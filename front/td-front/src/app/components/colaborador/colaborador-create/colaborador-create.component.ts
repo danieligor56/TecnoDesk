@@ -34,7 +34,8 @@ export class ColaboradorCreateComponent implements OnInit {
   constructor(
      private fb: FormBuilder,
      private servCep: CepService,
-     private toast: ToastrService,private colaboradorService:ColaboradorService,
+     private toast: ToastrService,
+     private colaboradorService:ColaboradorService,
      private router:Router,
      private service:AuthService,
      private usuarioService:UsuarioService,

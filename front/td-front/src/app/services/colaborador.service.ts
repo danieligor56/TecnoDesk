@@ -27,6 +27,16 @@ export class ColaboradorService {
     
   }
 
+  deletarColaborador(id:bigint): Observable<Colaborador>{
+
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+
+    const options = { headers: headers }
+    return this.http.delete<Colaborador>(`http://localhost:8080/api/v1/Colaborador/deletarColaborador?id=${id}`,options)
+  }
+
   findByID(id:bigint): Observable<Colaborador>{
 
     const headers = new HttpHeaders({
@@ -58,4 +68,7 @@ export class ColaboradorService {
     const options = { headers: headers }
     return this.http.post<Colaborador>("http://localhost:8080/api/v1/Colaborador/AdicionaNovoColaborador",colaborador,options);
   }
+
+
+
 }

@@ -30,7 +30,7 @@ public class SecConfig {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-						.requestMatchers(HttpMethod.DELETE,"api/v1/cliente").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/deletarColaborador").hasRole("ADMIN")
 						.anyRequest().permitAll()
 						)
 				

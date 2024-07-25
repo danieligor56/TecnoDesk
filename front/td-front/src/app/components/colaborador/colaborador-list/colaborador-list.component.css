@@ -1,16 +1,11 @@
-.container{
-  width: 92%;
-  margin:2rem auto;
-  
-  
+
+th{
+  background-color: #F6F6F6;
 }
+
 table {
     width: 100%;
     
-  }
-
-.paginator{
-  
 }
 
 mat-form-field{
@@ -19,14 +14,6 @@ mat-form-field{
 
 button{
   width: 100%;
-}
-
-#edit{
-  color:#1F66FE;
-}
-
-#delete{
-  color: red;
 }
 
 .titleEnt{
@@ -44,10 +31,11 @@ button{
   
 }
 
-th{
+#rows{
   background-color: #F6F6F6;
 }
 
-#rows{
-  background-color: #F6F6F6;
+.container{
+  width: 92%;
+  margin:2rem auto;
 }

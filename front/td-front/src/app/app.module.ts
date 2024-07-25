@@ -32,6 +32,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
+import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
 
 
 
@@ -47,7 +48,8 @@ import { ColaboradorUpdateComponent } from './components/colaborador/colaborador
     LoginComponent,
     ColaboradorCreateComponent,
     OSComponent,
-    ColaboradorUpdateComponent
+    ColaboradorUpdateComponent,
+    ColaboradorDeleteComponent
   ],
   imports: [
     BrowserModule,

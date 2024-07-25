@@ -15,6 +15,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import exception.BadRequest;
 import exception.NotFound;
+import lombok.experimental.var;
 
 
 
@@ -32,6 +33,9 @@ public class ColaboradorService {
 	
 	@Autowired
 	EncryptionUtil secUtil;
+	
+	@Autowired
+	DecriptService decriptService;
 
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO, String codEmpresa) throws Exception {
 			
@@ -39,11 +43,10 @@ public class ColaboradorService {
 		
 		try {
 			
-				var decriptCodEmp = secUtil.decrypt(codEmpresa);
-			
-				Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptCodEmp));
+				Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
 				
 				colaboradorDTO.setEmpresa(empresa);
+				
 				var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
 				
 			
@@ -72,10 +75,10 @@ public class ColaboradorService {
 			
 				Colaborador colab = colaboradorRespository.findItById(id);
 				
-				var decriptCodEmp = secUtil.decrypt(codEmpresa);
-			
-				if(colab.getEmpresa().getId() == Long.valueOf(decriptCodEmp)) {
+							
+				if(colab.getEmpresa().getId() == decriptService.decriptCodEmp(codEmpresa)) {
 				return colab;
+				
 				}
 				
 				else {
@@ -90,10 +93,14 @@ public class ColaboradorService {
 
 				}
 
-	public Colaborador deletarColaborador(long id) {
-		Optional<Colaborador> existeCob = colaboradorRespository.findById(id);
-		if (existeCob.isPresent()) {
-
+	public Colaborador deletarColaborador(long id, String codEmpresa) throws Exception {
+		Colaborador existeCob = colaboradorRespository.findItById(id);
+		
+		if (existeCob != null) {
+			
+			 String chave = secUtil.decrypt(codEmpresa);
+			
+			if(existeCob.getEmpresa().getId() == Long.valueOf(chave))
 			colaboradorRespository.deleteById(id);
 			return null;
 		}
@@ -107,11 +114,10 @@ public class ColaboradorService {
 		try {
 			
 			Colaborador colab = colaboradorRespository.findItById(id);
-			var decriptCodEmp = secUtil.decrypt(codEmpresa);
 			
 			if (colaboradorRespository.existsById(colab.getId())) {
 			
-				if(colab.getEmpresa().getId() == Long.valueOf(decriptCodEmp)) {
+				if(colab.getEmpresa().getId() == Long.valueOf(decriptService.decriptCodEmp(codEmpresa))) {
 				
 					Colaborador colaborador = modelMapper.map(colaboradorDTO, Colaborador.class);
 					colaborador.setId(id);
