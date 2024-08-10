@@ -18,16 +18,16 @@ public interface ColaboradorRespository extends JpaRepository<Colaborador, Long>
 	Colaborador findItById(long id);
 	
 	@Query(
-			value = "SELECT * FROM Colaborador c Where c.codigo_empresa = :id",
+			value = "SELECT * FROM Colaborador c Where c.codigo_empresa = :CodEmp",
 			nativeQuery = true
 			)
-	List<Colaborador>findByCodEmpresa(long id);
+	List<Colaborador>findByCodEmpresa(long CodEmp);
 	
 	@Query(
-			value = "SELECT * FROM Colaborador c WHERE c.codigo_empresa = :id",
+			value = "SELECT * FROM Colaborador c WHERE c.codigo_empresa = :CodEmp",
 			nativeQuery = true
 			)
 	
-	List<Colaborador>listAll(long id);
+	List<Colaborador>listAll(long CodEmp);
 	
 }

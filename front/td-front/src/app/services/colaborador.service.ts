@@ -69,6 +69,11 @@ export class ColaboradorService {
     return this.http.post<Colaborador>("http://localhost:8080/api/v1/Colaborador/AdicionaNovoColaborador",colaborador,options);
   }
 
+  verificaUsuario(email:string) {
+    return this.http.get<boolean>(`http://localhost:8080/auth/vericarUsuario?email=${email}`);
+   
+  }
+
 
 
 }

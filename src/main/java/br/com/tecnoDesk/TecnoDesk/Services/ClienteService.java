@@ -24,8 +24,8 @@ public class ClienteService {
 		return clienteRepository.save(novoCliente);
 	}
 
-	public List<Cliente> listarClientes() {
-		return clienteRepository.findAll();
+	public List<Cliente> listarClientes(long Codemp) {
+		return clienteRepository.listAll(Codemp);
 	}
 
 	public Cliente buscarCliporId(long id) {
@@ -51,7 +51,7 @@ public class ClienteService {
 
 	}
 
-	public Cliente buscaPorDoc(long doc) {
+	public Cliente buscaPorDoc(String doc) {
 
 		if (!clienteRepository.existsByDocumento(doc)) {
 			throw new NotFound("Nenhum cliente encontrado com o documento fornecido");

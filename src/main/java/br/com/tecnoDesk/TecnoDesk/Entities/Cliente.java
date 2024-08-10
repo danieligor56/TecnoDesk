@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +31,10 @@ public class Cliente implements Serializable {
 	@Column(name = "ID",nullable = false,unique = true)
 	private long id;
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_empresa",nullable = false)
+	private Empresa empresa;
+	
 	@Column(name = "NOME",nullable = false,unique = true)
 	private String nome;
 	
@@ -36,20 +42,23 @@ public class Cliente implements Serializable {
 	private String email;
 	
 	@Column(name = "DOCUMENTO",nullable = false,unique = true)
-	private long documento;
+	private String documento;
 
-	@Column(name = "contato",nullable = false,unique = true)
-	private long contato;
+	@Column(name = "cel1",nullable = false,unique = true)
+	private String cel1;
+	
+	@Column(name = "cel2",nullable = true,unique = true)
+	private String cel2;
 	
 	//BLOCO ENDEREÇO// 
 
-		@Column(name = "UF",nullable = true)
+		@Column(name = "UF",nullable = false)
 		private String estado;
-		@Column(name = "MUNIC",nullable = true)
+		@Column(name = "MUNIC",nullable = false)
 		private String cidade;
-		@Column(name = "logradouro",nullable = true)
+		@Column(name = "logradouro",nullable = false)
 		private String logradouro;
-		@Column(name = "NUM",nullable = true)
+		@Column(name = "NUM",nullable = false)
 		private int numero;
 		@Column(name = "OBS",nullable = true)
 		private String obs;

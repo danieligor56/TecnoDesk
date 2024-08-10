@@ -1,4 +1,3 @@
-
 import { SelectionChange } from '@angular/cdk/collections';
 import { Component, OnInit , Inject } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -12,23 +11,26 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Validation from 'src/app/validators/validadorSenha';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-colaborador-update',
   templateUrl: './colaborador-update.component.html',
   styleUrls: ['./colaborador-update.component.css']
 })
+
 export class ColaboradorUpdateComponent implements OnInit {
   colaboradorCreateForm: FormGroup;
   validadorDeSenhas:boolean = false;
-  isUsuario:boolean = false;
+  // isUsuario:boolean = false;
   form2:boolean = false;
   form1:boolean = true;
-  
   listOcupacao:Ocupacao[] = [];
   isTecnico:boolean = false;
   isAtendente:boolean = false;
   isGestor: boolean = false;
+  verificaUsuario:boolean = false;
+  
 
   constructor(
      private fb: FormBuilder,
@@ -46,7 +48,7 @@ export class ColaboradorUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+   
     this.colaboradorCreateForm = this.fb.group({
       id:[this.data.id],
       nome: [
@@ -74,6 +76,8 @@ export class ColaboradorUpdateComponent implements OnInit {
     }
   );
     this.getById();
+   
+
   }
 
   setOcupacao(){
@@ -90,6 +94,12 @@ export class ColaboradorUpdateComponent implements OnInit {
     this.colaboradorCreateForm.get('ocupacao').setValue(this.listOcupacao);
     
   }
+
+  // returnToSetSenha(){
+  //   if(!this.isUsuario && this.form2  && !this.form1){
+  //     this.cadastraInfoPessoal();
+  //   }
+  // }
 
 getById() {
   this.colaboradorService.findByID(this.colaboradorCreateForm.get('id').value).subscribe(resposta => {
@@ -110,6 +120,12 @@ getById() {
           if(ck === Ocupacao.GESTOR){
             this.isGestor = true;
             }
+           debugger; 
+            this.existsUsuario(resposta.email);
+            
+
+            
+            
         
       })
   });
@@ -146,11 +162,22 @@ validaCampos():boolean{
   const emailValid = this.colaboradorCreateForm.get('email').valid;
   const cel1Valid = this.colaboradorCreateForm.get('cel1').valid;
   
-  if(nomeValid && documentoValid && emailValid && cel1Valid){
-        return  true
-    }
+  // const confirmaSenhaValid = this.colaboradorCreateForm.get('confirmaSenha').valid;
 
-    return false;
+  // if(this.verificaUsuario == false){
+  //   if(nomeValid && documentoValid && emailValid && cel1Valid && confirmaSenhaValid){
+  //     return  true
+  //   }
+  // }else
+    
+  if(nomeValid && documentoValid && emailValid && cel1Valid){
+        return  true;
+    
+      }else{
+        
+        return false;
+    }
+      
 }
   
   updateColaborador(): void{
@@ -169,6 +196,19 @@ validaCampos():boolean{
     })
   }
 
+  existsUsuario(email:string) {
+    debugger;
+     return this.colaboradorService.verificaUsuario(email)
+      .subscribe(resposta => {    
+          this.verificaUsuario = resposta;
+          
+       
+      })
+  
+  }
+
   
 
 }
+
+

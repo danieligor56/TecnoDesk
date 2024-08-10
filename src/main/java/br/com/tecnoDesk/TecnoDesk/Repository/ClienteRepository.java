@@ -10,7 +10,6 @@ import java.util.List;
 
 
 @Repository
-
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	public Cliente findItById(long id);
@@ -19,9 +18,16 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	@Query("SELECT c FROM Cliente c WHERE LOWER(c.nome) LIKE LOWER(CONCAT('%', :nome, '%'))")
     List<Cliente>buscarPornome(String nome);
 	
-	Cliente findByDocumento(long documento);
+	@Query(
+			value = "SELECT * FROM Cliente c WHERE c.codigo_empresa = :CodEmp",
+			nativeQuery = true
+			)
 	
-	boolean existsByDocumento(long documento);
+	List<Cliente>listAll(long CodEmp);
+	
+	Cliente findByDocumento(String documento);
+	
+	boolean existsByDocumento(String documento);
 	
 	boolean existsById(long id);
 }

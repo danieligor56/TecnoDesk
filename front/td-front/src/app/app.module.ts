@@ -33,6 +33,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
+import { ClientesListComponent } from './clientes/clientes-list/clientes-list.component';
 
 
 
@@ -49,7 +50,8 @@ import { ColaboradorDeleteComponent } from './components/colaborador/colaborador
     ColaboradorCreateComponent,
     OSComponent,
     ColaboradorUpdateComponent,
-    ColaboradorDeleteComponent
+    ColaboradorDeleteComponent,
+    ClientesListComponent
   ],
   imports: [
     BrowserModule,

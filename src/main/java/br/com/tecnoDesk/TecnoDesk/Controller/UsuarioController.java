@@ -97,6 +97,12 @@ public ResponseEntity<Usuarios> registrar(@RequestBody @Valid UsuarioRegisterDTO
 		
 	}
 	
+	@GetMapping("/vericarUsuario")
+	public Boolean verificarUsuario(String email) {
+		return this.usuarioRepository.existsByEmail(email);
+		
+	}
+	
 	
 	
 

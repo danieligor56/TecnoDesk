@@ -1,8 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,6 @@ import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import exception.BadRequest;
 import exception.NotFound;
-import lombok.experimental.var;
-
-
 
 @Service
 public class ColaboradorService {
@@ -65,8 +60,8 @@ public class ColaboradorService {
 
 	}
 
-	public List<Colaborador> listarColaboradores(long id) {
-		return colaboradorRespository.listAll(id);
+	public List<Colaborador> listarColaboradores(long CodEmp) {
+		return colaboradorRespository.listAll(CodEmp);
 	}
 
 	public Colaborador buscarPorID(Long id,String codEmpresa) throws Exception {

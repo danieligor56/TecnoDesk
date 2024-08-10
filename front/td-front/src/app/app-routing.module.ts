@@ -9,6 +9,7 @@ import { ColaboradorCreateComponent } from './components/colaborador/colaborador
 import { OSComponent } from './components/os/os.component';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
+import { ClientesListComponent } from './clientes/clientes-list/clientes-list.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
-      {path:'os',component:OSComponent}
+      {path:'os',component:OSComponent},
+      {path:'clientes',component:ClientesListComponent}
     ]
   }
 ];

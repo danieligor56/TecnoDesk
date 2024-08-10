@@ -1,10 +1,12 @@
+import { Empresa } from "./Empresa";
+
 export interface Cliente{
 
 	id?:bigint;
+	empresa:Empresa;
     nome:string;
 	email:string;
 	documento:string;
-	tel:string;
 	cel1:string;
     cel2:string;
 	//BLOCO ENDEREÇO// 
