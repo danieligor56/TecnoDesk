@@ -33,11 +33,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
-import { ClientesListComponent } from './clientes/clientes-list/clientes-list.component';
-
-
-
-
+import { ClientesListComponent } from './components/clientes/cliente-list/clientes-list.component';
+import { ClienteCreateComponent } from './components/clientes/cliente-create/cliente-create.component';
+import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
+import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,12 @@ import { ClientesListComponent } from './clientes/clientes-list/clientes-list.co
     OSComponent,
     ColaboradorUpdateComponent,
     ColaboradorDeleteComponent,
-    ClientesListComponent
+    ClientesListComponent,
+    ClienteCreateComponent,
+    ClientesDeleteComponent,
+    ClientesUpdateComponent
+    
+  
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,7 @@ import { ClientesListComponent } from './clientes/clientes-list/clientes-list.co
     MatGridListModule,
     MatSelectModule,
     MatStepperModule,
+    MatTreeModule
    
     
    

@@ -8,7 +8,8 @@ export interface Cliente{
 	email:string;
 	documento:string;
 	cel1:string;
-    cel2:string;
+	cel2:string;
+
 	//BLOCO ENDEREÇO// 
     cep:string;
 	estado:string;
@@ -18,4 +19,10 @@ export interface Cliente{
 	obs:string;
 		// *** // 
 	atvReg:boolean;
-}
+}	
+	
+
+
+	
+	
+	

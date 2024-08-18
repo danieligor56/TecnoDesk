@@ -51,7 +51,8 @@ public class Cliente implements Serializable {
 	private String cel2;
 	
 	//BLOCO ENDEREÇO// 
-
+		@Column(name = "CEP")
+		private String cep; 
 		@Column(name = "UF",nullable = false)
 		private String estado;
 		@Column(name = "MUNIC",nullable = false)

@@ -9,7 +9,11 @@ import { ColaboradorCreateComponent } from './components/colaborador/colaborador
 import { OSComponent } from './components/os/os.component';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
-import { ClientesListComponent } from './clientes/clientes-list/clientes-list.component';
+import { ClientesListComponent } from './components/clientes/cliente-list/clientes-list.component';
+import { ClienteCreateComponent } from './components/clientes/cliente-create/cliente-create.component';
+import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
+import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
+
 
 const routes: Routes = [
   {
@@ -24,7 +28,11 @@ const routes: Routes = [
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os',component:OSComponent},
-      {path:'clientes',component:ClientesListComponent}
+      {path:'clientes',component:ClientesListComponent},
+      {path:'clientes/create',component:ClienteCreateComponent},
+      {path:'clientes/update/:id',component:ClientesUpdateComponent},
+      {path:'clientes/delete/:id',component:ClientesDeleteComponent}
+      
     ]
   }
 ];

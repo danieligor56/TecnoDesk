@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
+import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,20 +10,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-
 public class ClienteDTO {
 
 	private String nome;
+	
+	private Empresa empresa;
 
 	private String email;
 
-	private long documento;
+	private String documento;
 
-	private long tel;
+	private String cel1;
 
-	private long cel1;
-
-	private long cel2;
+	private String cel2;
+	
+	private String cep;
 
 	private String estado;
 

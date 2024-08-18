@@ -1,0 +1,120 @@
+
+<div class="container mat-elevation-z8">  
+
+    <h1 class="fullWidth">Cadastrar Cliente</h1>
+    
+    <img class="fullWidth" src="/assets/img/cliente-register.svg" alt="create-new-colaborador">
+      
+      <form [formGroup]="clienteCreateForm" *ngIf="form2" class="form2">
+        
+        <h4>Endereco:</h4>
+
+        <mat-form-field  class="fullWidth" appearance="fill">
+          <mat-label>Cep</mat-label>
+          <input
+          formControlName="cep"
+          matInput placeholder="00.000-000" mask="00.000-000" name="cep" (blur)="autoCep(clienteCreateForm.get('cep').value)">
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="standard">
+          <mat-label>Cidade</mat-label>
+          <input
+          formControlName="cidade"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="smallPut" appearance="standard">
+          <mat-label>Estado</mat-label>
+          <input
+          formControlName="estado"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>numero</mat-label>
+          <input
+          formControlName="numero"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>Bairro:</mat-label>
+          <input
+          formControlName="bairro"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="medPut" appearance="fill">
+          <mat-label>OBS:</mat-label>
+          <input formControlName="obs" matInput placeholder="">
+        </mat-form-field>
+
+        <mat-form-field class="fullWidth" appearance="fill">
+          <mat-label>logradouro</mat-label>
+          <input
+          formControlName="logradouro"
+          matInput placeholder="">
+        </mat-form-field>
+
+        <button [disabled]="!validaCampos()"  (click)="create()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Salvar novo cliente</button>
+        <button  (click)="cadastraInfoPessoal()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Voltar</button> 
+  
+      </form> 
+      
+      <form [formGroup]="clienteCreateForm" *ngIf="form1" name="form1" class="form">
+      
+        <h4>Informações pessoais:</h4>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input
+        formControlName="nome"
+        required 
+        matInput placeholder="Exp: João">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>CPF/CNPJ</mat-label>
+        <input
+        formControlName="documento"
+        required
+        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Contato principal</mat-label>
+        <input
+        formControlName="cel1"
+        required
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Contato secundario</mat-label>
+        <input
+        formControlName="cel2"
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input 
+        formControlName="email"
+        required
+        matInput placeholder="joao@exemplo.com">
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+
+      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
+      <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button> 
+    
+    </form>
+
+    
+</div>
+ 

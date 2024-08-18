@@ -33,8 +33,8 @@ public class ClienteController {
 	EncryptionUtil secUtil;
 
 	@PostMapping("/adicionaNovoCliente")
-	public ResponseEntity<Cliente> adicionaNovoCliente(ClienteDTO clienteDTO) {
-		clienteService.criaNovoCliente(clienteDTO);
+	public ResponseEntity<Cliente> adicionaNovoCliente(@RequestBody ClienteDTO clienteDTO,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		clienteService.criaNovoCliente(clienteDTO,codEmpresa);
 		return ResponseEntity.ok().build();
 	}
 
@@ -49,8 +49,8 @@ public class ClienteController {
 }
 
 	@GetMapping("/buscarCliente/{id}")
-	public Cliente buscarClientePorID(long id) {
-		return clienteService.buscarCliporId(id);
+	public Cliente buscarClientePorID(long id,@RequestHeader("CodEmpresa") String codemp) {
+		return clienteService.buscarCliporId(id,codemp);
 	}
 
 	@GetMapping("/buscarCliente{nome}")
@@ -59,19 +59,19 @@ public class ClienteController {
 	}
 
 	@PutMapping("/alterarCliente")
-	public ResponseEntity<Cliente> alterarCliente(@RequestParam Long id, @RequestBody ClienteDTO clienteDTO) {
-		clienteService.alterarCliente(id, clienteDTO);
+	public ResponseEntity<Cliente> alterarCliente(@RequestParam Long id, @RequestBody ClienteDTO clienteDTO,@RequestHeader("CodEmpresa") String codemp) {
+		clienteService.alterarCliente(id, clienteDTO,codemp);
 		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/buscarpordoc/{Doc}")
-	public ResponseEntity<Cliente> encontrarPorDoc(long Doc) {
+	public ResponseEntity<Cliente> encontrarPorDoc(String Doc) {
 		return ResponseEntity.ok().body(clienteService.buscaPorDoc(Doc));
 	}
 	
 	@DeleteMapping("deleteCliente/{id}")
-	public void deletarCliente(@RequestParam long id){
-		clienteService.deletarCliente(id);
+	public void deletarCliente(@RequestParam long id,@RequestHeader("CodEmpresa") String codemp) throws Exception{
+		clienteService.deletarCliente(id,codemp);
 		ResponseEntity.ok().build();
 	}
 

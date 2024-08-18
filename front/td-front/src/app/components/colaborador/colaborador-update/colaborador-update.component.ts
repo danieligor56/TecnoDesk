@@ -121,12 +121,7 @@ getById() {
             this.isGestor = true;
             }
            debugger; 
-            this.existsUsuario(resposta.email);
-            
-
-            
-            
-        
+            this.existsUsuario(resposta.email);                
       })
   });
 }

@@ -25,7 +25,6 @@ export class ColaboradorCreateComponent implements OnInit {
   isUsuario:boolean = false;
   form2:boolean = false;
   form1:boolean = true;
-  
   listOcupacao:Ocupacao[] = [];
   isTecnico:boolean = false;
   isAtendente:boolean = false;
