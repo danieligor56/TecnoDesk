@@ -38,6 +38,8 @@ import { ClienteCreateComponent } from './components/clientes/cliente-create/cli
 import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
 import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
 import {MatTreeModule} from '@angular/material/tree';
+import { OsCreateComponent } from './components/os/os-create/os-create.component';
+import { OsListComponent } from './components/os/os-list/os-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import {MatTreeModule} from '@angular/material/tree';
     ClientesListComponent,
     ClienteCreateComponent,
     ClientesDeleteComponent,
-    ClientesUpdateComponent
+    ClientesUpdateComponent,
+    OsCreateComponent,
+    OsListComponent
     
   
   ],

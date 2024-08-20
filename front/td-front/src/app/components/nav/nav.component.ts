@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,8 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class NavComponent implements OnInit {
-
-  constructor(private router: Router,private authService:AuthService,private toastr:ToastrService) { }
+treeos:boolean = false;
+  
+constructor(private router: Router,private authService:AuthService,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.router.navigate(['app-colaborador-create'])
@@ -23,5 +25,17 @@ export class NavComponent implements OnInit {
     this.authService.logout();
     this.toastr.info('Logout realizado com sucesso','logout',{timeOut:7000})
   }
+
+  setTreeOs(){
+    debugger;
+    if(this.treeos == true){
+      this.treeos = false;
+    }else{
+      this.treeos = true;
+    }
+    
+  }
+
+
 
 }

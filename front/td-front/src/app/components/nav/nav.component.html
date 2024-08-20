@@ -19,28 +19,23 @@
         <a mat-list-item routerLink="/clientes">
           <i class="material-icons">people</i>Clientes
         </a>
-    
-        <a mat-list-item routerLink="/os">
-          <i class="material-icons">assignment</i>Ordem de serviço
+        
+        <div class="os">
+        <a mat-list-item (click)="setTreeOs()">
+          <i class="material-icons">assignment</i>Ordem de serviço 
+          <i *ngIf="!treeos" class="material-icons">arrow_right</i>         
+          <i *ngIf="treeos"  class="material-icons">arrow_drop_down</i>         
         </a>
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-          <!-- This is the tree node template for leaf nodes -->
-          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <!-- use a disabled button to provide padding for tree leaf -->
-            <button mat-icon-button disabled></button>
-            {{node.name}}
-          </mat-tree-node>
-          <!-- This is the tree node template for expandable nodes -->
-          <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-            <button mat-icon-button matTreeNodeToggle
-                    [attr.aria-label]="'Toggle ' + node.name">
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-              </mat-icon>
-            </button>
-            {{node.name}}
-          </mat-tree-node>
-        </mat-tree>
+        <ul class="treeOS" *ngIf="treeos">
+          <li class="tree">
+            <p routerLink="os/create" class="linkOs" >Abrir nova OS</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">add</i>
+          </li>
+          <li  class="tree">
+            <p  class="linkOs">Pesquisar OS</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">search</i>
+          </li>
+        </ul>
+      
+      </div>
   
         <a mat-list-item (click)="logout()">
           <i class="material-icons">logout</i>Logout

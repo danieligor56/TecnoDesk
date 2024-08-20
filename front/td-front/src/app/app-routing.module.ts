@@ -13,6 +13,7 @@ import { ClientesListComponent } from './components/clientes/cliente-list/client
 import { ClienteCreateComponent } from './components/clientes/cliente-create/cliente-create.component';
 import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
 import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
+import { OsCreateComponent } from './components/os/os-create/os-create.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os',component:OSComponent},
+      {path:'os/create',component:OsCreateComponent},
       {path:'clientes',component:ClientesListComponent},
       {path:'clientes/create',component:ClienteCreateComponent},
       {path:'clientes/update/:id',component:ClientesUpdateComponent},
