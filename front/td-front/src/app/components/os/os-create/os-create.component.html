@@ -1,1 +1,161 @@
-<p>os-create works!</p>
+<div class="container  mat-elevation-z4">
+   
+    <div class="head" style="padding: 14px;">
+        
+        <div style="width: 90%;">
+            <h1>Ordem de serviço</h1>       
+        </div>
+
+        <div style="background-color: #E6E6E6">
+            <h1><b>OS:</b></h1>
+        </div>
+
+    </div>
+    
+    <!-- <mat-divider style="margin-bottom: 5px;"></mat-divider> -->
+
+    <div class="row1" >
+        
+        <div style="margin-right: 20px;">    
+            <img src="/assets/logo_assist/logo_exemplo.svg"  
+            style="width: 150px; height: 200px; ">
+        </div>
+        
+        <div class="cliente">
+
+            <section class="tituloPage">       
+                <h1 class="label">Cliente: </h1>
+            </section>
+        
+            <div id="dataCli">
+                
+                <mat-form-field class="dataCli" appearance="fill">
+                    <mat-label>Documento (CPF ou CNPJ): </mat-label>
+                    <input 
+                    matInput
+                    matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00"
+                    >
+                </mat-form-field>
+
+                <mat-form-field class="dataCli" appearance="fill">
+                    <mat-label>Nome</mat-label>
+                    <input
+                    readonly                   
+                    required 
+                    matInput placeholder="Exp: João">
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+
+                <mat-form-field class="dataCli" appearance="fill">
+                    <mat-label>Contato principal</mat-label>
+                    <input
+                    readonly
+                    required
+                    matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+                    <mat-icon matSuffix>call</mat-icon>
+                  </mat-form-field>
+            
+            </div>    
+            
+            <div>
+                <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
+                    <mat-label>Endereço:</mat-label>
+                    <textarea readonly style="resize: none;height: 10px;overflow-y: hidden;" matInput placeholder=""></textarea>
+                    <mat-icon matSuffix>home_work</mat-icon>
+                </mat-form-field>    
+            </div>    
+
+        </div>
+
+        <div class="empresa" style="width: 300px;">
+            <div style="margin-top: 0px; text-align: center;">     
+                <h1 class="label" style="background-color: #E6E6E6;margin-top: 0px;">Empresa: </h1>
+            </div>   
+        </div>
+
+        
+
+    </div>
+
+    <mat-divider style="margin-bottom: 5px;"></mat-divider>
+
+    <div class="row2" style="width: 100%;display: flex;">
+        
+        <div class="aparelho" style="margin-right: 15px;background-color: #F2F2F2;padding: 10px;">    
+            
+            <section class="tituloPage" >
+                <h1>Aparelho:</h1>       
+            </section>    
+    
+            <div class="" style="display: flex;">        
+
+            <div class="col1" style="margin-right: 4px;">
+                <div >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Aparelhos: </mat-label>
+                            <select matNativeControl required>
+                                <option value="volvo">Celular</option>
+                                <option value="saab">Notebook</option>
+                                <option value="mercedes">Tv</option>
+                                <option value="audi">Videogame </option>
+                                <option value="06">Aparelho de som</option>
+                            </select>
+                    </mat-form-field>
+                </div>
+                
+                <div>
+                    <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
+                    <mat-label>Modelo:</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div>
+                <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
+                    <mat-label>Estado do aparelho:</mat-label>
+                    <textarea style="resize: none;height: 85px;" matInput placeholder=""></textarea>
+                    <mat-icon matSuffix>assignment</mat-icon>
+                </mat-form-field>    
+            </div>
+        </div>
+
+        
+    
+    
+
+        
+         
+    
+    </div>
+    
+    <div class="recCli" style="float: right;background-color: #F2F2F2;padding: 10px;">
+        <section class="tituloPage" >
+            <h1>Reclamação do cliente:</h1>       
+        </section>
+
+            <div>
+                <mat-form-field style="width: 350px;" appearance="fill">
+                    <mat-label>Descreva o defeito informado pelo cliente:</mat-label>
+                    <input                   
+                    required
+                    matInput placeholder="Exemplo aparelho não liga...">                 
+                  </mat-form-field>
+            </div>
+            
+            <div>
+                <mat-form-field style="width: 350px;" appearance="fill">
+                    <mat-label>Resultado do teste inicial:</mat-label>
+                    <input                   
+                    required
+                    matInput placeholder="Exemplo aparelho não liga...">                 
+                  </mat-form-field>    
+            </div>
+    </div>
+        
+</div>
+
+    
+
+    
+

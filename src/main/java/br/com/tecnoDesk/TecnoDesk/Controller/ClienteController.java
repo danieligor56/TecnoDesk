@@ -46,7 +46,7 @@ public class ClienteController {
 		}	
 			throw new BadRequestException("O Código, "+codemp+" não foi encontrado");
 			
-}
+		}
 
 	@GetMapping("/buscarCliente/{id}")
 	public Cliente buscarClientePorID(long id,@RequestHeader("CodEmpresa") String codemp) {

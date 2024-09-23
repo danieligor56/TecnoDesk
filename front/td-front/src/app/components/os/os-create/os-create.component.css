@@ -1,0 +1,78 @@
+mat-icon{   
+    color:#878787; 
+}
+
+.container{
+    padding: 20px;
+    margin:60px;    
+    align-items: center;
+    justify-content: center; /* Alinhamento horizontal */       
+}
+
+.row1{
+
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    /* justify-content: space-between; */
+}
+.head{
+    color: white;
+    background: linear-gradient(90deg, rgba(0,115,172,1) 18%, rgba(0,171,255,1) 41%, rgba(0,212,255,1) 100%);
+    display: flex;
+    
+    
+}
+
+.empresa{
+    background-color: #F2F2F2;  
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.cliente{ 
+    margin-right: 40px;
+    width: 65%;
+    background-color: #F2F2F2;
+    padding: 10px;
+    
+}
+
+#dataCli{
+    display: flex; 
+}
+
+.dataCli{
+    width: 200px;
+    margin-right: 4px;  
+}
+
+#textCli{
+    text-align: start;
+    resize: none;
+    border: none;
+    width: 200px;
+    height: 70px;
+    padding: 0px;
+}
+
+.tituloPage{
+    text-align: center;
+    background-color: #E6E6E6;
+    font-family: "Oleo Script", system-ui;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.infoOs{    
+    width: 800px;
+}
+
+.label{
+    
+}
+
+
+
+
+
