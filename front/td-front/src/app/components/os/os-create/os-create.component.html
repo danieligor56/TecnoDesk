@@ -1,18 +1,18 @@
 <div class="container  mat-elevation-z4">
    
-    <div class="head" style="padding: 14px;">
+    <div class="head" style="margin-bottom: 5px;">
         
-        <div style="width: 90%;">
-            <h1>Ordem de serviço</h1>       
+        <div class="titPage" style="width: 900rem; padding:5px;">
+            <h1 id="osH1">Ordem de serviço</h1>       
         </div>
 
-        <div style="background-color: #E6E6E6">
+        <div class="" style="width: 100%;height: 100%;background-color: #F2F2F2;color:#5F5F5F;padding: 5px;margin-left: 5px;">
             <h1><b>OS:</b></h1>
         </div>
 
     </div>
     
-    <!-- <mat-divider style="margin-bottom: 5px;"></mat-divider> -->
+    <mat-divider style="margin-bottom: 5px;"></mat-divider>
 
     <div class="row1" >
         
@@ -79,12 +79,12 @@
 
     <mat-divider style="margin-bottom: 5px;"></mat-divider>
 
-    <div class="row2" style="width: 100%;display: flex;">
+    <div class="row2" style="width: 100%;display: flex;margin-bottom: 5px;">
         
-        <div class="aparelho" style="margin-right: 15px;background-color: #F2F2F2;padding: 10px;">    
+        <div class="aparelho" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">    
             
             <section class="tituloPage" >
-                <h1>Aparelho:</h1>       
+                <h1 class="label" >Aparelho:</h1>       
             </section>    
     
             <div class="" style="display: flex;">        
@@ -118,20 +118,13 @@
                     <mat-icon matSuffix>assignment</mat-icon>
                 </mat-form-field>    
             </div>
-        </div>
-
-        
-    
-    
-
-        
-         
+        </div>     
     
     </div>
     
-    <div class="recCli" style="float: right;background-color: #F2F2F2;padding: 10px;">
+    <div class="recCli" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">
         <section class="tituloPage" >
-            <h1>Reclamação do cliente:</h1>       
+            <h1 class="label">Relato do cliente:</h1>       
         </section>
 
             <div>
@@ -152,7 +145,51 @@
                   </mat-form-field>    
             </div>
     </div>
+
+    <div style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;width: 100%;">
+        <section class="tituloPage" >
+            <h1 class="label">Garantia e observações:</h1>       
+        </section>
+
+        <mat-form-field style="width: 100%;" appearance="fill">
+            <textarea  readonly style="resize: none;height: 85px;" matInput placeholder=""></textarea>             
+          </mat-form-field>
+    </div>
         
+    </div>
+
+    <mat-divider style="margin-bottom: 5px;"></mat-divider>
+
+    <div class="rowFooter" style="display:flex;width: 100%;align-items: center;">
+        
+        <div style="width: 80%;">
+        <mat-form-field appearance="fill" style="width: 250px;margin-right: 5px;">
+            <mat-label>Clasificação de atendimento</mat-label>
+            <mat-select>
+              <mat-option value="option1">Normal</mat-option>
+              <mat-option value="option2">Prioridade</mat-option>
+              <mat-option value="option3">Urgência</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill">
+            <mat-label>Atendente</mat-label>
+            <mat-select>
+              <mat-option value="option1">Fulano</mat-option>
+              <mat-option value="option2">Sicrano</mat-option>
+              <mat-option value="option3">Beltrano</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> 
+
+        <div style="text-align: right;">
+            <button mat-flat-button color="primary">Criar ordem de serviço</button>
+            <button style="margin-left: 4px;" mat-raised-button color="warn">Cancelar</button>
+        </div>
+    
+    </div>
+        
+
 </div>
 
     

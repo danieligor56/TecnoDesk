@@ -31,15 +31,18 @@ public class OS {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "Cod_OS", nullable = false, unique = true)
 	private long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_empresa",nullable = false)
+	private Empresa empresa;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "tecnico_id")
+	@JoinColumn(name = "colaborador_id")
 	private Colaborador colaborado;
-	
 	
 	@Column(name = "dtAbert",nullable = false)
 	private String dataAbertura;

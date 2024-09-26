@@ -18,10 +18,12 @@ mat-icon{
 }
 .head{
     color: white;
-    background: linear-gradient(90deg, rgba(0,115,172,1) 18%, rgba(0,171,255,1) 41%, rgba(0,212,255,1) 100%);
     display: flex;
-    
-    
+}
+
+.titPage{
+    background: linear-gradient(90deg, rgba(0,115,172,1) 18%, rgba(0,171,255,1) 41%, rgba(0,212,255,1) 100%);
+
 }
 
 .empresa{
@@ -69,6 +71,13 @@ mat-icon{
 }
 
 .label{
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 680;
+    font-style: normal;
+    font-variation-settings:"wdth" 100;
+    
+    color:#5F5F5F
     
 }
 

@@ -1,14 +1,31 @@
 @import '../node_modules/ngx-toastr/toastr.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&display=swap');
 
 
 
 html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+   margin: 0; 
+   font-family: Roboto,
+   "Helvetica Neue", sans-serif; 
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+#osH1{
+   font-family: "Lexend", sans-serif;
+   font-style: normal;
+   font-weight: 600;
+   align-items: center;
+}
+
+.label{
+   font-family: "Jacquarda Bastarda 9", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 .mat-dialog-container{
    padding: 0px;
