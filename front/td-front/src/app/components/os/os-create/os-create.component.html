@@ -31,7 +31,9 @@
                 
                 <mat-form-field class="dataCli" appearance="fill">
                     <mat-label>Documento (CPF ou CNPJ): </mat-label>
-                    <input 
+                    <input
+                    [(ngModel)]="doc"
+                    (blur)="buscarClientePorDoc()" 
                     matInput
                     matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00"
                     >
@@ -40,6 +42,7 @@
                 <mat-form-field class="dataCli" appearance="fill">
                     <mat-label>Nome</mat-label>
                     <input
+                    [(ngModel)]="nomeCliente"
                     readonly                   
                     required 
                     matInput placeholder="Exp: João">
@@ -49,9 +52,10 @@
                 <mat-form-field class="dataCli" appearance="fill">
                     <mat-label>Contato principal</mat-label>
                     <input
+                    [(ngModel)]="cttPrincipalCliente"
                     readonly
                     required
-                    matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+                    matInput placeholder="(xx)xxxxxxxxx" mask="(00) 0 00000000">
                     <mat-icon matSuffix>call</mat-icon>
                   </mat-form-field>
             
@@ -60,7 +64,11 @@
             <div>
                 <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
                     <mat-label>Endereço:</mat-label>
-                    <textarea readonly style="resize: none;height: 10px;overflow-y: hidden;" matInput placeholder=""></textarea>
+                    <textarea
+                    [(ngModel)]="enderecoCliente"
+                    readonly
+                    style="resize: none;height: 10px;overflow-y: hidden;"
+                    matInput placeholder=""></textarea>
                     <mat-icon matSuffix>home_work</mat-icon>
                 </mat-form-field>    
             </div>    
@@ -106,7 +114,8 @@
                 <div>
                     <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
                     <mat-label>Modelo:</mat-label>
-                        <input matInput>
+                        <input                        
+                        matInput>
                     </mat-form-field>
                 </div>
             </div>
@@ -130,7 +139,8 @@
             <div>
                 <mat-form-field style="width: 350px;" appearance="fill">
                     <mat-label>Descreva o defeito informado pelo cliente:</mat-label>
-                    <input                   
+                    <input 
+                    ([ngModel])="enderecoCliente"                  
                     required
                     matInput placeholder="Exemplo aparelho não liga...">                 
                   </mat-form-field>

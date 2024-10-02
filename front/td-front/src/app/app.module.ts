@@ -40,6 +40,7 @@ import { ClientesUpdateComponent } from './components/clientes/clientes-update/c
 import {MatTreeModule} from '@angular/material/tree';
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
 import { OsListComponent } from './components/os/os-list/os-list.component';
+import { ClienteCreateOsComponent } from './components/os/cliente-create-os/cliente-create-os.component';
 
 
 
@@ -60,7 +61,8 @@ import { OsListComponent } from './components/os/os-list/os-list.component';
     ClientesDeleteComponent,
     ClientesUpdateComponent,
     OsCreateComponent,
-    OsListComponent
+    OsListComponent,
+    ClienteCreateOsComponent
     
   
   ],

@@ -65,8 +65,8 @@ public class ClienteController {
 	}
 
 	@GetMapping("/buscarpordoc/{Doc}")
-	public ResponseEntity<Cliente> encontrarPorDoc(String Doc) {
-		return ResponseEntity.ok().body(clienteService.buscaPorDoc(Doc));
+	public ResponseEntity<Cliente> encontrarPorDoc(String Doc,@RequestHeader("CodEmpresa") String codemp) throws Exception {
+		return ResponseEntity.ok().body(clienteService.buscaPorDoc(Doc,codemp));
 	}
 	
 	@DeleteMapping("deleteCliente/{id}")

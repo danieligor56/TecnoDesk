@@ -108,12 +108,20 @@ public class ClienteService {
 		}
 
 	
-	public Cliente buscaPorDoc(String doc) {
+	public Cliente buscaPorDoc(String doc,String codEmpresa) throws Exception {
+		
+		String chave = secUtil.decrypt(codEmpresa);
 
 		if (!clienteRepository.existsByDocumento(doc)) {
 			throw new NotFound("Nenhum cliente encontrado com o documento fornecido");
 		}
+		
 		Cliente cli = clienteRepository.findByDocumento(doc);
+		
+		if(cli.getEmpresa().getId() != Long.valueOf(chave)) {
+			throw new NotFound("Nenhum cliente encontrado com o documento fornecido");
+		}
+		
 		return cli;
 	}
 	

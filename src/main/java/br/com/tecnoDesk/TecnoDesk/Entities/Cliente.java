@@ -47,7 +47,7 @@ public class Cliente implements Serializable {
 	@Column(name = "cel1",nullable = false,unique = true)
 	private String cel1;
 	
-	@Column(name = "cel2",nullable = true,unique = true)
+	@Column(name = "cel2",nullable = true,unique = false)
 	private String cel2;
 	
 	//BLOCO ENDEREÇO// 

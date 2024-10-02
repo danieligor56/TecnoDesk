@@ -64,5 +64,14 @@ export class ClienteService {
     
   }
 
+  encontrarClientePorDocumento(doc:string): Observable<Cliente> {
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.get<Cliente>(`http://localhost:8080/api/v1/cliente/buscarpordoc/{Doc}?Doc=${doc}`,options)
+  }
+
 
 }
