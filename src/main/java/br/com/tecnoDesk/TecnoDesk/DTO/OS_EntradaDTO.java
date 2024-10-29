@@ -40,7 +40,7 @@ public class OS_EntradaDTO {
 
 	private String reclamacaoCliente;
 
-	private String laudoChamado;
+	private String initTest;
 
 	private StatusOS statusOS;
 }
