@@ -1,7 +1,5 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.Column;
@@ -10,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,13 +16,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "OS")
+@Table(name = "OS_ABERTURA")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class OS {
+public class OS_Entrada {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -57,10 +54,10 @@ public class OS {
 	private String checkList;
 
 	@Column(name = "recCliente", nullable = false)
-	private String corpoChamado;
+	private String reclamacaoCliente;
 
-	@Column(name = "ldoChamado", nullable = false)
-	private String laudoChamado;
+	@Column(name = "testeInicial", nullable = false)
+	private String initTest;
 
 	@Column(name = "stsOs", nullable = true)
 	private StatusOS statusOS;

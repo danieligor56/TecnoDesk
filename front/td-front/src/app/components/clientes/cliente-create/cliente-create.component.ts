@@ -6,7 +6,6 @@ import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
 import { CepService } from 'src/app/services/autoCep.service';
 import { ClienteService } from 'src/app/services/cliente.service';
-
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -23,6 +22,7 @@ export class ClienteCreateComponent implements OnInit {
   form1:boolean = true;
   
   constructor(
+    
     private fb: FormBuilder,
     private servCep: CepService,
     private toast: ToastrService,
