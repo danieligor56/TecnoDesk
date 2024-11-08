@@ -2,7 +2,7 @@ import { Empresa } from "./Empresa";
 
 export interface Cliente{
 
-	id?:bigint;
+	id?:number;
 	empresa:Empresa;
     nome:string;
 	email:string;

@@ -24,10 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class OS_EntradaDTO {
-	
-	
-	private Empresa empresa;
-
+		
 	private Cliente cliente;
 	
 	private Colaborador colaborador;

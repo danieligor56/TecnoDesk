@@ -81,7 +81,10 @@
             </div>   
         </div> -->
 
-        <div class="recCli" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">
+        
+        
+        <div [formGroup]="osCreateForm" class="recCli" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">
+            
             <section class="tituloPage" >
                 <h1 class="label">Relato do cliente:</h1>       
             </section>
@@ -89,8 +92,8 @@
                 <div>
                     <mat-form-field style="width: 350px;" appearance="fill">
                         <mat-label>Descreva o defeito informado pelo cliente:</mat-label>
-                        <input 
-                        FormControlName="reclamacaoCliente"                  
+                        <input
+                        formControlName="reclamacaoCliente"                  
                         required
                         matInput placeholder="Exemplo aparelho não liga...">                 
                       </mat-form-field>
@@ -100,10 +103,11 @@
                     <mat-form-field style="width: 350px;" appearance="fill">
                         <mat-label>Resultado do teste inicial:</mat-label>
                         <input
-                        FormControlName="laudoChamado"                   
+                        formControlName="initTest"                   
                         matInput placeholder="Exemplo aparelho não liga...">                 
                       </mat-form-field>    
                 </div>
+             
         </div>
 
         
@@ -112,7 +116,7 @@
 
     <mat-divider style="margin-bottom: 5px;"></mat-divider>
 
-    <div class="row2" style="width: 100%;display: flex;margin-bottom: 5px;">
+    <div [formGroup]="osCreateForm" class="row2" style="width: 100%;display: flex;margin-bottom: 5px;">
         
         <div class="aparelho" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">    
             
@@ -128,7 +132,7 @@
                         <mat-label>Aparelhos: </mat-label>
                         <!--SMARTPHONE,TABLET,OUTROS; -->
 
-                            <mat-select FormControlName="aparelhos" matNativeControl required>
+                            <mat-select formControlName="aparelhos" matNativeControl required>                               
                                 <mat-option value= 00 >OUTROS</mat-option>
                                 <mat-option value= 01 >TV</mat-option>
                                 <mat-option value= 02 >NOTEBOOK</mat-option>
@@ -153,7 +157,7 @@
                     <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
                     <mat-label>Modelo:</mat-label>
                         <input
-                        FormControlName="descricaoModelo"                        
+                        formControlName="descricaoModelo"                        
                         matInput>
                     </mat-form-field>
                 </div>
@@ -162,7 +166,7 @@
             <div>
                 <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
                     <mat-label>Estado do aparelho:</mat-label>
-                    <textarea style="resize: none;height: 85px;" matInput placeholder=""></textarea>
+                    <textarea formControlName="checkList" style="resize: none;height: 85px;" matInput placeholder=""></textarea>
                     <mat-icon matSuffix>assignment</mat-icon>
                 </mat-form-field>    
             </div>
@@ -173,7 +177,7 @@
     <div style="display:grid; width: 250px;background-color: #f2f2f2;padding: 10px;">
         <mat-form-field appearance="fill">
             <mat-label>Clasificação de atendimento</mat-label>
-            <mat-select>
+            <mat-select formControlName="statusOS">
               <mat-option value= 0  >Normal</mat-option>
               <mat-option value= 1  >Urgência</mat-option>
               <mat-option value= 2  >Garantia</mat-option>
@@ -211,7 +215,7 @@
         
 
         <div style="text-align: right;">
-            <button mat-flat-button color="primary">Criar ordem de serviço</button>
+            <button (click)="createOsEntrada()" mat-flat-button color="primary">Criar ordem de serviço</button>
             <button (click)="openDialogCancelarOs()" style="margin-left: 4px;" mat-raised-button color="warn">Cancelar</button>
         </div>
     

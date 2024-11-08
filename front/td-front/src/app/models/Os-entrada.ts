@@ -4,7 +4,6 @@ import { Empresa } from "./Empresa";
 
 export interface Os_entrada{
 
-  empresa: Empresa;
   cliente: Cliente;
   colaborador: Colaborador;
   aparelhos: Number;

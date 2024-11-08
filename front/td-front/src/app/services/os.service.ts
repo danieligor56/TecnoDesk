@@ -13,14 +13,16 @@ export class OsService {
   ) { }
 
   createOsEntrada(os:Os_entrada): Observable<Os_entrada>{
-     
+  debugger;   
     const headers = new HttpHeaders({
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })
     const options = { headers: headers }
 
     return this.http.post<Os_entrada>("http://localhost:8080/Os/criarNovaOS",os,options);
-
-  }
+    
+    }
+  
+  
 
 }

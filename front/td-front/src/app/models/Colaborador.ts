@@ -3,7 +3,7 @@ import { Empresa } from "./Empresa";
 
 export interface Colaborador{
 
-    id?:any;
+    id?:number;
 	empresa:Empresa;
 	nome:string;
 	documento:string;

@@ -7,6 +7,12 @@ import { CancelarOSComponent } from '../cancelar-os/cancelar-os.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Colaborador } from 'src/app/models/Colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
+import { Os_entrada } from 'src/app/models/Os-entrada';
+import { OsService } from 'src/app/services/os.service';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { Cliente } from 'src/app/models/Cliente';
+
+
 
 
 
@@ -24,27 +30,30 @@ export class OsCreateComponent implements OnInit {
   nomeCliente:string = '';
   cttPrincipalCliente:string = '';
   enderecoCliente:string = '';
-  colaboradorOs: string = '';
-  
+  clientes:number = 0;
+  colaboradorOs:number = 0;
   constructor(
     private clienteService:ClienteService,
     private dialog: MatDialog,
     private fb:FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private os:OsService,
+    private toast:ToastrService
   ) { }
 
   ngOnInit(): void {
     
     this.osCreateForm = this.fb.group({
-      empresa:[],
-      cliente:[],
-      colaborador:[],
+      
+      cliente:{id:0},
+      colaborador:{id:0},
       aparelhos:[],
       descricaoModelo:[],
       checkList:[],
       reclamacaoCliente:[],
-      laudoChamado:[],
+      initTest:[],
       statusOS:[]
+    
     });
 
     this.dropdownColaborador();
@@ -75,6 +84,7 @@ export class OsCreateComponent implements OnInit {
       }
 
       this.buscarClientePorDoc();
+      
 
     })
     
@@ -99,7 +109,14 @@ export class OsCreateComponent implements OnInit {
       if(response.id != null){
         this.nomeCliente = response.nome,
         this.cttPrincipalCliente = response.cel1,
-        this.enderecoCliente = response.logradouro + ',' + response.numero +'.'
+        this.enderecoCliente = response.logradouro + ',' + response.numero +'.',
+        
+        this.osCreateForm.patchValue({
+          cliente: {id: response.id}
+        })
+       
+        
+        
       }
       
       
@@ -118,12 +135,31 @@ export class OsCreateComponent implements OnInit {
     debugger;
     this.colaboradorService.findAll().subscribe(
       (response) => {
-        this.colaboradores = response;     
+        this.colaboradores = response
+        
+        this.osCreateForm.patchValue({
+          colaborador: {id:this.colaboradorOs} 
+        })
     }),
+
     (error) => {
       console.error("Não foi possível carregar os colaboradores.")
     }
+
   };
+
+  createOsEntrada(){
+    debugger;
+    
+    this.os.createOsEntrada(this.osCreateForm.value).subscribe(
+      (response) => {      
+            this.toast.success("Ordem de serviço criado com sucesso ! ")
+           },         
+      (error) => {
+        this.toast.error("Falha na criação da ordem de serviço, contate o suporte");
+      }
+    ); 
+  }
 
 
 }

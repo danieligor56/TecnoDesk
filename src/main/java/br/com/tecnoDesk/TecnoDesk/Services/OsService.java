@@ -19,6 +19,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import exception.BadRequest;
 
 @Service
 public class OsService {
@@ -39,11 +40,12 @@ public class OsService {
 	EmpresaRepository empresaRepository;
 
 	public OS_Entrada crianova(OS_EntradaDTO osDTO,String codEmpresa) throws BadRequestException {
-			
+		
+		 
 		
 		try {
 			
-			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(codEmpresa));
+			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));	
 			
 			OS_Entrada novaOs = modelMapper.map(osDTO, OS_Entrada.class);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -55,7 +57,7 @@ public class OsService {
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new BadRequest("Não foi possível atender a solicitação no momento",e);
 		}
 		
 		return null;
