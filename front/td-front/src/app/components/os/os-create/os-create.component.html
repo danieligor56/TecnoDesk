@@ -186,13 +186,13 @@
           
           <mat-form-field appearance="fill">
             <mat-label>Atendente</mat-label>
-            <mat-select [(ngModel)]="colaboradorOs">
-                <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
-                  {{ colaborador.nome }}
-                </mat-option>
-              </mat-select>
+                <mat-select (selectionChange)="onColaboradorChange($event.value)">
+                    <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
+                    {{ colaborador.nome }}
+                    </mat-option>
+                </mat-select>
           </mat-form-field>
-        </div> 
+    </div> 
     
     
 

@@ -3,15 +3,23 @@ import { Colaborador } from "./Colaborador";
 import { Empresa } from "./Empresa";
 
 export interface Os_entrada{
-
+  
+  id: number;
+  numOs: number;
+  empresa: Empresa;
   cliente: Cliente;
   colaborador: Colaborador;
-  aparelhos: Number;
+  dataAbertura: string;
+  aparelhos: number;
   descricaoModelo: string;
   checkList: string;
   reclamacaoCliente: string;
-  laudoChamado: string;
-  statusOS: Number;
+  initTest: string;
+  statusOS: number;
+
+
+
+
 
 }
 	

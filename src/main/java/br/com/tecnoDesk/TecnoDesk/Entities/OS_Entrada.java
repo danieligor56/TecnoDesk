@@ -29,6 +29,9 @@ public class OS_Entrada {
 	@Column(name = "Cod_OS", nullable = false, unique = true)
 	private long id;
 	
+	@Column(name="NumOs",nullable = false, unique = true)
+	private long numOs;
+	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)
 	private Empresa empresa;
@@ -39,7 +42,7 @@ public class OS_Entrada {
 	
 	@ManyToOne
 	@JoinColumn(name = "colaborador_id")
-	private Colaborador colaborado;
+	private Colaborador colaborador;
 	
 	@Column(name = "dtAbert",nullable = false)
 	private String dataAbertura;

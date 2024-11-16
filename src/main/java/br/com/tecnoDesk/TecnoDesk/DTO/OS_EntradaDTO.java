@@ -1,7 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
 import java.util.Date;
-
 import br.com.tecnoDesk.TecnoDesk.Entities.Cliente;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
@@ -28,6 +27,8 @@ public class OS_EntradaDTO {
 	private Cliente cliente;
 	
 	private Colaborador colaborador;
+	
+	private long numOs;
 
 	private Aparelhos aparelhos;
 

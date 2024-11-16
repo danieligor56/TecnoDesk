@@ -1,14 +1,13 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -16,18 +15,35 @@ import com.itextpdf.text.pdf.PdfDiv;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
+import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
 public class GeneratePDfService {
 	
 	@Autowired
 	EmpresaService empresaService;
+	
+	@Autowired
+	EmpresaRepository empresaRepository;
+	
+	@Autowired
+	DecriptService decriptService;
+	
+	@Autowired
+	OsRepository osRepository;
 
-	public byte[] gerarPdfOsentrada() throws DocumentException, IOException {
-	try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+	public byte[] gerarPdfOsentrada(OS_Entrada os,String codEmpresa) throws Exception {
 		
-		Empresa empresa = empresaService.buscarEmpresoPorID(3);		
+		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+			
+		Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+			
 		Document documento = new Document();
 		PdfWriter.getInstance(documento, bytes);
 		
@@ -40,6 +56,7 @@ public class GeneratePDfService {
 		//FONTE
 		Font marcadorHeader = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
 		Font labelDataHoraEmiss = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+		Font fonteNumOsFont = new Font(Font.FontFamily.COURIER,16);
 		
 		//MAIN DIV HEADER. 
 		PdfPTable divHeader = new PdfPTable(3);
@@ -94,6 +111,7 @@ public class GeneratePDfService {
 		Paragraph tituloPage = new Paragraph("Ordem de Serviço");
 		tituloPage.setFont(marcadorHeader);
 		tituloPage.setAlignment(tituloPage.ALIGN_CENTER);
+		tituloPage.setSpacingAfter(5);
 		
 		dadosEmpresa.addElement(rzSocial); 
 		dadosEmpresa.addElement(endereco);
@@ -104,13 +122,13 @@ public class GeneratePDfService {
 		Paragraph NumOs = new Paragraph("O.S :");
 		NumOs.setAlignment(NumOs.ALIGN_CENTER);
 		NumOs.setFont(marcadorHeader);
-		Paragraph codOs = new Paragraph("001");
+		Paragraph codOs = new Paragraph(String.valueOf(os.getNumOs()));
+		codOs.setFont(fonteNumOsFont);
 		codOs.setAlignment(codOs.ALIGN_CENTER);
+		codOs.setSpacingBefore(10);
+		
 		numOSCell.addElement(NumOs);
 		numOSCell.addElement(codOs);
-		
-		
-		
 		
 		divHeader.addCell(imgDivHeaderDiv);
 		divHeader.addCell(dadosEmpresa);
@@ -127,33 +145,36 @@ public class GeneratePDfService {
 		PdfDiv tituloDataHoraEmiss = new PdfDiv();	
 		
 		//CELULAR PARA ABRIGAR DATA E HORA: 
-		PdfPCell valorDataHora = new PdfPCell();
-		
+		/* PdfPCell valorDataHora = new PdfPCell(); */
 		/* valorDataHora.setBackgroundColor(BaseColor.DARK_GRAY); */	
 		
 		//TEXTO PARA DIV:
-		Paragraph pdfDataHora = new Paragraph("Hora de Emisssão: ");
+		Paragraph pdfDataHora = new Paragraph("Data & Hora de Emisssão: ");
 		pdfDataHora.setFont(labelDataHoraEmiss);
 		
 		//ADICIONANDOD TITULO A DIV. 
 		tituloDataHoraEmiss.addElement(pdfDataHora);
 		
 		//VALOR FIXO APENAS PARA TESTES...
-		Paragraph vdataHora = new Paragraph("10/12/2024");
+		Paragraph vdataHora = new Paragraph(os.getDataAbertura());
 		
 		//INSERINdO VALOR NA CELULA:
-		valorDataHora.addElement(tituloDataHoraEmiss); 
-		valorDataHora.addElement(vdataHora);
+		/*
+		 * valorDataHora.addElement(tituloDataHoraEmiss);
+		 * valorDataHora.addElement(vdataHora);
+		 */
 		
 		//INSERINDO CELL NA TABLE
-		dataHora.addCell(valorDataHora); 
+		/* dataHora.addCell(valorDataHora); */
 
 		row2.addCell(dataHora); 	
 		
 			documento.open();
 			
 			documento.add(divHeader);
-			documento.add(dataHora);
+			/* documento.add(dataHora); */
+			documento.add(pdfDataHora);
+			
 			
 		      
            		 

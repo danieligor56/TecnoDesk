@@ -1,6 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -48,19 +49,30 @@ public class OsService {
 			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));	
 			
 			OS_Entrada novaOs = modelMapper.map(osDTO, OS_Entrada.class);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate now = LocalDate.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
 			formatter.format(now);
 			novaOs.setDataAbertura(formatter.format(now));
 			novaOs.setEmpresa(empresa);
+			
+			OS_Entrada codUltimaOs = osRepository.findLastOne();
+			
+			if(codUltimaOs == null) {
+				novaOs.setNumOs(1);
+			}
+			else {
+				novaOs.setNumOs(codUltimaOs.getNumOs() + 1);
+			}
+			
 			osRepository.save(novaOs);
 			
+			return novaOs;
 			
 		} catch (Exception e) {
 			throw new BadRequest("Não foi possível atender a solicitação no momento",e);
 		}
 		
-		return null;
+		
 		
 
 	}

@@ -25,9 +25,8 @@ public class OsController {
 	OsService osService;
 
 	@PostMapping("/criarNovaOS")
-	public ResponseEntity<OS_Entrada> criarOsEntrada(@RequestBody OS_EntradaDTO osDTO,@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
-		osService.crianova(osDTO,codEmpresa);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<OS_Entrada> criarOsEntrada(@RequestBody OS_EntradaDTO osDTO,@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {		
+		return ResponseEntity.ok().body(osService.crianova(osDTO,codEmpresa));
 
 	}
 

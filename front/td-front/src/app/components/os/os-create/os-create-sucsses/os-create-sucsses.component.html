@@ -1,0 +1,13 @@
+<div>
+    <h1 style="background-color: #F6F6F6;padding: 6px;">Orderm de serviço criada com sucesso ! </h1>
+    <div style="width: 100%; display: flex; align-items: center;justify-content: center;">
+        <img src="/assets/img/confirmed.jpg" style="height: 140px;width: 150px;justify-items: center;" alt="">
+    </div>
+
+    <div style="display: flex;margin: 10px;">
+        <button (click)="goToMenu()" mat-stroked-button color="primary" style="margin-right: 4px;">Menu principal</button>
+        <button (click)="generatePdf()" mat-stroked-button color="primary">Download PDF</button>
+        <button (click)="closeDialog()" mat-stroked-button color="primary" style="margin-left: 4px">Nova ordem de serviço</button>
+    </div>
+
+</div>   

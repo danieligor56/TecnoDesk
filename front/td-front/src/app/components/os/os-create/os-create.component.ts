@@ -11,10 +11,9 @@ import { Os_entrada } from 'src/app/models/Os-entrada';
 import { OsService } from 'src/app/services/os.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/Cliente';
-
-
-
-
+import { OsCreateSucssesComponent } from './os-create-sucsses/os-create-sucsses.component';
+import { Router } from '@angular/router';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
   selector: 'app-os-create',
@@ -32,13 +31,17 @@ export class OsCreateComponent implements OnInit {
   enderecoCliente:string = '';
   clientes:number = 0;
   colaboradorOs:number = 0;
+  
+   
   constructor(
     private clienteService:ClienteService,
     private dialog: MatDialog,
     private fb:FormBuilder,
     private colaboradorService: ColaboradorService,
     private os:OsService,
-    private toast:ToastrService
+    private toast:ToastrService,
+    private router:Router,
+    private pdfService:PdfService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +49,7 @@ export class OsCreateComponent implements OnInit {
     this.osCreateForm = this.fb.group({
       
       cliente:{id:0},
-      colaborador:{id:0},
+      colaborador:{id:this.colaboradorOs},
       aparelhos:[],
       descricaoModelo:[],
       checkList:[],
@@ -57,6 +60,7 @@ export class OsCreateComponent implements OnInit {
     });
 
     this.dropdownColaborador();
+    console.log(this.colaboradorOs); // Verifique se está recebendo o valor corretamente
   }
 
 
@@ -94,6 +98,7 @@ export class OsCreateComponent implements OnInit {
     this.doc = '';
     this.nomeCliente = '';
     this.enderecoCliente = '';
+    this.cttPrincipalCliente = '';
   }
 
   cancelarCriacaoOs(){
@@ -104,8 +109,8 @@ export class OsCreateComponent implements OnInit {
   buscarClientePorDoc(){
   debugger
       
-      this.clienteService.encontrarClientePorDocumento(this.doc).subscribe(response =>{
-      
+    this.clienteService.encontrarClientePorDocumento(this.doc).subscribe(response =>{
+  
       if(response.id != null){
         this.nomeCliente = response.nome,
         this.cttPrincipalCliente = response.cel1,
@@ -136,10 +141,6 @@ export class OsCreateComponent implements OnInit {
     this.colaboradorService.findAll().subscribe(
       (response) => {
         this.colaboradores = response
-        
-        this.osCreateForm.patchValue({
-          colaborador: {id:this.colaboradorOs} 
-        })
     }),
 
     (error) => {
@@ -148,15 +149,65 @@ export class OsCreateComponent implements OnInit {
 
   };
 
+  onColaboradorChange(colaboradorId: number) {
+    this.osCreateForm.patchValue({
+      colaborador: { id: colaboradorId }
+    });
+  }
+
+  apagarOs(){
+    this.osCreateForm.reset();
+    this.apagarDadosCliente();
+
+  }
+
+  openDialogSuccess(response:Os_entrada){
+    debugger
+    const dialogRef = this.dialog.open(OsCreateSucssesComponent,{
+      data: {form: this.osCreateForm }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+   
+      switch(result){
+       
+        case 'novaOs': this.apagarOs(); 
+          break;
+        
+        case 'gerarPdf':this.pdfService.gerarPdfOsEntrada(response).subscribe((blob:Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url
+          window.open(url,'_blank')
+          link.download = 'Ordem de serviço Nº: '+response.numOs+'.pdf'
+          link.click(); 
+        }),
+        
+        this.apagarOs();
+          break;
+        
+        case 'menu':this.router.navigate(['home']);
+          break;
+        
+        
+      }
+
+
+    })
+  }
+
   createOsEntrada(){
     debugger;
-    
     this.os.createOsEntrada(this.osCreateForm.value).subscribe(
       (response) => {      
-            this.toast.success("Ordem de serviço criado com sucesso ! ")
+            
+            this.openDialogSuccess(response)
+          
            },         
       (error) => {
         this.toast.error("Falha na criação da ordem de serviço, contate o suporte");
+       
+        
       }
     ); 
   }

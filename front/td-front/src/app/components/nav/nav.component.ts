@@ -16,7 +16,7 @@ treeos:boolean = false;
 constructor(private router: Router,private authService:AuthService,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['app-colaborador-create'])
+    this.router.navigate(['home'])
     //home
   }
 
