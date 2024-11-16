@@ -61,6 +61,11 @@ public class ColaboradorService {
 	}
 
 	public List<Colaborador> listarColaboradores(long CodEmp) {
+		
+		
+		
+		
+		
 		return colaboradorRespository.listAll(CodEmp);
 	}
 

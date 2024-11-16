@@ -174,8 +174,8 @@ export class OsCreateComponent implements OnInit {
         case 'novaOs': this.apagarOs(); 
           break;
         
-        case 'gerarPdf':this.pdfService.gerarPdfOsEntrada(response).subscribe((blob:Blob) => {
-          const url = window.URL.createObjectURL(blob);
+        case 'gerarPdf':this.pdfService.gerarPdfOsEntrada(response).subscribe((os:Blob) => {
+          const url = window.URL.createObjectURL(os);
           const link = document.createElement('a');
           link.href = url
           window.open(url,'_blank')

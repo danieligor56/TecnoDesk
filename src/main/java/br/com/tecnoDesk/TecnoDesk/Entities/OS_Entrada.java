@@ -29,7 +29,7 @@ public class OS_Entrada {
 	@Column(name = "Cod_OS", nullable = false, unique = true)
 	private long id;
 	
-	@Column(name="NumOs",nullable = false, unique = true)
+	@Column(name="NumOs",nullable = false)
 	private long numOs;
 	
 	@ManyToOne

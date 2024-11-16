@@ -37,6 +37,9 @@ public class GeneratePDfService {
 	
 	@Autowired
 	OsRepository osRepository;
+	
+	@Autowired
+	DocumentUtils documentUtils;
 
 	public byte[] gerarPdfOsentrada(OS_Entrada os,String codEmpresa) throws Exception {
 		
@@ -52,6 +55,10 @@ public class GeneratePDfService {
 		documento.setPageSize(PageSize.A4);
 		
 		//
+		
+		// DADOS EMPRESA FORMATADO
+		
+		
 		
 		//FONTE
 		Font marcadorHeader = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
@@ -105,7 +112,8 @@ public class GeneratePDfService {
 		+ empresa.getMunicipio() + " - " + empresa.getUf() + " - " + "CEP: " + empresa.getCep());
 		endereco.setAlignment(endereco.ALIGN_RIGHT);
 		
-		Paragraph dadosEmp = new Paragraph("CNPJ:" + empresa.getDocEmpresa());
+		
+		Paragraph dadosEmp = new Paragraph("CNPJ: " + empresa.getDocEmpresa() + " | "+"Tel ("+ empresa.getTel()+")");
 		dadosEmp.setAlignment(rzSocial.ALIGN_RIGHT);
 		
 		Paragraph tituloPage = new Paragraph("Ordem de Serviço");

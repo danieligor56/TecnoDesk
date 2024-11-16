@@ -9,9 +9,9 @@ import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 
 public interface OsRepository extends JpaRepository<OS_Entrada,Long> {
 	
-	@Query(value = "SELECT * FROM os_abertura ORDER BY dt_abert DESC LIMIT 1",
+	@Query(value = "SELECT * FROM os_abertura os WHERE os.codigo_empresa = :codEmp ORDER BY dt_abert DESC LIMIT 1 ",
 			nativeQuery = true)
-	OS_Entrada findLastOne();
+	OS_Entrada findLastOne(long codEmp);
 	
 	OS_Entrada findByNumOs(long numOs);
 

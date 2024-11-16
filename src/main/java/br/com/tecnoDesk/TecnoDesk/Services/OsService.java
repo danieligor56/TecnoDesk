@@ -55,7 +55,7 @@ public class OsService {
 			novaOs.setDataAbertura(formatter.format(now));
 			novaOs.setEmpresa(empresa);
 			
-			OS_Entrada codUltimaOs = osRepository.findLastOne();
+			OS_Entrada codUltimaOs = osRepository.findLastOne(empresa.getId());
 			
 			if(codUltimaOs == null) {
 				novaOs.setNumOs(1);
