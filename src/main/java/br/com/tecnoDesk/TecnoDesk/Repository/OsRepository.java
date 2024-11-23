@@ -14,5 +14,7 @@ public interface OsRepository extends JpaRepository<OS_Entrada,Long> {
 	OS_Entrada findLastOne(long codEmp);
 	
 	OS_Entrada findByNumOs(long numOs);
+	
+	OS_Entrada findById(long id);
 
 }

@@ -22,9 +22,12 @@ public class GerarPdfController {
 	@Autowired
 	GeneratePDfService pdfService;
 	
-	@PostMapping("/osEntrada")
-	public ResponseEntity<byte[]> gerarPdfEntrada(@org.springframework.web.bind.annotation.RequestBody OS_Entrada os, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
-		byte[] pdfOs = pdfService.gerarPdfOsentrada(os,codEmpresa);
+	@GetMapping("/osEntrada")
+	/*public ResponseEntity<byte[]> gerarPdfEntrada(@org.springframework.web.bind.annotation.RequestBody OS_Entrada os, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		byte[] pdfOs = pdfService.gerarPdfOsentrada(os,codEmpresa);*/
+	
+	public ResponseEntity<byte[]> gerarPdfEntrada() throws Exception {
+		byte[] pdfOs = pdfService.gerarPdfOsentrada();
 		
 		HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=os.pdf");

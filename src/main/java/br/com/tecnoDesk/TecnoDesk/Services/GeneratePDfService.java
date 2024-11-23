@@ -5,12 +5,16 @@ import java.io.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfDiv;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -41,11 +45,22 @@ public class GeneratePDfService {
 	@Autowired
 	DocumentUtils documentUtils;
 
-	public byte[] gerarPdfOsentrada(OS_Entrada os,String codEmpresa) throws Exception {
+	/*
+	 * public byte[] gerarPdfOsentrada(OS_Entrada os,String codEmpresa) throws
+	 * Exception {
+		-- COMITADO PARA TESTES; 
+	 */
+		public byte[] gerarPdfOsentrada() throws Exception {
 		
 		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
 			
-		Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+			/*
+			 * Empresa empresa =
+			 * empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
+			 * codEmpresa)));
+			 */
+			OS_Entrada os = osRepository.findById(2202);
+			Empresa empresa = empresaRepository.findEmpresaById(3);
 			
 		Document documento = new Document();
 		PdfWriter.getInstance(documento, bytes);
@@ -55,19 +70,17 @@ public class GeneratePDfService {
 		documento.setPageSize(PageSize.A4);
 		
 		//
-		
-		// DADOS EMPRESA FORMATADO
-		
-		
-		
 		//FONTE
 		Font marcadorHeader = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
 		Font labelDataHoraEmiss = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
-		Font fonteNumOsFont = new Font(Font.FontFamily.COURIER,16);
+		Font fonteNumOsFont = new Font(Font.FontFamily.HELVETICA,16);
+		
 		
 		//MAIN DIV HEADER. 
 		PdfPTable divHeader = new PdfPTable(3);
 		divHeader.setWidthPercentage(100);
+		divHeader.setSpacingAfter(2);
+		
 		
 		/*
 		 * divHeader.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -86,6 +99,7 @@ public class GeneratePDfService {
 		dadosEmpresa.setBorderColor(BaseColor.LIGHT_GRAY);
 		dadosEmpresa.setPadding(4);
 		dadosEmpresa.setHorizontalAlignment(dadosEmpresa.ALIGN_LEFT);
+		
 		
 		PdfPCell numOSCell  = new PdfPCell();
 		numOSCell.setBorderColor(BaseColor.LIGHT_GRAY);
@@ -144,48 +158,93 @@ public class GeneratePDfService {
 		
 		//******* // ******
 		
-		//SEGUNDA LINHA:  
+		//SEGUNDA LINHA:  //
 		PdfPTable row2 = new PdfPTable(2);
 		row2.setWidthPercentage(100);
+		float[] row2float = {3f,8f}; 
+		row2.setWidths(row2float);
+
+		PdfPTable titleRow2 = new PdfPTable(2);
+		titleRow2.setWidthPercentage(100);
 		
-		//DATA & HORA: 		
-		PdfPTable dataHora = new PdfPTable(1);
-		PdfDiv tituloDataHoraEmiss = new PdfDiv();	
+		PdfPCell titleDataEmiss = new PdfPCell();
+		Paragraph vTitleDataEmiss = new Paragraph("Data e hora de emissão: ");
+		vTitleDataEmiss.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+		vTitleDataEmiss.setFont(new Font(Font.FontFamily.HELVETICA,10,Font.BOLD));
+		titleDataEmiss.setBorder(0);
+		titleDataEmiss.addElement(vTitleDataEmiss);
 		
-		//CELULAR PARA ABRIGAR DATA E HORA: 
-		/* PdfPCell valorDataHora = new PdfPCell(); */
-		/* valorDataHora.setBackgroundColor(BaseColor.DARK_GRAY); */	
+		PdfPCell titleFuncionamento = new PdfPCell();
+		Paragraph vtitleFuncionamento = new Paragraph("Horário de atendimento: ");
+		vtitleFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
 		
-		//TEXTO PARA DIV:
-		Paragraph pdfDataHora = new Paragraph("Data & Hora de Emisssão: ");
-		pdfDataHora.setFont(labelDataHoraEmiss);
+		vtitleFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA,10,Font.BOLD));
+		titleFuncionamento.addElement(vtitleFuncionamento);
 		
-		//ADICIONANDOD TITULO A DIV. 
-		tituloDataHoraEmiss.addElement(pdfDataHora);
+		titleFuncionamento.setBorder(0);
+		titleFuncionamento.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
 		
-		//VALOR FIXO APENAS PARA TESTES...
-		Paragraph vdataHora = new Paragraph(os.getDataAbertura());
 		
-		//INSERINdO VALOR NA CELULA:
+		titleRow2.addCell(titleDataEmiss);
+		titleRow2.addCell(titleFuncionamento);
+	
+		//DATA E HORA DE CRIAÇÃO
+		PdfPCell dataEhora = new PdfPCell();
+		Paragraph vDataHora = new Paragraph(os.getDataAbertura());
+		vDataHora.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+		dataEhora.setFixedHeight(4);
+		dataEhora.setPadding(0);
+		dataEhora.addElement(vDataHora);
+		
+		row2.addCell(dataEhora);
+		
+		//***
+			
+		//HORARIO DE  DE FUNCIONAMENTO 
+		PdfPCell horarioFuncionamento = new PdfPCell(new Phrase("Horario funcionamento: "));
+		horarioFuncionamento.setBorder(0);
+		Paragraph vHorarioFuncionamento = new Paragraph("Nossa loja está aberta de segunda a sexta-feira, das 9h às 19h, e aos sábados, das 9h às 14h. Aos domingos e feriados, permanecemos fechados.");
+		vHorarioFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+		vHorarioFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA,8,Font.BOLD));
+		horarioFuncionamento.addElement(vHorarioFuncionamento);
+		
+		row2.addCell(horarioFuncionamento);
+		
+		// DIVISÃO CLIENTE.
+		PdfPTable clienteDiv = new PdfPTable(1);
+		clienteDiv.setWidthPercentage(100);
+		clienteDiv.setSpacingBefore(5);
+		
+		PdfPCell clienteDivCel = new PdfPCell(new Phrase("Cliente",new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
+		clienteDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		clienteDivCel.setBorder(0);
+		clienteDivCel.setFixedHeight(20);
+		clienteDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+		
+		
 		/*
-		 * valorDataHora.addElement(tituloDataHoraEmiss);
-		 * valorDataHora.addElement(vdataHora);
+		 * Paragraph tituloClienteDivCel = new Paragraph("Cliente");
+		 * tituloClienteDivCel.setFont(new
+		 * Font(Font.FontFamily.HELVETICA,12,Font.BOLD));
+		 * tituloClienteDivCel.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 		 */
 		
-		//INSERINDO CELL NA TABLE
-		/* dataHora.addCell(valorDataHora); */
-
-		row2.addCell(dataHora); 	
+	
+			
+		/* clienteDivCel.addElement(tituloClienteDivCel); */
+		clienteDiv.addCell(clienteDivCel);
+		
+		
+		
 		
 			documento.open();
 			
 			documento.add(divHeader);
-			/* documento.add(dataHora); */
-			documento.add(pdfDataHora);
+			documento.add(titleRow2);
+			documento.add(row2);
+			documento.add(clienteDiv);
 			
-			
-		      
-           		 
+  		 
 			documento.close();
 		
 			return bytes.toByteArray();
