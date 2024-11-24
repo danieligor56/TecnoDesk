@@ -59,8 +59,8 @@ public class GeneratePDfService {
 			 * empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
 			 * codEmpresa)));
 			 */
-			OS_Entrada os = osRepository.findById(2202);
-			Empresa empresa = empresaRepository.findEmpresaById(3);
+			OS_Entrada os = osRepository.findById(956);
+			Empresa empresa = empresaRepository.findEmpresaById(1);
 			
 		Document documento = new Document();
 		PdfWriter.getInstance(documento, bytes);
@@ -192,7 +192,7 @@ public class GeneratePDfService {
 		PdfPCell dataEhora = new PdfPCell();
 		Paragraph vDataHora = new Paragraph(os.getDataAbertura());
 		vDataHora.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-		dataEhora.setFixedHeight(4);
+
 		dataEhora.setPadding(0);
 		dataEhora.addElement(vDataHora);
 		
@@ -220,29 +220,126 @@ public class GeneratePDfService {
 		clienteDivCel.setBorder(0);
 		clienteDivCel.setFixedHeight(20);
 		clienteDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-		
-		
-		/*
-		 * Paragraph tituloClienteDivCel = new Paragraph("Cliente");
-		 * tituloClienteDivCel.setFont(new
-		 * Font(Font.FontFamily.HELVETICA,12,Font.BOLD));
-		 * tituloClienteDivCel.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-		 */
-		
-	
-			
-		/* clienteDivCel.addElement(tituloClienteDivCel); */
 		clienteDiv.addCell(clienteDivCel);
 		
+		//TITULO DOS CAMPOS. 
 		
+		PdfPTable divClienteTitulo = new PdfPTable(3);
+		divClienteTitulo.setWidthPercentage(100);
+		float[] widthTitulos = {8f,3f,3f}; 
+		divClienteTitulo.setWidths(widthTitulos);
+		divClienteTitulo.setSpacingBefore(2);
+		//titulos
+		PdfPCell nomeTituloCliente = new PdfPCell(new Phrase("Nome do cliente"));
+		nomeTituloCliente.setBorder(0);
+		PdfPCell telefoneTituloCliente = new PdfPCell(new Phrase("Telefone"));
+		telefoneTituloCliente.setBorder(0);
+		PdfPCell documentoTituloCliente = new PdfPCell(new Phrase("CPF/CNPJ"));
+		documentoTituloCliente.setBorder(0);
+		/*
+		 * PdfPCell ieTituloCliente = new PdfPCell(new Phrase("IE"));
+		 * ieTituloCliente.setBorder(0);
+		 */
 		
+		divClienteTitulo.addCell(nomeTituloCliente);
+		divClienteTitulo.addCell(telefoneTituloCliente);
+		divClienteTitulo.addCell(documentoTituloCliente);
+		/* divClienteTitulo.addCell(ieTituloCliente); */
 		
+		//dados
+		PdfPTable divDadosTitulo = new PdfPTable(5);
+		divDadosTitulo.setWidthPercentage(100);
+		float[] widthDados = {8f,0.1f,3f,0.1f,3f}; 
+		divDadosTitulo.setWidths(widthDados);
+		divDadosTitulo.setSpacingBefore(2);
+		
+		PdfPCell space1 = new PdfPCell();
+		space1.setBorder(0);
+		PdfPCell space2 = new PdfPCell();
+		space2.setBorder(0);
+		PdfPCell space3 = new PdfPCell();
+		space3.setBorder(0);
+		
+		PdfPCell nomeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getNome()));
+		nomeDadosCliente.setPadding(1);
+		nomeDadosCliente.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+		PdfPCell telefoneDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCel1()));
+		
+		PdfPCell documentoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getDocumento()));
+		
+		/* PdfPCell ieDadosCliente = new PdfPCell(new Phrase("7238471-12")); */		
+			
+		divDadosTitulo.addCell(nomeDadosCliente);
+		divDadosTitulo.addCell(space1);
+		divDadosTitulo.addCell(telefoneDadosCliente);
+		divDadosTitulo.addCell(space2);
+		divDadosTitulo.addCell(documentoDadosCliente);
+		/* divDadosTitulo.addCell(ieDadosCliente); */
+		
+		//ENDEREÇO CLIENTE.
+		
+		//TITULO DOS CAMPOS. 
+		
+				PdfPTable divClienteEnderecoTitulo = new PdfPTable(4);
+				divClienteEnderecoTitulo.setWidthPercentage(100);
+				float[] widthTitulosEndereco = {8f,3f,3f,5f}; 
+				divClienteEnderecoTitulo.setWidths(widthTitulosEndereco);
+				divClienteEnderecoTitulo.setSpacingBefore(2);
+				
+				//titulos endereço
+				
+				PdfPCell EnderecoTituloCliente = new PdfPCell(new Phrase("Endereço")); // RUA + NUMERO
+				EnderecoTituloCliente.setBorder(0);
+				PdfPCell localidadeTituloCliente = new PdfPCell(new Phrase("Localidade")); // CIDADE + ESTADO
+				localidadeTituloCliente.setBorder(0);
+				PdfPCell cepTituloCliente = new PdfPCell(new Phrase("Cep"));
+				cepTituloCliente.setBorder(0);
+				PdfPCell obsTituloCliente = new PdfPCell(new Phrase("Observação"));
+				obsTituloCliente.setBorder(0);
+								
+				divClienteEnderecoTitulo.addCell(EnderecoTituloCliente);
+				divClienteEnderecoTitulo.addCell(localidadeTituloCliente);
+				divClienteEnderecoTitulo.addCell(cepTituloCliente);
+				divClienteEnderecoTitulo.addCell(obsTituloCliente);
+				
+				//dados endereço
+				
+				PdfPTable divDadosEndereco = new PdfPTable(7);
+				divDadosEndereco.setWidthPercentage(100);
+				float[] widthDadosEndereco = {6f,0.1f,3f,0.1f,2f,0.1f,3f}; 
+				divDadosEndereco.setWidths(widthDadosEndereco);
+				divDadosEndereco.setSpacingBefore(2);
+
+				
+				PdfPCell enderecoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getLogradouro()));
+				
+				PdfPCell localidadeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCidade()+" - "+os.getCliente().getEstado()));
+				
+				PdfPCell cepDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCep()));
+				
+				PdfPCell obsDadosCliente = new PdfPCell(new Phrase(os.getCliente().getObs()));
+							
+				divDadosEndereco.addCell(enderecoDadosCliente);
+				divDadosEndereco.addCell(space1);
+				divDadosEndereco.addCell(localidadeDadosCliente);
+				divDadosEndereco.addCell(space2);
+				divDadosEndereco.addCell(cepDadosCliente);
+				divDadosEndereco.addCell(space3);
+				divDadosEndereco.addCell(obsDadosCliente);
+				
+				
+		
+			
 			documento.open();
 			
 			documento.add(divHeader);
 			documento.add(titleRow2);
 			documento.add(row2);
 			documento.add(clienteDiv);
+			documento.add(divClienteTitulo);
+			documento.add(divDadosTitulo);
+			documento.add(divClienteEnderecoTitulo);
+			documento.add(divDadosEndereco);
 			
   		 
 			documento.close();
