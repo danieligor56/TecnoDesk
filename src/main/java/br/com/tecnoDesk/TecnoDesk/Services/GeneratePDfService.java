@@ -59,7 +59,7 @@ public class GeneratePDfService {
 			 * empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
 			 * codEmpresa)));
 			 */
-			OS_Entrada os = osRepository.findById(956);
+			OS_Entrada os = osRepository.findById(957);
 			Empresa empresa = empresaRepository.findEmpresaById(1);
 			
 		Document documento = new Document();
@@ -203,7 +203,7 @@ public class GeneratePDfService {
 		//HORARIO DE  DE FUNCIONAMENTO 
 		PdfPCell horarioFuncionamento = new PdfPCell(new Phrase("Horario funcionamento: "));
 		horarioFuncionamento.setBorder(0);
-		Paragraph vHorarioFuncionamento = new Paragraph("Nossa loja está aberta de segunda a sexta-feira, das 9h às 19h, e aos sábados, das 9h às 14h. Aos domingos e feriados, permanecemos fechados.");
+		Paragraph vHorarioFuncionamento = new Paragraph("segunda a sexta-feira:9h às 19\nsábados, das 9h às 14h");
 		vHorarioFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
 		vHorarioFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA,8,Font.BOLD));
 		horarioFuncionamento.addElement(vHorarioFuncionamento);
@@ -264,6 +264,7 @@ public class GeneratePDfService {
 		nomeDadosCliente.setPadding(1);
 		nomeDadosCliente.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 		PdfPCell telefoneDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCel1()));
+		telefoneDadosCliente.setPadding(1);
 		
 		PdfPCell documentoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getDocumento()));
 		
@@ -280,9 +281,9 @@ public class GeneratePDfService {
 		
 		//TITULO DOS CAMPOS. 
 		
-				PdfPTable divClienteEnderecoTitulo = new PdfPTable(4);
+				PdfPTable divClienteEnderecoTitulo = new PdfPTable(7);
 				divClienteEnderecoTitulo.setWidthPercentage(100);
-				float[] widthTitulosEndereco = {8f,3f,3f,5f}; 
+				float[] widthTitulosEndereco = {6f,0.1f,3f,0.1f,2f,0.1f,3f}; 
 				divClienteEnderecoTitulo.setWidths(widthTitulosEndereco);
 				divClienteEnderecoTitulo.setSpacingBefore(2);
 				
@@ -298,8 +299,11 @@ public class GeneratePDfService {
 				obsTituloCliente.setBorder(0);
 								
 				divClienteEnderecoTitulo.addCell(EnderecoTituloCliente);
+				divClienteEnderecoTitulo.addCell(space1);
 				divClienteEnderecoTitulo.addCell(localidadeTituloCliente);
+				divClienteEnderecoTitulo.addCell(space2);
 				divClienteEnderecoTitulo.addCell(cepTituloCliente);
+				divClienteEnderecoTitulo.addCell(space3);
 				divClienteEnderecoTitulo.addCell(obsTituloCliente);
 				
 				//dados endereço
@@ -311,12 +315,12 @@ public class GeneratePDfService {
 				divDadosEndereco.setSpacingBefore(2);
 
 				
-				PdfPCell enderecoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getLogradouro()));
+			PdfPCell enderecoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getLogradouro()+", nº: "+os.getCliente().getNumero()));
 				
 				PdfPCell localidadeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCidade()+" - "+os.getCliente().getEstado()));
 				
 				PdfPCell cepDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCep()));
-				
+				cepDadosCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 				PdfPCell obsDadosCliente = new PdfPCell(new Phrase(os.getCliente().getObs()));
 							
 				divDadosEndereco.addCell(enderecoDadosCliente);
@@ -327,6 +331,18 @@ public class GeneratePDfService {
 				divDadosEndereco.addCell(space3);
 				divDadosEndereco.addCell(obsDadosCliente);
 				
+				//DIVISÃO EQUIPAMENTO: 
+				
+				PdfPTable equipamentoDiv = new PdfPTable(1);
+				equipamentoDiv.setWidthPercentage(100);
+				equipamentoDiv.setSpacingBefore(5);
+				
+				PdfPCell equipamentoDivCel = new PdfPCell(new Phrase("Aparelho",new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
+				equipamentoDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				equipamentoDivCel.setBorder(0);
+				equipamentoDivCel.setFixedHeight(20);
+				equipamentoDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				equipamentoDiv.addCell(equipamentoDivCel);
 				
 		
 			
@@ -340,6 +356,7 @@ public class GeneratePDfService {
 			documento.add(divDadosTitulo);
 			documento.add(divClienteEnderecoTitulo);
 			documento.add(divDadosEndereco);
+			documento.add(equipamentoDiv);
 			
   		 
 			documento.close();
