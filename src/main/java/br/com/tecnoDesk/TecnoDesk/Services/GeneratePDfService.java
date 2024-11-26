@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -59,7 +60,7 @@ public class GeneratePDfService {
 			 * empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
 			 * codEmpresa)));
 			 */
-			OS_Entrada os = osRepository.findById(957);
+			OS_Entrada os = osRepository.findById(2502);
 			Empresa empresa = empresaRepository.findEmpresaById(1);
 			
 		Document documento = new Document();
@@ -318,7 +319,7 @@ public class GeneratePDfService {
 			PdfPCell enderecoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getLogradouro()+", nº: "+os.getCliente().getNumero()));
 				
 				PdfPCell localidadeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCidade()+" - "+os.getCliente().getEstado()));
-				
+				localidadeDadosCliente.setFixedHeight(2f);
 				PdfPCell cepDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCep()));
 				cepDadosCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 				PdfPCell obsDadosCliente = new PdfPCell(new Phrase(os.getCliente().getObs()));
@@ -344,8 +345,60 @@ public class GeneratePDfService {
 				equipamentoDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 				equipamentoDiv.addCell(equipamentoDivCel);
 				
-		
-			
+				// TITULOS EQUIPAMENTO
+				
+				PdfPTable divTituloEquipamento = new PdfPTable(2);
+				divTituloEquipamento.setWidthPercentage(100);
+				float[] widthTituloEquipamento = {4f,8f}; 
+				divTituloEquipamento.setWidths(widthTituloEquipamento);
+				divTituloEquipamento.setSpacingBefore(2);
+				
+				PdfPCell divAparelhoEquipamentoTitulo = new PdfPCell(new Phrase("Aparelho"));
+				divAparelhoEquipamentoTitulo.setBorder(0);
+				PdfPCell divModeloEquipamentoTitulo = new PdfPCell(new Phrase("Modelo"));
+				divModeloEquipamentoTitulo.setBorder(0);
+				PdfPCell divEstadoAparelhoEquipamentoTitulo = new PdfPCell(new Phrase("Estado aparelho | Observações"));
+				divEstadoAparelhoEquipamentoTitulo.setBorder(0);
+				divEstadoAparelhoEquipamentoTitulo.setPaddingBottom(6);
+				divEstadoAparelhoEquipamentoTitulo.setPaddingTop(6);
+				divEstadoAparelhoEquipamentoTitulo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+				
+				divTituloEquipamento.addCell(divAparelhoEquipamentoTitulo);
+				divTituloEquipamento.addCell(divModeloEquipamentoTitulo);
+				
+				//DIVISÃO DADOS.
+				
+				PdfPTable divDadosEquipamento = new PdfPTable(3);
+				divDadosEquipamento.setWidthPercentage(100);
+				float[] widthDadosEquipamento = {4f,0.1f,8f}; 
+				divDadosEquipamento.setWidths(widthDadosEquipamento);
+				divDadosEquipamento.setSpacingBefore(2);
+				
+				PdfPCell divAparelhoEquipamentoDados = new PdfPCell(new Phrase(os.getAparelhos().toString()));
+				divAparelhoEquipamentoDados.setFixedHeight(5f);
+				divAparelhoEquipamentoDados.setNoWrap(false);
+				PdfPCell divModeloEquipamentoDados = new PdfPCell(new Phrase(os.getDescricaoModelo()));				
+				PdfPCell divEstadoAparelhoEquipamentoDados= new PdfPCell(new Phrase(os.getCheckList()));
+
+				divDadosEquipamento.addCell(divAparelhoEquipamentoDados);
+				divDadosEquipamento.addCell(space1);
+				divDadosEquipamento.addCell(divModeloEquipamentoDados);
+				// div para check-list do equipamento. 
+				PdfPTable divTituloCheckListEquipamento = new PdfPTable(1);
+				divTituloCheckListEquipamento.setWidthPercentage(100);
+				divTituloCheckListEquipamento.setSpacingBefore(1);				
+				divTituloCheckListEquipamento.addCell(divEstadoAparelhoEquipamentoTitulo);
+				divTituloCheckListEquipamento.addCell(divEstadoAparelhoEquipamentoDados);
+				
+				// DIVISÃO PARA TESTE INCIAL E RELATO DO PROBLEMA. 
+				
+				
+				
+				
+				
+				
+				
+					
 			documento.open();
 			
 			documento.add(divHeader);
@@ -357,7 +410,9 @@ public class GeneratePDfService {
 			documento.add(divClienteEnderecoTitulo);
 			documento.add(divDadosEndereco);
 			documento.add(equipamentoDiv);
-			
+			documento.add(divTituloEquipamento);
+			documento.add(divDadosEquipamento);
+			documento.add(divTituloCheckListEquipamento);
   		 
 			documento.close();
 		
