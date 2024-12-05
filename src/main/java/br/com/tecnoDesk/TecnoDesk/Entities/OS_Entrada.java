@@ -1,6 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
+import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,5 +65,8 @@ public class OS_Entrada {
 
 	@Column(name = "stsOs", nullable = true)
 	private StatusOS statusOS;
+	
+	@Column(name = "prioridadeOS", nullable = true)
+	private PrioridadeOS prioridadeOS;
 
 }

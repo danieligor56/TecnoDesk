@@ -46,22 +46,22 @@ public class GeneratePDfService {
 	@Autowired
 	DocumentUtils documentUtils;
 
-	/*
-	 * public byte[] gerarPdfOsentrada(OS_Entrada os,String codEmpresa) throws
-	 * Exception {
-		-- COMITADO PARA TESTES; 
-	 */
-		public byte[] gerarPdfOsentrada() throws Exception {
+	
+	  public byte[] gerarPdfOsentrada(OS_Entrada osFront,String codEmpresa) throws
+	  Exception {
+	 
+	/* public byte[] gerarPdfOsentrada() throws Exception { */
 		
 		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
 			
-			/*
-			 * Empresa empresa =
-			 * empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
-			 * codEmpresa)));
-			 */
-			OS_Entrada os = osRepository.findById(2502);
-			Empresa empresa = empresaRepository.findEmpresaById(1);
+			
+			  Empresa empresa =
+			  empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(
+			  codEmpresa)));
+			 
+			  OS_Entrada os = osRepository.findById(osFront.getId());
+			
+				
 			
 		Document documento = new Document();
 		PdfWriter.getInstance(documento, bytes);
@@ -390,7 +390,122 @@ public class GeneratePDfService {
 				divTituloCheckListEquipamento.addCell(divEstadoAparelhoEquipamentoTitulo);
 				divTituloCheckListEquipamento.addCell(divEstadoAparelhoEquipamentoDados);
 				
-				// DIVISÃO PARA TESTE INCIAL E RELATO DO PROBLEMA. 
+				// DIVISÃO PARA TESTE INCIAL E RELATO DO PROBLEMA.
+				
+				PdfPTable testeInicialERelatoDiv = new PdfPTable(1);
+				testeInicialERelatoDiv.setWidthPercentage(100);
+				testeInicialERelatoDiv.setSpacingBefore(5);
+				
+				PdfPCell testeInicialERelatoCel = new PdfPCell(new Phrase("Entrada do aparelho",new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
+				testeInicialERelatoCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				testeInicialERelatoCel.setBorder(0);
+				testeInicialERelatoCel.setFixedHeight(20);
+				testeInicialERelatoCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				
+				testeInicialERelatoDiv.addCell(testeInicialERelatoCel);
+				
+				// titulos para entrada aparelho. 
+				
+				PdfPTable entradaAparelhoTitulo = new PdfPTable(3);
+				entradaAparelhoTitulo.setWidthPercentage(100);
+				float[] widthentradaAparelhoTitulo = {8f,0.1f,8f}; 
+				entradaAparelhoTitulo.setWidths(widthentradaAparelhoTitulo);
+				entradaAparelhoTitulo.setWidthPercentage(100);
+				
+				PdfPCell relatoDoClienteTitulo = new PdfPCell(new Phrase("Defeito informado pelo cliente"));
+				relatoDoClienteTitulo.setBorder(0);
+				relatoDoClienteTitulo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+				
+				PdfPCell resultadoTesteIncial = new PdfPCell(new Phrase("Resultado do teste inicial"));
+				resultadoTesteIncial.setBorder(0);
+				
+				
+				entradaAparelhoTitulo.addCell(relatoDoClienteTitulo);
+				entradaAparelhoTitulo.addCell(space1);
+				entradaAparelhoTitulo.addCell(resultadoTesteIncial);
+				 
+				//DADOS ENTRADA DO APARELHO: 
+				
+				PdfPTable entradaAparelhoDados = new PdfPTable(3);
+				entradaAparelhoDados.setWidthPercentage(100);
+				float[] entradaAparelhoDadosWidth = {4f,0.1f,4f}; 
+				entradaAparelhoDados.setWidths(entradaAparelhoDadosWidth);
+				entradaAparelhoDados.setSpacingBefore(2);
+				
+				PdfPCell relatoDoClienteDados = new PdfPCell(new Phrase(os.getReclamacaoCliente()));
+				
+				PdfPCell resultadoTesteIncialDados = new PdfPCell(new Phrase(os.getInitTest()));				
+				
+				entradaAparelhoDados.addCell(relatoDoClienteDados);
+				entradaAparelhoDados.addCell(space1);
+				entradaAparelhoDados.addCell(resultadoTesteIncialDados);
+
+				// PDF FIM.
+				
+				PdfPTable pdfFinal = new PdfPTable(1);
+				pdfFinal.setWidthPercentage(100);
+				pdfFinal.setSpacingBefore(20);
+				
+				PdfPCell pdfFinalCell = new PdfPCell();
+				pdfFinalCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				pdfFinalCell.setBorder(0);
+				
+				pdfFinal.addCell(pdfFinalCell);
+				
+				// TIPO DE ATENDIMENTO E ATENDENTE
+				
+				PdfPTable atendenteEPrioridadeTitulo = new PdfPTable(3);
+				atendenteEPrioridadeTitulo.setWidthPercentage(100);
+				float[] widthatendenteEPrioridadeTitulo = {8f,0.1f,8f}; 
+				atendenteEPrioridadeTitulo.setWidths(widthatendenteEPrioridadeTitulo);
+				atendenteEPrioridadeTitulo.setWidthPercentage(100);
+				
+				PdfPCell atendendeTitulo = new PdfPCell(new Phrase("Atendente"));
+				atendendeTitulo.setBorder(0);
+				atendendeTitulo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+				
+				PdfPCell prioridadeTitulo = new PdfPCell(new Phrase("Prioridade do atendimento"));
+				prioridadeTitulo.setBorder(0);
+				
+				atendenteEPrioridadeTitulo.addCell(atendendeTitulo);
+				atendenteEPrioridadeTitulo.addCell(space1);
+				atendenteEPrioridadeTitulo.addCell(prioridadeTitulo);
+				
+				// DADOS TIPO DE ATENDIMENTO E ATENDENTE DADOS
+				
+				PdfPTable atendenteEPrioridadeDados = new PdfPTable(3);
+				atendenteEPrioridadeDados.setWidthPercentage(100);
+				float[] atendenteEPrioridadeWidth = {4f,0.1f,4f}; 
+				atendenteEPrioridadeDados.setWidths(atendenteEPrioridadeWidth);
+				atendenteEPrioridadeDados.setSpacingBefore(2);
+				
+				PdfPCell atendendeDados = new PdfPCell(new Phrase(os.getColaborador().getNome()));
+				
+				PdfPCell prioridadeTituloDados = new PdfPCell(new Phrase(os.getPrioridadeOS().toString()));				
+				
+				atendenteEPrioridadeDados.addCell(atendendeDados);
+				atendenteEPrioridadeDados.addCell(space1);
+				atendenteEPrioridadeDados.addCell(prioridadeTituloDados);
+				
+				
+				// ASSINATURAS. 
+				 
+				PdfPTable assinaturas = new PdfPTable(3);
+				assinaturas.setWidthPercentage(100);
+				float[] assinaturasWidth = {7f,1f,7f}; 
+				assinaturas.setWidths(assinaturasWidth);
+				assinaturas.setSpacingBefore(100);
+				
+				PdfPCell assinaturaEmpresa = new PdfPCell(new Phrase(os.getEmpresa().getNomEmpresa()));
+				assinaturaEmpresa.setBorder(1);
+				assinaturaEmpresa.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				PdfPCell assinaturaCliente = new PdfPCell(new Phrase(os.getCliente().getNome()));
+				assinaturaCliente.setBorder(1);
+				assinaturaCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				
+				assinaturas.addCell(assinaturaEmpresa);
+				assinaturas.addCell(space1);
+				assinaturas.addCell(assinaturaCliente);
 				
 				
 				
@@ -413,6 +528,13 @@ public class GeneratePDfService {
 			documento.add(divTituloEquipamento);
 			documento.add(divDadosEquipamento);
 			documento.add(divTituloCheckListEquipamento);
+			documento.add(testeInicialERelatoDiv);
+			documento.add(entradaAparelhoTitulo);
+			documento.add(entradaAparelhoDados);
+			documento.add(pdfFinal);
+			documento.add(atendenteEPrioridadeTitulo);
+			documento.add(atendenteEPrioridadeDados);
+			documento.add(assinaturas);
   		 
 			documento.close();
 		

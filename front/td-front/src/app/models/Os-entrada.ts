@@ -16,6 +16,7 @@ export interface Os_entrada{
   reclamacaoCliente: string;
   initTest: string;
   statusOS: number;
+  prioridadeOS:Number;
 
 
 

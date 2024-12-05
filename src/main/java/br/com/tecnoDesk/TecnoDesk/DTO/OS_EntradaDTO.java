@@ -5,6 +5,7 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Cliente;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
+import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -41,4 +42,6 @@ public class OS_EntradaDTO {
 	private String initTest;
 
 	private StatusOS statusOS;
+	
+	private PrioridadeOS prioridadeOS;
 }

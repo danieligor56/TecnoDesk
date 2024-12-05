@@ -40,6 +40,7 @@ public class OsService {
 	@Autowired
 	EmpresaRepository empresaRepository;
 
+
 	public OS_Entrada crianova(OS_EntradaDTO osDTO,String codEmpresa) throws BadRequestException {
 		
 		 
@@ -75,6 +76,11 @@ public class OsService {
 		
 		
 
+	}
+	
+	public List<OS_Entrada> listarOS(String codEmpresa) throws Exception{
+		List<OS_Entrada> oss = this.osRepository.findOsByEmpresaId(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));		
+		return oss;
 	}
 
 }

@@ -55,7 +55,8 @@ export class OsCreateComponent implements OnInit {
       checkList:[],
       reclamacaoCliente:[],
       initTest:[],
-      statusOS:[]
+      statusOS:[0],
+      prioridadeOS:[]
     
     });
 

@@ -14,6 +14,7 @@ import { ClienteCreateComponent } from './components/clientes/cliente-create/cli
 import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
 import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
+import { OsListComponent } from './components/os/os-list/os-list.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os',component:OSComponent},
       {path:'os/create',component:OsCreateComponent},
+      {path:'os/list',component:OsListComponent},
       {path:'clientes',component:ClientesListComponent},
       {path:'clientes/create',component:ClienteCreateComponent},
       {path:'clientes/update/:id',component:ClientesUpdateComponent},

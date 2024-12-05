@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-os-list',
