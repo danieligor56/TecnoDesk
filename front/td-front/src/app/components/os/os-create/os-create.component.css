@@ -1,84 +1,93 @@
-mat-icon{   
-    color:#878787; 
+/* Container principal */
+.containerOs {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  background: #FFFFFF;
 }
 
-.containerOs{
-    padding: 20px;
-    margin-top: 0px;    
-    
-           
+/* Cabeçalho */
+.head {
+  margin-bottom: 24px;
 }
 
-.row1{
-
-    display: flex;
-    width: 100%;
-    padding: 5px;
-    /* justify-content: space-between; */
-}
-.head{
-    color: white;
-    display: flex;
+.titPage {
+  background: #2196F3;
+  padding: 16px 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
 }
 
-.titPage{
-    background: linear-gradient(90deg, rgba(0,115,172,1) 18%, rgba(0,171,255,1) 41%, rgba(0,212,255,1) 100%);
-
+#osH1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
 }
 
-.empresa{
-    background-color: #F2F2F2;  
-    margin-right: 10px;
-    padding: 10px;
+/* Seções principais */
+.row1, .row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
-.cliente{ 
-    margin-right: 4px;
-    width: 45%;
-    background-color: #F2F2F2;
-    padding: 10px;
-    
+/* Cards */
+.cliente, .recCli, .aparelho {
+  background: #F5F5F5;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#dataCli{
-    display: flex; 
+/* Títulos das seções */
+.tituloPage {
+  background: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border-left: 4px solid #2196F3;
 }
 
-.dataCli{
-    width: 200px;
-    margin-right: 4px;  
+.label {
+  color: #263238;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
 }
 
-#textCli{
-    text-align: start;
-    resize: none;
-    border: none;
-    width: 200px;
-    height: 70px;
-    padding: 0px;
+/* Campos de formulário */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
 }
 
-.tituloPage{
-    text-align: center;
-    background-color: #E6E6E6;
-    font-family: "Oleo Script", system-ui;
-    font-weight: 700;
-    font-style: normal;
+/* Grid de campos do cliente */
+#dataCli {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
 }
 
-.infoOs{    
-    width: 800px;
+/* Botões */
+.rowFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
 }
 
-.label{
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 680;
-    font-style: normal;
-    font-variation-settings:"wdth" 100;
-    
-    color:#5F5F5F
-    
+/* Responsividade */
+@media (max-width: 900px) {
+  .row1, .row2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .containerOs {
+    padding: 16px;
+  }
 }
 
 
