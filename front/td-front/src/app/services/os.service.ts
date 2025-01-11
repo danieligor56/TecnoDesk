@@ -22,6 +22,17 @@ export class OsService {
     return this.http.post<Os_entrada>("http://localhost:8080/Os/criarNovaOS",os,options);
     
     }
+
+    findAllOs(): Observable<Os_entrada[]>{
+     
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+
+      return this.http.get<Os_entrada[]>("http://localhost:8080/Os/listarOS",options);
+    
+    }
   
   
 

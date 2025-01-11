@@ -27,7 +27,6 @@ import { ColaboradorCreateComponent } from './components/colaborador/colaborador
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { NgxMaskModule } from 'ngx-mask';
-import { OSComponent } from './components/os/os.component'
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -43,6 +42,7 @@ import { OsListComponent } from './components/os/os-list/os-list.component';
 import { ClienteCreateOsComponent } from './components/os/cliente-create-os/cliente-create-os.component';
 import { CancelarOSComponent } from './components/os/cancelar-os/cancelar-os.component';
 import { OsCreateSucssesComponent } from './components/os/os-create/os-create-sucsses/os-create-sucsses.component';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 
@@ -55,7 +55,6 @@ import { OsCreateSucssesComponent } from './components/os/os-create/os-create-su
     ColaboradorListComponent,
     LoginComponent,
     ColaboradorCreateComponent,
-    OSComponent,
     ColaboradorUpdateComponent,
     ColaboradorDeleteComponent,
     ClientesListComponent,
@@ -88,7 +87,7 @@ import { OsCreateSucssesComponent } from './components/os/os-create/os-create-su
     MatTableModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule,   
    ToastrModule.forRoot({
       timeOut:3000,
       closeButton:true,

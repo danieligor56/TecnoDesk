@@ -6,7 +6,6 @@ import { ColaboradorListComponent } from './components/colaborador/colaborador-l
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
-import { OSComponent } from './components/os/os.component';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
 import { ClientesListComponent } from './components/clientes/cliente-list/clientes-list.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
-      {path:'os',component:OSComponent},
       {path:'os/create',component:OsCreateComponent},
       {path:'os/list',component:OsListComponent},
       {path:'clientes',component:ClientesListComponent},
