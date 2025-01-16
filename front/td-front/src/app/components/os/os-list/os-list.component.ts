@@ -14,7 +14,7 @@ import { OsService } from 'src/app/services/os.service';
 export class OsListComponent implements OnInit {
   ELEMENT_DATA: Os_entrada[]=[];  
   dataSource = new MatTableDataSource<Os_entrada>(this.ELEMENT_DATA);
-  displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS'];
+  displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS','acoesOs'];
 
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
