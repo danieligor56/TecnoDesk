@@ -15,9 +15,11 @@ export class OsListComponent implements OnInit {
   ELEMENT_DATA: Os_entrada[]=[];  
   dataSource = new MatTableDataSource<Os_entrada>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS','acoesOs'];
+  filteredELEMENT_DATA: Os_entrada[] = [];
 
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  searchTerm: any;
 
   constructor(
     private osService:OsService,  
@@ -25,6 +27,7 @@ export class OsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAllOS();
+    this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   }
 
   findAllOS(){
@@ -38,9 +41,18 @@ export class OsListComponent implements OnInit {
     )
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(): void {
+    const search = this.searchTerm.toLowerCase();
+
+    this.dataSource.data = this.ELEMENT_DATA.filter(os =>
+      os.numOs?.toString().toLowerCase().includes(search) ||
+      os.cliente?.nome.toLowerCase().includes(search) ||
+      os.colaborador?.nome.toLowerCase().includes(search) ||
+      os.statusOS?.toString().toLowerCase().includes(search) ||
+      os.prioridadeOS?.toString().toLowerCase().includes(search)
+    );
   }
+  
+
 
 }
