@@ -11,5 +11,7 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 public interface EmpresaRepository extends JpaRepository<Empresa,Long> {
 	
 	public Empresa findEmpresaById(long id);
+
+	
 	
 }

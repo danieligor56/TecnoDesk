@@ -4,6 +4,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Os_entrada } from 'src/app/models/Os-entrada';
 import { OsService } from 'src/app/services/os.service';
+import { PdfService } from 'src/app/services/pdf.service';
 
 
 @Component({
@@ -11,18 +12,21 @@ import { OsService } from 'src/app/services/os.service';
   templateUrl: './os-list.component.html',
   styleUrls: ['./os-list.component.css']
 })
+
 export class OsListComponent implements OnInit {
   ELEMENT_DATA: Os_entrada[]=[];  
   dataSource = new MatTableDataSource<Os_entrada>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS','acoesOs'];
   filteredELEMENT_DATA: Os_entrada[] = [];
+  osOne: Os_entrada;
 
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchTerm: any;
 
   constructor(
-    private osService:OsService,  
+    private osService:OsService,
+    private pdfService:PdfService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +56,29 @@ export class OsListComponent implements OnInit {
       os.prioridadeOS?.toString().toLowerCase().includes(search)
     );
   }
+
+  imprimirOs(osImp:bigint){
+    debugger;
+this.osService.findOsByNumOs(osImp).subscribe(response =>
+{
+  
+  this.pdfService.gerarPdfOsEntrada(response).subscribe((os:Blob) => {
+    const url = window.URL.createObjectURL(os);
+    const link = document.createElement('a');
+    link.href = url
+    window.open(url,'_blank')
+    link.download = 'Ordem de serviço Nº: '+ response.numOs +'.pdf'
+    link.click(); 
+  });
+
+})
+
+
+
+    
+  }
+    
+  
   
 
 

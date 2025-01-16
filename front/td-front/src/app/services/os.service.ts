@@ -33,6 +33,17 @@ export class OsService {
       return this.http.get<Os_entrada[]>("http://localhost:8080/Os/listarOS",options);
     
     }
+
+    findOsByNumOs(numOs:bigint): Observable<Os_entrada>{
+     
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+
+      return this.http.get<Os_entrada>(`http://localhost:8080/Os/numOs?numOS=${numOs}`,options);
+    
+    }
   
   
 

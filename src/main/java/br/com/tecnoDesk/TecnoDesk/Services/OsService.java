@@ -83,4 +83,15 @@ public class OsService {
 		return oss;
 	}
 
+	public OS_Entrada buscarPorNumOs(long numOs,String codEmpresa) throws Exception {
+		Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+		
+		if(empresa != null) {
+		OS_Entrada os =	osRepository.findByNumOs(numOs,empresa.getId());
+		return os;
+		}
+		
+		throw new BadRequest("Não foi possível atender sua solicitação nesse momento");
+	}
+
 }

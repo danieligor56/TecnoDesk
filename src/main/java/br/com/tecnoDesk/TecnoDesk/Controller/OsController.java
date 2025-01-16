@@ -38,5 +38,11 @@ public class OsController {
 	public ResponseEntity<List<OS_Entrada>> listarOS(@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{		
 		return ResponseEntity.ok().body(osService.listarOS(codEmpresa));
 	}
+	
+	@GetMapping("/numOs")
+	public ResponseEntity<OS_Entrada> buscarOsPorNumero(@RequestParam long numOS ,@RequestHeader("CodEmpresa") String codEmpresa)throws Exception {
+		return ResponseEntity.ok().body(osService.buscarPorNumOs(numOS,codEmpresa));
+		
+	}
 
 }
