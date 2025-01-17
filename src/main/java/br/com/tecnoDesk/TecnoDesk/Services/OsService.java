@@ -42,9 +42,7 @@ public class OsService {
 
 
 	public OS_Entrada crianova(OS_EntradaDTO osDTO,String codEmpresa) throws BadRequestException {
-		
-		 
-		
+				
 		try {
 			
 			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));	
@@ -72,9 +70,7 @@ public class OsService {
 		} catch (Exception e) {
 			throw new BadRequest("Não foi possível atender a solicitação no momento",e);
 		}
-		
-		
-		
+			
 
 	}
 	
