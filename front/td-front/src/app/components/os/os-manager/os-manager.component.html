@@ -1,39 +1,93 @@
-
 <div class="container mat-elevation-z4">
-    
-    <div class="titPage" style=" padding:5px;margin-bottom: 10px;">
+    <div class="titPage" style="padding:5px;margin-bottom: 10px;">
         <h1 id="osH1">Ordem de serviço</h1>       
     </div>
 
-    <div class="os-dados">
-        <h3>Cliente:</h3>
-        <div class="cliente-os">
-            <mat-form-field class="fullWidth" appearance="fill">
-                <mat-label>Nome</mat-label>
-                <input
-                required 
-                matInput>
-                <mat-icon matSuffix>person</mat-icon>
-              </mat-form-field>
+    <mat-tab-group mat-align-tabs="start" animationDuration="500ms">
 
-              <mat-form-field class="fullWidth" appearance="fill">
-                <mat-label>Contato principal</mat-label>
-                <input
-                formControlName="cel1"
-                required
-                matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
-                <mat-icon matSuffix>call</mat-icon>
-              </mat-form-field>
+        <mat-tab label="Ordem de serviço">
+            <div class="tab-content">
+                <div class="os-dados">
+                    <!-- <h3>Cliente:</h3> -->
+                    <div class="cliente-os">
+                        <!-- <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Nome</mat-label>
+                            <input required matInput>
+                            <mat-icon matSuffix>person</mat-icon>
+                        </mat-form-field> -->
 
-              <mat-form-field class="fullWidth" appearance="fill">
-                <mat-label>CPF/CNPJ</mat-label>
-                <input
-                formControlName="documento"
-                required
-                matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
-                <mat-icon matSuffix>badge</mat-icon>
-              </mat-form-field>
-        </div>
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Contato principal</mat-label>
+                            <input formControlName="cel1" required matInput 
+                                   placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+                            <mat-icon matSuffix>call</mat-icon>
+                        </mat-form-field>
 
-    </div>
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>CPF/CNPJ</mat-label>
+                            <input formControlName="documento" required matInput 
+                                   placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+                            <mat-icon matSuffix>badge</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+
+        <!-- Aba de Dados do Equipamento -->
+        <mat-tab label="Equipamento">
+            <div class="tab-content">
+                <div class="equipamento-dados">
+                    <h3>Dados do Equipamento:</h3>
+                    <div class="equipamento-os">
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Tipo do Equipamento</mat-label>
+                            <input required matInput>
+                            <mat-icon matSuffix>devices</mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Marca/Modelo</mat-label>
+                            <input required matInput>
+                            <mat-icon matSuffix>inventory_2</mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Número de Série</mat-label>
+                            <input required matInput>
+                            <mat-icon matSuffix>pin</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+
+        <!-- Aba de Serviço -->
+        <mat-tab label="Serviço">
+            <div class="tab-content">
+                <div class="servico-dados">
+                    <h3>Detalhes do Serviço:</h3>
+                    <mat-form-field class="fullWidth" appearance="fill">
+                        <mat-label>Descrição do Problema</mat-label>
+                        <textarea matInput rows="4"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field class="fullWidth" appearance="fill">
+                        <mat-label>Diagnóstico Técnico</mat-label>
+                        <textarea matInput rows="4"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field class="fullWidth" appearance="fill">
+                        <mat-label>Status do Serviço</mat-label>
+                        <mat-select required>
+                            <mat-option value="aberto">Aberto</mat-option>
+                            <mat-option value="em_andamento">Em Andamento</mat-option>
+                            <mat-option value="aguardando_peca">Aguardando Peça</mat-option>
+                            <mat-option value="concluido">Concluído</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>

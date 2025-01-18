@@ -44,6 +44,7 @@ import { CancelarOSComponent } from './components/os/cancelar-os/cancelar-os.com
 import { OsCreateSucssesComponent } from './components/os/os-create/os-create-sucsses/os-create-sucsses.component';
 import {MatPaginator} from '@angular/material/paginator';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -107,6 +108,7 @@ import { OsManagerComponent } from './components/os/os-manager/os-manager.compon
     MatSelectModule,
     MatStepperModule,
     MatTreeModule,
+    MatTabsModule,
  
    
     
