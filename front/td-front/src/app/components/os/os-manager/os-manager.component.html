@@ -1,0 +1,39 @@
+
+<div class="container mat-elevation-z4">
+    
+    <div class="titPage" style=" padding:5px;margin-bottom: 10px;">
+        <h1 id="osH1">Ordem de serviço</h1>       
+    </div>
+
+    <div class="os-dados">
+        <h3>Cliente:</h3>
+        <div class="cliente-os">
+            <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>Nome</mat-label>
+                <input
+                required 
+                matInput>
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>Contato principal</mat-label>
+                <input
+                formControlName="cel1"
+                required
+                matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+                <mat-icon matSuffix>call</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field class="fullWidth" appearance="fill">
+                <mat-label>CPF/CNPJ</mat-label>
+                <input
+                formControlName="documento"
+                required
+                matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+                <mat-icon matSuffix>badge</mat-icon>
+              </mat-form-field>
+        </div>
+
+    </div>
+</div>

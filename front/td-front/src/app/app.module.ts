@@ -43,6 +43,7 @@ import { ClienteCreateOsComponent } from './components/os/cliente-create-os/clie
 import { CancelarOSComponent } from './components/os/cancelar-os/cancelar-os.component';
 import { OsCreateSucssesComponent } from './components/os/os-create/os-create-sucsses/os-create-sucsses.component';
 import {MatPaginator} from '@angular/material/paginator';
+import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 
 
 
@@ -66,7 +67,8 @@ import {MatPaginator} from '@angular/material/paginator';
     OsListComponent,
     ClienteCreateOsComponent,
     CancelarOSComponent,
-    OsCreateSucssesComponent
+    OsCreateSucssesComponent,
+    OsManagerComponent
     
   
   ],
@@ -89,11 +91,11 @@ import {MatPaginator} from '@angular/material/paginator';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,   
-   ToastrModule.forRoot({
-      timeOut:3000,
-      closeButton:true,
-      progressBar:true
-    }),
+    ToastrModule.forRoot({
+        timeOut:3000,
+        closeButton:true,
+        progressBar:true
+      }),
     NgxMaskModule.forRoot({
       
     }),

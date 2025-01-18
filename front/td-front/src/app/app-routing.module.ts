@@ -14,6 +14,7 @@ import { ClientesUpdateComponent } from './components/clientes/clientes-update/c
 import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
 import { OsListComponent } from './components/os/os-list/os-list.component';
+import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,9 @@ const routes: Routes = [
   },
   {
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[
-      {path:'home',component:HomeComponent},
+      // {path:'home',component:HomeComponent},
+      {path: 'manager',component:OsManagerComponent},
+      
       
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
@@ -30,6 +33,7 @@ const routes: Routes = [
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os/create',component:OsCreateComponent},
       {path:'os/list',component:OsListComponent},
+      {path:'os/manager',component:OsManagerComponent},
       {path:'clientes',component:ClientesListComponent},
       {path:'clientes/create',component:ClienteCreateComponent},
       {path:'clientes/update/:id',component:ClientesUpdateComponent},

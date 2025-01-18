@@ -49,7 +49,10 @@
           <th mat-header-cell *matHeaderCellDef></th> 
          <td class="actionsButtons" mat-cell *matCellDef="let element"> 
          
-          <mat-icon style="color:#5E5E5E;margin-right: 8px;" >assignment</mat-icon>
+          <a routerLink="/os/manager">
+            <mat-icon style="color:#5E5E5E;margin-right: 8px;" >assignment</mat-icon>
+          </a>
+          
           <mat-icon (click)="imprimirOs(element.numOs)" style="color:#5E5E5E;margin-right: 8px;" >print</mat-icon>
           <mat-icon style="color:#5E5E5E;margin-right: 8px;" >cancel_presentation</mat-icon>
  
