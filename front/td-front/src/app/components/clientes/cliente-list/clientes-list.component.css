@@ -12,24 +12,35 @@ th{
     width: 100%;
   }
   
-  button{
-    width: 100%;
-  }
   
-  .titleEnt{
-    background-color:#E6E6E6;
-    margin-bottom: 10px;
-    height: 50px;
-    padding: 8px;
-    text-align: center;
-    margin-top: 0px;
-  }
-  
-  .titleEnt h1{
-    color: #5E5E5E;
-    margin-top: 8px;
-    
-  }
+  .titPage {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    padding: 20px !important;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.titPage h1 {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.titPage h1::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background-color: #ffffff;
+    margin-right: 15px;
+    border-radius: 2px;
+}
   
   #rows{
     background-color: #F6F6F6;

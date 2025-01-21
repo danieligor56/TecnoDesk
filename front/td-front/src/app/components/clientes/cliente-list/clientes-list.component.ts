@@ -6,6 +6,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { ClientesDeleteComponent } from '../clientes-delete/clientes-delete.component';
 import { ClientesUpdateComponent } from '../clientes-update/clientes-update.component';
 import { MatDialog } from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-cliente-list',

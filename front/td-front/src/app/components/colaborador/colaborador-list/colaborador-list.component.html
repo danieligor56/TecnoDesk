@@ -1,13 +1,13 @@
 <div class="container">
 
-  <div class="titleEnt mat-elevation-z4">
-    <h1 style="font-size: 50px;">Colaborador</h1>
+  <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+    <h1 id="osH1">Colaborador</h1>       
   </div>
-  <button routerLink="create" class="mat-elevation-z8" mat-stroked-button color="primary">Novo colaborador</button>
+  
 
   <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Insira alguma informação do colaborador" #input>
   </mat-form-field>
   
   <div class="mat-elevation-z8">
@@ -63,5 +63,7 @@
                    aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
+
+  <button routerLink="create" class="mat-elevation-z8" style="float: right;margin-top: 20px;background-color: #1F66FE;color: white;width: 140px;" mat-flat-button>Novo colaborador</button>
 
 </div>

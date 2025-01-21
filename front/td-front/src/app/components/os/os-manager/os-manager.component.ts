@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./os-manager.component.css']
 })
 export class OsManagerComponent implements OnInit {
-
+cli:String = "Daniel igor"
   constructor() { }
 
   ngOnInit(): void {
