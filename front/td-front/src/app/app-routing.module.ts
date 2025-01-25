@@ -23,10 +23,7 @@ const routes: Routes = [
   },
   {
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[
-      // {path:'home',component:HomeComponent},
-      {path: 'manager',component:OsManagerComponent},
-      
-      
+      {path:'home',component:HomeComponent}, 
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},

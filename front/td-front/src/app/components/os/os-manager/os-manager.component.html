@@ -7,9 +7,9 @@
     <mat-tab-group mat-align-tabs="start" animationDuration="500ms">
 
         <mat-tab label="Ordem de serviço">
-            <div class="tab-content">
-                <div class="os-dados">
-                   
+            <div class="tab-content" style="display: flex;">
+                
+                <div class="os-dados">                   
                     <div class="cliente-os">
                         <h3 style="margin-bottom: 0px;">Cliente</h3>
                         <!-- Primeira linha: Nome e Código -->
@@ -48,7 +48,59 @@
                             </div>
                         </div>
                     </div>
+                    <div class="equip-os">
+                        <h3 style="margin-bottom: 0px;">Equipamento</h3>
+                        <!-- Segunda linha: Endereço e Telefone -->
+                        <div class="row">
+                            <div class="input-group">
+                                <label for="telefone">Aparelho:</label>
+                                <input type="text" id="telefone" value="(85) 9 85727393" readonly>
+                            </div>
+                            <div class="input-group"  style="width: 250px;">
+                                <label for="endereco">Marca:</label>
+                                <input type="text" id="endereco" value="teste" readonly>
+                            </div>                        
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <label for="documento">Modelo:</label>
+                                <input type="text" id="documento" value="teste" readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Número de série:</label>
+                                <input type="text" id="email" value="teste" readonly>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div>
+                                <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
+                                    <mat-label>Estado do aparelho:</mat-label>
+                                    <textarea style="resize: none;height: 102px;" matInput placeholder="" readonly></textarea>
+                                    <mat-icon matSuffix>assignment</mat-icon>
+                                </mat-form-field>    
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
+
+                <div class="rec-os" style="margin-left: 30px;height: 200px;">
+                    <h3 style="margin-bottom: 0px;">Resumo do problema</h3>
+                    <!-- Segunda linha: Endereço e Telefone -->
+                    <div class="row">
+                        <div class="input-group" style="width: 100%;">
+                            <label for="telefone">Reclamação do cliente:</label>
+                            <input type="text" id="telefone" value="(85) 9 85727393" readonly>
+                        </div>                                            
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <label for="documento">Resultado do tese inicial:</label>
+                            <input type="text" id="documento" value="teste" readonly>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </mat-tab>
 

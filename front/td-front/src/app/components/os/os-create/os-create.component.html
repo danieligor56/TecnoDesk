@@ -1,14 +1,10 @@
-<div class="containerOs">
+<div class="containerOs mat">
    
     <div class="head" style="margin-bottom: 5px;">
         
-        <div class="titPage" style=" padding:5px;">
+        <div class="titPage" style="padding:5px;margin-bottom: 10px;">
             <h1 id="osH1">Ordem de serviço</h1>       
         </div>
-
-        <!-- <div class="osMarc" style="width: 100%;height: 100%;background-color: #F2F2F2;color:#5F5F5F;padding: 5px;margin-left: 5px;">
-            <h1><b>OS:</b></h1>
-        </div> -->
 
     </div>
     
@@ -74,14 +70,6 @@
             </div>    
 
         </div>
-
-        <!-- <div class="empresa" style="width: 300px;">
-            <div style="margin-top: 0px; text-align: center;">     
-                <h1 class="label" style="background-color: #E6E6E6;margin-top: 0px;">Empresa: </h1>
-            </div>   
-        </div> -->
-
-        
         
         <div [formGroup]="osCreateForm" class="recCli" style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;">
             
@@ -107,6 +95,28 @@
                         matInput placeholder="Exemplo aparelho não liga...">                 
                       </mat-form-field>    
                 </div>
+
+                <mat-divider></mat-divider>
+
+                <div style="display:flex; width: 250px;background-color: #f2f2f2;margin-top: 10px;">
+                    <mat-form-field appearance="fill" style="margin-right: 10px;">
+                        <mat-label>Clasificação de atendimento</mat-label>
+                        <mat-select formControlName="prioridadeOS">
+                          <mat-option value= 0  >Normal</mat-option>
+                          <mat-option value= 1  >Urgência</mat-option>
+                          <mat-option value= 2  >Garantia</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      
+                      <mat-form-field appearance="fill">
+                        <mat-label>Atendente</mat-label>
+                            <mat-select (selectionChange)="onColaboradorChange($event.value)">
+                                <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
+                                {{ colaborador.nome }}
+                                </mat-option>
+                            </mat-select>
+                      </mat-form-field>
+                </div> 
              
         </div>
 
@@ -163,73 +173,47 @@
                     </mat-form-field>
                 </div>
                 
-                <div>
-                    <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
-                    <mat-label>Modelo:</mat-label>
+                
+            </div>
+
+            <div style="margin-right: 10px;">
+                <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
+                <mat-label>Modelo:</mat-label>
+                    <input
+                    formControlName="descricaoModelo"                        
+                    matInput>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
+                    <mat-label>Número de série:</mat-label>
                         <input
                         formControlName="descricaoModelo"                        
                         matInput>
                     </mat-form-field>
-                </div>
+
             </div>
             
             <div>
-                <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
+                <mat-form-field class="dataCli" style="width: 600px;" appearance="fill">
                     <mat-label>Estado do aparelho:</mat-label>
                     <textarea formControlName="checkList" style="resize: none;height: 102px;" matInput placeholder=""></textarea>
                     <mat-icon matSuffix>assignment</mat-icon>
                 </mat-form-field>    
             </div>
-        </div>     
-    
-    </div>
 
-    <div style="display:grid; width: 250px;background-color: #f2f2f2;padding: 10px;">
-        <mat-form-field appearance="fill">
-            <mat-label>Clasificação de atendimento</mat-label>
-            <mat-select formControlName="prioridadeOS">
-              <mat-option value= 0  >Normal</mat-option>
-              <mat-option value= 1  >Urgência</mat-option>
-              <mat-option value= 2  >Garantia</mat-option>
-            </mat-select>
-          </mat-form-field>
-          
-          <mat-form-field appearance="fill">
-            <mat-label>Atendente</mat-label>
-                <mat-select (selectionChange)="onColaboradorChange($event.value)">
-                    <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
-                    {{ colaborador.nome }}
-                    </mat-option>
-                </mat-select>
-          </mat-form-field>
-    </div> 
-    
-    
-
-    <!-- <div style="margin-right: 5px;background-color: #F2F2F2;padding: 10px;width: 100%;">
-        <section class="tituloPage" >
-            <h1 class="label">Garantia e observações:</h1>       
-        </section>
-
-        <mat-form-field style="width: 100%;" appearance="fill">
-            <textarea  readonly style="resize: none;height: 85px;" matInput placeholder=""></textarea>             
-          </mat-form-field>
-    </div> -->
+            
+            
+        </div>    
         
-    </div>
-
-    <mat-divider style="margin-bottom: 5px;"></mat-divider>
-
-    <div class="rowFooter" style="display:flex;width: 100%;align-items: center;">
-        
-        
-
         <div style="text-align: right;">
-            <button (click)="createOsEntrada()" mat-flat-button color="primary">Criar ordem de serviço</button>
+            <button (click)="createOsEntrada()" mat-flat-button style="background-color: #1F66FE;color: white;">Criar ordem de serviço</button>
             <button (click)="openDialogCancelarOs()" style="margin-left: 4px;" mat-raised-button color="warn">Cancelar</button>
         </div>
+       
     
     </div>
+        
+    </div> 
         
 
 </div>
