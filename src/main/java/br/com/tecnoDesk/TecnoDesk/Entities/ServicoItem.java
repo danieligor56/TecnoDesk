@@ -24,16 +24,16 @@ public class ServicoItem {
 	private Empresa empresa;
 
 	@Column(name = "nome_servico", nullable = false, unique = true)
-	private String nome_servico;
+	private String nomeServico;
 
 	@Column(name = "desc_servico", length = 255)
-	private String desc_servico;
+	private String descServico;
 
 	@Column(name = "valor_servico", nullable = false)
-	private Double valor_servico;
+	private Double valorServico;
 
 	@Column(name = "custo_servico")
-	private Double custo_servico;
+	private Double custoServico;
 
 	public Long getId() {
 		return id;
@@ -51,36 +51,36 @@ public class ServicoItem {
 		this.empresa = empresa;
 	}
 
-	public String getNome_servico() {
-		return nome_servico;
+	public String getNomeServico() {
+		return nomeServico;
 	}
 
-	public void setNome_servico(String nome_servico) {
-		this.nome_servico = nome_servico;
+	public void setNomeServico(String nomeServico) {
+		this.nomeServico = nomeServico;
 	}
 
-	public String getDesc_servico() {
-		return desc_servico;
+	public String getDescServico() {
+		return descServico;
 	}
 
-	public void setDesc_servico(String desc_servico) {
-		this.desc_servico = desc_servico;
+	public void setDescServico(String descServico) {
+		this.descServico = descServico;
 	}
 
-	public Double getValor_servico() {
-		return valor_servico;
+	public Double getValorServico() {
+		return valorServico;
 	}
 
-	public void setValor_servico(Double valor_servico) {
-		this.valor_servico = valor_servico;
+	public void setValorServico(Double valorServico) {
+		this.valorServico = valorServico;
 	}
 
-	public Double getCusto_servico() {
-		return custo_servico;
+	public Double getCustoServico() {
+		return custoServico;
 	}
 
-	public void setCusto_servico(Double custo_servico) {
-		this.custo_servico = custo_servico;
+	public void setCustoServico(Double custoServico) {
+		this.custoServico = custoServico;
 	}
 }
 
