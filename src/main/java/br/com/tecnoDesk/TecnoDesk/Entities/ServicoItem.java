@@ -1,5 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,12 +20,13 @@ public class ServicoItem {
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)
 	private Empresa empresa;
 
-	@Column(name = "nome_servico", nullable = false, unique = true)
+	@Column(name = "nome_servico", nullable = false, unique = false)
 	private String nomeServico;
 
 	@Column(name = "desc_servico", length = 255)
@@ -35,52 +38,5 @@ public class ServicoItem {
 	@Column(name = "custo_servico")
 	private Double custoServico;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
-	public String getNomeServico() {
-		return nomeServico;
-	}
-
-	public void setNomeServico(String nomeServico) {
-		this.nomeServico = nomeServico;
-	}
-
-	public String getDescServico() {
-		return descServico;
-	}
-
-	public void setDescServico(String descServico) {
-		this.descServico = descServico;
-	}
-
-	public Double getValorServico() {
-		return valorServico;
-	}
-
-	public void setValorServico(Double valorServico) {
-		this.valorServico = valorServico;
-	}
-
-	public Double getCustoServico() {
-		return custoServico;
-	}
-
-	public void setCustoServico(Double custoServico) {
-		this.custoServico = custoServico;
-	}
 }
 

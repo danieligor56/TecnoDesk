@@ -18,13 +18,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServicoItemService {
 
-	private final ServicoItemRepository servicoItemRepository;
-
 	@Autowired
 	DecriptService decriptService;
 
 	@Autowired
 	EmpresaRepository empresaRepository;
+	
+	@Autowired
+	ServicoItemRepository servicoItemRepository;
+	
 
 	public ServicoItem criarServicoItem(ServicoItemDTO servicoItemDTO, String codEmpresa) throws BadRequestException {
 		try {
@@ -45,8 +47,21 @@ public class ServicoItemService {
 		}
 	}
 
-	public List<ServicoItem> buscarTodos() {
-		return servicoItemRepository.findAll();
+	public List<ServicoItem> buscarTodos(String codEmpresa) throws BadRequestException {
+		
+		try {
+			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+			if (empresa == null) {
+				throw new BadRequestException("Empresa não encontrada para o código fornecido.");
+				
+				}
+				return servicoItemRepository.listSevicoItem(empresa.getId());
+			}
+			catch (Exception e) {
+				throw new BadRequestException("Não foi atender a solicitação nesse momento. ", e);
+			}
+		
+		
 	}
 
 

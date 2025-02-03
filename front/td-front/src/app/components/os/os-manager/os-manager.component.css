@@ -31,9 +31,15 @@ mat-form-field{
     width: 100%;
 }
 
-.cliente-os,.equip-os,.rec-os{
+.cliente-os,.equip-os{
     padding: 8px;
     width: 500px;
+    background-color: #F5F5F5;
+}
+
+.rec-os{
+    padding: 8px;
+    
     background-color: #F5F5F5;
 }
 
@@ -57,7 +63,7 @@ mat-form-field{
 
 .container{
     width: 92%;
-    margin:2rem auto;
+    /* margin:2rem auto; */
 }
 .actionsButtons:hover{
     color: #000000;
@@ -68,7 +74,7 @@ mat-form-field{
 }
 
 .tab-content {
-    padding: 20px;
+    padding: 10px;
 }
 
 .cliente-os, .equipamento-os, .servico-dados,.equip-os,.rec-os {
