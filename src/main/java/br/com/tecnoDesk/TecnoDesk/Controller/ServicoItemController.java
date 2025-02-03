@@ -27,7 +27,7 @@ public class ServicoItemController {
 
 	@GetMapping("/todosServicos")
 	public ResponseEntity<List<ServicoItem>> listarTodosServicos(@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
-		List<ServicoItem> servicos = servicoItemService.buscarTodos();
+		List<ServicoItem> servicos = servicoItemService.buscarTodos(codEmpresa);
 		return ResponseEntity.ok(servicos);
 	}
 
