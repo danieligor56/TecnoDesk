@@ -45,6 +45,7 @@ import { OsCreateSucssesComponent } from './components/os/os-create/os-create-su
 import {MatPaginator} from '@angular/material/paginator';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ItemServiceComponent } from './components/item-service/item-service.component';
 
 
 
@@ -69,7 +70,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     ClienteCreateOsComponent,
     CancelarOSComponent,
     OsCreateSucssesComponent,
-    OsManagerComponent
+    OsManagerComponent,
+    ItemServiceComponent
     
   
   ],

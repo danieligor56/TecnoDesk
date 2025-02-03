@@ -15,6 +15,7 @@ import { ClientesDeleteComponent } from './components/clientes/clientes-delete/c
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
 import { OsListComponent } from './components/os/os-list/os-list.component';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
+import { ItemServiceComponent } from './components/item-service/item-service.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   },
   {
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[
-      {path:'home',component:HomeComponent}, 
+      {path:'home',component:HomeComponent},
+      {path: 'itemService',component:ItemServiceComponent}, 
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
