@@ -15,7 +15,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 
 @Service
-
 public class TokenService {
 	
 	@Value("${api.security.token.secret}")

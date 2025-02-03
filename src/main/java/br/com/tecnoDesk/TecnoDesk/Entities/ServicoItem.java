@@ -13,7 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "servico_item")
+//@Table(name = "servico_item")
+@Table(name = "servico_item", uniqueConstraints = @UniqueConstraint(columnNames = {"nome_servico", "codigo_empresa"}))
+
 public class ServicoItem {
 
 	@Id
@@ -26,7 +28,7 @@ public class ServicoItem {
 	@JoinColumn(name = "codigo_empresa",nullable = false)
 	private Empresa empresa;
 
-	@Column(name = "nome_servico", nullable = false, unique = false)
+	@Column(name = "nome_servico", nullable = false)
 	private String nomeServico;
 
 	@Column(name = "desc_servico", length = 255)

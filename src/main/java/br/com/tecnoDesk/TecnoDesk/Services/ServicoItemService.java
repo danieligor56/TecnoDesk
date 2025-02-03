@@ -26,8 +26,9 @@ public class ServicoItemService {
 	
 	@Autowired
 	ServicoItemRepository servicoItemRepository;
-	
 
+
+	//CRIAR SERVICO ITEM
 	public ServicoItem criarServicoItem(ServicoItemDTO servicoItemDTO, String codEmpresa) throws BadRequestException {
 		try {
 			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
@@ -43,29 +44,22 @@ public class ServicoItemService {
 			return servicoItemRepository.save(servicoItem);
 
 		} catch (Exception e) {
-			throw new BadRequestException("Não foi possível criar um Servico, Por favor verifique os campos Nome do Servico", e);
+			throw new BadRequestException("Não foi possível criar um Servico", e);
 		}
 	}
 
+	//BUSCAR TODOS OS SERVICOS DO GRUPO DE EMPRESAS
 	public List<ServicoItem> buscarTodos(String codEmpresa) throws BadRequestException {
-		
 		try {
-			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
-			if (empresa == null) {
-				throw new BadRequestException("Empresa não encontrada para o código fornecido.");
-				
-				}
-				return servicoItemRepository.listSevicoItem(empresa.getId());
-			}
-			catch (Exception e) {
-				throw new BadRequestException("Não foi atender a solicitação nesse momento. ", e);
-			}
-		
-		
+			Long empresaId = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			return servicoItemRepository.listSevicoItem(empresaId);
+
+		} catch (Exception e) {
+			throw new BadRequestException("Não foi possível buscar os serviços", e);
+		}
 	}
 
-
-
+	//ATUALIZAR SERVICO ITEM
 	public ServicoItemDTO atualizarServicoItem(Long id, ServicoItemDTO servicoItemDTO) {
 		return servicoItemRepository.findById(id)
 				.map(servicoItem -> {
@@ -83,6 +77,7 @@ public class ServicoItemService {
 				.orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
 	}
 
+	//DELETAR SERVICO ITEM
 	public ResponseEntity<String> deletarServicoItem(Long id) {
 		if (servicoItemRepository.existsById(id)) {
 			servicoItemRepository.deleteById(id);

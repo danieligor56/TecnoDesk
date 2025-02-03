@@ -3,6 +3,7 @@ package br.com.tecnoDesk.TecnoDesk.Controller;
 import br.com.tecnoDesk.TecnoDesk.DTO.ServicoItemDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.ServicoItem;
 import br.com.tecnoDesk.TecnoDesk.Services.ServicoItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ public class ServicoItemController {
 
 
 	@PostMapping("/novoServico")
-	public ResponseEntity<ServicoItem> novoServico(@RequestBody ServicoItemDTO servicoItemDTO, @RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
+	public ResponseEntity<ServicoItem> novoServico(@Valid @RequestBody ServicoItemDTO servicoItemDTO, @RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
 		return ResponseEntity.ok().body(servicoItemService.criarServicoItem(servicoItemDTO, codEmpresa));
 	}
 
-	@GetMapping("/todosServicos")
+	@PostMapping("/todosServicos")
 	public ResponseEntity<List<ServicoItem>> listarTodosServicos(@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
 		List<ServicoItem> servicos = servicoItemService.buscarTodos(codEmpresa);
 		return ResponseEntity.ok(servicos);
@@ -33,7 +34,7 @@ public class ServicoItemController {
 
 
 	@PutMapping("/atualizarServico/{id}")
-	public ResponseEntity<ServicoItemDTO> atualizarServico(@PathVariable Long id, @RequestBody ServicoItemDTO servicoItemDTO, @RequestHeader("CodEmpresa") String codEmpresa) {
+	public ResponseEntity<ServicoItemDTO> atualizarServico(@PathVariable Long id, @Valid @RequestBody ServicoItemDTO servicoItemDTO, @RequestHeader("CodEmpresa") String codEmpresa) {
 		ServicoItemDTO atualizado = servicoItemService.atualizarServicoItem(id, servicoItemDTO);
 		return ResponseEntity.ok(atualizado);
 	}
