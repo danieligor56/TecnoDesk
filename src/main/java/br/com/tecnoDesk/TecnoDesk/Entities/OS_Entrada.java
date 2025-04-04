@@ -65,7 +65,7 @@ public class OS_Entrada {
 	@Column(name = "chkList", nullable = false)
 	private String checkList;
 	
-	//----
+	//---- 
 
 	@Column(name = "recCliente", nullable = false)
 	private String reclamacaoCliente;

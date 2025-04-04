@@ -52,13 +52,13 @@
 
                     <div  id="parametros-os">
                         <h3>Parametros OS</h3>
-                        <div style="width: 250px;">                  
+                        <div style="width: 250px;margin-bottom: 1rem;">                  
                             <div class="input-group">
                                 <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
                                 <input type="text" id="telefone" value="{{Os.colaborador.nome}}" readonly width="80px">
                             </div>
     
-                            <div class="input-group">                              
+                            <div class="input-group" style="margin-bottom: 2rem;">                              
                                 <mat-form-field appearance="legacy">
                                     <label for="telefone">Responsável técnico:</label>
                                         <mat-select (selectionChange)="onColaboradorChange($event.value)">
