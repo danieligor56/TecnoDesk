@@ -4,7 +4,7 @@
         <h1 id="osH1">Ordem de serviço</h1>       
     </div>
 
-    <mat-tab-group mat-align-tabs="start" animationDuration="500ms">
+    <mat-tab-group mat-align-tabs="start" animationDuration="500ms" class="mat-elevation-z4" style="overflow: hidden;">
 
         <mat-tab label="Ordem de serviço">
             <div class="tab-content" style="display: flex;">
@@ -16,11 +16,12 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="cliente">Nome:</label>
-                                <input type="text" id="cliente" value="teste" readonly>
+                                <input type="text" id="cliente" value="{{Os.cliente.nome}}" readonly>
+                                
                             </div>
                             <div class="input-group" style="width: 80px;">
                                 <label for="cod">Cod.:</label>
-                                <input type="text" id="cod" value="3" readonly>
+                                <input type="text" id="cod" value="{{Os.cliente.id}}" readonly>
                             </div>
                         </div>
 
@@ -28,11 +29,11 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="telefone">Telefone:</label>
-                                <input type="text" id="telefone" value="(85) 9 85727393" readonly>
+                                <input type="text" id="telefone" value="{{Os.cliente.cel1}}" readonly>
                             </div>
                             <div class="input-group"  style="width: 250px;">
                                 <label for="endereco">Endereço:</label>
-                                <input type="text" id="endereco" value="teste" readonly>
+                                <input type="text" id="endereco" value="{{Os.cliente.logradouro}} ,numero: {{Os.cliente.numero}}" readonly>
                             </div>                        
                         </div>
 
@@ -40,35 +41,115 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="documento">Documento:</label>
-                                <input type="text" id="documento" value="teste" readonly>
+                                <input type="text" id="documento" value="{{Os.cliente.documento}}" readonly>
                             </div>
                             <div class="input-group">
                                 <label for="email">Email:</label>
-                                <input type="text" id="email" value="teste" readonly>
+                                <input type="text" id="email" value="{{Os.cliente.email}}" readonly>
                             </div>
                         </div>
                     </div>
+
+                    <div  id="parametros-os">
+                        <h3>Parametros OS</h3>
+                        <div style="width: 250px;">                  
+                            <div class="input-group">
+                                <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
+                                <input type="text" id="telefone" value="{{Os.colaborador.nome}}" readonly width="80px">
+                            </div>
+    
+                            <div class="input-group">                              
+                                <mat-form-field appearance="legacy">
+                                    <label for="telefone">Responsável técnico:</label>
+                                        <mat-select (selectionChange)="onColaboradorChange($event.value)">
+                                            <mat-option  *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
+                                            {{ colaborador.nome }}
+                                            </mat-option>
+                                        </mat-select>
+                                  </mat-form-field>
+                                <!-- <input type="text" id="telefone" value="" readonly> -->
+                            </div>
+    
+                            <div class="input-group">
+                                <mat-form-field appearance="legacy" style="margin-right: 10px;">
+                                    <label for="telefone">Tipo de prioridade: </label>
+                                    <mat-select formControlName="prioridadeOS">
+                                      <mat-option value= 0  >Normal</mat-option>
+                                      <mat-option value= 1  >Urgência</mat-option>
+                                      <mat-option value= 2  >Garantia</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                            </div>
+    
+                            
+                        </div>
+    
+                      </div>
+                                         
+                </div>
+
+                 
+                <div class="rec-cli" style="margin-left: 30px;margin-top: 20px;">
+                    <h3 style="margin-bottom: 5px;">Resumo do problema</h3>
+                    
+                    <div>
+                        <div>
+                            <mat-form-field class="dataCli" style="width: 400px; margin-right: 10px;" appearance="fill">
+                                <mat-label>Reclamação do cliente:</mat-label>
+                                <textarea style="resize: none; height: 1 rem;" matInput placeholder="" readonly>{{Os.reclamacaoCliente}}</textarea>                               
+                            </mat-form-field>    
+                        </div>
+                        <div>
+                            <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
+                                <mat-label>Resultado do teste inicial:</mat-label>
+                                <textarea style="resize: none; height: 8px;" matInput placeholder="" readonly>{{Os.initTest}}</textarea>
+                            </mat-form-field>    
+                        </div>
+                        
+                        <div id="containerImgOsManager">
+                            <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
+                        </div>
+                        
+
+                  </div>
+                  
+                 
+                        
+                                        
+                                       
+                </div>
+                
+            </div>
+        </mat-tab>
+
+        <!-- Aba de Dados do Equipamento -->
+         
+        <mat-tab label="Equipamento" style="overflow: none;">
+            
+            <div class="tab-content" style="display: flex;">
+                <div class="equipamento-dados">
+                    <!-- <h3>Dados do Equipamento:</h3> -->
                     <div class="equip-os">
                         <h3 style="margin-bottom: 0px;">Equipamento</h3>
-                        <!-- Segunda linha: Endereço e Telefone -->
-                        <div class="row">
+                         <!-- Segunda linha: Endereço e Telefone  -->
+                         <div class="row">
                             <div class="input-group">
                                 <label for="telefone">Aparelho:</label>
-                                <input type="text" id="telefone" value="(85) 9 85727393" readonly>
+                                <input type="text" id="telefone" value="{{Os.aparelhos}}" readonly>
                             </div>
                             <div class="input-group"  style="width: 250px;">
                                 <label for="endereco">Marca:</label>
-                                <input type="text" id="endereco" value="teste" readonly>
+                                <input type="text" id="endereco" value="{{Os.marcaAparelho}}" readonly>
                             </div>                        
                         </div>
                         <div class="row">
                             <div class="input-group">
                                 <label for="documento">Modelo:</label>
-                                <input type="text" id="documento" value="teste" readonly>
+                                <input type="text" id="documento" value="{{Os.descricaoModelo}}" readonly>
                             </div>
                             <div class="input-group">
                                 <label for="email">Número de série:</label>
-                                <input type="text" id="email" value="teste" readonly>
+                                <input type="text" id="email" value="{{Os.snAparelho}}" readonly>
                             </div>
                             
                         </div>
@@ -76,112 +157,42 @@
                             <div>
                                 <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
                                     <mat-label>Estado do aparelho:</mat-label>
-                                    <textarea style="resize: none;height: 102px;" matInput placeholder="" readonly></textarea>
+                                    <textarea style="resize: none;height: 102px;" value="{{Os.checkList}}" matInput placeholder="" readonly></textarea>
                                     <mat-icon matSuffix>assignment</mat-icon>
                                 </mat-form-field>    
                             </div>
                         </div>
-                    </div>                    
-                </div>
-
-                 
-                <div class="rec-cli" style="margin-left: 30px;width: 100%;margin-top: 27px;">
-                    <h3 style="margin-bottom: 5px;">Resumo do problema</h3>
+                    </div>
                     
-                    <div style="display:flex;;">
-                        <div>
-                            <mat-form-field class="dataCli" style="width: 400px; margin-right: 10px;" appearance="fill">
-                                <mat-label>Reclamação do cliente:</mat-label>
-                                <textarea style="resize: none;height: 30px;" matInput placeholder="" readonly></textarea>                               
-                            </mat-form-field>    
-                        </div>
-                        <div>
-                            <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
-                                <mat-label>Resultado do teste inicial:</mat-label>
-                                <textarea style="resize: none;height: 20px;" matInput placeholder="" readonly></textarea>
-                            </mat-form-field>    
-                        </div>
-                  </div>
-                  
-                  <div>
-                    <h3>Parametros OS</h3>
-                    <div style="width: 300px;">                  
-                        <div class="input-group">
-                            <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
-                            <input type="text" id="telefone" value="(85) 9 85727393" readonly width="80px">
-                        </div>
-
-                        <div class="input-group">
-                            <label for="telefone">Responsável técnico:</label>
-                            <input type="text" id="telefone" value="(85) 9 85727393" readonly>
-                        </div>
-
-                        <!-- <mat-form-field appearance="fill">
-                            <mat-label>Atendente</mat-label>
-                                <mat-select (selectionChange)="onColaboradorChange($event.value)">
-                                    <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
-                                    {{ colaborador.nome }}
-                                    </mat-option>
-                                </mat-select>
-                          </mat-form-field> -->
-                        
-                    </div>
-
-                  </div>
-                        
-                                        
-                                       
                 </div>
 
-                
-
-            </div>
-        </mat-tab>
-
-        <!-- Aba de Dados do Equipamento -->
-        <mat-tab label="Equipamento">
-            <div class="tab-content">
-                <div class="equipamento-dados">
-                    <h3>Dados do Equipamento:</h3>
-                    <div class="equipamento-os">
-                        <mat-form-field class="fullWidth" appearance="fill">
-                            <mat-label>Tipo do Equipamento</mat-label>
-                            <input required matInput>
-                            <mat-icon matSuffix>devices</mat-icon>
-                        </mat-form-field>
-
-                        <mat-form-field class="fullWidth" appearance="fill">
-                            <mat-label>Marca/Modelo</mat-label>
-                            <input required matInput>
-                            <mat-icon matSuffix>inventory_2</mat-icon>
-                        </mat-form-field>
-
-                        <mat-form-field class="fullWidth" appearance="fill">
-                            <mat-label>Número de Série</mat-label>
-                            <input required matInput>
-                            <mat-icon matSuffix>pin</mat-icon>
-                        </mat-form-field>
-                    </div>
+                <div id="containerImgOsEquip">
+                    <img src="/assets/img/img-os-manage-equip.svg" alt="" >
                 </div>
+
             </div>
+
+            
+
         </mat-tab>
 
         <!-- Aba de Serviço -->
         <mat-tab label="Serviço">
             <div class="tab-content">
                 <div class="servico-dados">
-                    <h3>Detalhes do Serviço:</h3>
-                    <mat-form-field class="fullWidth" appearance="fill">
-                        <mat-label>Descrição do Problema</mat-label>
-                        <textarea matInput rows="4"></textarea>
-                    </mat-form-field>
+                    <div id="laudoTecnico">
+                        <h3>Laudo técnico</h3>
 
-                    <mat-form-field class="fullWidth" appearance="fill">
-                        <mat-label>Diagnóstico Técnico</mat-label>
-                        <textarea matInput rows="4"></textarea>
-                    </mat-form-field>
+                        <mat-form-field class="fullWidth" appearance="fill">
+                            <mat-label>Diagnóstico Técnico</mat-label>
+                            <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
+                        </mat-form-field>
 
-                    <mat-form-field class="fullWidth" appearance="fill">
+                    </div>
+
+                    
+
+                    <!-- <mat-form-field class="fullWidth" appearance="fill">
                         <mat-label>Status do Serviço</mat-label>
                         <mat-select required>
                             <mat-option value="aberto">Aberto</mat-option>
@@ -189,8 +200,13 @@
                             <mat-option value="aguardando_peca">Aguardando Peça</mat-option>
                             <mat-option value="concluido">Concluído</mat-option>
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </div>
+
+                <div id="orcamento">
+                    <h3>Orçamento</h3>
+                </div>
+
             </div>
         </mat-tab>
     </mat-tab-group>

@@ -56,7 +56,9 @@ export class OsCreateComponent implements OnInit {
       reclamacaoCliente:[],
       initTest:[],
       statusOS:[0],
-      prioridadeOS:[]
+      prioridadeOS:[],
+      marcaAparelho:[],
+      snAparelho:[]
     
     });
 

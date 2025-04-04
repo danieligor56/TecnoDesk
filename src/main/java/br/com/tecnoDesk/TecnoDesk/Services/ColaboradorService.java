@@ -9,6 +9,7 @@ import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.ColaboradorDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import exception.BadRequest;
@@ -145,7 +146,6 @@ public class ColaboradorService {
 		}
 	}
 		
-
 	public void ativaColaborador(long id) {
 		
 		try {
@@ -160,15 +160,19 @@ public class ColaboradorService {
 		
 		}
 	}
-	
-	
+		
 	public List<Colaborador> encontrarColaborador(long id){
 		return colaboradorRespository.findByCodEmpresa(id);
 	}
 
 	
-	
-	
+	  public List<Colaborador> listarTecnicos(long CodEmp) throws Exception {
+	  
+	  
+	  return colaboradorRespository.listarTecnicos(CodEmp);
+	  
+	  	}
+	 
 		
 
 }

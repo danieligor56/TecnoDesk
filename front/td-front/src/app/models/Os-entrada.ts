@@ -17,10 +17,8 @@ export interface Os_entrada{
   initTest: string;
   statusOS: number;
   prioridadeOS:Number;
-
-
-
-
+  marcaAparelho: string;
+  snAparelho: string;
 
 }
 	

@@ -49,7 +49,17 @@
           <th mat-header-cell *matHeaderCellDef></th> 
          <td class="actionsButtons" mat-cell *matCellDef="let element"> 
          
-          <a routerLink="/os/manager">
+          <!-- 
+          
+          <a [routerLink]="element.id" (click)="$event.preventDefault()">
+              <mat-icon style="color:#5E5E5E;margin-right: 10px;margin-left: 6px;" (click)="openDialog($event, element.id)" id="editar">open_in_new</mat-icon>
+            </a>
+          
+          
+          --- -->
+
+
+          <a [routerLink]="['/manager',element.numOs]">
             <mat-icon style="color:#5E5E5E;margin-right: 8px;" >assignment</mat-icon>
           </a>
           

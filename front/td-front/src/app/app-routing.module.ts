@@ -33,6 +33,7 @@ const routes: Routes = [
       {path:'os/create',component:OsCreateComponent},
       {path:'os/list',component:OsListComponent},
       {path:'os/manager',component:OsManagerComponent},
+      {path:'manager/:id',component:OsManagerComponent},
       {path:'clientes',component:ClientesListComponent},
       {path:'clientes/create',component:ClienteCreateComponent},
       {path:'clientes/update/:id',component:ClientesUpdateComponent},

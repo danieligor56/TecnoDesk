@@ -47,15 +47,25 @@ public class OS_Entrada {
 	
 	@Column(name = "dtAbert",nullable = false)
 	private String dataAbertura;
-
+	
+	//APARELHO: 
+	
 	@Column(name = "aparelho", nullable = false)
 	private Aparelhos aparelhos;
-
-	@Column(name = "descModel", nullable = false)
+	
+	@Column(name = "modeloAparelho", nullable = true)
 	private String descricaoModelo;
-
+	
+	@Column(name = "marcaAparelho", nullable = true)
+	private String marcaAparelho;
+	
+	@Column(name = "snAparelho", nullable = true)
+	private String snAparelho;
+	
 	@Column(name = "chkList", nullable = false)
 	private String checkList;
+	
+	//----
 
 	@Column(name = "recCliente", nullable = false)
 	private String reclamacaoCliente;

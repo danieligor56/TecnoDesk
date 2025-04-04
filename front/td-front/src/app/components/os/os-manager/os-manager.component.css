@@ -84,6 +84,11 @@ mat-form-field{
     margin-top: 20px;
 }
 
+.servico-dados{
+    
+    padding: 10px;
+}
+
 .fullWidth {
     width: 100%;
 }
@@ -148,4 +153,51 @@ h3 {
 .input-group input:read-only {
     background-color: #f0f0f0;
     cursor: not-allowed;
+}
+
+#parametros-os{
+    background-color: #F5F5F5;
+    padding: 8px;
+    margin-top: 4px;
+}
+
+.rec-cli{
+    background-color: #F5F5F5;
+    padding: 8px;
+    
+}
+
+#imgOsManager{
+    height: 14rem;
+    width: 14rem;
+}
+
+#containerImgOsManager{
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+#containerImgOsEquip{
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    margin-bottom: 0px;
+    height: 100%;
+}
+
+#containerImgOsEquip, img {
+    margin-top: 2rem;
+    height: 20rem;
+    width: 20rem;
+}
+
+#laudoTecnico{
+    background-color:#F5F5F5 ;
+    padding: 10px;
+}
+
+#orcamento{
+    background-color:#F5F5F5 ;
+    padding: 10px;
 }

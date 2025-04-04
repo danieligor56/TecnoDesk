@@ -5,6 +5,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Os_entrada } from 'src/app/models/Os-entrada';
 import { OsService } from 'src/app/services/os.service';
 import { PdfService } from 'src/app/services/pdf.service';
+import { OsManagerComponent } from '../os-manager/os-manager.component';
 
 
 @Component({
@@ -19,7 +20,6 @@ export class OsListComponent implements OnInit {
   displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS','acoesOs'];
   filteredELEMENT_DATA: Os_entrada[] = [];
   osOne: Os_entrada;
-
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchTerm: any;
@@ -57,7 +57,7 @@ export class OsListComponent implements OnInit {
     );
   }
 
-  imprimirOs(osImp:bigint){
+  imprimirOs(osImp:number){
     debugger;
 this.osService.findOsByNumOs(osImp).subscribe(response =>
 {
@@ -77,6 +77,9 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
 
     
   }
+ 
+  
+
     
   
   

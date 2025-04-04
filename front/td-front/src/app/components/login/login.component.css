@@ -1,19 +1,35 @@
-.container{
-    width: 100%;
-    height: 100%; 
-    display: flex;
+
+#content{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
     align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle, rgba(235,0,255,1) 31%, rgba(43,5,83,1) 81%);
+    place-items: center;
+    background-image: url("/assets/background-login.jpg");
+    background-size: cover;
+   
 }
 
-/* .form{
-    width: 80rem;
-    margin:auto;
-    background-color:white;
-    padding: 4rem 1rem;
-   
-} */
+#container{
+    
+    background-color: white;
+    padding: 10px;
+    width: 60rem;
+    
+}
+
+#side-image{
+    background-image: url("/assets/img/4957136.jpg") ;
+    background-size: cover;
+    width: 30vw;
+    height: 40vh;
+    background-position: center;
+}
+
+#form-login{
+    height: 40vh;
+
+}
 
 h1{
     width: 100%;
@@ -25,38 +41,6 @@ h1{
     width: 100%;
 } 
 
-img{
-    
-    height: 25rem;
-    width: 100%;
-    margin-left: 4rem;
-}
-
-.logar{
-    padding-top: 8rem;
-    border-radius: 12px;
-    background-color: white;
-    margin-right: 2rem;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    width: 24rem;
-    
-}
-
-.sideLogar{
-    align-self: ce;
-    margin-right:10rem;
-}
-
-.content{
-    width: 50%;
-    height: 40rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 1rem;
-}
 
 mat-icon{
     opacity: 0.4;

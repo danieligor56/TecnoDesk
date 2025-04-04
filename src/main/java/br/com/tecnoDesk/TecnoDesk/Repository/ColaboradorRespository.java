@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import br.com.tecnoDesk.TecnoDesk.Entities.Colaborador;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
+
 
 @Repository
 
@@ -29,5 +31,12 @@ public interface ColaboradorRespository extends JpaRepository<Colaborador, Long>
 			)
 	
 	List<Colaborador>listAll(long CodEmp);
+	
+	@Query(
+			value = "SELECT * FROM Colaborador c WHERE c.codigo_empresa = :CodEmp and c.funcao = 0",
+			nativeQuery = true
+			)
+	List<Colaborador>listarTecnicos(long CodEmp); 
+	
 	
 }

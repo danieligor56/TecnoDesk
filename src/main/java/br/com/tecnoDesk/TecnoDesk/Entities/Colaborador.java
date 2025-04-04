@@ -40,7 +40,7 @@ public class Colaborador {
 	private String documento;
 	
 	@Column(name = "FUNCAO",nullable = true,unique = false)
-	private List<Ocupacao>ocupacao;
+	private Ocupacao ocupacao;
 	
 	@Column(name = "EMAIL",nullable = true,unique = true)
 	private String email;

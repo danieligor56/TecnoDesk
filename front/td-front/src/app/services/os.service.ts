@@ -34,7 +34,7 @@ export class OsService {
     
     }
 
-    findOsByNumOs(numOs:bigint): Observable<Os_entrada>{
+    findOsByNumOs(numOs:number): Observable<Os_entrada>{
      
       const headers = new HttpHeaders({
         'codEmpresa':sessionStorage.getItem('CompGrpIndent')

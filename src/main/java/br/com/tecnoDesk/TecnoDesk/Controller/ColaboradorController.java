@@ -55,7 +55,7 @@ public class ColaboradorController {
 	}
 	
 	@GetMapping("/listarColaboradores")
-		public ResponseEntity<List<Colaborador>>listarColaboradores(@RequestHeader("CodEmpresa") String codemp) throws Exception{
+	public ResponseEntity<List<Colaborador>>listarColaboradores(@RequestHeader("CodEmpresa") String codemp) throws Exception {
 
 		if(codemp != null) {
 			
@@ -101,5 +101,19 @@ public class ColaboradorController {
 		return colaboradorService.encontrarColaborador(id);
 	}
 	
+	
+	  @GetMapping("/listarTecnicos") 
+	  public ResponseEntity<List<Colaborador>>listarTecnicos(@RequestHeader("CodEmpresa")String codemp) throws Exception{
+	  
+	  if(codemp != null) {
+	  
+		  Long codempresa = Long.valueOf(secUtil.decrypt(codemp));
+	 
+		  return ResponseEntity.ok().body(colaboradorService.listarTecnicos(codempresa)); 
+	  
+	  } 
+	  
+	  throw new BadRequestException("O Código, "+codemp+" não foi encontrado"); }
+	 
 }
 

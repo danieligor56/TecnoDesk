@@ -60,11 +60,9 @@ export class ColaboradorService {
   }
   
   create(colaborador:Colaborador): Observable<Colaborador>{
-    
     const headers = new HttpHeaders({
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })
-    
     const options = { headers: headers }
     return this.http.post<Colaborador>("http://localhost:8080/api/v1/Colaborador/AdicionaNovoColaborador",colaborador,options);
   }
@@ -72,6 +70,16 @@ export class ColaboradorService {
   verificaUsuario(email:string) {
     return this.http.get<boolean>(`http://localhost:8080/auth/vericarUsuario?email=${email}`);
    
+  }
+
+  listarTecnicos(): Observable<Colaborador[]>{
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+
+    const options = { headers: headers }
+    return this.http.get<Colaborador[]>("http://localhost:8080/api/v1/Colaborador/listarTecnicos",options);
+
   }
 
 

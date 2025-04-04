@@ -34,6 +34,10 @@ public class OS_EntradaDTO {
 	private Aparelhos aparelhos;
 
 	private String descricaoModelo;
+	
+	private String marcaAparelho;
+	
+	private String snAparelho;
 
 	private String checkList;
 
@@ -45,3 +49,10 @@ public class OS_EntradaDTO {
 	
 	private PrioridadeOS prioridadeOS;
 }
+
+
+
+
+
+
+
