@@ -41,8 +41,19 @@ export class ItemServiceService {
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })
     const options = { headers: headers }
-      return this.http.put<ItemService>(`http://localhost:8080/api/v1/servico/alterarCliente?id=${id}`,servico,options);
+      return this.http.put<ItemService>(`http://localhost:8080/api/v1/servico/alterarServico?id=${id}`,servico,options);
   }
+
+  deletarServico(id:number){
+
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.delete(`http://localhost:8080/api/v1/servico/deleteServico/{id}?id=${id}`,options)
+  }
+
 
 
 

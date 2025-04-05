@@ -6,6 +6,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -56,10 +57,16 @@ public class ServicoController {
 		return servicoService.buscarServicoPorId(id,codemp);
 	}
 	
-	@PutMapping("/alterarCliente")
+	@PutMapping("/alterarServico")
 	public ResponseEntity<Servico> alterarCliente(@RequestParam Long id, @RequestBody ServicoDTO servicoDTO,@RequestHeader("CodEmpresa") String codemp) {
 		servicoService.alterarServico(id, servicoDTO,codemp);
 		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("deleteServico/{id}")
+	public void deletarServico(@RequestParam long id,@RequestHeader("CodEmpresa") String codemp) throws Exception{
+		servicoService.deletarServico(id,codemp);
+		ResponseEntity.ok().build();
 	}
 	
 	

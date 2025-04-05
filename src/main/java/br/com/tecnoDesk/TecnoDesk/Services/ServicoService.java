@@ -90,6 +90,34 @@ public class ServicoService {
 		
 		return null;
 	}
+	
+	public void deletarServico(long id, String codEmpresa) throws Exception {
+		
+		try {
+			
+			long codEmp = Long.valueOf(secUtil.decrypt(codEmpresa));
+			Servico existeServico = servicoRepository.encontrarPorId(id,codEmp);
+			
+				if(existeServico != null) {
+					servicoRepository.deleteById(id);
+				}
+				
+				else {
+					throw new BadRequest("Serviço não encontrado,");
+				}
+				 
+			
+			
+			
+		} catch (Exception e) {
+			throw new BadRequest("Não foi possível atender a solicitação nesse momento,"+ e);
+		}
+		
+			
+		
+		
+
+		}
 		
 			
 	

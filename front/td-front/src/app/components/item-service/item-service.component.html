@@ -42,11 +42,12 @@
                     </a>
                   </div>
                     <div>
-                      <mat-icon              
-                    style="color:#5E5E5E;margin-right: 4px;"
-                    id="delete"
-                    >delete
-                    </mat-icon>
+                      <mat-icon                    
+                          (click)="openDelDialog($event, servico.id)"
+                          style="color:#5E5E5E;margin-right: 4px;"
+                          id="delete"
+                          >delete
+                      </mat-icon>
                     </div>                
                   </div>            
            </td>

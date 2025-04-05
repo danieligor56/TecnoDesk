@@ -1,1 +1,29 @@
-<p>item-service-delete works!</p>
+<div class="container">
+    <h3 class="label">Deletar serviço ? </h3>
+        
+     
+    <div>
+        <div style=" align-items: baseline;vertical-align: middle;display: flex;">
+            <div>
+                <label>
+                    <b>Você realmente deseja excluir o item ?</b>      
+                </label>
+            </div>
+            <div style="padding: 0px;margin-bottom: 0px;align-items: end;margin-left: .5rem;">
+                <mat-icon style=" vertical-align: bottom;" class="custom-icon" matSuffix>warning</mat-icon>
+            </div>
+                
+        </div>
+        
+        <div>
+            <p>Após isso, o serviço não estará mais disponível para uso.</p>
+        </div>
+     
+    <div>
+        <button (click)="closeDialog()" mat-raised-button style="background-color:gray; color: white;float: right;">Cancelar</button>
+        <button (click)="deletarServico()" mat-raised-button style="background-color:#FE3636; color: white;float: right;margin-right: 6px;">Deletar servico</button>
+        
+    </div>    
+    
+</div>
+

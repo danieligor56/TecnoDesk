@@ -6,6 +6,7 @@ import { ItemService } from 'src/app/models/ItemService';
 import { ItemServiceService } from 'src/app/services/item-service.service';
 import { ItemServiceCreateComponent } from './item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './item-service-update/item-service-update.component';
+import { ItemServiceDeleteComponent } from './item-service-delete/item-service-delete.component';
 
 
 
@@ -71,7 +72,20 @@ export class ItemServiceComponent implements OnInit {
         if(result)
           this.encontrarServicos()
       })
-  }  
+  }
+  
+  openDelDialog(event: Event, id: string){
+    const dialogRef = this.dialog.open(ItemServiceDeleteComponent,{
+      data: {
+        id :id 
+      }
+    });
+
+    dialogRef.afterClosed().subscribe( result =>{
+      if(result)
+        this.encontrarServicos()
+    })
+  }
 
 }
 
