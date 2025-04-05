@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.ClienteDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.ServicoDTO;
@@ -16,6 +18,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ServicoRepository;
 import exception.BadRequest;
+import exception.NotFound;
 
 @Service
 public class ServicoService {
@@ -56,4 +59,22 @@ public class ServicoService {
 	public List<Servico> listarServico(Long Codemp) {
 		return servicoRepository.listAll(Codemp);
 	}
+
+	public Servico buscarServicoPorId(long id,String codEmpresa) {
+
+		try {
+				long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+				Servico servico = servicoRepository.encontrarPorId(id,codEmp);
+				return servico;
+			} catch (Exception e) {
+				throw new BadRequest("Não foi possível atender sua solicitação nesse moemnto");
+					}
+	}
+		
+			
+	
+
+
+
+
 }

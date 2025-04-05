@@ -16,7 +16,7 @@ import { ItemServiceCreateComponent } from './item-service-create/item-service-c
 })
 export class ItemServiceComponent implements OnInit {
   servico: ItemService [] = [];
-  displayedColumns: string[] = ['id', 'progress','fruit','name' ];
+  displayedColumns: string[] = ['id', 'progress','fruit','name','acoes' ];
   dataSource = new MatTableDataSource<ItemService>(this.servico);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

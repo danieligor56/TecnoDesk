@@ -17,4 +17,10 @@ public interface ServicoRepository extends JpaRepository<Servico, Long>{
 			)
 	
 	List<Servico>listAll(long CodEmp);
+	
+	@Query(
+			value = "SELECT * FROM Servico c WHERE c.id = :id and c.codigo_empresa = :CodEmp",
+			nativeQuery = true
+			)
+	Servico encontrarPorId(long id,long CodEmp);
 }

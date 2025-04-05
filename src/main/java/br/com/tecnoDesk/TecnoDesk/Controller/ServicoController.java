@@ -48,4 +48,9 @@ public class ServicoController {
 			throw new BadRequestException("O Código, "+codemp+" não foi encontrado");
 			
 		}
+	
+	@GetMapping("/buscarServico/{id}")
+	public Servico buscarClientePorID(long id,@RequestHeader("CodEmpresa") String codemp) {
+		return servicoService.buscarServicoPorId(id,codemp);
+	}
 }
