@@ -18,6 +18,7 @@ import { OsManagerComponent } from './components/os/os-manager/os-manager.compon
 import { ItemServiceComponent } from './components/item-service/item-service.component';
 import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
+import { ItemServiceDeleteComponent } from './components/item-service/item-service-delete/item-service-delete.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
       {path:'home',component:HomeComponent},
       {path: 'itemService',component:ItemServiceComponent},
       {path: 'itemService/create',component:ItemServiceCreateComponent},
-      {path: 'itemService/update', component:ItemServiceUpdateComponent}, 
+      {path: 'itemService/update', component:ItemServiceUpdateComponent},
+      {path: 'itemService/delete', component:ItemServiceDeleteComponent},  
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},

@@ -48,6 +48,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ItemServiceComponent } from './components/item-service/item-service.component';
 import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
+import { ItemServiceDeleteComponent } from './components/item-service/item-service-delete/item-service-delete.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ItemServiceUpdateComponent } from './components/item-service/item-servi
     OsManagerComponent,
     ItemServiceComponent,
     ItemServiceCreateComponent,
-    ItemServiceUpdateComponent
+    ItemServiceUpdateComponent,
+    ItemServiceDeleteComponent
     
   
   ],
