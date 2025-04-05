@@ -9,9 +9,11 @@
         <div>
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label>Serviço</mat-label>
-                <input 
+                <input
+                (blur)="validarNome()" 
                 formControlName="nomeServico"
                 matInput>
+                <mat-icon class="custom-icon" matSuffix>description</mat-icon>
               </mat-form-field>
         </div>
         <div>
@@ -20,6 +22,7 @@
                 <input        
                 formControlName="descServico"
                 matInput placeholder="(Opcional)">
+                <mat-icon class="custom-icon" matSuffix>description</mat-icon> 
               </mat-form-field> 
         </div>
 
@@ -35,7 +38,8 @@
                 <input 
                 formControlName="valorServicoUnidade"
                 mask="separator.2" thousandSeparator="." decimalMarker=","
-                matInput type="text"   placeholder="0,00 R$">   
+                matInput type="text"   placeholder="0,00 R$">
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon>    
             </mat-form-field>
 
               <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 1rem;">
@@ -43,7 +47,7 @@
                 <input 
                 formControlName="valorServicoHora"
                 matInput type="text" mask="separator.2" thousandSeparator="." decimalMarker=","  placeholder="0,00 R$">
-                    
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon>     
               </mat-form-field>
         </div>
 
@@ -51,6 +55,6 @@
         </form>
     </div>
 
-    <button (click)="createItemServico()" mat-raised-button style="background-color:#1F66FE; color: white;float: right;width: 100%;margin-bottom: .5rem;">Adicionar serviço</button>
+    <button (click)="createItemServico()" [disabled]="!disable" mat-raised-button style="background-color:#1F66FE; color: white;float: right;width: 100%;margin-bottom: .5rem;">Adicionar serviço</button>
     <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;float: right;width: 100%;">Cancelar</button>
 </div>

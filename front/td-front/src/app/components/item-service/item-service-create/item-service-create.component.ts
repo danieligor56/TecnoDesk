@@ -13,6 +13,7 @@ import { ItemServiceService } from 'src/app/services/item-service.service';
 })
 export class ItemServiceCreateComponent implements OnInit {
   sevicoItemCreateForm:FormGroup;
+  disable:boolean = false;
   
   constructor(
     private dialogRef: MatDialogRef<ItemServiceCreateComponent>,
@@ -37,8 +38,18 @@ export class ItemServiceCreateComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  validarNome(){
+    debugger;
+    if(this.sevicoItemCreateForm.get('nomeServico').valid){
+      this.disable = true;
+    }
+  }
+
   createItemServico(){
     debugger;
+
+   
+
     this.itemServicoService.create(this.sevicoItemCreateForm.value).subscribe({
        next: (response) => {
           this.toast.success("Cadastro realizado  com sucesso ! ");
