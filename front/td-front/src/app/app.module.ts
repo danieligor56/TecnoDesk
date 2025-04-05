@@ -46,9 +46,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ItemServiceComponent } from './components/item-service/item-service.component';
-
-
-
+import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +69,8 @@ import { ItemServiceComponent } from './components/item-service/item-service.com
     CancelarOSComponent,
     OsCreateSucssesComponent,
     OsManagerComponent,
-    ItemServiceComponent
+    ItemServiceComponent,
+    ItemServiceCreateComponent
     
   
   ],

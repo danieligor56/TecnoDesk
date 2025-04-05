@@ -1,0 +1,12 @@
+.label{
+    background-color: #F2F2F2;
+    padding: 10px;
+    color: #333333;
+}
+.example-form-field {
+    width: 150px;
+  }
+
+.full-width{
+    width: 100%;
+}

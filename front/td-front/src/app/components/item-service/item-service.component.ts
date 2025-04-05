@@ -1,9 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ItemService } from 'src/app/models/ItemService';
 import { ItemServiceService } from 'src/app/services/item-service.service';
+import { ItemServiceCreateComponent } from './item-service-create/item-service-create.component';
+
 
 
 
@@ -19,22 +21,12 @@ export class ItemServiceComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private itemService:ItemServiceService) { 
-      
-    
-  }
+    private itemService:ItemServiceService,
+    private dialog:MatDialog
+  ) {}
   
   ngOnInit(): void {
     this.encontrarServicos();
-  }
-
-  criarNovoServico(itemServico:ItemService){
-      this.itemService.create(itemServico).subscribe(
-        response =>{
-          
-        }
-      )
-
   }
 
   encontrarServicos(){
@@ -55,6 +47,17 @@ export class ItemServiceComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  openDialog(): void {
+      
+      const dialogRef = this.dialog.open(ItemServiceCreateComponent);
+      
+      dialogRef.afterClosed().subscribe( result=>{
+        if(result){
+          this.encontrarServicos();
+        }
+      })
+    }
 
 }
 

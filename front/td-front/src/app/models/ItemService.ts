@@ -5,7 +5,7 @@ export interface ItemService{
 	id:string;
     empresa:Empresa;
     nomeServico:string;
-    descServico:string;
+    descricaoServico:string;
     valorServicoHora:number;
     valorServicoUnidade:number;
 
