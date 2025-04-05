@@ -18,7 +18,7 @@ export class ItemServiceService {
       })
       const options = { headers: headers }
       return this.http.post<ItemService>("http://localhost:8080/api/v1/servico/adicionarServico",itemServico,options);
-    }
+  }
 
   listServico(): Observable<ItemService[]>{
     const headers = new HttpHeaders({
@@ -33,9 +33,20 @@ export class ItemServiceService {
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })
     const options = { headers: headers }
-    return this.http.post<ItemService>(`http://localhost:8080/api/v1/servico/buscarServico/{id}?id=${id}`,options)
-
-
+    return this.http.get<ItemService>(`http://localhost:8080/api/v1/servico/buscarServico/{id}?id=${id}`,options)
   }
+
+  alterarServico(id:number,servico:ItemService){
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+      return this.http.put<ItemService>(`http://localhost:8080/api/v1/servico/alterarCliente?id=${id}`,servico,options);
+  }
+
+
+
+
+
 
 }

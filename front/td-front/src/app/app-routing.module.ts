@@ -17,6 +17,7 @@ import { OsListComponent } from './components/os/os-list/os-list.component';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 import { ItemServiceComponent } from './components/item-service/item-service.component';
 import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
+import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[
       {path:'home',component:HomeComponent},
       {path: 'itemService',component:ItemServiceComponent},
-      {path: 'itemService/create',component:ItemServiceCreateComponent}, 
+      {path: 'itemService/create',component:ItemServiceCreateComponent},
+      {path: 'itemService/update', component:ItemServiceUpdateComponent}, 
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},

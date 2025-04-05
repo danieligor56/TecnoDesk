@@ -34,11 +34,11 @@
 
           <ng-container matColumnDef="acoes">
             <th mat-header-cell *matHeaderCellDef>Editar|Excluir</th> 
-              <td mat-cell *matCellDef="let element"> 
+              <td mat-cell *matCellDef="let servico"> 
                 <div style="display: flex;">
                   <div>
-                    <a>
-                      <mat-icon style="color:#5E5E5E;margin-right: 10px;margin-left: 6px;" id="editar">open_in_new</mat-icon>
+                    <a [routerLink]="servico.id">
+                      <mat-icon (click)="openEditDialog($event, servico.id)" style="color:#5E5E5E;margin-right: 10px;margin-left: 6px;" id="editar">open_in_new</mat-icon>
                     </a>
                   </div>
                     <div>

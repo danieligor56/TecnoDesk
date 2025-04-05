@@ -1,1 +1,59 @@
-<p>item-service-update works!</p>
+<div class="container">
+    <div>
+        <h3 class="label">
+           <b>Editar serviço cadastrado</b> 
+        </h3>
+    </div>
+    <div>
+        <form [formGroup]="sevicoItemCreateForm">
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Serviço</mat-label>
+                <input
+                formControlName="nomeServico"
+                matInput>
+                <mat-icon class="custom-icon" matSuffix>description</mat-icon>
+              </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Descreva o servico:</mat-label>
+                <input        
+                formControlName="descServico"
+                matInput placeholder="(Opcional)">
+                <mat-icon class="custom-icon" matSuffix>description</mat-icon> 
+              </mat-form-field> 
+        </div>
+
+        <div>
+            <div style="text-align: center;">
+                <h4 class="label">Valor do serviço</h4>
+
+            </div>    
+            
+
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Por serviço</mat-label>
+                <input 
+                formControlName="valorServicoUnidade"
+                mask="separator.2" thousandSeparator="." decimalMarker=","
+                matInput type="text"   placeholder="0,00 R$">
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon>    
+            </mat-form-field>
+
+              <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 1rem;">
+                <mat-label>Por hora</mat-label>
+                <input 
+                formControlName="valorServicoHora"
+                matInput type="text" mask="separator.2" thousandSeparator="." decimalMarker=","  placeholder="0,00 R$">
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon>     
+              </mat-form-field>
+        </div>
+
+           
+        </form>
+    </div>
+
+    <button (click)="alterarServico()"  mat-raised-button style="background-color:#1F66FE; color: white;float: right;width: 100%;margin-bottom: .5rem;">Gravar alteração</button>
+    <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;float: right;width: 100%;">Cancelar</button>
+</div>

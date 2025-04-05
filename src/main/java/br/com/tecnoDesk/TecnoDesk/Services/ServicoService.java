@@ -70,6 +70,26 @@ public class ServicoService {
 				throw new BadRequest("Não foi possível atender sua solicitação nesse moemnto");
 					}
 	}
+	
+	
+	public Cliente alterarServico(long id, ServicoDTO servicoDTO,String codEmpresa) {
+		
+		try {
+			long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			
+			Servico servico = servicoRepository.encontrarPorId(id,codEmp);
+					servico.setNomeServico(servicoDTO.getNomeServico());
+					servico.setDescricaoServico(servicoDTO.getDescricaoServico());
+					servico.setValorServicoHora(servicoDTO.getValorServicoHora());
+					servico.setValorServicoUnidade(servicoDTO.getValorServicoUnidade());
+					servicoRepository.save(servico);
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return null;
+	}
 		
 			
 	

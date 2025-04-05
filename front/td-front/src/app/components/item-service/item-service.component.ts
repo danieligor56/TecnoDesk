@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ItemService } from 'src/app/models/ItemService';
 import { ItemServiceService } from 'src/app/services/item-service.service';
 import { ItemServiceCreateComponent } from './item-service-create/item-service-create.component';
+import { ItemServiceUpdateComponent } from './item-service-update/item-service-update.component';
 
 
 
@@ -58,6 +59,19 @@ export class ItemServiceComponent implements OnInit {
         }
       })
     }
+  
+  openEditDialog(event: Event, id: string): void {
+    const dialogRef = this.dialog.open(ItemServiceUpdateComponent,{
+      data: {
+        id:id
+      }
+    });
+
+      dialogRef.afterClosed().subscribe( result =>{
+        if(result)
+          this.encontrarServicos()
+      })
+  }  
 
 }
 
