@@ -46,10 +46,6 @@ export class ItemServiceCreateComponent implements OnInit {
   }
 
   createItemServico(){
-    debugger;
-
-   
-
     this.itemServicoService.create(this.sevicoItemCreateForm.value).subscribe({
        next: (response) => {
           this.toast.success("Cadastro realizado  com sucesso ! ");

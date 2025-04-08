@@ -6,6 +6,8 @@ import { Os_entrada } from 'src/app/models/Os-entrada';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { OsService } from 'src/app/services/os.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ItemServiceComponent } from '../../item-service/item-service.component';
+import { ItemServicelMinilistComponent } from '../../item-service/item-servicel-minilist/item-servicel-minilist.component';
 
 
 @Component({
@@ -25,7 +27,8 @@ colaborador1:Colaborador;
 constructor(
     private osService: OsService,
     private route: ActivatedRoute,
-    private colaboradorService:ColaboradorService
+    private colaboradorService:ColaboradorService,
+    private dialog: MatDialog,
     
 
   ) { }
@@ -68,6 +71,13 @@ constructor(
       colaborador: { id: colaboradorId }
     });
   }
+
+  openListaServicoDialog(){
+   this.dialog.open(ItemServicelMinilistComponent,{
+    width:'50rem'
+   });
+  }
+  
 
 
   

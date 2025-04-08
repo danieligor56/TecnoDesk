@@ -49,6 +49,7 @@ import { ItemServiceComponent } from './components/item-service/item-service.com
 import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
 import { ItemServiceDeleteComponent } from './components/item-service/item-service-delete/item-service-delete.component';
+import { ItemServicelMinilistComponent } from './components/item-service/item-servicel-minilist/item-servicel-minilist.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ItemServiceDeleteComponent } from './components/item-service/item-servi
     ItemServiceComponent,
     ItemServiceCreateComponent,
     ItemServiceUpdateComponent,
-    ItemServiceDeleteComponent
+    ItemServiceDeleteComponent,
+    ItemServicelMinilistComponent
     
   
   ],

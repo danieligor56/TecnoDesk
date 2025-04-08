@@ -179,7 +179,25 @@
         <!-- Aba de Serviço -->
         <mat-tab label="Serviço">
             <div class="tab-content">
-                <div class="servico-dados">
+                <div class="servico-dados">            
+                        <div id="orcamento">
+                            <h3>Orçamento</h3>
+                            <div >
+                                <button (click)="openListaServicoDialog()" id="buttons" mat-flat-button>+ Serviço</button>
+                                <button  id="buttons" mat-flat-button>+ Serviço avulso</button>
+                                <button  id="buttons" mat-flat-button>+ Produto</button>
+                                <button  id="buttons"   mat-flat-button>+ Produto avulso</button>
+                            </div>
+                            <div id="orca">
+                                <h4>Itens do orçamento:</h4>
+                            </div>
+
+                            <div id="containerTotais">
+                                <h4>totais</h4>
+                            </div>
+                        </div>
+
+                    
                     <div id="laudoTecnico">
                         <h3>Laudo técnico</h3>
 
@@ -189,23 +207,9 @@
                         </mat-form-field>
 
                     </div>
-
-                    
-
-                    <!-- <mat-form-field class="fullWidth" appearance="fill">
-                        <mat-label>Status do Serviço</mat-label>
-                        <mat-select required>
-                            <mat-option value="aberto">Aberto</mat-option>
-                            <mat-option value="em_andamento">Em Andamento</mat-option>
-                            <mat-option value="aguardando_peca">Aguardando Peça</mat-option>
-                            <mat-option value="concluido">Concluído</mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
                 </div>
 
-                <div id="orcamento">
-                    <h3>Orçamento</h3>
-                </div>
+                
 
             </div>
         </mat-tab>

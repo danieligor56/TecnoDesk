@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+        <h1 id="osH1">serviços</h1>       
+    </div>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+    
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+         
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let servico"> {{servico.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="progress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Servico </th>
+            <td mat-cell *matCellDef="let servico"> {{servico.nomeServico}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fruit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor do serviço </th>
+            <td mat-cell *matCellDef="let servico"> {{servico.valorServicoUnidade}} R$ </td>
+          </ng-container>
+        
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor por hora </th>
+            <td mat-cell *matCellDef="let servico"> {{servico.valorServicoHora}} R$ </td>
+          </ng-container>
+
+          <ng-container matColumnDef="add">
+            <th mat-header-cell *matHeaderCellDef></th> 
+              <td mat-cell *matCellDef="let servico"> 
+                <div class="example-button-container">
+                    
+                      <mat-icon style="color: #6D706D;">add_circle</mat-icon>
+
+                  </div>          
+           </td>
+         </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+      <div style="display: flex;float:right;margin-top: 1rem;">
+            <button (click)="openCreatServiceDialog()" mat-raised-button style="background-color:#1F66FE; color: white;margin-right: .2rem;">Novo serviço</button>
+            <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>
+      </div>
+      
+</div>
+
+
+

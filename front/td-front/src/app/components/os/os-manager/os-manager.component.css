@@ -201,3 +201,29 @@ h3 {
     background-color:#F5F5F5 ;
     padding: 10px;
 }
+
+#buttons{
+    font-size: 10px;
+
+    text-align: center;
+    align-items: center;
+    margin-right: 4px;
+    padding: 2px;
+}
+
+#orca{
+    background-color: #EBEBEB;
+    padding: 5px;
+    margin-top: 4px;
+    height: 10rem;
+}
+
+
+#containerTotais{
+    padding: 5px;
+    margin-top: 4px;
+    background-color: #EBEBEB;
+    width: 90%;
+    height: 5rem;
+    align-items: bottom;
+}

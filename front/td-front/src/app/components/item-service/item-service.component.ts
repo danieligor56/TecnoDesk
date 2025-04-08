@@ -8,9 +8,6 @@ import { ItemServiceCreateComponent } from './item-service-create/item-service-c
 import { ItemServiceUpdateComponent } from './item-service-update/item-service-update.component';
 import { ItemServiceDeleteComponent } from './item-service-delete/item-service-delete.component';
 
-
-
-
 @Component({
   selector: 'app-item-service',
   templateUrl: './item-service.component.html',
@@ -29,7 +26,7 @@ export class ItemServiceComponent implements OnInit {
   
   ngOnInit(): void {
     this.encontrarServicos();
-  }
+    }
 
   encontrarServicos(){
     this.itemService.listServico().subscribe(response => {
@@ -39,7 +36,7 @@ export class ItemServiceComponent implements OnInit {
           
         }
     )
-  }
+    }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -48,7 +45,7 @@ export class ItemServiceComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+    }
 
   openDialog(): void {
       
@@ -72,7 +69,7 @@ export class ItemServiceComponent implements OnInit {
         if(result)
           this.encontrarServicos()
       })
-  }
+    }
   
   openDelDialog(event: Event, id: string){
     const dialogRef = this.dialog.open(ItemServiceDeleteComponent,{
@@ -85,7 +82,7 @@ export class ItemServiceComponent implements OnInit {
       if(result)
         this.encontrarServicos()
     })
-  }
+    }
 
 }
 
