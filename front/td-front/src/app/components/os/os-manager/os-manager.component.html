@@ -199,12 +199,28 @@
 
                     
                     <div id="laudoTecnico">
-                        <h3>Laudo técnico</h3>
+                        
+                        
+                        <div>
+                            <h3>Laudo técnico</h3>
 
-                        <mat-form-field class="fullWidth" appearance="fill">
-                            <mat-label>Diagnóstico Técnico</mat-label>
-                            <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
-                        </mat-form-field>
+                            <mat-form-field class="fullWidth" appearance="fill">
+                                <mat-label>Diagnóstico Técnico</mat-label>
+                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="input-group">
+                            <mat-form-field appearance="legacy" style="margin-right: 10px;">
+                                <label for="telefone">Status do orçamento: </label>
+                                <mat-select>
+                                  <mat-option value= 0  >NOVO</mat-option>
+                                  <mat-option value= 1  >AGUARDANDO APROVAÇÃO DO CLIENTE</mat-option>
+                                  <mat-option value= 2  >Garantia</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        
 
                     </div>
                 </div>

@@ -15,10 +15,13 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
+import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import exception.BadRequest;
 
@@ -39,6 +42,9 @@ public class OsService {
 	
 	@Autowired
 	EmpresaRepository empresaRepository;
+	
+	@Autowired
+	OrcamentoRepository orcamentoRepository;
 
 
 	public OS_Entrada crianova(OS_EntradaDTO osDTO,String codEmpresa) throws BadRequestException {
@@ -64,6 +70,13 @@ public class OsService {
 			}
 			
 			osRepository.save(novaOs);
+			
+			Orcamento novoOrcamentoOS = new Orcamento();
+			novoOrcamentoOS.setEmpresa(empresa);
+			novoOrcamentoOS.setOs(novaOs);
+			novoOrcamentoOS.setStatusOR(StatusOR.NOVO);
+			orcamentoRepository.save(novoOrcamentoOS);
+			
 			
 			return novaOs;
 			
