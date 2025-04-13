@@ -8,6 +8,7 @@ import { OsService } from 'src/app/services/os.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemServiceComponent } from '../../item-service/item-service.component';
 import { ItemServicelMinilistComponent } from '../../item-service/item-servicel-minilist/item-servicel-minilist.component';
+import { ItemServiceCreateAvulsoComponent } from '../../item-Service/item-service-create-avulso/item-service-create-avulso.component';
 
 
 @Component({
@@ -78,7 +79,9 @@ constructor(
    });
   }
   
-
+  openServicoAvulso(){
+    this.dialog.open(ItemServiceCreateAvulsoComponent);
+  }
 
   
   

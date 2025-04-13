@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-item-service-create-avulso',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-service-create-avulso.component.css']
 })
 export class ItemServiceCreateAvulsoComponent implements OnInit {
+isService:boolean = false;
 
-  constructor() { }
+  constructor(
+    private dialogRef: MatDialogRef<ItemServiceCreateAvulsoComponent>
+  ) { }
 
   ngOnInit(): void {
   }
+
+  closeDialog(){
+    this.dialogRef.close();
+  }
+  
 
 }

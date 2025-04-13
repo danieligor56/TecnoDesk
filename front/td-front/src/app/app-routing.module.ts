@@ -20,6 +20,7 @@ import { ItemServiceCreateComponent } from './components/item-service/item-servi
 import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
 import { ItemServiceDeleteComponent } from './components/item-service/item-service-delete/item-service-delete.component';
 import { ItemServicelMinilistComponent } from './components/item-service/item-servicel-minilist/item-servicel-minilist.component';
+import { ItemServiceCreateAvulsoComponent } from './components/item-Service/item-service-create-avulso/item-service-create-avulso.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
       {path: 'itemService/create',component:ItemServiceCreateComponent},
       {path: 'itemService/update', component:ItemServiceUpdateComponent},
       {path: 'itemService/delete', component:ItemServiceDeleteComponent},
-      {path: 'itemService/minilist',component:ItemServicelMinilistComponent},  
+      {path: 'itemService/minilist',component:ItemServicelMinilistComponent},
+      {path: 'itemService/createAvulso',component:ItemServiceCreateAvulsoComponent},  
       {path:'colaborador',component:ColaboradorListComponent},
       {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
