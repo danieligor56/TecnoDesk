@@ -2,6 +2,9 @@ package br.com.tecnoDesk.TecnoDesk.Entities;
 
 import jakarta.persistence.GeneratedValue;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Table(name = "OrcamentoItem")
+@Table(name = "orcamento_item")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,6 +38,7 @@ public class OrcamentoItem {
     
     @ManyToOne
 	@JoinColumn(name = "codigo_orcamento",nullable = true)
+    @JsonIgnore
 	private Orcamento orcamento;
     
     @Column(name = "codigo_item",nullable = true)

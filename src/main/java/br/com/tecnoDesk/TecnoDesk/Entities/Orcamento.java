@@ -3,6 +3,8 @@ package br.com.tecnoDesk.TecnoDesk.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import jakarta.persistence.CascadeType;
@@ -44,6 +46,7 @@ public class Orcamento {
 	private OS_Entrada os;
 	
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<OrcamentoItem> itens = new ArrayList<>();
 	
 	@Column(name = "statusOrcamento", nullable = true)

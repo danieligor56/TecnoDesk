@@ -28,7 +28,7 @@ export class ItemServiceService {
     return this.http.get<ItemService[]>("http://localhost:8080/api/v1/servico/listaServico",options)
   }
 
-  encontrarPorId(id:string): Observable<ItemService>{
+  encontrarPorId(id): Observable<ItemService>{
     const headers = new HttpHeaders({
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })

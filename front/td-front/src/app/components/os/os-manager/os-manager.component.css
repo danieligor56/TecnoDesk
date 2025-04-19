@@ -215,7 +215,7 @@ h3 {
     background-color: #EBEBEB;
     padding: 5px;
     margin-top: 4px;
-    height: 10rem;
+    
 }
 
 
@@ -226,4 +226,15 @@ h3 {
     width: 90%;
     height: 5rem;
     align-items: bottom;
+}
+
+#thead{
+    background-color: #F6F6F6;
+    padding: 10px;
+    text-align: left;
+}
+
+.custonTh{
+    padding: 6px;
+    color:#666;
 }

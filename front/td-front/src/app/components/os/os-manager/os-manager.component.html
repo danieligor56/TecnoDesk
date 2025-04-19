@@ -16,12 +16,11 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="cliente">Nome:</label>
-                                <input type="text" id="cliente" value="{{Os.cliente.nome}}" readonly>
-                                
+                                <input type="text" id="cliente" [value]="Os?.cliente?.nome" readonly>   
                             </div>
                             <div class="input-group" style="width: 80px;">
                                 <label for="cod">Cod.:</label>
-                                <input type="text" id="cod" value="{{Os.cliente.id}}" readonly>
+                                <input type="text" id="cod" [value]="Os?.cliente?.id" readonly>
                             </div>
                         </div>
 
@@ -29,11 +28,11 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="telefone">Telefone:</label>
-                                <input type="text" id="telefone" value="{{Os.cliente.cel1}}" readonly>
+                                <input type="text" id="telefone" [value]="Os?.cliente?.cel1" readonly>
                             </div>
                             <div class="input-group"  style="width: 250px;">
                                 <label for="endereco">Endereço:</label>
-                                <input type="text" id="endereco" value="{{Os.cliente.logradouro}} ,numero: {{Os.cliente.numero}}" readonly>
+                                <input type="text" id="endereco" [value]="Os?.cliente?.logradouro + ', ' + Os?.cliente?.numero" readonly>
                             </div>                        
                         </div>
 
@@ -41,11 +40,11 @@
                         <div class="row">
                             <div class="input-group">
                                 <label for="documento">Documento:</label>
-                                <input type="text" id="documento" value="{{Os.cliente.documento}}" readonly>
+                                <input type="text" id="documento" [value]="Os?.cliente?.documento" readonly>
                             </div>
                             <div class="input-group">
                                 <label for="email">Email:</label>
-                                <input type="text" id="email" value="{{Os.cliente.email}}" readonly>
+                                <input type="text" id="email" [value]="Os?.cliente?.email" readonly>
                             </div>
                         </div>
                     </div>
@@ -55,7 +54,7 @@
                         <div style="width: 250px;margin-bottom: 1rem;">                  
                             <div class="input-group">
                                 <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
-                                <input type="text" id="telefone" value="{{Os.colaborador.nome}}" readonly width="80px">
+                                <input type="text" id="telefone" [value]="Os?.colaborador?.nome" readonly width="80px">
                             </div>
     
                             <div class="input-group" style="margin-bottom: 2rem;">                              
@@ -73,7 +72,7 @@
                             <div class="input-group">
                                 <mat-form-field appearance="legacy" style="margin-right: 10px;">
                                     <label for="telefone">Tipo de prioridade: </label>
-                                    <mat-select formControlName="prioridadeOS">
+                                    <mat-select>
                                       <mat-option value= 0  >Normal</mat-option>
                                       <mat-option value= 1  >Urgência</mat-option>
                                       <mat-option value= 2  >Garantia</mat-option>
@@ -96,13 +95,13 @@
                         <div>
                             <mat-form-field class="dataCli" style="width: 400px; margin-right: 10px;" appearance="fill">
                                 <mat-label>Reclamação do cliente:</mat-label>
-                                <textarea style="resize: none; height: 1 rem;" matInput placeholder="" readonly>{{Os.reclamacaoCliente}}</textarea>                               
+                                <textarea style="resize: none; height: 1 rem;" matInput placeholder="" readonly>{{Os?.reclamacaoCliente}}</textarea>                               
                             </mat-form-field>    
                         </div>
                         <div>
                             <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
                                 <mat-label>Resultado do teste inicial:</mat-label>
-                                <textarea style="resize: none; height: 8px;" matInput placeholder="" readonly>{{Os.initTest}}</textarea>
+                                <textarea style="resize: none; height: 8px;" matInput placeholder="" readonly>{{Os?.initTest}}</textarea>
                             </mat-form-field>    
                         </div>
                         
@@ -135,21 +134,21 @@
                          <div class="row">
                             <div class="input-group">
                                 <label for="telefone">Aparelho:</label>
-                                <input type="text" id="telefone" value="{{Os.aparelhos}}" readonly>
+                                <input type="text" id="telefone" value="{{Os?.aparelhos}}" readonly>
                             </div>
                             <div class="input-group"  style="width: 250px;">
                                 <label for="endereco">Marca:</label>
-                                <input type="text" id="endereco" value="{{Os.marcaAparelho}}" readonly>
+                                <input type="text" id="endereco" value="{{Os?.marcaAparelho}}" readonly>
                             </div>                        
                         </div>
                         <div class="row">
                             <div class="input-group">
                                 <label for="documento">Modelo:</label>
-                                <input type="text" id="documento" value="{{Os.descricaoModelo}}" readonly>
+                                <input type="text" id="documento" value="{{Os?.descricaoModelo}}" readonly>
                             </div>
                             <div class="input-group">
                                 <label for="email">Número de série:</label>
-                                <input type="text" id="email" value="{{Os.snAparelho}}" readonly>
+                                <input type="text" id="email" value="{{Os?.snAparelho}}" readonly>
                             </div>
                             
                         </div>
@@ -157,7 +156,7 @@
                             <div>
                                 <mat-form-field class="dataCli" style="width: 500px;" appearance="fill">
                                     <mat-label>Estado do aparelho:</mat-label>
-                                    <textarea style="resize: none;height: 102px;" value="{{Os.checkList}}" matInput placeholder="" readonly></textarea>
+                                    <textarea style="resize: none;height: 102px;" value="{{Os?.checkList}}" matInput placeholder="" readonly></textarea>
                                     <mat-icon matSuffix>assignment</mat-icon>
                                 </mat-form-field>    
                             </div>
@@ -183,18 +182,40 @@
                         <div id="orcamento">
                             <h3>Orçamento</h3>
                             <div >
-                                <button (click)="openListaServicoDialog()" id="buttons" mat-flat-button>+ Serviço</button>
-                                <button (click)="openServicoAvulso() "id="buttons" mat-flat-button>+ Serviço avulso</button>
+                                <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-flat-button>+ Serviço</button>
+                                <button (click)="openServicoAvulso()" id="buttons" mat-flat-button>+ Serviço avulso</button>
                                 <button  id="buttons" mat-flat-button>+ Produto</button>
                                 <button  id="buttons"   mat-flat-button>+ Produto avulso</button>
                             </div>
                             <div id="orca">
-                                <h4>Itens do orçamento:</h4>
-                            </div>
+                                <h4 style="background-color: #CCCCCC;padding: 6px;">Itens do orçamento:</h4>
 
-                            <div id="containerTotais">
-                                <h4>totais</h4>
-                            </div>
+                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC;">
+                                        
+                                        <ng-container matColumnDef="nome">
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome serviço </th>
+                                            <td mat-cell *matCellDef="let servico"> {{servico.nomeServicoAvulso}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="descricao">
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> descrição </th>
+                                            <td mat-cell *matCellDef="let servico"> {{servico.descricaoServicoAvulso}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="valor">
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> valor total </th>
+                                            <td mat-cell *matCellDef="let servico"> {{servico.valorUnidadeAvulso}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="acoes">
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                            <td mat-cell *matCellDef="let servico">
+                                                <mat-icon style="color: #6D706D;">currency_exchange </mat-icon>
+                                                <mat-icon style="color: #6D706D;">delete</mat-icon>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>                                   
+                                  </table>
+
+                            </div>              
                         </div>
 
                     
