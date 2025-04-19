@@ -181,16 +181,27 @@
                 <div class="servico-dados">            
                         <div id="orcamento">
                             <h3>Orçamento</h3>
-                            <div >
-                                <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-flat-button>+ Serviço</button>
-                                <button (click)="openServicoAvulso()" id="buttons" mat-flat-button>+ Serviço avulso</button>
-                                <button  id="buttons" mat-flat-button>+ Produto</button>
-                                <button  id="buttons"   mat-flat-button>+ Produto avulso</button>
+                            <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
+                                <div>
+                                    <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-flat-button>+ Serviço</button>
+                                    <button (click)="openServicoAvulso()" id="buttons" mat-flat-button>+ Serviço avulso</button>
+                                    <button  id="buttons" mat-flat-button>+ Produto</button>
+                                    <button  id="buttons"   mat-flat-button>+ Produto avulso</button>
+                                </div>
+                                
+                                <div class="valorTotal">
+                                    <div style="height: 100%;align-content: center;">
+                                        <h1 style="color: #6D706D;margin: 0;">Total: </h1>
+                                    </div>
+                                    <div style="height: 100%;background-color: #EBEBEB;width: 150px;">
+                                        50,00 R$
+                                    </div>
+                                </div>
                             </div>
                             <div id="orca">
-                                <h4 style="background-color: #CCCCCC;padding: 6px;">Itens do orçamento:</h4>
+                                <h4 style="background-color: #CCCCCC;padding: 6px;color:#666;">Itens do orçamento:</h4>
 
-                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC;">
+                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC;width: 100%; ">
                                         
                                         <ng-container matColumnDef="nome">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome serviço </th>
@@ -202,7 +213,7 @@
                                         </ng-container>
                                         <ng-container matColumnDef="valor">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> valor total </th>
-                                            <td mat-cell *matCellDef="let servico"> {{servico.valorUnidadeAvulso}} </td>
+                                            <td mat-cell *matCellDef="let servico"> {{servico.valorUnidadeAvulso}},00 R$ </td>
                                         </ng-container>
                                         <ng-container matColumnDef="acoes">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>

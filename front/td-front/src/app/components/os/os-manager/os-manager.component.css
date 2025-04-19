@@ -1,3 +1,8 @@
+td{
+   background-color:  #F7F7F9;
+   color: #7C8288;
+}
+
 .titPage {
     background: linear-gradient(to right, #2c3e50, #3498db);
     padding: 20px !important;
@@ -87,6 +92,7 @@ mat-form-field{
 .servico-dados{
     
     padding: 10px;
+    
 }
 
 .fullWidth {
@@ -236,5 +242,15 @@ h3 {
 
 .custonTh{
     padding: 6px;
-    color:#666;
+    color:#CCD3E1;
+    background-color: #707895;
+}
+
+.valorTotal{
+    display: flex;
+    float: right;
+    align-items: center;
+    width: 8rem;
+    gap:8px
+    
 }
