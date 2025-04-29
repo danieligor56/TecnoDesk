@@ -66,5 +66,17 @@ export class OrcamentoService {
     return this.http.get<OrcamentoItem[]>(`http://localhost:8080/api/v1/orcamento/listarServicosOrcamento?orcamento_id=${idOrcamento}`,options);
   }
 
+  valorOrcamento(idOrcamento:number): Observable<number>{
+    const codEmpresa = sessionStorage.getItem('CompGrpIndent');
+  
+    const headers = new HttpHeaders({
+      'codEmpresa': codEmpresa
+    });
+  
+    const options = { headers };
+
+    return this.http.get<number>(`http://localhost:8080/api/v1/orcamento/valorOrcamento?orcamento_id=${idOrcamento}`,options);
+  }
+
 
 }
