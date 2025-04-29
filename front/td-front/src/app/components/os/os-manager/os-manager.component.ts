@@ -28,6 +28,7 @@ export class OsManagerComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'acoes'];
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
+  valorOrcamento:number = 0;
   
 constructor(
     private osService: OsService,
@@ -43,6 +44,7 @@ constructor(
     this.mapearDadosOS(this.id)
     this.dropdownColaborador();
     this.listarItensOrcamento();
+    this.FuncValorOrcamento();
  
 
   }
@@ -88,6 +90,7 @@ constructor(
     if(response){
       this.listarItensOrcamento();
     }
+
   });
 
   }
@@ -102,10 +105,22 @@ constructor(
       this.orcamentoService.listarServicosOrcamento(response.id).subscribe(servicos => {
         this.servico = servicos
         this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
+        this.FuncValorOrcamento();
       })
       
     })
     
+  }
+
+  FuncValorOrcamento(){
+    debugger;
+    this.servico.forEach(calc => {
+      if(calc.valorUnidadeAvulso != 0){
+        this.valorOrcamento += calc.valorUnidadeAvulso;
+      } else {
+        this.valorOrcamento += calc.valorHoraAvulso;
+      }
+    });
   }
   
   

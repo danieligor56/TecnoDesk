@@ -8,16 +8,9 @@ export interface OrcamentoItem{
     codigoItem:number;
     nomeServicoAvulso:string,
     descricaoServicoAvulso:string,
-    valorUnidadeAvulso:number;
-    valorHoraAvulso:number;
+    valorUnidadeAvulso?:number;
+    valorHoraAvulso?:number;
     isAvulso:boolean
-
-    
-    
-  
-  
-    
-
-    
+   
 }
 

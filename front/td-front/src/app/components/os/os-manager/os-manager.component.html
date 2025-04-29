@@ -193,8 +193,8 @@
                                     <div style="height: 100%;align-content: center;">
                                         <h1 style="color: #6D706D;margin: 0;">Total: </h1>
                                     </div>
-                                    <div style="height: 100%;background-color: #EBEBEB;width: 150px;">
-                                        50,00 R$
+                                    <div style="height: 100%;background-color: #EBEBEB;">
+                                        <h1 style="color: #6D706D;margin: 0;height: 100%;width: 100%;">{{valorOrcamento}} R$</h1>
                                     </div>
                                 </div>
                             </div>
@@ -211,10 +211,22 @@
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> descrição </th>
                                             <td mat-cell *matCellDef="let servico"> {{servico.descricaoServicoAvulso}} </td>
                                         </ng-container>
+                                       
                                         <ng-container matColumnDef="valor">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> valor total </th>
-                                            <td mat-cell *matCellDef="let servico"> {{servico.valorUnidadeAvulso}},00 R$ </td>
-                                        </ng-container>
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total </th>
+                                            <td mat-cell *matCellDef="let servico">
+                                              <ng-container *ngIf="servico.valorHoraAvulso > 0; else unidade">
+                                                {{ servico.valorHoraAvulso | number:'1.2-2' }} R$
+                                              </ng-container>
+                                              <ng-template #unidade>
+                                                <ng-container *ngIf="servico.valorUnidadeAvulso > 0">
+                                                  {{ servico.valorUnidadeAvulso | number:'1.2-2' }} R$
+                                                </ng-container>
+                                              </ng-template>
+                                            </td>
+                                          </ng-container>
+
+
                                         <ng-container matColumnDef="acoes">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>
                                             <td mat-cell *matCellDef="let servico">

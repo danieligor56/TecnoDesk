@@ -49,6 +49,9 @@ public class Orcamento {
 	@JsonManagedReference
 	private List<OrcamentoItem> itens = new ArrayList<>();
 	
+	@Column(name = "valorOrcamento")
+	public Double valorOrcamento;
+	
 	@Column(name = "statusOrcamento", nullable = true)
 	private StatusOR statusOR;
 	

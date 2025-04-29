@@ -51,6 +51,7 @@ import { ItemServiceUpdateComponent } from './components/item-service/item-servi
 import { ItemServiceDeleteComponent } from './components/item-service/item-service-delete/item-service-delete.component';
 import { ItemServicelMinilistComponent } from './components/item-service/item-servicel-minilist/item-servicel-minilist.component';
 import { ItemServiceCreateAvulsoComponent } from './components/item-service/item-service-create-avulso/item-service-create-avulso.component';
+import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ItemServiceCreateAvulsoComponent } from './components/item-service/item
     ItemServiceUpdateComponent,
     ItemServiceDeleteComponent,
     ItemServicelMinilistComponent,
-    ItemServiceCreateAvulsoComponent
+    ItemServiceCreateAvulsoComponent,
+    ItemServiceCobrarhoraComponent
     
   
   ],

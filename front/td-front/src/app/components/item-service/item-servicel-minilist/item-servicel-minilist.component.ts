@@ -7,9 +7,7 @@ import { ItemServiceService } from 'src/app/services/item-service.service';
 import { ItemServiceCreateComponent } from '../item-service-create/item-service-create.component';
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
-
-
-
+import { ItemServiceCobrarhoraComponent } from '../item-service-cobrarhora/item-service-cobrarhora.component';
 
 @Component({
   selector: 'app-item-servicel-minilist',
@@ -22,6 +20,7 @@ displayedColumns: string[] = ['id', 'progress','fruit','name','add'];
 dataSource = new MatTableDataSource<ItemService>(this.servico);
 servicoContrato: OrcamentoItem;
 codOrcamento:number = 0;
+valorHorasServico:number = 0;
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -41,7 +40,7 @@ codOrcamento:number = 0;
 
   encontrarServicos(){
       this.itemService.listServico().subscribe(response => {
-            this.servico = response;
+        this.servico = response;
             this.dataSource = new MatTableDataSource<ItemService>(response);
             this.dataSource.paginator = this.paginator;
             
@@ -60,6 +59,7 @@ codOrcamento:number = 0;
   closeDialog(){
     this.dialogRef.close();
     }
+ 
   
     openCreatServiceDialog(){
     
@@ -71,7 +71,7 @@ codOrcamento:number = 0;
   }
 
 
-  adicionarServico(id: number) {
+  adicionarServico(id: number,cobrarPorUnd:boolean) {
    
     // Primeiro: buscar o orçamento
     this.orcamentoService.buscarPorId(this.data.id).subscribe(orcamento => {
@@ -83,12 +83,21 @@ codOrcamento:number = 0;
           empresa: response.empresa,
           codOrcamento: this.codOrcamento,
           codigoItem: Number(response.id),
-          nomeServicoAvulso: response.nomeServico,
+          nomeServicoAvulso: response.nomeServico,        
           descricaoServicoAvulso: response.descricaoServico,
-          valorUnidadeAvulso: response.valorServicoUnidade,
-          valorHoraAvulso: response.valorServicoHora,
+          // valorUnidadeAvulso: response.valorServicoUnidade,
+          // valorHoraAvulso: 0,
           isAvulso: false
         };
+
+        if(cobrarPorUnd){
+          this.servicoContrato.valorUnidadeAvulso = response.valorServicoUnidade;
+          this.servicoContrato.valorHoraAvulso = 0;
+        } else{
+          this.servicoContrato.valorHoraAvulso = this.valorHorasServico;
+          this.servicoContrato.valorUnidadeAvulso = 0
+        }
+        
         debugger;
         // Terceiro: enviar para o backend
         this.orcamentoService.inserirItem(this.codOrcamento, this.servicoContrato)
@@ -96,5 +105,20 @@ codOrcamento:number = 0;
       });
     });
   }
+
+  cobrarHoraDialog(valorServicoHora,idServico){
+
+    const dialogRef = this.dialog.open(ItemServiceCobrarhoraComponent,{
+      data:{
+        valorServicoHora:valorServicoHora
+      }
+    })
+     dialogRef.afterClosed().subscribe(result => {
+      if(result > 0){
+        this.valorHorasServico = result;
+        this.adicionarServico(idServico,false)
+      }
+     })
+   } 
 
 }

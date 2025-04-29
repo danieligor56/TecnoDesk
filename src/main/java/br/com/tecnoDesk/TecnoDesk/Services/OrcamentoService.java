@@ -92,6 +92,14 @@ public class OrcamentoService {
 			  		throw new NotFound("O orçamento informado não existe");
 			  	}
 			  	
+			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && orcamentoItem.getValorHoraAvulso() <= 0) {
+			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorUnidadeAvulso());			  		
+			  	}
+			  	
+			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && orcamentoItem.getValorUnidadeAvulso() <= 0) {
+			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorHoraAvulso());
+			  	}
+			  				  	
 			  	OrcamentoItem novoServico = modelMapper.map(orcamentoItem, OrcamentoItem.class); 
 			  	novoServico.setOrcamento(orcamentoOS);
 			  	novoServico.setEmpresa(codEmp);
@@ -132,7 +140,7 @@ public class OrcamentoService {
 			throw new NotFound("Não existe produtos cadastrados"+ ex);
 		}
 	}
-	
+
 	
 }
 

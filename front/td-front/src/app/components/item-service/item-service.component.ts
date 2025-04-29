@@ -7,6 +7,7 @@ import { ItemServiceService } from 'src/app/services/item-service.service';
 import { ItemServiceCreateComponent } from './item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './item-service-update/item-service-update.component';
 import { ItemServiceDeleteComponent } from './item-service-delete/item-service-delete.component';
+import { ItemServiceCobrarhoraComponent } from './item-service-cobrarhora/item-service-cobrarhora.component';
 
 @Component({
   selector: 'app-item-service',
@@ -81,8 +82,10 @@ export class ItemServiceComponent implements OnInit {
     dialogRef.afterClosed().subscribe( result =>{
       if(result)
         this.encontrarServicos()
-    })
+      })
     }
+
+  
 
 }
 
