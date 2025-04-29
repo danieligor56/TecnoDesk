@@ -53,6 +53,9 @@ public class OrcamentoController {
 		  return ResponseEntity.ok().body(service.listarItensOrca(codEmpresa, orcamento_id));
 		  
 	  }
-	 
+	  @GetMapping("valorOrcamento")
+	  public ResponseEntity<Double> valorOrcamento(@RequestParam long orcamento_id,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{
+		  return ResponseEntity.ok().body(service.valorOrcamento(orcamento_id, codEmpresa));
+	  }
 	
 }

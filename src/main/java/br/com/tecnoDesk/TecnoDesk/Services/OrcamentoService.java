@@ -96,7 +96,7 @@ public class OrcamentoService {
 			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorUnidadeAvulso());			  		
 			  	}
 			  	
-			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && orcamentoItem.getValorUnidadeAvulso() <= 0) {
+			  	if(orcamentoItem.getValorUnidadeAvulso() <= 0 && orcamentoItem.getValorHoraAvulso() > 0) {
 			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorHoraAvulso());
 			  	}
 			  				  	
@@ -140,7 +140,13 @@ public class OrcamentoService {
 			throw new NotFound("Não existe produtos cadastrados"+ ex);
 		}
 	}
-
+	
+	public Double valorOrcamento(long idOrcamento, String codEmpresa) throws Exception {
+		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+		var valorOrcamento= repository.encontrarOcamentoPorID(codEmpr,idOrcamento);
+			return valorOrcamento.getValorOrcamento();
+	}
+	
 	
 }
 
