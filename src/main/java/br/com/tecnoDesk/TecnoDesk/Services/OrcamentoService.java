@@ -92,11 +92,11 @@ public class OrcamentoService {
 			  		throw new NotFound("O orçamento informado não existe");
 			  	}
 			  	
-			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && orcamentoItem.getValorHoraAvulso() <= 0) {
+			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && (orcamentoItem.getValorHoraAvulso() == null ||  orcamentoItem.getValorHoraAvulso() <= 0)) {
 			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorUnidadeAvulso());			  		
 			  	}
 			  	
-			  	if(orcamentoItem.getValorUnidadeAvulso() <= 0 && orcamentoItem.getValorHoraAvulso() > 0) {
+			  	if( orcamentoItem.getValorUnidadeAvulso() <= 0  && ( orcamentoItem.getValorHoraAvulso() == null ||orcamentoItem.getValorHoraAvulso() > 0 )) {
 			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorHoraAvulso());
 			  	}
 			  				  	

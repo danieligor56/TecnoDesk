@@ -96,8 +96,13 @@ constructor(
 
   }
   
-  openServicoAvulso(){
-    this.dialog.open(ItemServiceCreateAvulsoComponent);
+  openServicoAvulso(id){
+    const dialogRef = this.dialog.open(ItemServiceCreateAvulsoComponent,{
+      data:{
+        id:id
+      },
+    });
+    
   }
 
   listarItensOrcamento(){

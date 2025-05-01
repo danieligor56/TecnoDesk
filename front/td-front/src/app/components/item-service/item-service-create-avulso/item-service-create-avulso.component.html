@@ -2,15 +2,17 @@
     <div>
         <h3 class="label">Serviço avulso</h3>
     </div>
-
+    <form [formGroup]="itemOrcamentoForm">
     <mat-form-field class="example-full-width" appearance="fill" style="margin-right: 8px;">
         <mat-label>Descreva o serviço</mat-label>
-        <input matInput>
+        <input matInput
+        formControlName="descricaoServicoAvulso">
       </mat-form-field>
 
       <mat-form-field class="example-full-width" *ngIf="isService" appearance="fill">
         <mat-label>Nome serviço</mat-label>
-        <input matInput>
+        <input matInput
+        formControlName="nomeServicoAvulso">
       </mat-form-field>
 
       <div >
@@ -21,21 +23,27 @@
         <mat-label>Por serviço</mat-label>
         <input 
         mask="separator.2" thousandSeparator="." decimalMarker=","
-        matInput type="text"   placeholder="0,00 R$">
+        matInput type="text"   placeholder="0,00 R$"
+        formControlName="valorUnidadeAvulso">
         <mat-icon class="custom-icon" matSuffix>payments</mat-icon>    
     </mat-form-field>
 
       <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 1rem;">
         <mat-label>Por hora</mat-label>
         <input 
-        matInput type="text" mask="separator.2" thousandSeparator="." decimalMarker=","  placeholder="0,00 R$">
+        matInput type="text" 
+        mask="separator.2"
+        thousandSeparator="." 
+        decimalMarker=","  
+        placeholder="0,00 R$"
+        formControlName="valorHoraAvulso">
         <mat-icon class="custom-icon" matSuffix>payments</mat-icon>     
       </mat-form-field>
-    
+    </form>
     <div style="margin-bottom: 2rem;">
         <mat-checkbox class="example-margin" [(ngModel)]="isService">Gravar em serviços ?</mat-checkbox>
         <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;float: right;">Cancelar</button>  
-        <button  mat-raised-button style="background-color:#1F66FE; color: white;float: right; margin-right: 4px;">Adicionar serviço</button>
+        <button (click)="inserirServicoAvulso()" mat-raised-button style="background-color:#1F66FE; color: white;float: right; margin-right: 4px;">Adicionar serviço</button>
     </div>
     
     <div style="font-size: 12px;width: 100%;">
