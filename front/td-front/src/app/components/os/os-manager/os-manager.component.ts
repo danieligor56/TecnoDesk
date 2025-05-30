@@ -102,6 +102,13 @@ constructor(
         id:id
       },
     });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if(response){
+        this.listarItensOrcamento();
+      }
+      
+    });
     
   }
 

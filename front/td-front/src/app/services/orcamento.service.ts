@@ -31,27 +31,20 @@ export class OrcamentoService {
    )
   }
 
-  inserirItem(codOrcamento: number, servicoItem: OrcamentoItem): void {
+  inserirItem(codOrcamento: number, servicoItem: OrcamentoItem): Observable<OrcamentoItem> {
     const codEmpresa = sessionStorage.getItem('CompGrpIndent');
   
     const headers = new HttpHeaders({
-      'codEmpresa': codEmpresa
+      'codEmpresa': codEmpresa || ''  // Garante que não seja null
     });
   
     const options = { headers };
   
-    this.http.post(
+    return this.http.post<OrcamentoItem>(
       `http://localhost:8080/api/v1/orcamento/inserirServico?orcamentoId=${codOrcamento}`,
       servicoItem,
       options
-    ).subscribe({
-      next: (response) => {
-        console.log('Item inserido com sucesso:');
-      },
-      error: (error) => {
-        console.error('Erro ao inserir item:', error);
-      }
-    });
+    );
   }
 
   listarServicosOrcamento(idOrcamento:number): Observable<OrcamentoItem[]>{

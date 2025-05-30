@@ -76,7 +76,7 @@ public class OrcamentoService {
 		}
 	}
 	
-	public void addServicoOrcamento(@RequestBody OrcamentoItem orcamentoItem,
+	public OrcamentoItem addServicoOrcamento(@RequestBody OrcamentoItem orcamentoItem,
 			  long orcamentoId,@RequestHeader("CodEmpresa") String
 	  codEmpresa) { 
 		  
@@ -105,6 +105,8 @@ public class OrcamentoService {
 			  	novoServico.setEmpresa(codEmp);
 				  		 
 			  	orcamentoRepository.save(novoServico);
+			  	
+			  	return novoServico;
 			 
 			 		  
 	  } catch (Exception e) { throw new

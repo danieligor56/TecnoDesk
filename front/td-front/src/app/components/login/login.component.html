@@ -1,51 +1,52 @@
 <div id="content">
   <div id="container" class="mat-elevation-z4">
-
     <div>
       <h1>Tecno Desk</h1>
       <h2 class="full-width">Bem vindo ! </h2>
       <h3>Faça seu login</h3>
     </div>
-  
+      
     <div>
-    <form id="form-login">
-          <mat-form-field class="full-width " appearance ="fill">
-            <mat-label>E-mail</mat-label>
+      <form id="form-login">
+        <mat-form-field class="full-width" appearance ="fill">
+          <mat-label>E-mail</mat-label>
+          <input
+          [formControl]="email"
+          required
+          [(ngModel)]="cred.email"
+          name="email"
+          matInput
+          placeholder="seuemail@email.com">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error style=" font-size:12px;" *ngIf="email.invalid && email.touched">
+            É necessário informar um email válido.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance ="fill">
+            <mat-label>senha</mat-label>
             <input
-            [formControl]="email"
+            [formControl]="pass"
             required
-            [(ngModel)]="cred.email"
-            name="email"
-            matInput
-            placeholder="seuemail@email.com">
-            <mat-icon matSuffix>person</mat-icon>
-            <mat-error style=" font-size:12px;" *ngIf="email.invalid && email.touched">
-              É necessário informar um email válido.
-            </mat-error>
+            [(ngModel)]="cred.pass"
+            name="password"
+            type="password"
+            matInput placeholder="Ex. 123">
+            <mat-icon matSuffix>password</mat-icon>
+              <mat-error style=" font-size:12px;" *ngIf="pass.invalid && pass.touched">
+                É necessário informar uma senha.
+              </mat-error>
           </mat-form-field>
   
-          <mat-form-field class="full-width" appearance ="fill">
-              <mat-label>senha</mat-label>
-              <input
-              [formControl]="pass"
-              required
-              [(ngModel)]="cred.pass"
-               name="password"
-                 type="password"
-                 matInput placeholder="Ex. 123">
-                 <mat-icon matSuffix>password</mat-icon>
-                 <mat-error style=" font-size:12px;" *ngIf="pass.invalid && pass.touched">
-                  É necessário informar uma senha.
-                </mat-error>
-            </mat-form-field>
+        <button style="color: white;" (click)="logar()" [disabled]="!validaInput()" class="full-width mat-elevation-z4" mat-stroked-button color="primary">Login</button>
+      </form>
+    </div>
   
-        <button (click)="logar()" [disabled]="!validaInput()" class="full-width mat-elevation-z4" mat-stroked-button color="primary">Login</button>
-    </form>
-  </div>
-  
-        <div class="ajudaSuporte">
-          <a>Precisa de ajuda ? </a >
-        </div>
-  
+    <div class="ajudaSuporte">
+      <a style="cursor: pointer;">Primeiro acesso</a>
+      <br>
+      <br>
+      <a>Precisa de ajuda ? </a>
+    </div>
   </div>
 </div>

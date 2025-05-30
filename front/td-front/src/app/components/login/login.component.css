@@ -1,21 +1,22 @@
-
 #content{
     width: 100vw;
     height: 100vh;
-    display: grid;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    place-items: center;
     background-image: url("/assets/background-login.jpg");
     background-size: cover;
-   
+    background-position: center;
 }
 
 #container{
-    
-    background-color: white;
-    padding: 10px;
-    width: 60rem;
-    
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 3rem;
+    width: 32rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
 }
 
 #side-image{
@@ -27,32 +28,91 @@
 }
 
 #form-login{
-    height: 40vh;
-
+    height: auto;
 }
 
 h1{
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     text-align: center;
+    color: #1F66FE;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+h3 {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
 }
 
 .full-width{
     width: 100%;
 } 
 
+mat-form-field {
+    margin-bottom: 1rem;
+}
 
 mat-icon{
-    opacity: 0.4;
+    opacity: 0.6;
+    color: #1F66FE;
 }
 
 .ajudaSuporte{
-    color: gray;
-    margin-top: 1rem;
-    font-size: 12px;
-    text-decoration: underline;     
+    color: #666;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.ajudaSuporte a {
+    color: #1F66FE;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.ajudaSuporte a:hover {
+    color: #1854d0;
+    text-decoration: underline;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline {
+    display: none;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex:hover {
+    background-color: #f0f2f5;
 }
 
 button{
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background-color: #1F66FE;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+button:hover:not([disabled]) {
+    background-color: #1854d0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(31, 102, 254, 0.2);
+}
+
+button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

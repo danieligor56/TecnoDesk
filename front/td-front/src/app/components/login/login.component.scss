@@ -1,0 +1,54 @@
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+#container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.ajudaSuporte {
+  text-align: center;
+  margin-top: 1rem;
+  
+  a {
+    color: #1976d2;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+h1, h2, h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  color: #1976d2;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+button {
+  margin-top: 1rem;
+} 

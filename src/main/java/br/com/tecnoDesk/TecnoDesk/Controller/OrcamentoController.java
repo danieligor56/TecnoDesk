@@ -36,11 +36,11 @@ public class OrcamentoController {
 	
 	
 	
-	  @PostMapping("inserirServico") public ResponseEntity<Orcamento>
-	  inserirServicoOrcamento(@RequestBody OrcamentoItem orcamentoItem,
-      @RequestParam long orcamentoId ,@RequestHeader("CodEmpresa") String
-	  codEmpresa) { service.addServicoOrcamento(orcamentoItem, orcamentoId,
-	  codEmpresa); return ResponseEntity.ok().build(); }
+	  @PostMapping("inserirServico") public ResponseEntity<OrcamentoItem>
+	  inserirServicoOrcamento(@RequestBody OrcamentoItem orcamentoItem,@RequestParam long orcamentoId ,@RequestHeader("CodEmpresa") String codEmpresa) {
+		  OrcamentoItem novoItemOrcamento = service.addServicoOrcamento(orcamentoItem, orcamentoId,codEmpresa);
+		  return ResponseEntity.ok().body(novoItemOrcamento); 
+		  }
 	  
 	  @GetMapping("buscarOcamento")
 	  public ResponseEntity<Orcamento> buscarOrcamentoID(@RequestParam long id, @RequestHeader("CodEmpresa") String codEmpresa){
