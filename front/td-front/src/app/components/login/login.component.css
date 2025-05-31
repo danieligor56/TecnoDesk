@@ -11,12 +11,14 @@
 
 #container{
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(250, 250, 250, 0.550);
     padding: 3rem;
     width: 32rem;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
 }
 
 #side-image{
@@ -115,4 +117,60 @@ button:hover:not([disabled]) {
 button[disabled] {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+.login-form, .cadastro-form {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 0 3rem;
+}
+
+.login-form {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.login-form.hidden {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.cadastro-form {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.cadastro-form.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.login-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.login-content.ng-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.login-content.ng-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s ease-out;
+}
+
+.login-content.ng-leave {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.login-content.ng-leave-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease-in;
 }

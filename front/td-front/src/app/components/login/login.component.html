@@ -1,52 +1,65 @@
-<div id="content">
-  <div id="container" class="mat-elevation-z4">
-    <div>
-      <h1>Tecno Desk</h1>
-      <h2 class="full-width">Bem vindo ! </h2>
-      <h3>Faça seu login</h3>
-    </div>
+<div id="content" class="login-container">
+  <div id="container" class="mat-elevation-z4 login-card">
+    <div class="login-content" [@fadeAnimation]="mostrarCadastro ? 'cadastro' : 'login'">
+      <ng-container *ngIf="!mostrarCadastro">
+        <h1 class="login-title">Tecno Desk</h1>
+        <h2 class="login-subtitle">Bem vindo!</h2>
+        <h3 class="login-instruction">Faça seu login</h3>
       
-    <div>
-      <form id="form-login">
-        <mat-form-field class="full-width" appearance ="fill">
-          <mat-label>E-mail</mat-label>
-          <input
-          [formControl]="email"
-          required
-          [(ngModel)]="cred.email"
-          name="email"
-          matInput
-          placeholder="seuemail@email.com">
-          <mat-icon matSuffix>person</mat-icon>
-          <mat-error style=" font-size:12px;" *ngIf="email.invalid && email.touched">
-            É necessário informar um email válido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance ="fill">
-            <mat-label>senha</mat-label>
-            <input
-            [formControl]="pass"
-            required
-            [(ngModel)]="cred.pass"
-            name="password"
-            type="password"
-            matInput placeholder="Ex. 123">
-            <mat-icon matSuffix>password</mat-icon>
-              <mat-error style=" font-size:12px;" *ngIf="pass.invalid && pass.touched">
+        <div class="login-form-container">
+          <form id="form-login" (ngSubmit)="logar()">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>E-mail</mat-label>
+              <input
+                [formControl]="email"
+                required
+                [(ngModel)]="cred.email"
+                name="email"
+                matInput
+                type="email"
+                placeholder="seuemail@email.com"
+                aria-label="E-mail">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="email.invalid && email.touched">
+                É necessário informar um email válido.
+              </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Senha</mat-label>
+              <input
+                [formControl]="pass"
+                required
+                [(ngModel)]="cred.pass"
+                name="password"
+                type="password"
+                matInput
+                placeholder="Digite sua senha"
+                aria-label="Senha">
+              <mat-icon matSuffix>password</mat-icon>
+              <mat-error *ngIf="pass.invalid && pass.touched">
                 É necessário informar uma senha.
               </mat-error>
-          </mat-form-field>
-  
-        <button style="color: white;" (click)="logar()" [disabled]="!validaInput()" class="full-width mat-elevation-z4" mat-stroked-button color="primary">Login</button>
-      </form>
-    </div>
-  
-    <div class="ajudaSuporte">
-      <a style="cursor: pointer;">Primeiro acesso</a>
-      <br>
-      <br>
-      <a>Precisa de ajuda ? </a>
+            </mat-form-field>
+      
+            <button
+              type="submit"
+              [disabled]="!validaInput()"
+              class="full-width login-button mat-elevation-z4"
+              mat-stroked-button
+              color="primary">
+              Login
+            </button>
+          </form>
+        </div>
+      
+        <div class="login-help" style="margin-top: 8px;">
+          <a class="help-link" (click)="mostrarTelaCadastro()" role="button" style="margin-right: 6px;">Primeiro acesso</a>
+          <a href="#" class="help-link" role="button">Precisa de ajuda?</a>
+        </div>
+      </ng-container>
+
+      <app-register *ngIf="mostrarCadastro" (voltar)="voltarParaLogin()"></app-register>
     </div>
   </div>
 </div>

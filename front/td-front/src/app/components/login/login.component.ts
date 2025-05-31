@@ -1,68 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Creds } from 'src/app/models/creds';
 import { AuthService } from 'src/app/services/auth.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('fadeAnimation', [
+      state('login', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      state('cadastro', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('login => cadastro', [
+        style({ opacity: 0, transform: 'translateX(20px)' }),
+        animate('300ms ease-out')
+      ]),
+      transition('cadastro => login', [
+        style({ opacity: 0, transform: 'translateX(-20px)' }),
+        animate('300ms ease-out')
+      ])
+    ])
+  ]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  cred:Creds={
-    email:'',
-    pass:''
+  mostrarCadastro = false;
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+  pass = new FormControl('', [Validators.required]);
+
+  cred = {
+    email: '',
+    pass: ''
+  };
+
+  dados: any;
+
+  validaInput(): boolean {
+    return this.email.valid && this.pass.valid;
   }
-
-  dados:any;
-
-  email = new FormControl(null,Validators.email)
-  pass = new FormControl(null,Validators.minLength(3))
-
-  validaInput():boolean {
-     return this.email.valid && this.pass.valid
-    }
 
   constructor(
     private toast: ToastrService,
     private service: AuthService,
     private router: Router
-    ) { }
+  ) { }
 
-    ngOnInit(): void {
-      
-    }
-    
-  logar(){
-
-    localStorage.clear();
-   
-    this.service.anthenticate(this.cred).subscribe(resposta => {
-      this.service.succesLogin(resposta.body.substring(10).replace(/["}]/g, ''));
+  logar(): void {
+    if (this.validaInput()) {
+      localStorage.clear();
+      this.service.anthenticate(this.cred).subscribe(resposta => {
+        this.service.succesLogin(resposta.body.substring(10).replace(/["}]/g, ''));
         this.router.navigate(['']);
-          this.service.getCodEmpresa (this.cred.email).subscribe(
-            (key) => {
-            sessionStorage.setItem('CompGrpIndent',JSON.stringify(key).replace(/["]/g,''))
-          })
-            
-          
-          
-        
-          
+        this.service.getCodEmpresa(this.cred.email).subscribe(
+          (key) => {
+            sessionStorage.setItem('CompGrpIndent', JSON.stringify(key).replace(/["]/g, ''));
+          }
+        );
       },
-
-      
-          
-
-  
-      ()=> {
-      this.toast.error('Usuário e/ou senha inválidos');
-    } );
+        () => {
+          this.toast.error('Usuário e/ou senha inválidos');
+        });
+    }
   }
 
- 
+  mostrarTelaCadastro(): void {
+    this.mostrarCadastro = true;
+  }
+
+  voltarParaLogin(): void {
+    this.mostrarCadastro = false;
+  }
 }

@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/login/register.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -61,6 +62,7 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
     HeaderComponent,
     ColaboradorListComponent,
     LoginComponent,
+    RegisterComponent,
     ColaboradorCreateComponent,
     ColaboradorUpdateComponent,
     ColaboradorDeleteComponent,
