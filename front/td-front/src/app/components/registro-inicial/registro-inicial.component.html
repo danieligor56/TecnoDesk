@@ -1,0 +1,131 @@
+<body style="margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div class="container">
+
+      <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+        <h1 id="osH1">Primeiros passos !</h1>       
+      </div>
+
+    <mat-stepper #stepper class="mat-elevation-z4">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Informações pessoais</ng-template>
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input
+        
+        required 
+        matInput placeholder="Exp: João">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>CPF</mat-label>
+        <input
+        
+        required
+        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Contato</mat-label>
+        <input
+        
+        required
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input 
+        
+        required
+        matInput placeholder="joao@exemplo.com">
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+      <div>
+        <button routerLink="/login" class="mat-elevation-z4"  mat-button style="background-color: #707070; color: #ffffff;float: right;">Voltar para o login</button>
+        <button  class="mat-elevation-z4" mat-button matStepperNext style="background-color: #1F66FE; color: #ffffff;">Próximo</button>
+        
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Cadastrar empresa</ng-template>
+      
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Nome empresa</mat-label>
+        <input
+        required 
+        matInput placeholder="Exp: João">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+       <section class="example-section">
+        <mat-checkbox class="example-margin">Utilizar CPF</mat-checkbox>
+        <mat-checkbox class="example-margin">CNPJ</mat-checkbox>
+        </section>
+
+       <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Documento empresa</mat-label>
+        <input
+        required 
+        matInput placeholder="CPF ou CNPJ">
+        <mat-icon matSuffix>badge</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field class="halfWidth" appearance="fill" style="margin-right: 1rem;">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+               <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="halfWidth" appearance="fill">
+        <mat-label>Confirmar Email</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+               <mat-icon matSuffix>alternate_email</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field  class="halfWidth" appearance="fill" style="margin-right: 1rem;">
+        <mat-label>Contato principal</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+               <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="halfWidth" appearance="fill">
+        <mat-label>Contato secundario</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+               <mat-icon matSuffix>call</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="fullWidth" appearance="fill">
+        <mat-label>Site</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+               <mat-icon matSuffix>public</mat-icon>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious style="background-color: #707070; color: #ffffff; margin-right: 0.5rem;">voltar</button>
+        <button mat-button matStepperNext style="background-color: #1F66FE; color: #ffffff;">Próximo</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+</div>
+</body>

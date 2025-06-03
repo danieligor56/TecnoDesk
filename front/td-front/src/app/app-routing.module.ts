@@ -22,11 +22,14 @@ import { ItemServiceDeleteComponent } from './components/item-service/item-servi
 import { ItemServicelMinilistComponent } from './components/item-service/item-servicel-minilist/item-servicel-minilist.component';
 import { ItemServiceCreateAvulsoComponent } from './components/item-service/item-service-create-avulso/item-service-create-avulso.component';
 import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
+import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 
 
 const routes: Routes = [
   {
     path:'login',component:LoginComponent
+  },{
+    path:'registroInicial',component:RegistroInicialComponent
   },
   {
     path:'',component:NavComponent,canActivate: [AuthGuard],children:[

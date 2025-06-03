@@ -17,7 +17,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/login/register.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -53,6 +52,8 @@ import { ItemServiceDeleteComponent } from './components/item-service/item-servi
 import { ItemServicelMinilistComponent } from './components/item-service/item-servicel-minilist/item-servicel-minilist.component';
 import { ItemServiceCreateAvulsoComponent } from './components/item-service/item-service-create-avulso/item-service-create-avulso.component';
 import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
+import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +63,6 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
     HeaderComponent,
     ColaboradorListComponent,
     LoginComponent,
-    RegisterComponent,
     ColaboradorCreateComponent,
     ColaboradorUpdateComponent,
     ColaboradorDeleteComponent,
@@ -82,7 +82,9 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
     ItemServiceDeleteComponent,
     ItemServicelMinilistComponent,
     ItemServiceCreateAvulsoComponent,
-    ItemServiceCobrarhoraComponent
+    ItemServiceCobrarhoraComponent,
+    RegistroInicialComponent
+
     
   
   ],
