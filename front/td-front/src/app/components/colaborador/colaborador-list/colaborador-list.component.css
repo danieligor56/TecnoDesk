@@ -1,3 +1,8 @@
+.container{
+    width: 80%;
+    padding: 1rem;
+    
+  }
 
 th{
   background-color: #F6F6F6;
@@ -47,9 +52,4 @@ button{
 
 #rows{
   background-color: #F6F6F6;
-}
-
-.container{
-  width: 92%;
-  margin:2rem auto;
 }

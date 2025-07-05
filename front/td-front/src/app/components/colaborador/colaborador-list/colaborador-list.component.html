@@ -6,49 +6,48 @@
   
 
   <mat-form-field appearance="standard">
-    <mat-label>Filtrar</mat-label>
+    <mat-label>🔍 Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Insira alguma informação do colaborador" #input>
   </mat-form-field>
   
-  <div class="mat-elevation-z8">
+  <div>
     <table mat-table [dataSource]="dataSource">
   
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element">🆔 {{element.id}} </td>
       </ng-container>
   
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element">👤 {{element.nome}} </td>
       </ng-container>
   
       <ng-container matColumnDef="weight">
         <th mat-header-cell *matHeaderCellDef> Cargo/Função </th>
-        <td mat-cell *matCellDef="let element"> {{element.ocupacao}} </td>
+        <td mat-cell *matCellDef="let element">🧑‍🔧 {{element.ocupacao}} </td>
       </ng-container>
 
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <td mat-cell *matCellDef="let element">✉️ {{element.email}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef>Editar | Excluir </th>
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           
-
-          <a [routerLink]="element.id" (click)="$event.preventDefault()">
-            <mat-icon style="color:#5E5E5E;margin-right: 10px;margin-left: 6px;" (click)="openDialog($event, element.id)" id="editar">open_in_new</mat-icon>
+          <div style="display: flex;">
+            <a type="button" mat-stroked-button color="primary" [routerLink]="element.id" (click)="$event.preventDefault()" (click)="openDialog($event, element.id)">
+            <mat-icon (click)="openDialog($event, element.id)" id="editar">open_in_new</mat-icon> Editar
           </a>
 
           <!-- <a [routerLink]="element.id" (click)="$event.preventDefault()"> -->
-            <mat-icon
-            (click)="openDelDialog($event, element.id)"
-            style="color:#5E5E5E;margin-right: 4px;"
-            id="delete"
-            >delete
-            </mat-icon>
+            <button (click)="openDelDialog($event, element.id)" id="delete" mat-stroked-button color="warn" style="width: 10rem;margin-left: .5rem;">
+            <mat-icon>delete</mat-icon>Excluir registro</button>
+          </div>
+          
+            
           
         </td>
         
@@ -64,6 +63,6 @@
     </mat-paginator>
   </div>
 
-  <button routerLink="create" class="mat-elevation-z8" style="float: right;margin-top: 20px;background-color: #1F66FE;color: white;width: 140px;" mat-flat-button>Novo colaborador</button>
+  <button routerLink="create" color="primary" style="margin-top: 20px;width: 140px;" mat-flat-button>Novo colaborador</button>
 
 </div>

@@ -6,7 +6,7 @@
    
   
     <mat-form-field appearance="standard">
-      <mat-label>Filtrar</mat-label>
+      <mat-label>🔍 Filtrar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Insira algum dado para pesquisar o cliente" #input>
     </mat-form-field> 
 
@@ -16,39 +16,38 @@
     
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> id </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element">🆔 {{element.id}} </td>
         </ng-container>
     
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef> Nome </th>
-          <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+          <td mat-cell *matCellDef="let element">👤 {{element.nome}} </td>
         </ng-container>
     
         <ng-container matColumnDef="documento">
           <th mat-header-cell *matHeaderCellDef> Documento </th>
-          <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
+          <td mat-cell *matCellDef="let element">📝 {{element.documento}} </td>
         </ng-container>
         
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef="let element">✉️ {{element.email}} </td>
         </ng-container>
         
         <ng-container matColumnDef="cel1">
-          <th mat-header-cell *matHeaderCellDef> Contato principal </th>
-          <td mat-cell *matCellDef="let element"> {{element.cel1}} </td>
+          <th mat-header-cell *matHeaderCellDef>Contato principal</th>
+          <td mat-cell *matCellDef="let element">📱 {{element.cel1}} </td>
         </ng-container>
         
         <ng-container matColumnDef="acoes">
-           <th mat-header-cell *matHeaderCellDef>Editar | Excluir</th> 
+           <th mat-header-cell *matHeaderCellDef></th> 
           <td mat-cell *matCellDef="let element"> 
           
             <a type="button" mat-stroked-button color="primary" [routerLink]="element.id" (click)="$event.preventDefault()" (click)="openDialog($event, element.id)">
-              <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>
-              Editar
+              <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>Editar
             </a>
            
-            <button mat-stroked-button style="margin-left: 10px;" color="warn" (click)="openDelDialog($event, element.id)">
+            <button mat-stroked-button style="margin-left: 8px;" color="warn" (click)="openDelDialog($event, element.id)">
               <mat-icon
               id="delete"
               >delete
@@ -56,7 +55,7 @@
               Excluir registro
             </button>
 
-            <button (click)="abrirOsComCliente(element.id)" mat-stroked-button style="margin-left: 10px;"><mat-icon>assignment_add</mat-icon><b>O.S</b></button>
+            <button (click)="abrirOsComCliente(element.id)" mat-stroked-button style="margin-left: 8px;"><mat-icon>assignment_add</mat-icon>O.S</button>
 
 
               
@@ -79,7 +78,7 @@
     </div>
 
     <!-- <button routerLink="create" style="margin-top: .5rem;" mat-flat-button color="primary">Novo cliente</button> -->
-     <button (click)="openCreateDialog()" style="margin-top: .5rem;" mat-flat-button color="primary">Novo cliente</button>
+     <button (click)="openCreateDialog()" style="margin-top: .5rem;width: 140px;" mat-flat-button color="primary">Novo cliente</button>
     
   
   </div>
