@@ -6,6 +6,7 @@ import { Colaborador } from 'src/app/models/Colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { ColaboradorUpdateComponent } from '../colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from '../colaborador-delete/colaborador-delete.component';
+import { ColaboradorCreateComponent } from '../colaborador-create/colaborador-create.component';
 
 @Component({
   selector: 'app-colaborador-list',
@@ -61,12 +62,21 @@ export class ColaboradorListComponent implements OnInit {
   });
 }
 
- 
+ criarColaboradorDialog(){
+    const dialogRef = this.dialog.open(ColaboradorCreateComponent);
+
+    dialogRef.afterClosed().subscribe( result =>{
+        if(result)
+          this.findAll()
+      })
+
+
+  }
 
 
 
 
 
-};
+}
 
 

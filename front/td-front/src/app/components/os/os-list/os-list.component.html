@@ -22,17 +22,17 @@
     
         <ng-container matColumnDef="numOs">
           <th mat-header-cell *matHeaderCellDef> Número OS </th>
-          <td mat-cell *matCellDef="let element"> {{element.numOs}} </td>
+          <td mat-cell *matCellDef="let element">🔢 {{element.numOs}} </td>
         </ng-container>
 
         <ng-container matColumnDef="cliente">
           <th mat-header-cell *matHeaderCellDef> Cliente </th>
-          <td mat-cell *matCellDef="let element"> {{element.cliente.nome}} </td>
+          <td mat-cell *matCellDef="let element">👤 {{element.cliente.nome}} </td>
         </ng-container>
 
         <ng-container matColumnDef="colaborador">
             <th mat-header-cell *matHeaderCellDef> Responsável </th>
-            <td mat-cell *matCellDef="let element"> {{element.colaborador.nome}} </td>
+            <td mat-cell *matCellDef="let element">🧑‍🔧 {{element.colaborador.nome}} </td>
         </ng-container>
           
         <ng-container matColumnDef="statusOS">

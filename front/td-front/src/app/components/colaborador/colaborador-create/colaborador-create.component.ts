@@ -1,6 +1,7 @@
 import { SelectionChange } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
@@ -38,6 +39,7 @@ export class ColaboradorCreateComponent implements OnInit {
      private router:Router,
      private service:AuthService,
      private usuarioService:UsuarioService,
+     private dialogRef: MatDialogRef<ColaboradorCreateComponent>
     
     ) 
   {}
@@ -159,12 +161,15 @@ export class ColaboradorCreateComponent implements OnInit {
             this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
           
             this.usuarioService.criarUsuario(this.usuario).subscribe(resp => {
+            this.dialogRef.close(true)
+
             this.toast.success("Cadastro de usuario realizado  com sucesso ! ");
             this.router.navigate(['colaborador']);
           
           });
 
             this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
+            this.dialogRef.close(true)
             this.toast.success("Cadastro realizado  com sucesso ! ");
             this.router.navigate(['colaborador']); 
           
@@ -190,5 +195,11 @@ export class ColaboradorCreateComponent implements OnInit {
     )
   }
   }
+
+  closeDialog(){
+    this.dialogRef.close();
+  }
+
+
 
 }

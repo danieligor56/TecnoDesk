@@ -42,18 +42,14 @@ const routes: Routes = [
       {path: 'itemService/createAvulso',component:ItemServiceCreateAvulsoComponent},
       {path: 'itemService/cobrarHora',component:ItemServiceCobrarhoraComponent},  
       {path:'colaborador',component:ColaboradorListComponent},
-      {path:'colaborador/create',component:ColaboradorCreateComponent},
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
-      {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os/create',component:OsCreateComponent},
       {path:'os/create/:id',component:OsCreateComponent},
       {path:'os/list',component:OsListComponent},
       {path:'os/manager',component:OsManagerComponent},
       {path:'manager/:id',component:OsManagerComponent},
-      {path:'clientes',component:ClientesListComponent},
+      {path:'clientes',component:ClientesListComponent}
 
-      {path:'clientes/update/:id',component:ClientesUpdateComponent},
-      {path:'clientes/delete/:id',component:ClientesDeleteComponent}
       
     ]
   }

@@ -1,10 +1,11 @@
 
-<div class="container mat-elevation-z8">
+<div class="container">
    
     
-    <h1 class="fullWidth">Cadastrar colaborador</h1>
+    <div class="titPage" style="padding:5px; margin-bottom: 10px;">
+      <h1 id="osH1">Cadastrar cliente</h1>      
+    </div>
     
-    <img class="fullWidth" src="/assets/img/colaborador-create.svg" alt="create-new-colaborador">
    
     <section class="section">
         
@@ -135,7 +136,7 @@
 
 
       <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
-      <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
+      <button (click)="closeDialog()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
     
     </form>
 
