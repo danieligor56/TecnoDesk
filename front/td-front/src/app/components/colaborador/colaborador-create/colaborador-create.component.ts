@@ -142,6 +142,7 @@ export class ColaboradorCreateComponent implements OnInit {
   }
 
   usuario : Usuarios = {
+    nomeCompleto:'',
     email:'',
     pass:''  
   }
@@ -152,7 +153,8 @@ export class ColaboradorCreateComponent implements OnInit {
     if(this.isUsuario == true) {
       {    
         try {
-          
+
+            this.usuario.nomeCompleto=(this.colaboradorCreateForm.get('nome').value)
             this.usuario.email=(this.colaboradorCreateForm.get('email').value);
             this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
           

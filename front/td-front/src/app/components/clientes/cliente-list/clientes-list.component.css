@@ -1,11 +1,16 @@
 
 th{
     background-color: #F6F6F6;
+     
+  }
+
+  td{
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+      color: #212121;
   }
   
   table {
-      width: 100%;
-      
+      width: 100%;     
   }
   
   mat-form-field{
@@ -48,5 +53,6 @@ th{
   
   .container{
     width: 92%;
-    margin:2rem auto;
+    padding: 1rem;
+    
   }

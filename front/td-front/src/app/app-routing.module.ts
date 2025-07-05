@@ -46,6 +46,7 @@ const routes: Routes = [
       {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
       {path:'colaborador/delete/:id',component:ColaboradorDeleteComponent},
       {path:'os/create',component:OsCreateComponent},
+      {path:'os/create/:id',component:OsCreateComponent},
       {path:'os/list',component:OsListComponent},
       {path:'os/manager',component:OsManagerComponent},
       {path:'manager/:id',component:OsManagerComponent},

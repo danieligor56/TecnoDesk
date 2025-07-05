@@ -1,5 +1,6 @@
 export interface Empresa{
     id:string
+    razaoSocial:string;
     nomEmpresa:string;
     docEmpresa:string;
     mail:string;
@@ -13,4 +14,5 @@ export interface Empresa{
     bairro:string;
     municipio:string;
 	uf:string;
+    
 }

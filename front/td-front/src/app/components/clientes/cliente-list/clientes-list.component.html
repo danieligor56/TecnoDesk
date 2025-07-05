@@ -2,7 +2,7 @@
 
   <div class="titPage" style="padding:5px;margin-bottom: 10px;">
     <h1 id="osH1">Cliente</h1>       
-</div>
+  </div>
    
   
     <mat-form-field appearance="standard">
@@ -11,8 +11,7 @@
     </mat-form-field> 
 
  
-    <div class="mat-elevation-z8">
-      
+    <div >  
       <table mat-table [dataSource]="dataSource">
     
         <ng-container matColumnDef="id">
@@ -44,18 +43,24 @@
            <th mat-header-cell *matHeaderCellDef>Editar | Excluir</th> 
           <td mat-cell *matCellDef="let element"> 
           
-            <a [routerLink]="element.id" (click)="$event.preventDefault()">
-              <mat-icon style="color:#5E5E5E;margin-right: 10px;margin-left: 6px;" (click)="openDialog($event, element.id)" id="editar">open_in_new</mat-icon>
+            <a type="button" mat-stroked-button color="primary" [routerLink]="element.id" (click)="$event.preventDefault()" (click)="openDialog($event, element.id)">
+              <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>
+              Editar
             </a>
-  
+           
+            <button mat-stroked-button style="margin-left: 10px;" color="warn" (click)="openDelDialog($event, element.id)">
               <mat-icon
-              (click)="openDelDialog($event, element.id)"
-              style="color:#5E5E5E;margin-right: 4px;"
               id="delete"
               >delete
               </mat-icon>
-        </td>
-          
+              Excluir registro
+            </button>
+
+            <button (click)="abrirOsComCliente(element.id)" mat-stroked-button style="margin-left: 10px;"><mat-icon>assignment_add</mat-icon><b>O.S</b></button>
+
+
+              
+        </td>         
           
         </ng-container>
   
@@ -73,7 +78,8 @@
       </mat-paginator>
     </div>
 
-    <!-- <button routerLink="create" style="margin-top: 20px;" class="mat-elevation-z8" mat-stroked-button color="primary">Novo cliente</button> -->
-    <button routerLink="create" class="mat-elevation-z8" style="float: right;margin-top: 20px;background-color: #1F66FE;color: white;width: 130px;" mat-flat-button>Novo cliente</button>
+    <!-- <button routerLink="create" style="margin-top: .5rem;" mat-flat-button color="primary">Novo cliente</button> -->
+     <button (click)="openCreateDialog()" style="margin-top: .5rem;" mat-flat-button color="primary">Novo cliente</button>
+    
   
   </div>

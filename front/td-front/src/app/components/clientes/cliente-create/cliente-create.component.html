@@ -1,9 +1,10 @@
 
-<div class="container mat-elevation-z8">  
-
-    <h1 class="fullWidth">Cadastrar Cliente</h1>
-    
-    <img class="fullWidth" src="/assets/img/cliente-register.svg" alt="create-new-colaborador">
+<div class="container">  
+  <div>
+<!-- <h1 class="fullWidth">Cadastrar Cliente</h1> -->
+ <div class="titPage" style="padding:5px; margin-bottom: 10px;">
+    <h1 id="osH1">Cadastrar cliente</h1>      
+  </div>
       
       <form [formGroup]="clienteCreateForm" *ngIf="form2" class="form2">
         
@@ -79,7 +80,7 @@
         <input
         formControlName="documento"
         required
-        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00" [dropSpecialCharacters]="false">
         <mat-icon matSuffix>badge</mat-icon>
       </mat-form-field>
 
@@ -88,7 +89,7 @@
         <input
         formControlName="cel1"
         required
-        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00) 000000000" [dropSpecialCharacters]="false">
         <mat-icon matSuffix>call</mat-icon>
       </mat-form-field>
       
@@ -96,7 +97,7 @@
         <mat-label>Contato secundario</mat-label>
         <input
         formControlName="cel2"
-        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        matInput placeholder="(xx)xxxxxxxxx" mask="(00) 000000000" [dropSpecialCharacters]="false">
         <mat-icon matSuffix>call</mat-icon>
       </mat-form-field>
 
@@ -111,9 +112,13 @@
 
 
       <button [disabled]="!validaCampos()" (click)="cadastrarEndereco()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
-      <button routerLink="../" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button> 
+      <button (click)="closeDialog()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button> 
     
     </form>
+  </div>
+  <!-- <div>
+    <img class="fullWidth" src="/assets/img/cliente-register.svg" alt="create-new-colaborador">
+  </div> -->
 
     
 </div>

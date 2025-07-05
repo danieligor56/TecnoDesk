@@ -12,7 +12,7 @@ import { OsService } from 'src/app/services/os.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/Cliente';
 import { OsCreateSucssesComponent } from './os-create-sucsses/os-create-sucsses.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
@@ -41,7 +41,8 @@ export class OsCreateComponent implements OnInit {
     private os:OsService,
     private toast:ToastrService,
     private router:Router,
-    private pdfService:PdfService
+    private pdfService:PdfService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -64,8 +65,28 @@ export class OsCreateComponent implements OnInit {
 
     this.dropdownColaborador();
     console.log(this.colaboradorOs); // Verifique se está recebendo o valor corretamente
+
+    if(this.route.snapshot.paramMap.get('id') != null){
+      this.encontrarClientePorId(this.route.snapshot.paramMap.get('id'));
+    }
   }
 
+  encontrarClientePorId(id) {
+  this.clienteService.findByID(id).subscribe(response => {
+    if (response && response.id != null) {
+      this.doc = response.documento
+      this.nomeCliente = response.nome;
+      this.cttPrincipalCliente = response.cel1;
+      this.enderecoCliente = `${response.logradouro}, ${response.numero}.`;
+
+      this.osCreateForm.patchValue({
+        cliente: { id: response.id }
+      });
+    }
+  }, error => {
+    console.error('Erro ao buscar cliente:', error);
+  });
+}
 
   openDialogCancelarOs(){
     const cancelarOs = this.dialog.open(CancelarOSComponent);

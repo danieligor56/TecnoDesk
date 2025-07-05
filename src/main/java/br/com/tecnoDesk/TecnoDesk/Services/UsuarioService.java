@@ -32,17 +32,16 @@ public class UsuarioService {
 	@Autowired
 	EmpresaRepository empresaRepository;
 	
-	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO,String codEmpresa) throws Exception {
+	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO,long codEmpresa) throws Exception {
 
-		var decryCodEmp = secUtil.decrypt(codEmpresa);
-		long codEmp = Long.valueOf(decryCodEmp);
+		
 		
 		
 		if(this.usuarioRepository.findByEmail(usuarioDTO.email()) != null)
 			throw new BadRequest("Email já cadastrado");
 	
 		String maskPassword = new BCryptPasswordEncoder().encode(usuarioDTO.pass());
-		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmp));
+		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmpresa),usuarioDTO.nomeCompleto());
 		
 		usuarioRepository.save(novoUsuario);
 	}

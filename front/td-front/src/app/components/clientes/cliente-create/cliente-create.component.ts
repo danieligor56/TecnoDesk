@@ -1,6 +1,7 @@
 import { SelectionChange } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
@@ -20,9 +21,11 @@ export class ClienteCreateComponent implements OnInit {
   validadorDeSenhas:boolean = false;
   form2:boolean = false;
   form1:boolean = true;
+
+  
   
   constructor(
-    
+    private dialogRef: MatDialogRef<ClienteCreateComponent>,
     private fb: FormBuilder,
     private servCep: CepService,
     private toast: ToastrService,
@@ -107,8 +110,13 @@ export class ClienteCreateComponent implements OnInit {
     .subscribe(resposta => {
     this.toast.success("Cadastro realizado  com sucesso ! ");
     this.router.navigate(['clientes']); 
+    this.dialogRef.close(true);
           
-           })            
+    })            
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
   }
 
 

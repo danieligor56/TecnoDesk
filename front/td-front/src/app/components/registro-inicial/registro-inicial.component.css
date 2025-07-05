@@ -19,6 +19,10 @@ body{
     
 }
 
+.tinyWidth{
+    width: 20%;
+}
+
 mat-icon{
         opacity: .5;
 }

@@ -42,6 +42,9 @@ public class Usuarios implements Serializable,UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Column(name = "Nome",nullable = false,unique = true)
+	private String nomeCompleto;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)
@@ -105,13 +108,15 @@ public class Usuarios implements Serializable,UserDetails{
 		return true;
 	}
 
-	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role, boolean atvReg,Empresa empresa) {
+	public Usuarios(@NotNull @NotEmpty String email, @NotNull @NotEmpty String pass, Roles role,
+			boolean atvReg,Empresa empresa,String nomeCompleto) {
 		super();
 		this.email = email;
 		this.pass = pass;
 		this.role = role;
 		this.atvReg = atvReg;
 		this.empresa = empresa;
+		this.nomeCompleto = nomeCompleto;
 	
 	}
 

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Services.EmpresaService;
 
@@ -20,7 +23,11 @@ public class EmpresaController {
 	@GetMapping("buscarEmpresaPorID")
 	public ResponseEntity<Empresa> buscarEmpresaPorID(Long codEmpresa) {
 		return ResponseEntity.ok().body(this.empresaService.buscarEmpresoPorID(codEmpresa));
-		
+	}
+	
+	@GetMapping("VerificarPorDoc")
+	public Boolean verificarPorDoc(String documento) {
+		return this.empresaService.existsByDoc(documento);
 	}
 		
 

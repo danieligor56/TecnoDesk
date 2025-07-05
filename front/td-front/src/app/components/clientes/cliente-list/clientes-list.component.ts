@@ -7,6 +7,8 @@ import { ClientesDeleteComponent } from '../clientes-delete/clientes-delete.comp
 import { ClientesUpdateComponent } from '../clientes-update/clientes-update.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { ClienteCreateComponent } from '../cliente-create/cliente-create.component';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-list',
@@ -24,7 +26,8 @@ export class ClientesListComponent implements OnInit {
   
   constructor(
     private cliService:ClienteService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +62,18 @@ export class ClientesListComponent implements OnInit {
       width: '250px',
   });
 }
+
+  openCreateDialog(){
+     const dialogRef = this.dialog.open(ClienteCreateComponent);
+    dialogRef.afterClosed().subscribe( result =>{
+        if(result)
+          this.findAllcli()
+      })
+  }
+
+  abrirOsComCliente(id){
+    this.router.navigate(['/os/create',id])
+  }
 
 
 }

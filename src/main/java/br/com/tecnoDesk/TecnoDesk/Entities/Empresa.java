@@ -28,6 +28,10 @@ public class Empresa {
 	private long id;
 	
 	@Valid
+	@Column(name = "RazaoSocial",unique = true)
+	private String razaoSocial;
+	
+	@Valid
 	@Column(name="NomeEmpresa",unique = true,nullable = false)
 	private String nomEmpresa;
 	
