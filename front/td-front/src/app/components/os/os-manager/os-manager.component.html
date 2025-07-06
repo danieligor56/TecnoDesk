@@ -4,14 +4,14 @@
         <h1 id="osH1">Ordem de serviço</h1>       
     </div>
 
-    <mat-tab-group mat-align-tabs="start" animationDuration="500ms" class="mat-elevation-z4" style="overflow: hidden;">
+    <mat-tab-group mat-align-tabs="start" animationDuration="500ms" style="overflow: hidden;">
 
         <mat-tab label="Ordem de serviço">
             <div class="tab-content" style="display: flex;">
                 
                 <div class="os-dados">                   
                     <div class="cliente-os">
-                        <h3 style="margin-bottom: 0px;">Cliente</h3>
+                        <h3>Cliente</h3>
                         <!-- Primeira linha: Nome e Código -->
                         <div class="row">
                             <div class="input-group">
@@ -56,8 +56,8 @@
                                 <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
                                 <input type="text" id="telefone" [value]="Os?.colaborador?.nome" readonly width="80px">
                             </div>
-    
-                            <div class="input-group" style="margin-bottom: 2rem;">                              
+                            <div style="display: flex;">
+                                <div class="input-group">                              
                                 <mat-form-field appearance="legacy">
                                     <label for="telefone">Responsável técnico:</label>
                                         <mat-select (selectionChange)="onColaboradorChange($event.value)">
@@ -70,7 +70,7 @@
                             </div>
     
                             <div class="input-group">
-                                <mat-form-field appearance="legacy" style="margin-right: 10px;">
+                                <mat-form-field appearance="legacy" style="margin-left: .5rem;">
                                     <label for="telefone">Tipo de prioridade: </label>
                                     <mat-select>
                                       <mat-option value= 0  >Normal</mat-option>
@@ -79,6 +79,9 @@
                                     </mat-select>
                                   </mat-form-field>
                             </div>
+                            </div>
+    
+                            
     
                             
                         </div>
@@ -88,7 +91,7 @@
                 </div>
 
                  
-                <div class="rec-cli" style="margin-left: 30px;margin-top: 20px;">
+                <div class="rec-cli" style="margin-left: 30px;">
                     <h3 style="margin-bottom: 5px;">Resumo do problema</h3>
                     
                     <div>
@@ -98,17 +101,19 @@
                                 <textarea style="resize: none; height: 1 rem;" matInput placeholder="" readonly>{{Os?.reclamacaoCliente}}</textarea>                               
                             </mat-form-field>    
                         </div>
-                        <div>
+                        <div style="margin-bottom: 2rem;">
                             <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
                                 <mat-label>Resultado do teste inicial:</mat-label>
                                 <textarea style="resize: none; height: 8px;" matInput placeholder="" readonly>{{Os?.initTest}}</textarea>
                             </mat-form-field>    
                         </div>
                         
-                        <div id="containerImgOsManager">
+                        <!-- <div id="containerImgOsManager">
                             <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
-                        </div>
+                        </div> -->
                         
+                        <button mat-flat-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        <button mat-flat-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
 
                   </div>
                   

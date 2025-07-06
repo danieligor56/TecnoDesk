@@ -159,10 +159,7 @@ export class ColaboradorCreateComponent implements OnInit {
             this.usuario.nomeCompleto=(this.colaboradorCreateForm.get('nome').value)
             this.usuario.email=(this.colaboradorCreateForm.get('email').value);
             this.usuario.pass=(this.colaboradorCreateForm.get('senha').value);
-          
             this.usuarioService.criarUsuario(this.usuario).subscribe(resp => {
-            this.dialogRef.close(true)
-
             this.toast.success("Cadastro de usuario realizado  com sucesso ! ");
             this.router.navigate(['colaborador']);
           
@@ -171,7 +168,8 @@ export class ColaboradorCreateComponent implements OnInit {
             this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
             this.dialogRef.close(true)
             this.toast.success("Cadastro realizado  com sucesso ! ");
-            this.router.navigate(['colaborador']); 
+            this.router.navigate(['colaborador']);
+            this.dialogRef.close(true) 
           
           })
 
@@ -184,6 +182,7 @@ export class ColaboradorCreateComponent implements OnInit {
       this.colaboradorService.create(this.colaboradorCreateForm.value).subscribe(resposta => {
         this.toast.success("Cadastro realizado com sucesso ! ");
           this.router.navigate(['colaborador'])
+          this.dialogRef.close(true)
       
 
     

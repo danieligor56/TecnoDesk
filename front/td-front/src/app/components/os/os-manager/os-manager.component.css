@@ -82,7 +82,7 @@ mat-form-field{
     padding: 10px;
 }
 
-.cliente-os, .equipamento-os, .servico-dados,.equip-os,.rec-os {
+.servico-dados {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
@@ -173,10 +173,7 @@ h3 {
     
 }
 
-#imgOsManager{
-    height: 14rem;
-    width: 14rem;
-}
+
 
 #containerImgOsManager{
     justify-content: center;
