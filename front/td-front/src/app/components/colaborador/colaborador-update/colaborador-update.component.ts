@@ -187,7 +187,7 @@ validaCampos():boolean{
   {
       this.toast.success('Alteração realizado com sucesso');
         this.router.navigate(['colaborador']); 
-          this.dialogRef.close(); 
+          this.dialogRef.close(true); 
     })
   }
 

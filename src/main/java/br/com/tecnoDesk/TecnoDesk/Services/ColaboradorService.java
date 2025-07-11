@@ -95,20 +95,31 @@ public class ColaboradorService {
 				}
 
 	public Colaborador deletarColaborador(long id, String codEmpresa) throws Exception {
-		Colaborador existeCob = colaboradorRespository.findItById(id);
 		
-		if (existeCob != null) {
+		try {
 			
-			 String chave = secUtil.decrypt(codEmpresa);
+			Colaborador existeCob = colaboradorRespository.findItById(id);
+			String chave = secUtil.decrypt(codEmpresa);
+			var colaboradorEmUso = colaboradorRespository.colaboradorEmUso(id,Long.valueOf(chave));
 			
-			if(existeCob.getEmpresa().getId() == Long.valueOf(chave))
-			colaboradorRespository.deleteById(id);
-			return null;
+			if (existeCob != null) {
+				 
+				if(colaboradorEmUso > 0) {
+					throw new BadRequest("O colaborador possui OS's registradas em seu nome");
+				}
+			
+				if(existeCob.getEmpresa().getId() == Long.valueOf(chave))
+				colaboradorRespository.deleteById(id);
+				return null;
+			}
+			
+				return null;
+			
+		} catch (Exception e) {
+			throw new NotFound("Erro ao exluir o colaborardor: "+ e.getMessage());
 		}
-
-		throw new NotFound("Não há colaboradores cadastrados com esse ID");
+	}
 		
-		}
 
 	public void alterColab(Long id, ColaboradorDTO colaboradorDTO,String codEmpresa) {
 		

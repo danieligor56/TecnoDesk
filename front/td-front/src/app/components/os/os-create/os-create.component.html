@@ -31,8 +31,7 @@
                     [(ngModel)]="doc"
                     (blur)="buscarClientePorDoc()" 
                     matInput
-                    matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00"
-                    >
+                    matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00" [dropSpecialCharacters]="false">
                 </mat-form-field>
 
                 <mat-form-field class="dataCli" appearance="fill">
@@ -101,9 +100,10 @@
                     <mat-form-field appearance="fill" style="margin-right: 10px;">
                         <mat-label>Clasificação de atendimento</mat-label>
                         <mat-select formControlName="prioridadeOS">
-                          <mat-option value= 0  >Normal</mat-option>
-                          <mat-option value= 1  >Urgência</mat-option>
-                          <mat-option value= 2  >Garantia</mat-option>
+                                    <mat-option value= 0  >📌Normal</mat-option>
+                                    <mat-option value= 1  >🔥 Crítica / Urgente / Emergencial</mat-option>
+                                    <mat-option value= 2  >🔄 Garantia</mat-option>
+                                    <mat-option value= 2  >⏱️ Prioridade</mat-option>
                         </mat-select>
                       </mat-form-field>
                       
@@ -111,7 +111,7 @@
                         <mat-label>Atendente</mat-label>
                             <mat-select (selectionChange)="onColaboradorChange($event.value)">
                                 <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
-                                {{ colaborador.nome }}
+                                👤 {{ colaborador.nome }}
                                 </mat-option>
                             </mat-select>
                       </mat-form-field>
@@ -184,11 +184,11 @@
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" style="margin-top: 0px;" appearance="fill">
-                    <mat-label>Número de série:</mat-label>
-                        <input
-                        formControlName="snAparelho"                        
-                        matInput>
-                    </mat-form-field>
+                <mat-label>Número de série:</mat-label>
+                    <input
+                    formControlName="snAparelho"                        
+                    matInput>
+                </mat-form-field>
 
             </div>
             

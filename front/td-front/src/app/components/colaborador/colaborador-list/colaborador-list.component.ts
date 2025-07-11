@@ -51,15 +51,26 @@ export class ColaboradorListComponent implements OnInit {
     const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {   
       data: { id: id }
     });
+
+     dialogRef.afterClosed().subscribe( result => {
+        if(result)
+          this.findAll()
+      })
+
   }
 
   openDelDialog(event: Event, id: string): void {
+    
     const dialog = this.dialog.open(ColaboradorDeleteComponent, {
       data: {id:id},
       width: '250px',
-    // enterAnimationDuration,
-    // exitAnimationDuration,
   });
+
+    dialog.afterClosed().subscribe( result => {
+        if(result)
+          this.findAll()
+      })
+
 }
 
  criarColaboradorDialog(){

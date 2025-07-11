@@ -73,9 +73,10 @@
                                 <mat-form-field appearance="legacy" style="margin-left: .5rem;">
                                     <label for="telefone">Tipo de prioridade: </label>
                                     <mat-select>
-                                      <mat-option value= 0  >Normal</mat-option>
-                                      <mat-option value= 1  >Urgência</mat-option>
-                                      <mat-option value= 2  >Garantia</mat-option>
+                                      <mat-option value= 0  >📌Normal</mat-option>
+                                      <mat-option value= 1  >🔥 Crítica / Urgente / Emergencial</mat-option>
+                                      <mat-option value= 2  >🔄 Garantia</mat-option>
+                                      <mat-option value= 2  >⏱️ Prioridade</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                             </div>
@@ -178,6 +179,59 @@
 
             
 
+        </mat-tab>
+
+        <!-- Orcamento -->
+         <!-- Aba de Serviço -->
+        <mat-tab label="Orcamento">
+            <div class="tab-content">
+                <div class="servico-dados">            
+                    <div id="laudoTecnico">
+                        
+                        
+                        <div>
+                            <h3>Laudo técnico</h3>
+
+                    <mat-form-field class="dataCli" appearance="fill">
+                     <mat-label>Defeito reclamado pelo cliente:  </mat-label>
+                     <input
+                     disabled
+                     matInput>
+                     {{Os?.reclamacaoCliente}}
+                    </mat-form-field>
+                     
+                    <mat-form-field class="dataCli" appearance="fill">
+                     <mat-label>Resultado do teste inicial</mat-label>   
+                     <input
+                     disabled
+                     matInput>
+                     {{Os?.initTest}}
+                    </mat-form-field>
+
+                            <mat-form-field class="fullWidth" appearance="fill">
+                                <mat-label>Diagnóstico Técnico</mat-label>
+                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="input-group">
+                            <mat-form-field appearance="legacy" style="margin-right: 10px;">
+                                <label for="telefone">Status do orçamento: </label>
+                                <mat-select>
+                                  <mat-option value= 0  >NOVO</mat-option>
+                                  <mat-option value= 1  >AGUARDANDO APROVAÇÃO DO CLIENTE</mat-option>
+                                  <mat-option value= 2  >Garantia</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        
+
+                    </div>
+                </div>
+
+                
+
+            </div>
         </mat-tab>
 
         <!-- Aba de Serviço -->

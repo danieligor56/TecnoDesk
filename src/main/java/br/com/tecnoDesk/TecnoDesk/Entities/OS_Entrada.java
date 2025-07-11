@@ -42,8 +42,12 @@ public class OS_Entrada {
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "colaborador_id")
+	@JoinColumn(name = "colaborador_id",nullable = true)
 	private Colaborador colaborador;
+	
+	@ManyToOne
+	@JoinColumn(name = "tecnico_responsavel")
+	private Colaborador tecnico_responsavel;
 	
 	@Column(name = "dtAbert",nullable = false)
 	private String dataAbertura;
