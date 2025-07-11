@@ -29,9 +29,8 @@ export class OsManagerComponent implements OnInit {
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   valorOrcamento:number = 0;
+  prioridadeos: Number = 0;
 
-
-  
 constructor(
     private osService: OsService,
     private route: ActivatedRoute,
@@ -41,9 +40,9 @@ constructor(
   ) { }
 
   ngOnInit(): void {
-    debugger;
+    debugger;    
     this.id = this.route.snapshot.paramMap.get('id');
-    this.mapearDadosOS(this.id)
+    this.mapearDadosOS(this.id);
     this.dropdownColaborador();
     this.listarItensOrcamento();
  
@@ -51,10 +50,11 @@ constructor(
   }
 
   mapearDadosOS(id:string){
-    
+    debugger;
      return this.osService.findOsByNumOs(Number(id)).subscribe(
       response => {
         this.Os = response;
+        this.prioridadeos = response.prioridadeos
       })
 
   }

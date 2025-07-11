@@ -33,7 +33,7 @@ public interface ColaboradorRespository extends JpaRepository<Colaborador, Long>
 	List<Colaborador>listAll(long CodEmp);
 	
 	@Query(
-			value = "SELECT * FROM Colaborador c WHERE c.codigo_empresa = :CodEmp and c.funcao = 0",
+			value = "SELECT * FROM Colaborador c WHERE c.codigo_empresa = :CodEmp and 0 = any(c.funcao)",
 			nativeQuery = true
 			)
 	List<Colaborador>listarTecnicos(long CodEmp);

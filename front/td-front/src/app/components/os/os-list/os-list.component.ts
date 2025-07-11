@@ -27,6 +27,7 @@ export class OsListComponent implements OnInit {
   constructor(
     private osService:OsService,
     private pdfService:PdfService
+
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +54,8 @@ export class OsListComponent implements OnInit {
       os.cliente?.nome.toLowerCase().includes(search) ||
       os.colaborador?.nome.toLowerCase().includes(search) ||
       os.statusOS?.toString().toLowerCase().includes(search) ||
-      os.prioridadeOS?.toString().toLowerCase().includes(search)
+      os.prioridadeos?.toString().toLowerCase().includes(search)
+
     );
   }
 
