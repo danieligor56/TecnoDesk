@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Os_entrada } from '../models/Os-entrada';
 import { Observable } from 'rxjs';
 import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 export class OsService {
 
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+     private toast: ToastrService
   ) { }
 
   createOsEntrada(os:Os_entrada): Observable<Os_entrada>{
@@ -55,10 +57,10 @@ export class OsService {
 
       return this.http.put("http://localhost:8080/Os/alterarTecnicEprioridade",dto,options).subscribe({
         next: ()=> {
-          console.log('Altereção realizada com sucesso')
+          this.toast.success("OS alterada com sucesso.")
         },
         error: (err) => {
-          console.log('Não foi possível realizar a alteração do usuário: '+ err)
+          this.toast.error("Falha ao atualizar a OS, contate o suporte"+ err)
         } 
       })
     }

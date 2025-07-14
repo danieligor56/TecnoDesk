@@ -61,8 +61,7 @@
                                 <mat-form-field appearance="legacy">
                                     <label for="telefone">Responsável técnico:</label>
                                     
-                                        <mat-select *ngIf="responsalveTecnico.id" [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)">
-                                            <mat-select *ngIf="!responsalveTecnico.id" [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)"></mat-select> 
+                                        <mat-select [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)">
                                             <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
                                             {{ colaborador.nome }}
                                             </mat-option>

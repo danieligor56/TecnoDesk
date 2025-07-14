@@ -12,6 +12,7 @@ import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-os-manager',
@@ -19,6 +20,9 @@ import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
   styleUrls: ['./os-manager.component.css']
 })
 export class OsManagerComponent implements OnInit {
+  responsalveTecnico:Colaborador = {
+    id: null
+  };
   [x: string]: any;
   nomeCliente:string = '';
   Os:Os_entrada;
@@ -31,7 +35,6 @@ export class OsManagerComponent implements OnInit {
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   valorOrcamento:number = 0;
   prioridadeos:string = '';
-  responsalveTecnico:Colaborador;
   numTec:number = 0; 
  
 
@@ -41,11 +44,17 @@ constructor(
     private colaboradorService:ColaboradorService,
     private dialog: MatDialog,
     private orcamentoService:OrcamentoService,
+    private toast: ToastrService
   
   ) { }
 
   ngOnInit(): void {
-    debugger;    
+    debugger;
+
+    
+
+
+
     this.id = this.route.snapshot.paramMap.get('id');
     this.mapearDadosOS(this.id);
     this.dropdownColaborador();
@@ -60,14 +69,29 @@ constructor(
       response => {
         this.Os = response;
 
-        const tec = response.tecnico_responsavel.id;
-
-        if(!this.responsalveTecnico || this.responsalveTecnico.id == null || this.responsalveTecnico.id){
-          this.responsalveTecnico.id = 0
-        } else{
-          this.responsalveTecnico = response?.tecnico_responsavel;
+         if (response.tecnico_responsavel) {
+          this.responsalveTecnico = response.tecnico_responsavel;
+        } else {
+          this.responsalveTecnico = {
+            id: null,
+            empresa: null,
+            nome: null,
+            documento: null,
+            ocupacao: null,
+            email: null,
+            cel1: null,
+            estado: null,
+            bairro: null,
+            cidade: null,
+            logradouro: null,
+            numero: null,
+            obs: null,
+            cep: null,
+            atvReg: null,
+          };
+          
         }
-        
+          // this.responsalveTecnico = response?.tecnico_responsavel;
 
         switch (response?.prioridadeOS) {
       case "NORMAL":
