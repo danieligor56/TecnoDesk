@@ -6,10 +6,36 @@
 
     <mat-tab-group mat-align-tabs="start" animationDuration="500ms" style="overflow: hidden;">
 
+        
+        
+
         <mat-tab label="Ordem de serviço">
+
+
+        <!-- <div style="width: 32rem; margin-left: .5rem;">
+            <mat-form-field appearance="fill" >
+                <mat-label>Status OS </mat-label>
+                <mat-select>
+                    <mat-option> CRUZEIRO </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+
             <div class="tab-content" style="display: flex;">
                 
-                <div class="os-dados">                   
+              
+
+                <div class="os-dados">
+                    
+                    <div>
+                        <mat-form-field appearance="fill" >
+                            <mat-label>Status OS:<b>{{Os.numOs}} 📋</b> &nbsp; Status:<b> {{Os?.statusOS}}</b></mat-label>
+                            <mat-select>
+                                <mat-option> CRUZEIRO </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
                     <div class="cliente-os">
                         <h3>Cliente</h3>
                         <!-- Primeira linha: Nome e Código -->
@@ -333,5 +359,15 @@
 
             </div>
         </mat-tab>
+
+        <!-- Historico de movimentação -->
+         <mat-tab label="Histórico">
+            
+        </mat-tab>
+
+        
+
+
     </mat-tab-group>
+    
 </div>
