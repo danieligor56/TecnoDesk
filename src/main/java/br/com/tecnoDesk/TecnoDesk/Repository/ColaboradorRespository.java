@@ -17,7 +17,12 @@ public interface ColaboradorRespository extends JpaRepository<Colaborador, Long>
 	
 	/* List<Colaborador>findAll(); */
 	
-	Colaborador findItById(long id);
+	@Query(
+			value = "SELECT * FROM Colaborador c Where c.id = :id AND c.codigo_empresa = :CodEmp",
+			nativeQuery = true
+			)
+	Colaborador findItById(long id,long CodEmp);
+	
 	
 	@Query(
 			value = "SELECT * FROM Colaborador c Where c.codigo_empresa = :CodEmp",

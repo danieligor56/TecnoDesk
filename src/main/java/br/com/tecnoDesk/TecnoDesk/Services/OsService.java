@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
+import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
@@ -102,5 +104,59 @@ public class OsService {
 		
 		throw new BadRequest("Não foi possível atender sua solicitação nesse momento");
 	}
+
+	public void alterarTecnicoPrioridadeOs(TecnicoEPrioridadeDTO dto,String codEmpresa) {
+		try {
+	
+			OS_Entrada os = osRepository.findByNumOs(dto.numOs,Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+			
+			if(dto.tecnicoId > 0) {
+				os.setTecnico_responsavel(colaboradorRespository.findItById(dto.tecnicoId,Long.valueOf(decriptService.decriptCodEmp(codEmpresa))));
+			}
+				
+				switch (dto.prioridadeOS) {
+				
+					case 0: {
+						
+						os.setPrioridadeOS(PrioridadeOS.NORMAL);
+						break;
+					}
+					
+					case 1: {
+						os.setPrioridadeOS(PrioridadeOS.URGENCIA);
+						break;
+					}
+					
+					case 2:{
+						os.setPrioridadeOS(PrioridadeOS.GARANTIA);
+						break;
+					}
+					
+					case 3:{
+						os.setPrioridadeOS(PrioridadeOS.PRIORITARIA);
+						break;
+					}
+					default:
+						throw new IllegalArgumentException("Unexpected value: " + dto.prioridadeOS);
+				}
+				
+				osRepository.save(os);
+				
+		} catch (Exception e) {
+			throw new BadRequest("Não foi possível alterar a OS: "+ e.getMessage());
+		}
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 }

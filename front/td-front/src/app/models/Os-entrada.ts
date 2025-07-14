@@ -9,6 +9,7 @@ export interface Os_entrada{
   empresa: Empresa;
   cliente: Cliente;
   colaborador: Colaborador;
+  tecnico_responsavel:Colaborador;
   dataAbertura: string;
   aparelhos: number;
   descricaoModelo: string;
@@ -16,7 +17,7 @@ export interface Os_entrada{
   reclamacaoCliente: string;
   initTest: string;
   statusOS: number;
-  prioridadeos:Number;
+  prioridadeOS:string;
   marcaAparelho: string;
   snAparelho: string;
 

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Os_entrada } from '../models/Os-entrada';
 import { Observable } from 'rxjs';
+import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,23 @@ export class OsService {
 
       return this.http.get<Os_entrada>(`http://localhost:8080/Os/numOs?numOS=${numOs}`,options);
     
+    }
+
+    alterarTecnicoEPrioridade(dto: TecnicoEPrioridadeDTO){
+    debugger;
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+
+      return this.http.put("http://localhost:8080/Os/alterarTecnicEprioridade",dto,options).subscribe({
+        next: ()=> {
+          console.log('Altereção realizada com sucesso')
+        },
+        error: (err) => {
+          console.log('Não foi possível realizar a alteração do usuário: '+ err)
+        } 
+      })
     }
   
   

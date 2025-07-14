@@ -11,6 +11,7 @@ import { ItemServiceCreateAvulsoComponent } from '../../item-service/item-servic
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
+import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
 
 @Component({
   selector: 'app-os-manager',
@@ -29,14 +30,18 @@ export class OsManagerComponent implements OnInit {
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   valorOrcamento:number = 0;
-  prioridadeos: Number = 0;
+  prioridadeos:string = '';
+  responsalveTecnico:Colaborador;
+  numTec:number = 0; 
+ 
 
 constructor(
     private osService: OsService,
     private route: ActivatedRoute,
     private colaboradorService:ColaboradorService,
     private dialog: MatDialog,
-    private orcamentoService:OrcamentoService
+    private orcamentoService:OrcamentoService,
+  
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +59,34 @@ constructor(
      return this.osService.findOsByNumOs(Number(id)).subscribe(
       response => {
         this.Os = response;
-        this.prioridadeos = response.prioridadeos
+
+        const tec = response.tecnico_responsavel.id;
+
+        if(!this.responsalveTecnico || this.responsalveTecnico.id == null || this.responsalveTecnico.id){
+          this.responsalveTecnico.id = 0
+        } else{
+          this.responsalveTecnico = response?.tecnico_responsavel;
+        }
+        
+
+        switch (response?.prioridadeOS) {
+      case "NORMAL":
+        this.prioridadeos = "0";
+        break;
+      case "URGENCIA":
+        this.prioridadeos = "1";
+        break;
+      case "GARANTIA":
+        this.prioridadeos = "2";
+        break;
+      case "PRIORITARIA":
+        this.prioridadeos = "3";
+        break;
+      default:
+        this.prioridadeos = "0";
+    }
+        
+        
       })
 
   }
@@ -129,6 +161,18 @@ constructor(
    this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
       this.valorOrcamento = response
    })
+  }
+
+  alterarTecnicoEPrioridade(){
+    debugger;
+    const tecnicoPrioridadeDto: TecnicoEPrioridadeDTO = {
+      tecnicoId: this.responsalveTecnico.id, 
+      prioridadeOS: Number(this.prioridadeos),
+      numOs: this.Os.numOs
+    }
+
+    this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto);
+    
   }
   
   

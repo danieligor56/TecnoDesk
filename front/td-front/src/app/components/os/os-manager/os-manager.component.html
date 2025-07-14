@@ -60,7 +60,9 @@
                                 <div class="input-group">                              
                                 <mat-form-field appearance="legacy">
                                     <label for="telefone">Responsável técnico:</label>
-                                        <mat-select (selectionChange)="onColaboradorChange($event.value)">
+                                    
+                                        <mat-select *ngIf="responsalveTecnico.id" [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)">
+                                            <mat-select *ngIf="!responsalveTecnico.id" [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)"></mat-select> 
                                             <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
                                             {{ colaborador.nome }}
                                             </mat-option>
@@ -72,8 +74,8 @@
                             <div class="input-group">
                                 <mat-form-field appearance="legacy" style="margin-left: .5rem;">
                                     <label>Tipo de prioridade: </label>
-                                    <mat-select [(ngModel)]="prioridadeos">
-                                      <mat-option value=0>📌Normal</mat-option>
+                                    <mat-select [(ngModel)]="prioridadeos" name="prioridadeos">
+                                      <mat-option value=0>📌 Normal</mat-option>
                                       <mat-option value=1>🔥 Crítica / Urgente / Emergencial</mat-option>
                                       <mat-option value=2>🔄 Garantia</mat-option>
                                       <mat-option value=3>⏱️ Prioridade</mat-option>
@@ -113,7 +115,7 @@
                             <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
                         </div> -->
                         
-                        <button mat-flat-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        <button (click)="alterarTecnicoEPrioridade()" mat-flat-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
                         <button [routerLink]="['/os/list']" mat-flat-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
 
                   </div>

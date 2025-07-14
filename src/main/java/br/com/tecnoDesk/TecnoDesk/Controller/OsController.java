@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Services.OsService;
 import exception.BadRequest;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Controller
 @RequestMapping("/Os")
@@ -43,6 +47,14 @@ public class OsController {
 	public ResponseEntity<OS_Entrada> buscarOsPorNumero(@RequestParam long numOS ,@RequestHeader("CodEmpresa") String codEmpresa)throws Exception {
 		return ResponseEntity.ok().body(osService.buscarPorNumOs(numOS,codEmpresa));
 		
+	}
+	
+	@PutMapping("/alterarTecnicEprioridade")
+	public ResponseEntity alterarTecnicoEprioridade(@RequestBody TecnicoEPrioridadeDTO dto,
+			@RequestHeader("CodEmpresa") String codEmpresa) {
+		this.osService.alterarTecnicoPrioridadeOs(dto,codEmpresa);
+		
+		return ResponseEntity.ok().build();
 	}
 
 }
