@@ -16,7 +16,7 @@ export interface Os_entrada{
   checkList: string;
   reclamacaoCliente: string;
   initTest: string;
-  statusOS: number;
+  statusOS: string;
   prioridadeOS:string;
   marcaAparelho: string;
   snAparelho: string;

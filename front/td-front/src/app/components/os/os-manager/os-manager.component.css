@@ -250,3 +250,9 @@ h3 {
     gap:8px
     
 }
+
+.labelNumOS{
+        background-color: #F5F5F5;
+        text-align: center;
+        color: #666;
+}

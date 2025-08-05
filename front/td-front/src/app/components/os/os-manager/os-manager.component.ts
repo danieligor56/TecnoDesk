@@ -35,7 +35,8 @@ export class OsManagerComponent implements OnInit {
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   valorOrcamento:number = 0;
   prioridadeos:string = '';
-  numTec:number = 0; 
+  numTec:number = 0;
+  statusOs: string = ''; 
  
 
 constructor(
@@ -109,9 +110,48 @@ constructor(
       default:
         this.prioridadeos = "0";
     }
-        
+
+      // this.statusOs = response?.statusOS;
+
+    switch (response?.statusOS){
+        case "NOVO":
+          this.statusOs = '0';
+            break;
+        case "EM_ANDAMENTO":
+          this.statusOs = '1';
+            break;
+        case "AGUARDANDO_RESP_ORCAMENTO":
+          this.statusOs = '2'
+            break;
+        case "AGUARDANDO_PECAS":
+          this.statusOs = '3';
+            break;
+        case "AGUARDANDO_RETIRADA":
+          this.statusOs = '4';
+            break;
+        case "ORCAMENTO_APROVADO":
+          this.statusOs = '5';
+            break;
+        case "PENDENTE":
+          this.statusOs = '6';
+            break;
+        case "CONCLUIDO":
+          this.statusOs = '7';
+            break;
+        case "CANCELADA":
+          this.statusOs = '8';
+            break;
+        case "ENCERRADA":
+          this.statusOs = '9';
+            break;                               
+
+      }
+
+      
         
       })
+
+      
 
   }
 

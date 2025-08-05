@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
+import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,7 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
+import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
@@ -147,6 +149,68 @@ public class OsService {
 		}
 		
 	}
+	
+	public void alterarStatusDaOS(long numOS,int stsOs ,String codEmpresa ) throws BadRequestException {
+			if(numOS > 0 && codEmpresa != null && stsOs <= 9) {
+				try {
+					Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+					OS_Entrada os =	osRepository.findByNumOs(numOS,empresa.getId());
+					
+					switch (stsOs){
+					case 0: {
+						os.setStatusOS(StatusOS.NOVO);
+							break;
+					}
+					case 1: {
+						os.setStatusOS(StatusOS.EM_ANDAMENTO);
+							break;
+					}
+					case 2: {
+						os.setStatusOS(StatusOS.AGUARDANDO_RESP_ORCAMENTO);
+							break;
+					}
+					case 3: {
+						os.setStatusOS(StatusOS.AGUARDANDO_PECAS);
+							break;
+					}
+					case 4: {
+						os.setStatusOS(StatusOS.AGUARDANDO_RETIRADA);
+							break;
+					}
+					case 5: {
+						os.setStatusOS(StatusOS.ORCAMENTO_APROVADO);
+							break;
+					}
+					case 6: {
+						os.setStatusOS(StatusOS.PENDENTE);
+							break;
+					}
+					case 7: {
+						os.setStatusOS(StatusOS.CONCLUIDO);
+							break;
+					}
+					case 8: {
+						os.setStatusOS(StatusOS.CANCELADA);
+							break;
+					}
+					case 9: {
+						os.setStatusOS(StatusOS.ENCERRADA);
+							break;
+					}
+					default:
+						throw new IllegalArgumentException("Unexpected value: " + stsOs);
+					}
+					
+					osRepository.save(os);
+					
+				} catch (Exception e) {
+					throw new BadRequestException("Não foi possível atender a requisição no momento:"+ e.getMessage());
+				}
+	
+			} else {
+				throw new BadRequestException("Você não forneceu parametros suficientes para a requisição");
+			}
+		}
 
 
 

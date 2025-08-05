@@ -27,13 +27,8 @@
 
                 <div class="os-dados">
                     
-                    <div>
-                        <mat-form-field appearance="fill" >
-                            <mat-label>Status OS:<b>{{Os.numOs}} 📋</b> &nbsp; Status:<b> {{Os?.statusOS}}</b></mat-label>
-                            <mat-select>
-                                <mat-option> CRUZEIRO </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                    <div class="labelNumOS">                    
+                        <h1 class="labelNumOS">Número da OS:<b>{{Os.numOs}} 📋</b></h1>
                     </div>
                     
                     <div class="cliente-os">
@@ -141,6 +136,23 @@
                         </div> -->
                         
                         <button (click)="alterarTecnicoEPrioridade()" mat-flat-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        <div>
+                            <mat-form-field appearance="fill" >
+                                 <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                <mat-select [(ngModel)]="statusOs" name="statusOS">
+                                    <mat-option value="0">⚪Nova</mat-option>
+                                    <mat-option value="1">🔵 Em andamento</mat-option>
+                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
+                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
+                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
+                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                    <mat-option value="6">🔴 Pendente</mat-option>
+                                    <mat-option value="7">🟢 Concluída</mat-option>
+                                    <mat-option value="8">⚫ Cancelada</mat-option>
+                                    <mat-option value="9">✅ Encerrada    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                         <button [routerLink]="['/os/list']" mat-flat-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
 
                   </div>
