@@ -139,7 +139,7 @@
                         <div>
                             <mat-form-field appearance="fill" >
                                  <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS">
+                                <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
                                     <mat-option value="0">⚪Nova</mat-option>
                                     <mat-option value="1">🔵 Em andamento</mat-option>
                                     <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>

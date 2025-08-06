@@ -64,6 +64,25 @@ export class OsService {
         } 
       })
     }
+
+    alterarStatusOS(numOs: number, stsOS:number){
+      debugger;
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+      
+      return this.http.put(
+        `http://localhost:8080/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`,{},options).subscribe({
+        next: ()=> {
+          this.toast.success("Status da OS alterado com suocesso.")
+        },
+        error: (err) => {
+          this.toast.error("Falha na alteração da OS"+ err.error.message)
+        }
+      })
+
+    }
   
   
 

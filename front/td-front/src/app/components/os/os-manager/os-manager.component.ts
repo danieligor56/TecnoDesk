@@ -13,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-os-manager',
@@ -238,6 +239,12 @@ constructor(
     this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto);
     
   }
+
+  alterStsOS(event: MatSelectChange){
+    debugger;
+    this.osService.alterarStatusOS(this.Os.numOs, Number(this.statusOs));
+  }
+  
   
   
 }

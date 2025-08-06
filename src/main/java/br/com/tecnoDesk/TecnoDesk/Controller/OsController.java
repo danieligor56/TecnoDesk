@@ -60,7 +60,7 @@ public class OsController {
 	@PutMapping("/alterarStatusOs")
 	public ResponseEntity alterarStatusOs(@RequestParam long numOs,int stsOS, @RequestHeader("CodEmpresa") String codEmpresa ) throws BadRequestException {
 		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);	
-		return ResponseEntity.ok("Status alterado com sucesso");
+		return ResponseEntity.ok().build();
 	}
 
 }
