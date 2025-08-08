@@ -250,18 +250,26 @@
                             <mat-form-field class="fullWidth" appearance="fill">
                                 <mat-label>Diagnóstico Técnico</mat-label>
                                 <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
+                                <button  mat-flat-button color="primary" style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
                             </mat-form-field>
                         </div>
 
-                        <div class="input-group">
-                            <mat-form-field appearance="legacy" style="margin-right: 10px;">
-                                <label for="telefone">Status do orçamento: </label>
-                                <mat-select>
-                                  <mat-option value= 0  >NOVO</mat-option>
-                                  <mat-option value= 1  >AGUARDANDO APROVAÇÃO DO CLIENTE</mat-option>
-                                  <mat-option value= 2  >Garantia</mat-option>
+                         <div>
+                            <mat-form-field appearance="fill" >
+                                 <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
+                                    <mat-option value="0">⚪Nova</mat-option>
+                                    <mat-option value="1">🔵 Em andamento</mat-option>
+                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
+                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
+                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
+                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                    <mat-option value="6">🔴 Pendente</mat-option>
+                                    <mat-option value="7">🟢 Concluída</mat-option>
+                                    <mat-option value="8">⚫ Cancelada</mat-option>
+                                    <mat-option value="9">✅ Encerrada    </mat-option>
                                 </mat-select>
-                              </mat-form-field>
+                            </mat-form-field>
                         </div>
                         
 
