@@ -74,7 +74,8 @@ export class OsService {
       
       return this.http.put(
         `http://localhost:8080/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`,{},options).subscribe({
-        next: ()=> {
+       
+          next: ()=> {
           this.toast.success("Status da OS alterado com suocesso.")
         },
         error: (err) => {
