@@ -4,32 +4,32 @@
     </div>
 
     <mat-form-field appearance="standard">
-        <mat-label>Filtrar</mat-label>
+        <mat-label>🔍 Filtrar</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
     
-    <div class="mat-elevation-z8">
+    <div>
         <table mat-table [dataSource]="dataSource" matSort>
          
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let servico"> {{servico.id}} </td>
+            <td mat-cell *matCellDef="let servico"> 🆔 {{servico.id}} </td>
           </ng-container>
 
           <ng-container matColumnDef="progress">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Servico </th>
-            <td mat-cell *matCellDef="let servico"> {{servico.nomeServico}} </td>
+            <td mat-cell *matCellDef="let servico"> 🛠️ {{servico.nomeServico}} </td>
           </ng-container>
 
           <ng-container matColumnDef="fruit">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor do serviço </th>
-            <td mat-cell *matCellDef="let servico"> {{servico.valorServicoUnidade}} R$ </td>
+            <td mat-cell *matCellDef="let servico"> 	💲 {{servico.valorServicoUnidade}} R$ </td>
           </ng-container>
         
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor por hora </th>
-            <td mat-cell *matCellDef="let servico"> {{servico.valorServicoHora}} R$ </td>
+            <td mat-cell *matCellDef="let servico"> 	💲⌚ {{servico.valorServicoHora}} R$ </td>
           </ng-container>
 
           <ng-container matColumnDef="add">
@@ -37,8 +37,8 @@
               <td mat-cell *matCellDef="let servico"> 
                 <div class="example-button-container" style="float: right;">      
                       <!-- <mat-icon style="color: #6D706D;">add_circle</mat-icon> -->
-                      <button *ngIf="servico.valorServicoHora > 0" mat-raised-button (click)="cobrarHoraDialog(servico.valorServicoHora,servico.id)" style="background-color: #2D4961;color: white;font-size: 12px;margin-right: 8px;">Cobrar por hora</button>
-                      <button mat-raised-button (click)="adicionarServico(servico.id,true)" style="background-color: #3497D9;color: white;font-size: 12px;">adicionar</button>
+                      <button *ngIf="servico.valorServicoHora > 0" mat-flat-button (click)="cobrarHoraDialog(servico.valorServicoHora,servico.id)" style="background-color: #2D4961;color: white;font-size: 12px;margin-right: 8px;">Cobrar por hora</button>
+                      <button mat-flat-button (click)="adicionarServico(servico.id,true)" style="background-color: #3497D9;color: white;font-size: 12px;">adicionar</button>
 
                     </div>          
               </td>
@@ -52,8 +52,8 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
       <div style="display: flex;float:right;margin-top: 1rem;">
-            <button (click)="openCreatServiceDialog()" mat-raised-button style="background-color:#1F66FE; color: white;margin-right: .2rem;">Novo serviço</button> 
-            <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>
+            <button (click)="openCreatServiceDialog()" mat-flat-button color="primary" style="margin-right: .2rem;">Novo serviço</button> 
+            <button (click)="closeDialog()" mat-flat-button color="warn">Cancelar</button>
       </div>
       
 </div>

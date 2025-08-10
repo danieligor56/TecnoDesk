@@ -222,7 +222,7 @@
 
         <!-- Orcamento -->
          <!-- Aba de Serviço -->
-        <mat-tab label="Orcamento">
+        <mat-tab label="Diagnóstico">
             <div class="tab-content">
                 <div class="servico-dados">            
                     <div id="laudoTecnico">
@@ -282,17 +282,17 @@
         </mat-tab>
 
         <!-- Aba de Serviço -->
-        <mat-tab label="Serviço">
+        <mat-tab label="Orçamento">
             <div class="tab-content">
                 <div class="servico-dados">            
                         <div id="orcamento">
                             <h3>Orçamento</h3>
                             <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
                                 <div>
-                                    <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-flat-button>+ Serviço</button>
-                                    <button (click)="openServicoAvulso(Os.numOs)" id="buttons" mat-flat-button>+ Serviço avulso</button>
-                                    <button  id="buttons" mat-flat-button>+ Produto</button>
-                                    <button  id="buttons"   mat-flat-button>+ Produto avulso</button>
+                                    <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
+                                    <button (click)="openServicoAvulso(Os.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
+                                    <button id="buttons" mat-stroked-button color="primary">+ Produto</button>
+                                    <button  id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
                                 </div>
                                 
                                 <div class="valorTotal">
@@ -348,31 +348,7 @@
                         </div>
 
                     
-                    <div id="laudoTecnico">
-                        
-                        
-                        <div>
-                            <h3>Laudo técnico</h3>
-
-                            <mat-form-field class="fullWidth" appearance="fill">
-                                <mat-label>Diagnóstico Técnico</mat-label>
-                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="input-group">
-                            <mat-form-field appearance="legacy" style="margin-right: 10px;">
-                                <label for="telefone">Status do orçamento: </label>
-                                <mat-select>
-                                  <mat-option value= 0  >NOVO</mat-option>
-                                  <mat-option value= 1  >AGUARDANDO APROVAÇÃO DO CLIENTE</mat-option>
-                                  <mat-option value= 2  >Garantia</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                        </div>
-                        
-
-                    </div>
+                   
                 </div>
 
                 

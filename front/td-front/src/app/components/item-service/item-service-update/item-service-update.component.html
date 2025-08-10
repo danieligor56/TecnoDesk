@@ -1,7 +1,7 @@
 <div class="container">
     <div>
         <h3 class="label">
-           <b>Editar serviço cadastrado</b> 
+           <b>Editar serviço cadastrado 📋</b> 
         </h3>
     </div>
     <div>
@@ -27,13 +27,11 @@
 
         <div>
             <div style="text-align: center;">
-                <h4 class="label">Valor do serviço</h4>
-
+                <h4 class="label">Valor do serviço 💵</h4>
             </div>    
             
-
             <mat-form-field class="example-form-field" appearance="fill">
-                <mat-label>Por serviço</mat-label>
+                <mat-label><b>Por serviço</b></mat-label>
                 <input 
                 formControlName="valorServicoUnidade"
                 mask="separator.2" thousandSeparator="." decimalMarker=","
@@ -54,6 +52,6 @@
         </form>
     </div>
 
-    <button (click)="alterarServico()"  mat-raised-button style="background-color:#1F66FE; color: white;float: right;width: 100%;margin-bottom: .5rem;">Gravar alteração</button>
-    <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;float: right;width: 100%;">Cancelar</button>
+    <button (click)="alterarServico()" mat-flat-button color="primary" style="float: right; width: 100%;margin-bottom: .5rem;">Gravar alteração</button>
+    <button (click)="closeDialog()" mat-flat-button color="warn" style="float: right;width: 100%;">Cancelar</button>
 </div>

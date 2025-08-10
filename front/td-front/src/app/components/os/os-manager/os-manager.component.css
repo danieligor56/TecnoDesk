@@ -206,12 +206,9 @@ h3 {
 }
 
 #buttons{
-    font-size: 10px;
 
-    text-align: center;
-    align-items: center;
     margin-right: 4px;
-    padding: 2px;
+
 }
 
 #orca{
