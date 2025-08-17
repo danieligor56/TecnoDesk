@@ -82,5 +82,8 @@ public class OS_Entrada {
 	
 	@Column(name = "prioridadeOS", nullable = true)
 	private PrioridadeOS prioridadeOS;
+	
+	@Column(name = "laudo_tecnico",nullable = true)
+	private String laudoTecnico;
 
 }

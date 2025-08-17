@@ -4,6 +4,7 @@ import { Os_entrada } from '../models/Os-entrada';
 import { Observable } from 'rxjs';
 import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 import { ToastrService } from 'ngx-toastr';
+import { laudoTecnicoDTO } from '../DTO/LaudoTecnicoDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,15 @@ export class OsService {
         }
       })
 
+    }
+
+    alterarDiagnosticoTecnico(dto: laudoTecnicoDTO){
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+
+      return this.http.post(`http://localhost:8080/Os/salvarDiagnostico`,dto,options);
     }
   
   

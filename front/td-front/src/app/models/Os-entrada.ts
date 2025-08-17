@@ -20,6 +20,7 @@ export interface Os_entrada{
   prioridadeOS:string;
   marcaAparelho: string;
   snAparelho: string;
+  laudoTecnico?:string;
 
 }
 	

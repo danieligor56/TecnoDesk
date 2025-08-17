@@ -249,8 +249,8 @@
 
                             <mat-form-field class="fullWidth" appearance="fill">
                                 <mat-label>Diagnóstico Técnico</mat-label>
-                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"></textarea>
-                                <button  mat-flat-button color="primary" style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado" [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
+                                <button (click)="updateDiagnosticoTecnico()" mat-flat-button color="primary" style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
                             </mat-form-field>
                         </div>
 

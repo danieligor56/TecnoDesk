@@ -14,6 +14,8 @@ import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { MatSelectChange } from '@angular/material/select';
+import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
+
 
 @Component({
   selector: 'app-os-manager',
@@ -38,6 +40,7 @@ export class OsManagerComponent implements OnInit {
   prioridadeos:string = '';
   numTec:number = 0;
   statusOs: string = ''; 
+  laudo: string = '';
  
 
 constructor(
@@ -243,6 +246,23 @@ constructor(
   alterStsOS(event: MatSelectChange){
     debugger;
     this.osService.alterarStatusOS(this.Os.numOs, Number(this.statusOs));
+  }
+
+  updateDiagnosticoTecnico(){
+    debugger;
+    const dto: laudoTecnicoDTO = {
+      numOS: this.Os.numOs,
+      laudo: this.Os.laudoTecnico
+    }
+    this.osService.alterarDiagnosticoTecnico(dto).subscribe({
+      next: ()=> { 
+        this.toast.success('Diagnostico preenchido com sucesso.')
+    },
+      error: (err)=> {
+        this.toast.error(err.error.message)
+    }
+      })
+    
   }
   
   

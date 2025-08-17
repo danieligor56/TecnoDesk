@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.coyote.BadRequestException;
+import org.apache.logging.log4j.message.Message;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.UpdateLaudoTecnicoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
@@ -212,6 +214,22 @@ public class OsService {
 			}
 		}
 
+	public void salvarDiagnosticoTecnico(UpdateLaudoTecnicoDTO dto, String codEmpresa) throws Exception {
+		
+		try {
+			var os = this.osRepository.findByNumOs(dto.numOS, Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+				
+				if(os.getStatusOS() == StatusOS.CANCELADA || os.getStatusOS() == StatusOS.CONCLUIDO || os.getStatusOS() == StatusOS.ENCERRADA) {
+					throw new BadRequestException("Status da OS não permite que o campo seja preenchido.");
+				}
+				
+				os.setLaudoTecnico(dto.laudo);
+				osRepository.save(os);
+			
+		} catch (Exception e) {
+			throw new Exception("Não foi possível atender a requisição nesse momento: "+ e);
+		}
+	}
 
 
 

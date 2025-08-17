@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.UpdateLaudoTecnicoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Services.OsService;
@@ -60,6 +61,12 @@ public class OsController {
 	@PutMapping("/alterarStatusOs")
 	public ResponseEntity alterarStatusOs(@RequestParam long numOs,int stsOS, @RequestHeader("CodEmpresa") String codEmpresa ) throws BadRequestException {
 		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);	
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("/salvarDiagnostico")
+	public ResponseEntity salvarDiagnosticoTecnico(@RequestBody UpdateLaudoTecnicoDTO dto, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		this.osService.salvarDiagnosticoTecnico(dto, codEmpresa);
 		return ResponseEntity.ok().build();
 	}
 
