@@ -16,22 +16,19 @@ export class OrcamentoService {
 
   ) { }
 
-  buscarPorId(numOs): Observable<Orcamento>{
-    Number(numOs)
+  buscarPorId(numOs: number): Observable<Orcamento>{
+    debugger
     const headers = new HttpHeaders({
           'codEmpresa':sessionStorage.getItem('CompGrpIndent')
         })
 
     const options = { headers: headers }
-   return this.http.get<Orcamento>(`http://localhost:8080/api/v1/orcamento/buscarOcamento?id=${numOs}`,options).pipe(
-    catchError(err => {
-      console.error('Erro ao buscar orçamento:', err);
-        return throwError(() => err); // importante retornar o erro para quem chamou
-    })
-   )
+    return this.http.get<Orcamento>(`http://localhost:8080/api/v1/orcamento/buscarOcamento?id=${numOs}`,options);
+  
   }
 
   inserirItem(codOrcamento: number, servicoItem: OrcamentoItem): Observable<OrcamentoItem> {
+    debugger;
     const codEmpresa = sessionStorage.getItem('CompGrpIndent');
   
     const headers = new HttpHeaders({
@@ -41,6 +38,7 @@ export class OrcamentoService {
     const options = { headers };
   
     return this.http.post<OrcamentoItem>(
+    
       `http://localhost:8080/api/v1/orcamento/inserirServico?orcamentoId=${codOrcamento}`,
       servicoItem,
       options

@@ -55,6 +55,7 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +85,7 @@ import { RegistroInicialComponent } from './components/registro-inicial/registro
     ItemServiceCreateAvulsoComponent,
     ItemServiceCobrarhoraComponent,
     RegistroInicialComponent
+    
 
     
   

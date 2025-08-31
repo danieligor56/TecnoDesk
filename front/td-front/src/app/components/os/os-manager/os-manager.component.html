@@ -28,7 +28,7 @@
                 <div class="os-dados">
                     
                     <div class="labelNumOS">                    
-                        <h1 class="labelNumOS">Número da OS:<b>{{Os.numOs}} 📋</b></h1>
+                        <h1 class="labelNumOS">Número da OS:<b>{{Os?.numOs}} 📋</b></h1>
                     </div>
                     
                     <div class="cliente-os">
@@ -289,44 +289,45 @@
                             <h3>Orçamento</h3>
                             <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
                                 <div>
-                                    <button (click)="openListaServicoDialog(Os.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
-                                    <button (click)="openServicoAvulso(Os.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
-                                    <button id="buttons" mat-stroked-button color="primary">+ Produto</button>
+                                    <button (click)="openListaServicoDialog(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
+                                    <button (click)="openServicoAvulso(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
+                                    <button  id="buttons" mat-stroked-button color="primary">+ Produto</button>
                                     <button  id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
+                                    <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
                                 </div>
                                 
-                                <div class="valorTotal">
+                                <!-- <div class="valorTotal">
                                     <div style="height: 100%;align-content: center;">
                                         <h1 style="color: #6D706D;margin: 0;">Total: </h1>
                                     </div>
                                     <div style="height: 100%;background-color: #EBEBEB;">
-                                        <h1 style="color: #6D706D;margin: 0;height: 100%;width: 100%;">{{valorOrcamento}} R$</h1>
+                                        <h1 style="color: #6D706D;margin: 0;height: 100%;width: 100%;">{{valorOrcamento}} R$💰</h1>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div id="orca">
                                 <h4 style="background-color: #CCCCCC;padding: 6px;color:#666;">Itens do orçamento:</h4>
 
-                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC;width: 100%; ">
+                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC; width: 100%;">
                                         
                                         <ng-container matColumnDef="nome">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome serviço </th>
-                                            <td mat-cell *matCellDef="let servico"> {{servico.nomeServicoAvulso}} </td>
+                                            <td mat-cell *matCellDef="let servico">⚙️ {{servico.nomeServicoAvulso}} </td>
                                         </ng-container>
                                         <ng-container matColumnDef="descricao">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> descrição </th>
-                                            <td mat-cell *matCellDef="let servico"> {{servico.descricaoServicoAvulso}} </td>
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Descrição do serviço</b></th>
+                                            <td mat-cell *matCellDef="let servico">🛠️ {{servico.descricaoServicoAvulso}} </td>
                                         </ng-container>
                                        
                                         <ng-container matColumnDef="valor">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total </th>
+                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
                                             <td mat-cell *matCellDef="let servico">
                                               <ng-container *ngIf="servico.valorHoraAvulso > 0; else unidade">
-                                                {{ servico.valorHoraAvulso | number:'1.2-2' }} R$
+                                               💵 {{ servico.valorHoraAvulso | number:'1.2-2' }} R$
                                               </ng-container>
                                               <ng-template #unidade>
                                                 <ng-container *ngIf="servico.valorUnidadeAvulso > 0">
-                                                  {{ servico.valorUnidadeAvulso | number:'1.2-2' }} R$
+                                                💵  {{ servico.valorUnidadeAvulso | number:'1.2-2' }} R$
                                                 </ng-container>
                                               </ng-template>
                                             </td>
@@ -347,6 +348,57 @@
                             </div>              
                         </div>
 
+                        <div id="orcamentoTotais">
+                            <h3>Detalhes</h3>
+                            <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.numOs}} 📋</b></h2>
+                            
+                            <div class="input-group">
+                                <label for="telefone">Cliente:</label>
+                                <input type="text" id="telefone" value="👤&nbsp;{{Os?.cliente?.nome}}" readonly>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="telefone">Valor total dos descontos:</label>
+                                <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="telefone">Valor total:</label>
+                                <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
+                            </div>
+
+                             <div class="input-group" style="display: flex; width: 100%; margin-bottom: .3rem;">
+                                <label for="telefone">Orçamento:</label>
+                                    <div>
+                                        <button mat-raised-button color="primary">🖨️ Imprimir</button>
+                                    </div>
+
+                                    <div>
+                                        <button mat-raised-button color="primary">📱 Enviar via Whatsup</button>
+                                    </div>
+
+                            </div>
+
+                            <div class="input-group">
+                                <mat-form-field appearance="fill" >
+                                    <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                        <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
+                                            <mat-option value="0">⚪Nova</mat-option>
+                                            <mat-option value="1">🔵 Em andamento</mat-option>
+                                            <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
+                                            <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
+                                            <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
+                                            <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                            <mat-option value="6">🔴 Pendente</mat-option>
+                                            <mat-option value="7">🟢 Concluída</mat-option>
+                                            <mat-option value="8">⚫ Cancelada</mat-option>
+                                            <mat-option value="9">✅ Encerrada    </mat-option>
+                                        </mat-select>
+                                </mat-form-field>
+                        </div>
+                            
+                        </div>
+
                     
                    
                 </div>
@@ -362,8 +414,6 @@
         </mat-tab>
 
         
-
-
     </mat-tab-group>
     
 </div>

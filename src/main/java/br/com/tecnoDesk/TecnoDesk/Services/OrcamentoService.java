@@ -7,22 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.yaml.snakeyaml.tokens.FlowMappingEndToken;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoItemDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
+import br.com.tecnoDesk.TecnoDesk.Entities.Servico;
+import br.com.tecnoDesk.TecnoDesk.Entities.ServicoItem;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.ServicoItemRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.ServicoRepository;
 import exception.BadRequest;
 import exception.NotFound;
+import lombok.experimental.var;
 
 @Service
 public class OrcamentoService {
@@ -48,6 +55,8 @@ public class OrcamentoService {
 	@Autowired
 	OrcamentoItemRepository orcamentoRepository;
 	
+	@Autowired
+	ServicoRepository servicoRepository;
 	
 	
 	public void criarOrcamento(OrcamentoDTO dto,long codOs,String codempresa) {
@@ -79,38 +88,65 @@ public class OrcamentoService {
 	public OrcamentoItem addServicoOrcamento(@RequestBody OrcamentoItem orcamentoItem,
 			  long orcamentoId,@RequestHeader("CodEmpresa") String
 	  codEmpresa) { 
-		  
+		
+		OrcamentoItemDTO dto = new OrcamentoItemDTO();
+		
 		  try { 
 			  
 			  Empresa codEmp = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa))); 
 			  	if(codEmp == null) {
 			  		throw new NotFound("Empresa não encontrada");
 			  	}
+			  	
+			  	dto.setEmpresa(codEmp);
 			  
 			  Orcamento orcamentoOS = repository.encontrarOcamentoPorID(codEmp.getId(), orcamentoId);
 			  	if(orcamentoOS == null) {
 			  		throw new NotFound("O orçamento informado não existe");
 			  	}
 			  	
-			  	if(orcamentoItem.getValorUnidadeAvulso() > 0 && (orcamentoItem.getValorHoraAvulso() == null ||  orcamentoItem.getValorHoraAvulso() <= 0)) {
-			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorUnidadeAvulso());			  		
+			  	dto.setOrcamento(orcamentoOS);
+			  	
+			  	if(orcamentoItem.getCodigoItem() > 0) {
+			  		Servico servicoItem = servicoRepository.encontrarPorId(orcamentoItem.getCodigoItem(),codEmp.getId());
+			  		dto.setCodigoItem(servicoItem.getId());
+			  		dto.setNomeServicoAvulso(orcamentoItem.getNomeServicoAvulso());
+			  		dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());
+			  		dto.setAvulso(false);
 			  	}
 			  	
-			  	if( orcamentoItem.getValorUnidadeAvulso() <= 0  && ( orcamentoItem.getValorHoraAvulso() == null ||orcamentoItem.getValorHoraAvulso() > 0 )) {
-			  		orcamentoOS.setValorOrcamento(orcamentoOS.getValorOrcamento() + orcamentoItem.getValorHoraAvulso());
-			  	}
-			  				  	
-			  	OrcamentoItem novoServico = modelMapper.map(orcamentoItem, OrcamentoItem.class); 
-			  	novoServico.setOrcamento(orcamentoOS);
-			  	novoServico.setEmpresa(codEmp);
-				  		 
-			  	orcamentoRepository.save(novoServico);
+			  	else {
+					dto.setCodigoItem(0);
+					dto.setAvulso(true);
+				}			  				  	
 			  	
-			  	return novoServico;
+			  	if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0.0) {
+			  		dto.setValorUnidadeAvulso(orcamentoItem.getValorUnidadeAvulso());
+			  	} 
+			  	
+			  	else {
+			  		dto.setValorHoraAvulso(orcamentoItem.getValorHoraAvulso());
+			  		dto.setValorUnidadeAvulso(0.0);
+				}
+			  			  	
+			  			
+			  		OrcamentoItem novoServicoItem = new OrcamentoItem (
+			  				dto.getEmpresa(),
+			  				dto.getOrcamento(),
+			  				dto.getCodigoItem(),
+			  				dto.getNomeServicoAvulso(),
+			  				dto.getDescricaoServicoAvulso(),
+			  				dto.getValorUnidadeAvulso(),
+			  				dto.getValorHoraAvulso(),
+			  				dto.isAvulso()
+			  				);
+			  	orcamentoRepository.save(novoServicoItem);
+		  	
+			  	return novoServicoItem;
 			 
 			 		  
 	  } catch (Exception e) { throw new
-		  		BadRequest("Não foi possível inserir o serviço no orçamento"+e); }
+		  		BadRequest("Não foi possível inserir o serviço no orçamento"+ e); }
 	  
 	  }
 

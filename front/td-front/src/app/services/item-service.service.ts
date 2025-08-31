@@ -29,6 +29,7 @@ export class ItemServiceService {
   }
 
   encontrarPorId(id): Observable<ItemService>{
+    debugger;
     const headers = new HttpHeaders({
       'codEmpresa':sessionStorage.getItem('CompGrpIndent')
     })

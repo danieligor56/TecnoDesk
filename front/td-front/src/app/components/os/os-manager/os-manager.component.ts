@@ -16,7 +16,6 @@ import { Toast, ToastrService } from 'ngx-toastr';
 import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 
-
 @Component({
   selector: 'app-os-manager',
   templateUrl: './os-manager.component.html',
@@ -28,7 +27,26 @@ export class OsManagerComponent implements OnInit {
   };
   [x: string]: any;
   nomeCliente:string = '';
-  Os:Os_entrada;
+  Os: Os_entrada = {
+    
+    id: 0,
+    numOs: 0,
+    empresa: undefined,
+    cliente: undefined,
+    colaborador: undefined,
+    tecnico_responsavel: undefined,
+    dataAbertura: '',
+    aparelhos: 0,
+    descricaoModelo: '',
+    checkList: '',
+    reclamacaoCliente: '',
+    initTest: '',
+    statusOS: '',
+    prioridadeOS: '',
+    marcaAparelho: '',
+    snAparelho: '',
+    laudoTecnico: '',
+  };
   id:string;
   colaboradores:Colaborador[] = [];
   osCreateForm:FormGroup;
@@ -40,7 +58,10 @@ export class OsManagerComponent implements OnInit {
   prioridadeos:string = '';
   numTec:number = 0;
   statusOs: string = ''; 
-  laudo: string = '';
+  laudoTecnico: string = ''
+  
+
+
  
 
 constructor(

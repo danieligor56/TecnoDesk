@@ -8,6 +8,7 @@ import { ItemServiceCreateComponent } from '../item-service-create/item-service-
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { ItemServiceCobrarhoraComponent } from '../item-service-cobrarhora/item-service-cobrarhora.component';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-item-servicel-minilist',
@@ -70,41 +71,43 @@ valorHorasServico:number = 0;
       })
   }
 
+  encontrarOrcamento(){}
 
-  adicionarServico(id: number,cobrarPorUnd:boolean) {
-   
-    // Primeiro: buscar o orçamento
-    this.orcamentoService.buscarPorId(this.data.id).subscribe(orcamento => {
+  adicionarServico(id: number, cobrarPorUnd: boolean) {
+  debugger;
+
+  const numbOs = Number(this.data.id);
+
+  this.orcamentoService.buscarPorId(numbOs).pipe(
+    switchMap(orcamento => {
       this.codOrcamento = orcamento.id;
-  
-      // Segundo: buscar o item
-      this.itemService.encontrarPorId(id).subscribe(response => {
-        this.servicoContrato = {
-          empresa: response.empresa,
-          codOrcamento: this.codOrcamento,
-          codigoItem: Number(response.id),
-          nomeServicoAvulso: response.nomeServico,        
-          descricaoServicoAvulso: response.descricaoServico,
-          // valorUnidadeAvulso: response.valorServicoUnidade,
-          // valorHoraAvulso: 0,
-          isAvulso: false
-        };
+      return this.itemService.encontrarPorId(id);
+    }),
+    switchMap(response => {
+      this.servicoContrato = {
+        empresa: response.empresa,
+        codOrcamento: this.codOrcamento,
+        codigoItem: Number(response.id) ? Number(response.id) : 0,
+        nomeServicoAvulso: response.nomeServico,
+        descricaoServicoAvulso: response.descricaoServico,
+        valorUnidadeAvulso: cobrarPorUnd ? response.valorServicoUnidade : 0,
+        valorHoraAvulso: cobrarPorUnd ? 0 : this.valorHorasServico,
+        isAvulso: false
+      };
 
-        if(cobrarPorUnd){
-          this.servicoContrato.valorUnidadeAvulso = response.valorServicoUnidade;
-          this.servicoContrato.valorHoraAvulso = 0;
-        } else{
-          this.servicoContrato.valorHoraAvulso = this.valorHorasServico;
-          this.servicoContrato.valorUnidadeAvulso = 0
-        }
-        
-        debugger;
-        // Terceiro: enviar para o backend
-        this.orcamentoService.inserirItem(this.codOrcamento, this.servicoContrato)
-        this.dialogRef.close(true);
-      });
-    });
-  }
+      // já retorna o observable de inserirItem
+      return this.orcamentoService.inserirItem(this.codOrcamento, this.servicoContrato);
+    })
+  ).subscribe({
+    next: () => {
+      this.dialogRef.close(true); // só fecha depois que o backend confirmar
+    },
+    error: err => {
+      console.error("Erro ao adicionar serviço:", err);
+      // aqui você pode exibir um snackbar/toast para o usuário
+    }
+  });
+}
 
   cobrarHoraDialog(valorServicoHora,idServico){
 

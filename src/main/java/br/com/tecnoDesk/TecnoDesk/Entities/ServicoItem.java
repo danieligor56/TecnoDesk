@@ -14,6 +14,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 //@Table(name = "servico_item")
+
+
+// NÃO UTILIZAR !!!! !!!!
+
+
 @Table(name = "servico_item", uniqueConstraints = @UniqueConstraint(columnNames = {"nome_servico", "codigo_empresa"}))
 
 public class ServicoItem {
@@ -39,6 +44,15 @@ public class ServicoItem {
 
 	@Column(name = "custo_servico")
 	private Double custoServico;
+	
+	public ServicoItem(Empresa empresa,String nomeServico,String descServico,Double valorServico,Double custoServico ) {
+		this.empresa = empresa;
+		this.nomeServico = nomeServico;
+		this.descServico = descServico;
+		this.valorServico = valorServico;
+		this.custoServico = custoServico;
+		
+	}
 
 }
 

@@ -58,6 +58,19 @@ public class OrcamentoItem {
     
     @Column(name = "isAvulso")
     private boolean isAvulso;
+
+	public OrcamentoItem(Empresa empresa, Orcamento orcamento, long codigoItem, String nomeServicoAvulso,
+			String descricaoServicoAvulso, Double valorUnidadeAvulso, Double valorHoraAvulso, boolean isAvulso) {
+		this.empresa = empresa;
+		this.orcamento = orcamento;
+		this.codigoItem = codigoItem;
+		this.nomeServicoAvulso = nomeServicoAvulso;
+		this.descricaoServicoAvulso = descricaoServicoAvulso;
+		this.valorUnidadeAvulso = valorUnidadeAvulso;
+		this.valorHoraAvulso = valorHoraAvulso;
+		this.isAvulso = isAvulso;
+	}
+    
     
     
 }

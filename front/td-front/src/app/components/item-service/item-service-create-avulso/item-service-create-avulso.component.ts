@@ -67,8 +67,8 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
 
   cobrarPorHora(){
     if(this.radius > 0){
-     
-      this.orcamentoService.buscarPorId(this.data.id).subscribe(orcamento => {
+     const numbOs = Number(this.data.id);
+      this.orcamentoService.buscarPorId(numbOs).subscribe(orcamento => {
         this.codOrcamento = orcamento.id
       })
       
@@ -128,9 +128,10 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
   }
 
   inserirServicoAvulso(){
-    
+    debugger;
+      const numbOs = Number(this.data.id);
       if(this.itemOrcamentoForm.get('valorUnidadeAvulso').valid && this.itemOrcamentoForm.get('descricaoServicoAvulso').valid){
-        this.orcamentoService.buscarPorId(this.data.id).subscribe(orcamento => {
+        this.orcamentoService.buscarPorId(numbOs).subscribe(orcamento => {
           this.codOrcamento = orcamento.id
           debugger;
           this.orcamentoService.inserirItem(this.codOrcamento,this.itemOrcamentoForm.value)
