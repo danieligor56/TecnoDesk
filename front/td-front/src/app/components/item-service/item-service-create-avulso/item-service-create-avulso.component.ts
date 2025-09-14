@@ -127,23 +127,80 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
     }
   }
 
-  inserirServicoAvulso(){
-    debugger;
-      const numbOs = Number(this.data.id);
-      if(this.itemOrcamentoForm.get('valorUnidadeAvulso').valid && this.itemOrcamentoForm.get('descricaoServicoAvulso').valid){
-        this.orcamentoService.buscarPorId(numbOs).subscribe(orcamento => {
-          this.codOrcamento = orcamento.id
-          debugger;
-          this.orcamentoService.inserirItem(this.codOrcamento,this.itemOrcamentoForm.value)
-          this.dialogRef.close(true);
-     
-        });
+  inserirServicoAvulso() {
+  debugger;
+  const numbOs = Number(this.data.id);
 
-      }
-      this.itemOrcamentoForm.get('valorUnidadeAvulso').markAsTouched();
+  if (this.itemOrcamentoForm.valid) {
+    this.orcamentoService.buscarPorId(numbOs).subscribe(orcamento => {
+      this.codOrcamento = orcamento.id;
+      debugger;
+
+      let vServicoHora = 0; 
+      let vServicoUnd = 0;
 
       
+        if (this.radius > 0) {
+          vServicoHora = this.itemOrcamentoForm.get('valorUnidadeAvulso').value;
+        } else {
+          vServicoUnd = this.itemOrcamentoForm.get('valorUnidadeAvulso').value;
+        }
+
+        if (this.isService) {
+
+            const novoServico: ItemService = {
+              nomeServico: this.itemOrcamentoForm.get('nomeServicoAvulso').value, 
+              descricaoServico: this.itemOrcamentoForm.get('descricaoServicoAvulso').value,                      
+              valorServicoHora: vServicoHora,
+              valorServicoUnidade: vServicoUnd
+                    };
+
+            this.itemServicoService.create(novoServico).subscribe( response => {
+                const servicoContrato: OrcamentoItem = {
+                  empresa: orcamento.empresa,
+                  codOrcamento: orcamento.id,
+                  codigoItem: Number(response.id) ? Number(response.id) : 0,
+                  nomeServicoAvulso: response.nomeServico,
+                  descricaoServicoAvulso: response.descricaoServico,
+                  valorUnidadeAvulso: vServicoUnd,
+                  valorHoraAvulso: vServicoHora,
+                  isAvulso: false
+                              };
+                              if(this.radius > 0){
+                    servicoContrato.valorHoraAvulso = this.radius * vServicoHora;
+                   }
+            this.orcamentoService.inserirItem(this.codOrcamento, servicoContrato).subscribe(() => {
+            this.dialogRef.close(true);
+                });
+            })
+          }    
+
+       else {
+
+        const servicoContrato: OrcamentoItem = {
+                  empresa: orcamento.empresa,
+                  codOrcamento: orcamento.id,
+                  codigoItem: 0,
+                  nomeServicoAvulso: '',
+                  descricaoServicoAvulso: this.itemOrcamentoForm.get('descricaoServicoAvulso').value,
+                  valorUnidadeAvulso: vServicoUnd,
+                  valorHoraAvulso: vServicoHora,
+                  isAvulso: true
+                              };
+                   if(this.radius > 0){
+                    servicoContrato.valorHoraAvulso = this.radius * vServicoHora;
+                   }           
+
+        this.orcamentoService.inserirItem(this.codOrcamento, servicoContrato).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      }
+    });
+  } else {
+    this.itemOrcamentoForm.markAllAsTouched();
   }
+}
+
 
   closeDialog(){
     this.dialogRef.close();

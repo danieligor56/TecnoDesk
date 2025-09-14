@@ -1,16 +1,16 @@
 <div class="containe">
     <div>
-        <h3 class="label">Serviço avulso</h3>
+        <h3 class="label">Serviço avulso 🛠️</h3>
     </div>
     <form [formGroup]="itemOrcamentoForm">
     
-      <mat-form-field class="example-full-width" *ngIf="isService" appearance="fill" style="margin-right: 8px;">
+      <mat-form-field class="example-full-width" *ngIf="isService" appearance="fill" style="margin-right: 8px;width: 100%;">
         <mat-label>Nome serviço</mat-label>
         <input matInput
         formControlName="nomeServicoAvulso">
       </mat-form-field>
     
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
         <mat-label>Descreva o serviço</mat-label>
         <input matInput
         formControlName="descricaoServicoAvulso">
@@ -20,7 +20,7 @@
       </mat-form-field>
 
       <div >
-        <h3 class="label">Valor do serviço</h3>
+        <h3 class="label">Valor do serviço 📊</h3>
     </div>
 
     <mat-form-field class="example-form-field" appearance="fill">
@@ -46,8 +46,8 @@
     </form>   
 
     <div style="margin-bottom: 2;margin-top: 1rem;">
-      <button (click)="inserirServicoAvulso()" mat-raised-button style="background-color:#1F66FE; color: white; margin-right: 4px;">Adicionar serviço</button>
-      <button (click)="validaCobrarPorHora()" (click)="cobrarPorHora()" mat-raised-button style="background-color:#3495D7; color: white; margin-right: 4px;">Cobrar por hora</button>  
+      <button (click)="inserirServicoAvulso()" mat-raised-button  color="primary" style="margin-right: 4px;">Adicionar serviço</button>
+      <!-- <button (click)="validaCobrarPorHora()" (click)="cobrarPorHora()" mat-raised-button style="background-color:#3495D7; color: white; margin-right: 4px;">Cobrar por hora</button>   -->
       <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>  
     </div>
     

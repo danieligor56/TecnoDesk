@@ -116,8 +116,11 @@ public class OrcamentoService {
 			  	}
 			  	
 			  	else {
+			  		
 					dto.setCodigoItem(0);
 					dto.setAvulso(true);
+					dto.setNomeServicoAvulso(orcamentoItem.getNomeServicoAvulso());
+					dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());
 				}			  				  	
 			  	
 			  	if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0.0) {
@@ -181,8 +184,26 @@ public class OrcamentoService {
 	
 	public Double valorOrcamento(long idOrcamento, String codEmpresa) throws Exception {
 		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-		var valorOrcamento= repository.encontrarOcamentoPorID(codEmpr,idOrcamento);
+		var valorOrcamento = repository.encontrarOcamentoPorID(codEmpr,idOrcamento);
 			return valorOrcamento.getValorOrcamento();
+	}
+	
+	public Double calcularValorOrcamento(long idOrcamento, String codEmpresa) throws Exception{
+		double valorTotal = 0;
+		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+		List<OrcamentoItem> itensOrcamento = repository.listaItens(codEmpr, idOrcamento);
+		
+		for (OrcamentoItem orcamentoItem : itensOrcamento) {
+				if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0) {
+					valorTotal += orcamentoItem.getValorUnidadeAvulso();
+				}
+					else {
+						valorTotal += orcamentoItem.getValorHoraAvulso();
+					}
+				
+		}
+		
+		return valorTotal;
 	}
 	
 	

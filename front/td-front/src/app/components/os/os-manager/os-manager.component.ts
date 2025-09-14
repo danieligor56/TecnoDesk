@@ -59,6 +59,8 @@ export class OsManagerComponent implements OnInit {
   numTec:number = 0;
   statusOs: string = ''; 
   laudoTecnico: string = ''
+  vOrcamento:number = 0;
+  
   
 
 
@@ -83,8 +85,10 @@ constructor(
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.mapearDadosOS(this.id);
+    this.getValorOrcamento(this.id)
     this.dropdownColaborador();
     this.listarItensOrcamento();
+  
  
 
   }
@@ -285,6 +289,20 @@ constructor(
       })
     
   }
+
+  getValorOrcamento(numOs:string){
+   const numOsNumber = Number(numOs)
+    this.orcamentoService.buscarPorId(numOsNumber).subscribe(orcamento => {
+        this.orcamentoService.valorOrcamento(orcamento.id).subscribe( response =>{
+          this.vOrcamento = response;
+   })
+
+    });
+
+     
+  }
+
+
   
   
   

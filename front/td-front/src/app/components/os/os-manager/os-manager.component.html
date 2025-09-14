@@ -293,6 +293,7 @@
                                     <button (click)="openServicoAvulso(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
                                     <button  id="buttons" mat-stroked-button color="primary">+ Produto</button>
                                     <button  id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
+                                    <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button>
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
                                 </div>
                                 
@@ -358,13 +359,18 @@
                             </div>
 
                             <div class="input-group">
-                                <label for="telefone">Valor total dos descontos:</label>
+                                <label for="telefone">Total de descontos:</label>
                                 <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
                             </div>
 
                             <div class="input-group">
-                                <label for="telefone">Valor total:</label>
+                                <label for="telefone">Valor total produtos:</label>
                                 <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="telefone">Valor total serviços:</label>
+                                <input type="text" id="telefone" value="💲 {{ vOrcamento | number:'1.2-2' }}" readonly>
                             </div>
 
                              <div class="input-group" style="display: flex; width: 100%; margin-bottom: .3rem;">
