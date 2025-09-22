@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Orcamento } from '../models/Orcamento';
 import { ItemService } from '../models/ItemService';
 import { OrcamentoItem } from '../models/OrcamentoItem';
+import { TotaisNotaDTO } from '../DTO/TotaisNotaDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class OrcamentoService {
     return this.http.get<OrcamentoItem[]>(`http://localhost:8080/api/v1/orcamento/listarServicosOrcamento?orcamento_id=${idOrcamento}`,options);
   }
 
-  valorOrcamento(idOrcamento:number): Observable<number>{
+  valorOrcamento(idOrcamento:number): Observable<TotaisNotaDTO>{
     const codEmpresa = sessionStorage.getItem('CompGrpIndent');
   
     const headers = new HttpHeaders({
@@ -66,7 +67,7 @@ export class OrcamentoService {
   
     const options = { headers };
 
-    return this.http.get<number>(`http://localhost:8080/api/v1/orcamento/valorOrcamento?orcamento_id=${idOrcamento}`,options);
+    return this.http.get<TotaisNotaDTO>(`http://localhost:8080/api/v1/orcamento/valorOrcamento?orcamento_id=${idOrcamento}`,options);
   }
 
 

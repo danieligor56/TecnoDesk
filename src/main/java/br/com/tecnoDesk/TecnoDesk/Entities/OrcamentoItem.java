@@ -56,6 +56,13 @@ public class OrcamentoItem {
     @Column(name = "valor_hora")
     private Double valorHoraAvulso;
     
+    @Column(name = "desconto")
+    private Double descontoServico = 0.00;
+    
+    @Column(name = "valorTotal")
+    private Double valorTotal = 0.00;
+    
+    
     @Column(name = "isAvulso")
     private boolean isAvulso;
 

@@ -25,7 +25,10 @@ public interface OrcamentoRepository extends JpaRepository<Orcamento, Long>{
 			)
 	Orcamento encontrarOcamentoPorNumOS(long CodEmp,long numOs);
 	
-	@Query("SELECT i FROM OrcamentoItem i WHERE i.empresa.id = :CodEmp AND i.orcamento.id = :codigoOrcamento")
-	List<OrcamentoItem> listaItens(@Param("CodEmp") long CodEmp, @Param("codigoOrcamento") long codigoOrcamento);
+	
+	
+	
+	
+	
 
 }

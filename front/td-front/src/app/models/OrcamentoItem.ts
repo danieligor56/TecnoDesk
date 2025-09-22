@@ -10,6 +10,8 @@ export interface OrcamentoItem{
     descricaoServicoAvulso?:string,
     valorUnidadeAvulso?:number;
     valorHoraAvulso?:number;
+    descontoServico?:number;
+    valorTotal?:number;
     isAvulso:boolean
    
 }

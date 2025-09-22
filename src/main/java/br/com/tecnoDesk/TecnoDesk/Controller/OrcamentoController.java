@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoDTO;
-import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.DTO.TotaisNotaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
 import br.com.tecnoDesk.TecnoDesk.Services.OrcamentoService;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +39,9 @@ public class OrcamentoController {
 		  return ResponseEntity.ok().body(novoItemOrcamento); 
 		  }
 	  
+	 
+	  
+	  
 	  @GetMapping("buscarOcamento")
 	  public ResponseEntity<Orcamento> buscarOrcamentoID(@RequestParam long id, @RequestHeader("CodEmpresa") String codEmpresa){
 		  	Orcamento orc = service.buscarPorNumOs(id, codEmpresa);
@@ -54,7 +54,7 @@ public class OrcamentoController {
 		  
 	  }
 	  @GetMapping("valorOrcamento")
-	  public ResponseEntity<Double> valorOrcamento(@RequestParam long orcamento_id,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{
+	  public ResponseEntity<TotaisNotaDTO> valorOrcamento(@RequestParam long orcamento_id,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{
 		  return ResponseEntity.ok().body(service.calcularValorOrcamento(orcamento_id, codEmpresa));
 	  }
 	

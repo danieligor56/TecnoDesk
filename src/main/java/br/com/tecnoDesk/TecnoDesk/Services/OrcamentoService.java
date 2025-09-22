@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,7 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoItemDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.TotaisNotaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
@@ -175,7 +177,31 @@ public class OrcamentoService {
 	public List<OrcamentoItem> listarItensOrca( String codEmpresa,long codOrcamento) {
 		try {
 			long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-			return repository.listaItens(codEmpr, codOrcamento);
+			List<OrcamentoItem> orcList = orcamentoRepository.listaItens(codEmpr, codOrcamento);
+			List<OrcamentoItem> orcListVlrLiq = new ArrayList<>();
+			double valorLiquio = 0;
+			
+			for (OrcamentoItem orcamentoItem : orcList) {							
+				
+				if(orcamentoItem.getValorTotal() != null) {
+					
+				}
+				
+				if( orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0 ) {
+						valorLiquio = orcamentoItem.getValorUnidadeAvulso() - orcamentoItem.getDescontoServico();
+						orcListVlrLiq.add(orcamentoItem);
+					}
+						
+					else {
+						valorLiquio = orcamentoItem.getValorHoraAvulso() - orcamentoItem.getDescontoServico();
+						orcListVlrLiq.add(orcamentoItem);
+					}
+				
+				orcamentoItem.setValorTotal(valorLiquio);
+				
+			}
+			
+			return orcListVlrLiq;
 		} 
 		catch ( Exception ex) {
 			throw new NotFound("Não existe produtos cadastrados"+ ex);
@@ -188,24 +214,49 @@ public class OrcamentoService {
 			return valorOrcamento.getValorOrcamento();
 	}
 	
-	public Double calcularValorOrcamento(long idOrcamento, String codEmpresa) throws Exception{
+	public TotaisNotaDTO calcularValorOrcamento(long idOrcamento, String codEmpresa) throws Exception{
+		
 		double valorTotal = 0;
+		double valorTotalDesconto = 0;
+		TotaisNotaDTO totaisNotaDTO = new TotaisNotaDTO(); 
+		
 		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-		List<OrcamentoItem> itensOrcamento = repository.listaItens(codEmpr, idOrcamento);
+		List<OrcamentoItem> itensOrcamento = orcamentoRepository.listaItens(codEmpr, idOrcamento);
 		
 		for (OrcamentoItem orcamentoItem : itensOrcamento) {
-				if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0) {
-					valorTotal += orcamentoItem.getValorUnidadeAvulso();
+				
+				if( orcamentoItem.getDescontoServico() > 0 && orcamentoItem != null ) {
+					totaisNotaDTO.valorTotalDescontoServico += orcamentoItem.getDescontoServico();
+					
+				}
+			
+				if( orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0 ) {
+				 Double	valorComDesconto = orcamentoItem.getValorUnidadeAvulso() - orcamentoItem.getDescontoServico();
+				 totaisNotaDTO.valorTotalNota += valorComDesconto;
 				}
 					else {
-						valorTotal += orcamentoItem.getValorHoraAvulso();
+						totaisNotaDTO.valorTotalNota += orcamentoItem.getValorHoraAvulso();
 					}
 				
 		}
 		
-		return valorTotal;
+			
+				
+		
+		
+		
+		return totaisNotaDTO;
 	}
 	
+	public void removerServicoFromOrcamento(long numOs, String codEmpresa) {
+		try {
+			long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			Orcamento orcamento = repository.encontrarOcamentoPorNumOS(codEmpr,numOs);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 }
 

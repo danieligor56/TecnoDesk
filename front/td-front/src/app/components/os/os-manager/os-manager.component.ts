@@ -15,6 +15,7 @@ import { TecnicoEPrioridadeDTO } from 'src/app/DTO/TecnicoEPrioridadeDTO';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
+import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
 
 @Component({
   selector: 'app-os-manager',
@@ -51,7 +52,7 @@ export class OsManagerComponent implements OnInit {
   colaboradores:Colaborador[] = [];
   osCreateForm:FormGroup;
   colaborador1:Colaborador;
-  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'acoes'];
+  displayedColumns: string[] = ['nome', 'descricao', 'valor','vlrDesconto','vlrLiq', 'acoes'];
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   valorOrcamento:number = 0;
@@ -60,6 +61,11 @@ export class OsManagerComponent implements OnInit {
   statusOs: string = ''; 
   laudoTecnico: string = ''
   vOrcamento:number = 0;
+  totaisNota: TotaisNotaDTO = {
+    valorTotalNota: 0,
+    valorTotalDescontoServico: 0
+
+  };
   
   
 
@@ -78,10 +84,6 @@ constructor(
 
   ngOnInit(): void {
     debugger;
-
-    
-
-
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.mapearDadosOS(this.id);
@@ -250,11 +252,11 @@ constructor(
     
   }
 
-  FuncValorOrcamento(idOrcamento:number){
-   this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
-      this.valorOrcamento = response
-   })
-  }
+  // FuncValorOrcamento(idOrcamento:number){
+  //  this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
+  //     this.valorOrcamento = response
+  //  })
+  // }
 
   alterarTecnicoEPrioridade(){
     debugger;
@@ -294,13 +296,15 @@ constructor(
    const numOsNumber = Number(numOs)
     this.orcamentoService.buscarPorId(numOsNumber).subscribe(orcamento => {
         this.orcamentoService.valorOrcamento(orcamento.id).subscribe( response =>{
-          this.vOrcamento = response;
+          this.totaisNota = response;
    })
 
     });
 
      
   }
+
+  
 
 
   
