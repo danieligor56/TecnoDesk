@@ -1,0 +1,52 @@
+.container{
+    padding: 1rem;
+    width: 65%;
+    
+}
+.titPage {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    padding: 20px !important;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.titPage h1 {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.titPage h1::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background-color: #ffffff;
+    margin-right: 15px;
+    border-radius: 2px;
+}
+
+#buttons{
+    padding: 10px;
+    height: 2rem;
+    background-color:  #F6F6F6;
+}
+
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 28%;
+  }

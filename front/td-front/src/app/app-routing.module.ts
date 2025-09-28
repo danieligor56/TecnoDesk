@@ -23,6 +23,7 @@ import { ItemServicelMinilistComponent } from './components/item-service/item-se
 import { ItemServiceCreateAvulsoComponent } from './components/item-service/item-service-create-avulso/item-service-create-avulso.component';
 import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
+import { ProdutosComponent } from './components/produtos/produtos.component';
 
 
 const routes: Routes = [
@@ -48,7 +49,8 @@ const routes: Routes = [
       {path:'os/list',component:OsListComponent},
       {path:'os/manager',component:OsManagerComponent},
       {path:'manager/:id',component:OsManagerComponent},
-      {path:'clientes',component:ClientesListComponent}
+      {path:'clientes',component:ClientesListComponent},
+      {path: 'produtos', component:ProdutosComponent}
 
       
     ]
