@@ -26,6 +26,13 @@ constructor(private router: Router,private authService:AuthService,private toast
     this.toastr.info('Logout realizado com sucesso','logout',{timeOut:7000})
   }
 
+  abrirSuporte(){
+    // Aqui você pode implementar a lógica para abrir o suporte
+    // Por exemplo: abrir um modal, redirecionar para uma página de suporte, etc.
+    this.toastr.info('Abrindo suporte...', 'Suporte', {timeOut: 3000});
+    // Exemplo: window.open('https://seu-link-de-suporte.com', '_blank');
+  }
+
   setTreeOs(){
     debugger;
     if(this.treeos == true){

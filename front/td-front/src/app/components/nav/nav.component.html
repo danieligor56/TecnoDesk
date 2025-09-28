@@ -49,12 +49,18 @@
             </li>
           </ul>
       </div>
-  
-        <a mat-list-item (click)="logout()">
-          <i class="material-icons">logout</i>Logout
-        </a>
     
       </mat-nav-list>
+      
+      <!-- Footer com logout e suporte -->
+      <div class="nav-footer">
+        <a mat-list-item (click)="abrirSuporte()" class="footer-item">
+          <i class="material-icons">support_agent</i> Suporte
+        </a>
+        <a mat-list-item (click)="logout()" class="footer-item">
+          <i class="material-icons">logout</i> Sair
+        </a>
+      </div>
     
     </mat-drawer>
 
