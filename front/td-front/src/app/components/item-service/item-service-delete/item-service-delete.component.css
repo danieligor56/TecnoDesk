@@ -1,9 +1,5 @@
 
-.label{
-    background-color: #F2F2F2;
-    padding: 10px;
-    color: #333333;
-}
+/* Estilo da classe .label agora está no styles.css global */
 
 img{
     height: 10rem;

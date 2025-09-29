@@ -1,11 +1,97 @@
-
 <div class="container">
     <div class="titPage" style="padding:5px;margin-bottom: 10px;">
         <h1 id="osH1">Produtos</h1>       
     </div>
 
+    <mat-form-field appearance="standard">
+        <mat-label>🔍 Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
     
-  
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort>
+         
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let produtos">🆔 {{produtos.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome: </th>
+            <td mat-cell *matCellDef="let produtos">🛍️ {{produtos.nome}} </td>
+          </ng-container>
+
+           <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição do produto: </th>
+            <td mat-cell *matCellDef="let produtos">📝 {{produtos.descricao}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="preco">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Preço: </th>
+            <td mat-cell *matCellDef="let produtos">💲 {{produtos.preco}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="qtdEstoque">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Qtd.Estoque </th>
+            <td mat-cell *matCellDef="let produtos">🧮 {{produtos.quantidadeEstoque}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="codigo_barras">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod.Barras</th>
+            <td mat-cell *matCellDef="let produtos">🔢 {{produtos.codigo_barras}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</th>
+            <td mat-cell *matCellDef="let produtos">🗃️ {{produtos.categoria}} </td>
+          </ng-container>unidadeMedida
+
+          <ng-container matColumnDef="unidadeMedida">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Und.Medida</th>
+            <td mat-cell *matCellDef="let produtos">📏 {{produtos.unidadeMedida}} </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="fruit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor do serviço </th>
+            <td mat-cell *matCellDef="let servico">💲 {{servico.valorServicoUnidade}} R$ </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor por hora </th>
+            <td mat-cell *matCellDef="let servico">💲⌚ {{servico.valorServicoHora}} R$ </td>
+          </ng-container>  -->
+
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef></th> 
+              <td mat-cell *matCellDef="let produtos"> 
+                <div style="display: flex;">
+                  <!-- <div>
+                    <a typ="button" (click)="openEditDialog($event, servico.id)" mat-stroked-button color="primary" style="margin-right: .5rem;" [routerLink]="servico.id">
+                      <mat-icon id="editar">open_in_new</mat-icon>
+                          Editar
+                    </a>
+                  </div> -->
+                    <!-- <div>
+                      <button  mat-stroked-button color="warn" (click)="openDelDialog($event, servico.id)" id="delete"> <mat-icon>delete</mat-icon>Apagar registro</button>
+                    </div>                 -->
+                  </div>            
+           </td>
+         </ng-container>
+          
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+
+      <!-- <div id="buttons">
+        <button (click)="openDialog()"  mat-flat-button color="primary">Adicionar serviço</button>
+      </div> -->
    
 </div>
 

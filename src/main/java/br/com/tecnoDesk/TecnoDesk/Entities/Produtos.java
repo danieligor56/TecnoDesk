@@ -44,6 +44,9 @@ public class Produtos {
 	@Column(nullable = false)
 	private Integer quantidadeEstoque;
 	
+	@Column(nullable = true)
+	private long codigo_barras; 
+	
 	@Column(length = 50)
 	private String categoria;
 	
