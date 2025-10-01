@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produtos } from 'src/app/models/Produtos';
 import { ProdutosService } from 'src/app/services/produtos.service';
+import { CriarAlterarProdutoComponent } from './criar-alterar-produto/criar-alterar-produto.component';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class ProdutosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['id','nome','descricao','preco','qtdEstoque','codigo_barras','categoria', 'unidadeMedida'];
   constructor(
-    private produtosService: ProdutosService
+    private produtosService: ProdutosService,
+    private dialog:MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +44,10 @@ export class ProdutosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
     }
+
+     openCriarAlterarProduto(){
+     const dialogRef = this.dialog.open(CriarAlterarProdutoComponent)
+  }
 
 
 }

@@ -24,6 +24,7 @@ import { ItemServiceCreateAvulsoComponent } from './components/item-service/item
 import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
+import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 
 
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
       {path:'os/manager',component:OsManagerComponent},
       {path:'manager/:id',component:OsManagerComponent},
       {path:'clientes',component:ClientesListComponent},
-      {path: 'produtos', component:ProdutosComponent}
+      {path: 'produtos', component:ProdutosComponent},
+      {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent}
 
       
     ]

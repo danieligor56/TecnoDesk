@@ -54,6 +54,7 @@ import { ItemServiceCreateAvulsoComponent } from './components/item-service/item
 import { ItemServiceCobrarhoraComponent } from './components/item-service/item-service-cobrarhora/item-service-cobrarhora.component';
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
+import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 
 
 
@@ -86,7 +87,8 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
     ItemServiceCreateAvulsoComponent,
     ItemServiceCobrarhoraComponent,
     RegistroInicialComponent,
-    ProdutosComponent
+    ProdutosComponent,
+    CriarAlterarProdutoComponent
     
 
     

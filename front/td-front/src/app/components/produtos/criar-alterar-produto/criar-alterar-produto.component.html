@@ -1,0 +1,51 @@
+<div class="container">
+    <h1 class="label">Criar alterar produtos</h1>
+
+    <div>
+
+        <form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Nome do produto</mat-label>
+    <input type="text" matInput [formControl]="emailFormControl"
+           placeholder="Insira o nome do produto.">
+    <mat-hint>Errors appear instantly!</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Preencha o nome do produto.
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      informe o nome do produto <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  &nbsp;
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Descrição:</mat-label>
+    <input type="text" matInput [formControl]="emailFormControl"
+           placeholder="">
+    <mat-hint>Errors appear instantly!</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Descrição:</mat-label>
+    <input type="text" matInput [formControl]="emailFormControl"
+           placeholder="">
+    <mat-hint>Errors appear instantly!</mat-hint>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+
+</form>
+
+    </div>
+
+</div>
