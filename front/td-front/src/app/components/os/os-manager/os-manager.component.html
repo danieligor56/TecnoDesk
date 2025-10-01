@@ -27,8 +27,8 @@
 
                 <div class="os-dados">
                     
-                    <div class="labelNumOS">                    
-                        <h1 class="labelNumOS">Número da OS:<b>{{Os?.numOs}} 📋</b></h1>
+                    <div>                    
+                        <h1 class="label" style="margin-bottom: .2rem;">Número da OS:<b>{{Os?.numOs}} 📋</b></h1>
                     </div>
                     
                     <div class="cliente-os">
@@ -135,7 +135,7 @@
                             <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
                         </div> -->
                         
-                        <button (click)="alterarTecnicoEPrioridade()" mat-flat-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        
                         <div>
                             <mat-form-field appearance="fill" >
                                  <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
@@ -153,7 +153,8 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <button [routerLink]="['/os/list']" mat-flat-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
+                        <button (click)="alterarTecnicoEPrioridade()" mat-stroked-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        <button [routerLink]="['/os/list']" mat-stroked-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
 
                   </div>
                   
@@ -293,6 +294,7 @@
                                     <button (click)="openServicoAvulso(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
                                     <button  id="buttons" mat-stroked-button color="primary">+ Produto</button>
                                     <button  id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
+                                    <button  id="buttons"mat-stroked-button color="primary">🔥 Montar Kit</button>
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
                                 </div>

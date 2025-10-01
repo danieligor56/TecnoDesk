@@ -45,7 +45,7 @@
       </mat-slide-toggle>
       
       <div>
-        <button mat-flat-button color="primary" matStepperNext>Próximo</button>
+        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
@@ -55,39 +55,37 @@
       <mat-form-field appearance="fill" style="margin-top: 2rem;">
         <mat-label>Valor de custo do produto:</mat-label>
         <input matInput formControlName="secondCtrl" placeholder="Valor que o produto custou"
+         mask="separator.2" thousandSeparator="." decimalMarker=","
                required>
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
       </mat-form-field>
         &nbsp;
       <mat-form-field appearance="fill" style="margin-top: 2rem;">
         <mat-label>Valor para venda:</mat-label>
         <input matInput formControlName="secondCtrl" placeholder="Valor para venda"
+         mask="separator.2" thousandSeparator="." decimalMarker=","
                required>
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
       </mat-form-field>
 
       <div>
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-flat-button color="primary" matStepperNext>Próximo</button>
+        <button mat-stroked-button matStepperPrevious>Voltar</button>
+          &nbsp;
+        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+  <mat-step [stepControl]="thirdFormGroup" label="Estoque">
     <form [formGroup]="thirdFormGroup">
       <mat-form-field appearance="fill">
-        <mat-label>Phone number</mat-label>
-        <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+        <mat-label>Quantidade para estoque</mat-label>
+        <input type="number" matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext>Próximo</button>
+        <button mat-stroked-button matStepperPrevious style="margin-right: 2rem;">Voltar</button>
+        <button mat-stroked-button color="primary" matStepperNext>Concluir</button>
       </div>
     </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Voltar</button>
-    </div>
   </mat-step>
 </mat-stepper>
 

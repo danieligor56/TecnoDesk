@@ -38,8 +38,14 @@ public class Produtos {
 	@Column(length = 500) 
 	private String descricao;
 	
+	@Column(length = 500, nullable = true) 
+	private String marcaProduto;
+	
 	@Column(nullable = false, precision = 10, scale = 2)
 	private BigDecimal preco;
+	
+	@Column(nullable = true, precision = 10, scale = 2)
+	private BigDecimal precoCusto;
 	
 	@Column(nullable = false)
 	private Integer quantidadeEstoque;
@@ -52,6 +58,9 @@ public class Produtos {
 	
 	@Column(length = 50) 
 	private String unidadeMedida; // Ex: "kg", "un", "litro" @Column(nullable = false) private Boolean ativo = true;
+	
+	@Column
+	private boolean produtoAtivo;
 	
 	
 

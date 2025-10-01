@@ -5,7 +5,9 @@ export interface Produtos {
     empresa: Empresa;
     nome: string; 
     descricao?: string;
-    preco: number; 
+    marca:string;
+    preco: number;
+    precoCusto:number; 
     quantidadeEstoque: number;
     categoria?: string;
     unidadeMedida?: string; 
