@@ -55,7 +55,7 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -89,6 +89,7 @@ import { CriarAlterarProdutoComponent } from './components/produtos/criar-altera
     RegistroInicialComponent,
     ProdutosComponent,
     CriarAlterarProdutoComponent
+
     
 
     
@@ -130,6 +131,7 @@ import { CriarAlterarProdutoComponent } from './components/produtos/criar-altera
     MatStepperModule,
     MatTreeModule,
     MatTabsModule,
+    MatSlideToggleModule
  
    
     
