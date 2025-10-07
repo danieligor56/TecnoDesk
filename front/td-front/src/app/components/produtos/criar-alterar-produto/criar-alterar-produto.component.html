@@ -9,26 +9,67 @@
     <form [formGroup]="firstFormGroup" style="margin-top: 2rem;">
       <mat-form-field appearance="fill">
         <mat-label>Nome de produto:</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input  matInput placeholder="Last name, First name" formControlName="nome" required>
       </mat-form-field>
-        &nbsp;
+    &nbsp;
        <mat-form-field appearance="fill">
         <mat-label>Descrição do produto:</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input (blur)="validarBtn1()"matInput placeholder="Last name, First name" formControlName="descricao" required>
       </mat-form-field>
-       &nbsp;
+    &nbsp;
        <mat-form-field appearance="fill">
         <mat-label>Marca do produto:</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input matInput placeholder="Last name, First name" formControlName="marca" >
       </mat-form-field>
         <br>
        <mat-form-field appearance="fill">
         <mat-label>Código de barras:</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input matInput placeholder="Last name, First name" formControlName="codigo_barras" >
       </mat-form-field>
-      &nbsp;
+    &nbsp;
+      <mat-slide-toggle formControlName="produtoAtivo"
+          [checked]="checked"
+          [disabled]="disabled">
+          Ativar/Desativar produto
+      </mat-slide-toggle>
+      
+      
+      <div>
+        <button  [disabled]="!btn1valid" mat-stroked-button color="primary" matStepperNext>Próximo</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Preço">
+    <form [formGroup]="secondFormGroup" >
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Valor de custo do produto:</mat-label>
+        <input matInput formControlName="precoCusto" placeholder="Valor que o produto custou"
+         mask="separator.2" thousandSeparator="." decimalMarker=","
+               required>
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
+      </mat-form-field>
+    <br>
 
-      <mat-form-field appearance="fill" style="width: 8rem;">
+      <mat-form-field appearance="fill">
+        <mat-label>Valor para venda:</mat-label>
+        <input matInput formControlName="preco" placeholder="Valor para venda"
+         mask="separator.2" thousandSeparator="." decimalMarker=","
+               required>
+                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
+      </mat-form-field>
+
+      <div>
+        <button mat-stroked-button matStepperPrevious>Voltar</button>
+    &nbsp;
+        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup" label="Estoque">
+    <form [formGroup]="thirdFormGroup">
+
+        <mat-form-field appearance="fill" style="width: 8rem;">
         <mat-label>Unidade de medida:</mat-label>
         <mat-select [(value)]="selected">
           <mat-option>Und</mat-option>
@@ -37,52 +78,16 @@
           <mat-option value="option3">Option 3</mat-option>
         </mat-select>
       </mat-form-field>
-        &nbsp;
-      <mat-slide-toggle
-          [checked]="checked"
-          [disabled]="disabled">
-          Ativar/Desativar produto
-      </mat-slide-toggle>
-      
-      <div>
-        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Preço">
-    <form [formGroup]="secondFormGroup" >
-      
-      <mat-form-field appearance="fill" style="margin-top: 2rem;">
-        <mat-label>Valor de custo do produto:</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Valor que o produto custou"
-         mask="separator.2" thousandSeparator="." decimalMarker=","
-               required>
-                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
-      </mat-form-field>
-        &nbsp;
-      <mat-form-field appearance="fill" style="margin-top: 2rem;">
-        <mat-label>Valor para venda:</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Valor para venda"
-         mask="separator.2" thousandSeparator="." decimalMarker=","
-               required>
-                <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
-      </mat-form-field>
+  &nbsp;
 
-      <div>
-        <button mat-stroked-button matStepperPrevious>Voltar</button>
-          &nbsp;
-        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="Estoque">
-    <form [formGroup]="thirdFormGroup">
       <mat-form-field appearance="fill">
         <mat-label>Quantidade para estoque</mat-label>
-        <input type="number" matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+        <input type="number" matInput formControlName="quantidadeEstoque" placeholder="Quantidade para estoque" required>
       </mat-form-field>
+      
       <div>
-        <button mat-stroked-button matStepperPrevious style="margin-right: 2rem;">Voltar</button>
+        <button mat-stroked-button matStepperPrevious>Voltar</button>
+  &nbsp;
         <button mat-stroked-button color="primary" matStepperNext>Concluir</button>
       </div>
     </form>

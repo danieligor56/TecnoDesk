@@ -17,6 +17,7 @@ export class ProdutosComponent implements OnInit {
   dataSource = new MatTableDataSource<Produtos>(this.produtos);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['id','nome','descricao','preco','qtdEstoque','codigo_barras','categoria', 'unidadeMedida'];
+  eNovoProduto: boolean = false;
   constructor(
     private produtosService: ProdutosService,
     private dialog:MatDialog
@@ -46,7 +47,11 @@ export class ProdutosComponent implements OnInit {
     }
 
      openCriarAlterarProduto(){
-     const dialogRef = this.dialog.open(CriarAlterarProdutoComponent)
+     const dialogRef = this.dialog.open(CriarAlterarProdutoComponent,{
+      data:{
+          eNovoProduto: true
+      }
+     })
   }
 
 
