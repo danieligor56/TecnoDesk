@@ -4,17 +4,23 @@
     <div>
       <mat-stepper
   class="example-stepper"
-  [orientation]="(stepperOrientation | async)!">
+  [orientation]="(stepperOrientation | async)!" [linear]="!activePass">
   <mat-step [stepControl]="firstFormGroup" label="Geral">
     <form [formGroup]="firstFormGroup" style="margin-top: 2rem;">
       <mat-form-field appearance="fill">
         <mat-label>Nome de produto:</mat-label>
-        <input  matInput placeholder="Last name, First name" formControlName="nome" required>
+        <input (keydown)="validarBtn1()" matInput placeholder="Last name, First name" formControlName="nome" required>
+         <mat-error *ngIf="firstFormGroup.hasError('nome') && !firstFormGroup.hasError('required')">
+            Please enter a valid email address
+        </mat-error>
+    <mat-error *ngIf="firstFormGroup.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
       </mat-form-field>
     &nbsp;
        <mat-form-field appearance="fill">
         <mat-label>Descrição do produto:</mat-label>
-        <input (blur)="validarBtn1()"matInput placeholder="Last name, First name" formControlName="descricao" required>
+        <input (keydown)="validarBtn1()" matInput placeholder="Last name, First name" formControlName="descricao" required>
       </mat-form-field>
     &nbsp;
        <mat-form-field appearance="fill">
@@ -35,7 +41,7 @@
       
       
       <div>
-        <button  [disabled]="!btn1valid" mat-stroked-button color="primary" matStepperNext>Próximo</button>
+        <button  [disabled]="!btn1valid"  mat-stroked-button color="primary" matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
@@ -45,15 +51,14 @@
       <mat-form-field appearance="fill">
         <mat-label>Valor de custo do produto:</mat-label>
         <input matInput formControlName="precoCusto" placeholder="Valor que o produto custou"
-         mask="separator.2" thousandSeparator="." decimalMarker=","
-               required>
+         mask="separator.2" thousandSeparator="." decimalMarker=",">
                 <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
       </mat-form-field>
     <br>
 
       <mat-form-field appearance="fill">
         <mat-label>Valor para venda:</mat-label>
-        <input matInput formControlName="preco" placeholder="Valor para venda"
+        <input (keydown)="validarBtn2()"  matInput formControlName="preco" placeholder="Valor para venda"
          mask="separator.2" thousandSeparator="." decimalMarker=","
                required>
                 <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
@@ -62,7 +67,7 @@
       <div>
         <button mat-stroked-button matStepperPrevious>Voltar</button>
     &nbsp;
-        <button mat-stroked-button color="primary" matStepperNext>Próximo</button>
+        <button [disabled]="!btn2valid" mat-stroked-button color="primary" matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
@@ -73,22 +78,24 @@
         <mat-label>Unidade de medida:</mat-label>
         <mat-select [(value)]="selected">
           <mat-option>Und</mat-option>
-          <mat-option value="option1">Pct</mat-option>
+          <mat-option value="option1">Unidade</mat-option>
           <mat-option value="option2">Kg</mat-option>
-          <mat-option value="option3">Option 3</mat-option>
+          <mat-option value="option3">Componente</mat-option>
+          <mat-option value="option3">Peça</mat-option>
         </mat-select>
       </mat-form-field>
   &nbsp;
 
       <mat-form-field appearance="fill">
         <mat-label>Quantidade para estoque</mat-label>
-        <input type="number" matInput formControlName="quantidadeEstoque" placeholder="Quantidade para estoque" required>
+        <input type="number" matInput formControlName="quantidadeEstoque" placeholder="Quantidade para estoque" >
       </mat-form-field>
       
       <div>
         <button mat-stroked-button matStepperPrevious>Voltar</button>
   &nbsp;
-        <button mat-stroked-button color="primary" matStepperNext>Concluir</button>
+        <button (click)='criarNovoProduto()' mat-stroked-button color="primary" matStepperNext>Concluir</button>
+        <button mat-stroked-button color="accent">Categorias</button>
       </div>
     </form>
   </mat-step>

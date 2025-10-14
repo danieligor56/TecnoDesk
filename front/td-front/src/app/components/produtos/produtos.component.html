@@ -90,7 +90,20 @@
       </div>
 
       <div id="buttons">
-        <button (click)="openCriarAlterarProduto()" mat-flat-button color="primary">Adicionar produto</button>
+        <button (click)="openCriarAlterarProduto()" mat-flat-button color="primary">
+          <mat-icon>add</mat-icon>
+            Adicionar produto
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" style="box-shadow: none;">
+          <mat-icon>category</mat-icon>
+            Categoria
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" style="box-shadow: none;">
+          <mat-icon>inventory</mat-icon>
+          Estoque
+        </button>
       </div>
    
 </div>

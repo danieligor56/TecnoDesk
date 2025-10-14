@@ -6,9 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
+import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
 import br.com.tecnoDesk.TecnoDesk.Services.ProdutoService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
@@ -18,6 +24,11 @@ public class ProdutosController {
 	
 	@Autowired
 	ProdutoService produtoService;
+	
+	@PostMapping("/criarProdutos")
+	public ResponseEntity<Produtos> criarProduto(@RequestBody ProdutosDTO dto, @RequestHeader("CodEmpresa") String codEmpresa){
+		return ResponseEntity.ok().body(produtoService.criarNovoProduto(dto, codEmpresa));
+	}
 
 	@GetMapping("/listarProdutos")
 	public ResponseEntity<List<Produtos>> getMethodName(@RequestHeader("CodEmpresa") String codEmpresa) {

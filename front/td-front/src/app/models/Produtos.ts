@@ -1,8 +1,8 @@
 import { Empresa } from "./Empresa";
 
 export interface Produtos {
-    id: number;
-    empresa: Empresa;
+    id?: number;
+    empresa?: Empresa;
     nome: string; 
     descricao?: string;
     marca:string;

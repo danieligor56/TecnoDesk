@@ -14,8 +14,20 @@ export class ProdutosService {
       const headers = new HttpHeaders({
         'codEmpresa':sessionStorage.getItem('CompGrpIndent')
       })
-
       const options = { headers: headers }
       return this.http.get<Produtos[]>("http://localhost:8080/api/v1/produtos/listarProdutos?codEmpresa=://localhost:8080/api/v1/servico/listaServico",options)
     }
+
+  criarNovoProduto(produtoDto: Produtos): Observable<Produtos>{
+    const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+    const options = { headers: headers }
+    return this.http.post<Produtos>('http://localhost:8080/api/v1/produtos/criarProdutos',produtoDto,options)
+  }  
+
+
+
+
+
 }
