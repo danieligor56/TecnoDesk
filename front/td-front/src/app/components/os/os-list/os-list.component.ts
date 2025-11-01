@@ -80,6 +80,16 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
     
   }
 
+  cancelarOs(numOs: number){
+    if (confirm(`Deseja realmente cancelar a OS Nº ${numOs}?`)) {
+      this.osService.alterarStatusOS(numOs, 8);
+      // Aguarda um pouco para dar tempo do toast aparecer antes de recarregar
+      setTimeout(() => {
+        this.findAllOS();
+      }, 500);
+    }
+  }
+
   getStatusClass(status: string): string {
     if (!status) return 'status-badge';
     const statusUpper = status.toUpperCase().trim();
@@ -103,6 +113,38 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
     };
     
     return statusMap[status.toUpperCase().trim()] || status;
+  }
+
+  getPriorityClass(priority: string): string {
+    if (!priority) return 'priority-badge';
+    const priorityUpper = priority.toUpperCase().trim();
+    return `priority-badge priority-${priorityUpper}`;
+  }
+
+  getPriorityLabel(priority: string): string {
+    if (!priority) return priority;
+    
+    const priorityMap: { [key: string]: string } = {
+      'NORMAL': 'Normal',
+      'URGENCIA': 'Crítica / Urgente',
+      'GARANTIA': 'Garantia',
+      'PRIORITARIA': 'Prioritária'
+    };
+    
+    return priorityMap[priority.toUpperCase().trim()] || priority;
+  }
+
+  getPriorityIcon(priority: string): string {
+    if (!priority) return 'label';
+    
+    const iconMap: { [key: string]: string } = {
+      'NORMAL': 'check_circle',
+      'URGENCIA': 'local_fire_department',
+      'GARANTIA': 'autorenew',
+      'PRIORITARIA': 'schedule'
+    };
+    
+    return iconMap[priority.toUpperCase().trim()] || 'label';
   }
 
 }

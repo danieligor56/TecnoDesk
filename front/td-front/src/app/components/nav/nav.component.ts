@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class NavComponent implements OnInit {
 treeos:boolean = false;
+treeCadastros:boolean = false;
   
 constructor(private router: Router,private authService:AuthService,private toastr:ToastrService) { }
 
@@ -41,6 +42,14 @@ constructor(private router: Router,private authService:AuthService,private toast
       this.treeos = true;
     }
     
+  }
+
+  setTreeCadastros(){
+    if(this.treeCadastros == true){
+      this.treeCadastros = false;
+    }else{
+      this.treeCadastros = true;
+    }
   }
 
 
