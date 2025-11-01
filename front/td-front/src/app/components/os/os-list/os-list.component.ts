@@ -79,12 +79,30 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
 
     
   }
- 
-  
 
+  getStatusClass(status: string): string {
+    if (!status) return 'status-badge';
+    const statusUpper = status.toUpperCase().trim();
+    return `status-badge status-${statusUpper}`;
+  }
+
+  getStatusLabel(status: string): string {
+    if (!status) return status;
     
-  
-  
-
+    const statusMap: { [key: string]: string } = {
+      'NOVO': 'Nova',
+      'EM_ANDAMENTO': 'Em Andamento',
+      'AGUARDANDO_RESP_ORCAMENTO': 'Aguardando Aprovação do Orçamento',
+      'AGUARDANDO_PECAS': 'Aguardando Peças / Materiais',
+      'AGUARDANDO_RETIRADA': 'Aguardando Cliente Retirar',
+      'ORCAMENTO_APROVADO': 'Orçamento Aprovado',
+      'PENDENTE': 'Pendente',
+      'CONCLUIDO': 'Concluída',
+      'CANCELADA': 'Cancelada',
+      'ENCERRADA': 'Encerrada'
+    };
+    
+    return statusMap[status.toUpperCase().trim()] || status;
+  }
 
 }

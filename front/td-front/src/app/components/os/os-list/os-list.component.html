@@ -37,7 +37,11 @@
           
         <ng-container matColumnDef="statusOS">
             <th mat-header-cell *matHeaderCellDef> Situação </th>
-            <td mat-cell *matCellDef="let element"> {{element.statusOS}} </td>
+            <td mat-cell *matCellDef="let element"> 
+              <span [ngClass]="getStatusClass(element.statusOS)">
+                {{getStatusLabel(element.statusOS)}}
+              </span>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="prioridadeOS">
