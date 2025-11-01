@@ -30,7 +30,15 @@
         <br>
        <mat-form-field appearance="fill">
         <mat-label>Código de barras:</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="codigo_barras" >
+        <input matInput placeholder="Caso não preencha, o código será gerado." formControlName="codigo_barras" >
+      </mat-form-field>
+    &nbsp;
+      <mat-form-field appearance="fill">
+        <mat-label>Categoria</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
       </mat-form-field>
     &nbsp;
       <mat-slide-toggle formControlName="produtoAtivo"
@@ -95,7 +103,6 @@
         <button mat-stroked-button matStepperPrevious>Voltar</button>
   &nbsp;
         <button (click)='criarNovoProduto()' mat-stroked-button color="primary" matStepperNext>Concluir</button>
-        <button mat-stroked-button color="accent">Categorias</button>
       </div>
     </form>
   </mat-step>

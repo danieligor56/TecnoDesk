@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StepperOrientation } from '@angular/material/stepper';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Produtos } from 'src/app/models/Produtos';
@@ -50,6 +51,7 @@ export class CriarAlterarProdutoComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
      breakpointObserver: BreakpointObserver,
      private produtosService: ProdutosService,
+     private toast:ToastrService,
      public dialogRef: MatDialogRef<CriarAlterarProdutoComponent>,
          @Inject(MAT_DIALOG_DATA) public data: { eNovoProduto: boolean }
         ) {
@@ -104,12 +106,17 @@ debugger;
        
       this.produtosService.criarNovoProduto(novoProduto).subscribe( response => {
         if(response){
-
+          this.dialogRef.close(true);
+        } else {
+          this.toast.error("Erro ao criar produto. ")
         }
       })  
         
     
       }
+
+
+    
 
     
 

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Produtos } from 'src/app/models/Produtos';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { CriarAlterarProdutoComponent } from './criar-alterar-produto/criar-alterar-produto.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ProdutosComponent implements OnInit {
   eNovoProduto: boolean = false;
   constructor(
     private produtosService: ProdutosService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private toast:ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -50,8 +52,15 @@ export class ProdutosComponent implements OnInit {
      const dialogRef = this.dialog.open(CriarAlterarProdutoComponent,{
       data:{
           eNovoProduto: true
-      }
-     })
+      } 
+     });
+         dialogRef.afterClosed().subscribe( response => {
+          if(response){
+            this.encontrarProdutos();
+            this.toast.success("Produto criado com sucesso")
+            
+          }
+         })
   }
 
 
