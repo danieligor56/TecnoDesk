@@ -14,5 +14,11 @@ public interface ProdutoRepository extends JpaRepository<Produtos, Long> {
 					nativeQuery = true
 					)
 			List<Produtos> listarProdutos(long CodEmp);
+
+			@Query(
+					value = "select * from produtos p  where p.id = :id and p.codigo_empresa = :CodEmp",
+					nativeQuery = true
+					)
+			Produtos encontrarProduto(long id, long CodEmp);
 			
 }

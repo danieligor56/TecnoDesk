@@ -3,9 +3,7 @@ package br.com.tecnoDesk.TecnoDesk.Services;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
@@ -65,15 +63,45 @@ public class ProdutoService {
 		
 	}
 	
+	public Produtos alterarProduto(long id, ProdutosDTO dto, String codEmpresa) {
+		try {
+			
+			long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			Produtos produtoExistente = produtoRepository.encontrarProduto(id, codEmp);
+			
+			if (produtoExistente != null) {
+				
+					// Atualiza os campos do produto existente com os dados do DTO
+					produtoExistente.setNome(dto.getNome());
+					produtoExistente.setDescricao(dto.getDescricao());
+					produtoExistente.setMarcaProduto(dto.getMarcaProduto());
+					produtoExistente.setPreco(dto.getPreco());
+					produtoExistente.setPrecoCusto(dto.getPrecoCusto());
+					produtoExistente.setQuantidadeEstoque(dto.getQuantidadeEstoque());
+					produtoExistente.setCodigo_barras(dto.getCodigo_barras());
+					produtoExistente.setCategoria(dto.getCategoria());
+					produtoExistente.setUnidadeMedida(dto.getUnidadeMedida());
+					produtoExistente.setProdutoAtivo(dto.isProdutoAtivo());
+					
+					produtoRepository.save(produtoExistente);
+					return produtoExistente;
+				
+			} else {
+				throw new NotFound("Não há produtos cadastrados com esse ID");
+			}
+		} catch (Exception e) {
+			throw new BadRequest("Não foi possível alterar o produto: "+ e.getMessage());
+		}
+	}
+	
 	public void deletarProduto(long id, String codEmpresa) throws Exception {
 		
-		Optional<Produtos> produtoOptional = produtoRepository.findById(id);
-		
-		if (produtoOptional.isPresent()) {
-			Produtos existeProduto = produtoOptional.get();
-			long chave = decriptService.decriptCodEmp(codEmpresa);
+		long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+		Produtos produtoExistente = produtoRepository.encontrarProduto(id, codEmp);
+	
+		if (produtoExistente != null) {	
 			
-			if(existeProduto.getEmpresa().getId() == chave) {
+			if(produtoExistente.getEmpresa().getId() == codEmp) {
 				produtoRepository.deleteById(id);
 			} else {
 				throw new NotFound("Produto não pertence a esta empresa");

@@ -1,6 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,7 @@ public class ProdutosDTO {
 	private Empresa empresa;
 	private String nome; 
 	private String descricao;
+	@JsonProperty("marca")
 	private String marcaProduto;
 	private BigDecimal preco;
 	private BigDecimal precoCusto;

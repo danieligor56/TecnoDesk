@@ -64,6 +64,22 @@ export class ProdutosComponent implements OnInit {
          })
   }
 
+  openEditarProduto(produto: Produtos){
+    const dialogRef = this.dialog.open(CriarAlterarProdutoComponent,{
+      data:{
+          eNovoProduto: false,
+          produto: produto
+      } 
+     });
+         dialogRef.afterClosed().subscribe( response => {
+          if(response){
+            this.encontrarProdutos();
+            this.toast.success("Produto alterado com sucesso")
+            
+          }
+         })
+  }
+
   openDelDialog(event: Event, id: bigint): void {
     const dialog = this.dialog.open(ProdutosDeleteComponent, {
       data: {id: id},

@@ -18,12 +18,13 @@ import { ProdutosService } from 'src/app/services/produtos.service';
 })
 export class CriarAlterarProdutoComponent implements OnInit {
  
-  checked = this.data.eNovoProduto;
+  checked = this.data.eNovoProduto ? true : this.data.produto?.produtoAtivo;
   disabled = false;
   selected = 'option2';
   btn1valid: boolean = false;
   btn2valid: boolean = false;
   activePass: boolean = false;
+  produtoId: number | undefined = this.data.produto?.id;
 
   firstFormGroup = this._formBuilder.group({
 
@@ -53,7 +54,7 @@ export class CriarAlterarProdutoComponent implements OnInit {
      private produtosService: ProdutosService,
      private toast:ToastrService,
      public dialogRef: MatDialogRef<CriarAlterarProdutoComponent>,
-         @Inject(MAT_DIALOG_DATA) public data: { eNovoProduto: boolean }
+         @Inject(MAT_DIALOG_DATA) public data: { eNovoProduto: boolean, produto?: Produtos }
         ) {
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
@@ -85,23 +86,21 @@ export class CriarAlterarProdutoComponent implements OnInit {
       }
 
   criarNovoProduto(){
-debugger;
-    if( this.firstFormGroup.get('nome')?.valid, 
-        this.firstFormGroup.get('descricao')?.valid,
+    if( this.firstFormGroup.get('nome')?.valid && 
+        this.firstFormGroup.get('descricao')?.valid &&
         this.secondFormGroup.get('preco')?.valid
-       
       ){
 
       const novoProduto: Produtos = {
-      nome: this.firstFormGroup.get('nome').value,
-      descricao: this.firstFormGroup.get('descricao').value,
-      marca: this.firstFormGroup.get('marca').value,
-      codigo_barras: this.firstFormGroup.get('codigo_barras').value,
-      produtoAtivo: this.firstFormGroup.get('produtoAtivo').value,
-      preco: this.secondFormGroup.get('preco').value,
-      precoCusto: this.secondFormGroup.get('precoCusto').value,
-      unidadeMedida: this.thirdFormGroup.get('unidadeMedida').value,
-      quantidadeEstoque: this.thirdFormGroup.get('quantidadeEstoque').value
+      nome: this.firstFormGroup.get('nome')?.value || '',
+      descricao: this.firstFormGroup.get('descricao')?.value || '',
+      marca: this.firstFormGroup.get('marca')?.value || '',
+      codigo_barras: this.firstFormGroup.get('codigo_barras')?.value,
+      produtoAtivo: this.firstFormGroup.get('produtoAtivo')?.value || false,
+      preco: this.secondFormGroup.get('preco')?.value || 0,
+      precoCusto: this.secondFormGroup.get('precoCusto')?.value,
+      unidadeMedida: this.thirdFormGroup.get('unidadeMedida')?.value || '',
+      quantidadeEstoque: this.thirdFormGroup.get('quantidadeEstoque')?.value || 0
         }
        
       this.produtosService.criarNovoProduto(novoProduto).subscribe( response => {
@@ -111,16 +110,80 @@ debugger;
           this.toast.error("Erro ao criar produto. ")
         }
       })  
-        
-    
       }
+  }
 
+  alterarProduto(){
+    // Validação mínima: nome, descrição e preço são obrigatórios
+    if( this.firstFormGroup.get('nome')?.valid && 
+        this.firstFormGroup.get('descricao')?.valid &&
+        this.secondFormGroup.get('preco')?.valid &&
+        this.produtoId
+      ){
 
+      // Se unidadeMedida ou quantidadeEstoque não estiverem preenchidos, usa os valores do produto original
+      const produtoOriginal = this.data.produto;
+      
+      const produtoAlterado: Produtos = {
+      id: this.produtoId,
+      nome: this.firstFormGroup.get('nome')?.value || '',
+      descricao: this.firstFormGroup.get('descricao')?.value || '',
+      marca: this.firstFormGroup.get('marca')?.value || '',
+      codigo_barras: this.firstFormGroup.get('codigo_barras')?.value,
+      produtoAtivo: this.firstFormGroup.get('produtoAtivo')?.value || false,
+      preco: this.secondFormGroup.get('preco')?.value || 0,
+      precoCusto: this.secondFormGroup.get('precoCusto')?.value,
+      unidadeMedida: this.thirdFormGroup.get('unidadeMedida')?.value || produtoOriginal?.unidadeMedida || '',
+      quantidadeEstoque: this.thirdFormGroup.get('quantidadeEstoque')?.value || produtoOriginal?.quantidadeEstoque || 0
+        }
+       
+      this.produtosService.alterarProduto(this.produtoId, produtoAlterado).subscribe( response => {
+        if(response){
+          this.dialogRef.close(true);
+        } else {
+          this.toast.error("Erro ao alterar produto. ")
+        }
+      })  
+      } else {
+        this.toast.warning("Preencha os campos obrigatórios: Nome, Descrição e Preço")
+      }
+  }
+
+  salvarProduto(){
+    if(this.data.eNovoProduto){
+      this.criarNovoProduto();
+    } else {
+      this.alterarProduto();
+    }
+  }
+
+  isFormularioValido(): boolean {
+    // Valida os campos obrigatórios básicos
+    const nomeValido = this.firstFormGroup.get('nome')?.valid;
+    const descricaoValida = this.firstFormGroup.get('descricao')?.valid;
+    const precoValido = this.secondFormGroup.get('preco')?.valid;
+    const unidadeMedidaValida = this.thirdFormGroup.get('unidadeMedida')?.valid;
+    const quantidadeEstoqueValida = this.thirdFormGroup.get('quantidadeEstoque')?.valid;
     
+    return !!(nomeValido && descricaoValida && precoValido && unidadeMedidaValida && quantidadeEstoqueValida);
+  }
 
-    
+  podeSalvarNoPasso1(): boolean {
+    return !!(this.firstFormGroup.get('nome')?.valid && this.firstFormGroup.get('descricao')?.valid);
+  }
 
+  podeSalvarNoPasso2(): boolean {
+    return !!(this.firstFormGroup.get('nome')?.valid && 
+              this.firstFormGroup.get('descricao')?.valid && 
+              this.secondFormGroup.get('preco')?.valid);
+  }
 
+  podeSalvarNoPasso3(): boolean {
+    // Na edição, no último passo, valida apenas os campos obrigatórios básicos
+    // Os campos de estoque podem usar valores originais se não preenchidos
+    return !!(this.firstFormGroup.get('nome')?.valid && 
+              this.firstFormGroup.get('descricao')?.valid && 
+              this.secondFormGroup.get('preco')?.valid);
   }
 
 
@@ -131,6 +194,36 @@ debugger;
 
 
   ngOnInit(): void {
+    // Se for edição, carrega os dados do produto nos formulários
+    if(!this.data.eNovoProduto && this.data.produto){
+      const produto = this.data.produto;
+      
+      this.firstFormGroup.patchValue({
+        nome: produto.nome || '',
+        descricao: produto.descricao || '',
+        marca: produto.marca || '',
+        codigo_barras: produto.codigo_barras || '',
+        produtoAtivo: produto.produtoAtivo !== undefined ? produto.produtoAtivo : true
+      });
+
+      this.secondFormGroup.patchValue({
+        preco: produto.preco || '',
+        precoCusto: produto.precoCusto || ''
+      });
+
+      this.thirdFormGroup.patchValue({
+        unidadeMedida: produto.unidadeMedida || '',
+        quantidadeEstoque: produto.quantidadeEstoque || ''
+      });
+
+      if(produto.unidadeMedida){
+        this.selected = produto.unidadeMedida;
+      }
+
+      // Valida os botões após carregar os dados
+      this.validarBtn1();
+      this.validarBtn2();
+    }
   }
 
  
