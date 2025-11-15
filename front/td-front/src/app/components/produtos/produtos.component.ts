@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Produtos } from 'src/app/models/Produtos';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { CriarAlterarProdutoComponent } from './criar-alterar-produto/criar-alterar-produto.component';
+import { ProdutosDeleteComponent } from './produtos-delete/produtos-delete.component';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -63,6 +64,17 @@ export class ProdutosComponent implements OnInit {
          })
   }
 
+  openDelDialog(event: Event, id: bigint): void {
+    const dialog = this.dialog.open(ProdutosDeleteComponent, {
+      data: {id: id},
+      width: '420px',
+    });
+    dialog.afterClosed().subscribe(response => {
+      if(response){
+        this.encontrarProdutos();
+      }
+    });
+  }
 
 }
 

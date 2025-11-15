@@ -59,7 +59,7 @@ export class ClientesListComponent implements OnInit {
   openDelDialog(event: Event, id: string): void {
     const dialog = this.dialog.open(ClientesDeleteComponent, {
       data: {id:id},
-      width: '250px',
+      width: '420px',
   });
 }
 

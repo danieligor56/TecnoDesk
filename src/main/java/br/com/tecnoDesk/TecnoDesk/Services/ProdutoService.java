@@ -1,6 +1,7 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
@@ -13,6 +14,8 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ProdutoRepository;
 import exception.BadRequest;
+import exception.NotFound;
+import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 
 @Service
 public class ProdutoService {
@@ -30,6 +33,9 @@ public class ProdutoService {
 	
 	@Autowired
 	ModelMapper modelMapper;
+	
+	@Autowired
+	EncryptionUtil secUtil;
 	
 	public List<Produtos> listarProdutos(String codEmpresa){
 		try {
@@ -57,6 +63,24 @@ public class ProdutoService {
 		}
 		
 		
+	}
+	
+	public void deletarProduto(long id, String codEmpresa) throws Exception {
+		
+		Optional<Produtos> produtoOptional = produtoRepository.findById(id);
+		
+		if (produtoOptional.isPresent()) {
+			Produtos existeProduto = produtoOptional.get();
+			long chave = decriptService.decriptCodEmp(codEmpresa);
+			
+			if(existeProduto.getEmpresa().getId() == chave) {
+				produtoRepository.deleteById(id);
+			} else {
+				throw new NotFound("Produto não pertence a esta empresa");
+			}
+		} else {
+			throw new NotFound("Não há produtos cadastrados com esse ID");
+		}
 	}
 	
 }

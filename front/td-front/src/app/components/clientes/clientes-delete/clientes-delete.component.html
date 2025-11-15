@@ -12,8 +12,11 @@
  
  <mat-dialog-actions>
  
- <button  id="deleteColaborador" (click)="deletarCliente()"mat-flat-button color="warn">Prosseguir com exclusão </button>
-   <button style="margin-right: 15px;" id="cancel" mat-button mat-dialog-close >Cancelar</button>
+ <button  id="deleteCliente" (click)="deletarCliente()" mat-flat-button color="warn">Excluir Cliente</button>
+   <button id="cancel" mat-stroked-button mat-dialog-close>
+     <mat-icon>close</mat-icon>
+     Cancelar
+   </button>
    
  </mat-dialog-actions>
  </div>

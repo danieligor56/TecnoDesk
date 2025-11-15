@@ -26,6 +26,14 @@ export class ProdutosService {
     return this.http.post<Produtos>('http://localhost:8080/api/v1/produtos/criarProdutos',produtoDto,options)
   }  
 
+  deletarProduto(id: bigint): Observable<Produtos>{
+    const headers = new HttpHeaders({
+      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+    return this.http.delete<Produtos>(`http://localhost:8080/api/v1/produtos/deletarProduto/{id}?id=${id}`,options)
+  }
+
 
 
 

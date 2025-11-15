@@ -63,7 +63,7 @@ export class ColaboradorListComponent implements OnInit {
     
     const dialog = this.dialog.open(ColaboradorDeleteComponent, {
       data: {id:id},
-      width: '250px',
+      width: '420px',
   });
 
     dialog.afterClosed().subscribe( result => {

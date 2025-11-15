@@ -58,6 +58,7 @@ import { CriarAlterarProdutoComponent } from './components/produtos/criar-altera
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
+import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/produtos-delete.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { ChatComponent } from './components/atendimento/chat/chat.component';
     RegistroInicialComponent,
     ProdutosComponent,
     CriarAlterarProdutoComponent,
-    ChatComponent
+    ChatComponent,
+    ProdutosDeleteComponent
 
     
 

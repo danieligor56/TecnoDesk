@@ -44,7 +44,7 @@
           <ng-container matColumnDef="categoria">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</th>
             <td mat-cell *matCellDef="let produtos">🗃️ {{produtos.categoria}} </td>
-          </ng-container>unidadeMedida
+          </ng-container>
 
           <ng-container matColumnDef="unidadeMedida">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Und.Medida</th>
@@ -69,7 +69,7 @@
               <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>Editar
             </a>
            
-            <button mat-stroked-button style="margin-left: 8px;" color="warn">
+            <button mat-stroked-button style="margin-left: 8px;" color="warn" (click)="openDelDialog($event, element.id)">
               <mat-icon id="delete"> delete</mat-icon>
               Excluir registro
             </button>
