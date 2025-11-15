@@ -59,6 +59,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
 import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/produtos-delete.component';
+import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
+import { MovimentacaoEstoqueComponent } from './components/estoque/movimentacao-estoque/movimentacao-estoque.component';
+import { ConfigurarEstoqueComponent } from './components/estoque/configurar-estoque/configurar-estoque.component';
 
 
 @NgModule({
@@ -93,7 +96,10 @@ import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/p
     ProdutosComponent,
     CriarAlterarProdutoComponent,
     ChatComponent,
-    ProdutosDeleteComponent
+    ProdutosDeleteComponent,
+    EstoqueListComponent,
+    MovimentacaoEstoqueComponent,
+    ConfigurarEstoqueComponent
 
     
 

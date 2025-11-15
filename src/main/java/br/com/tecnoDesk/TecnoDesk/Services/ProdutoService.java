@@ -1,13 +1,19 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.type.TrueFalseConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import br.com.tecnoDesk.TecnoDesk.DTO.ControleEstoqueDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
+import br.com.tecnoDesk.TecnoDesk.Entities.ControleEstoque;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
+import br.com.tecnoDesk.TecnoDesk.Repository.ControleEstoqueRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ProdutoRepository;
 import exception.BadRequest;
@@ -34,6 +40,9 @@ public class ProdutoService {
 	@Autowired
 	EncryptionUtil secUtil;
 	
+	@Autowired
+	ControleEstoqueRepository controleEstoqueRepository;
+	
 	public List<Produtos> listarProdutos(String codEmpresa){
 		try {
 			long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
@@ -59,7 +68,22 @@ public class ProdutoService {
 					novoProduto.setCodigo_barras(codigoBarras);
 				}
 				
-				produtoRepository.save(novoProduto);			
+				produtoRepository.save(novoProduto);
+				
+				//ADICIONAR CONTROLE DE ESTOQUE AO PRODUTO.
+				try {
+					ControleEstoqueDTO controleEstoqueDTO = new ControleEstoqueDTO(novoProduto.getId(),BigDecimal.ZERO,BigDecimal.ZERO,"");
+					ControleEstoque novoControleEstoque = modelMapper.map(controleEstoqueDTO, ControleEstoque.class);
+					novoControleEstoque.setEstoqueAtual(BigDecimal.valueOf(novoProduto.getQuantidadeEstoque()));
+					novoControleEstoque.setEmpresa(emp);
+					controleEstoqueRepository.save(novoControleEstoque);
+					
+				} catch (Exception e) {
+					throw new BadRequest("Não foi possível cadastrar o produto no estoque, por favor.adicione de forma manual"+ e.getMessage());
+				}
+				
+				
+				
 						
 		return novoProduto;
 		} catch (Exception e) {

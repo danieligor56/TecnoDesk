@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Configurar Controle de Estoque</h2>
+
+<mat-dialog-content>
+  <div *ngIf="data?.controleEstoque?.produto">
+    <p><strong>Produto:</strong> {{data.controleEstoque.produto.nome}}</p>
+    <p><strong>Estoque Atual:</strong> {{data.controleEstoque.estoqueAtual}} {{data.controleEstoque.produto.unidadeMedida || ''}}</p>
+  </div>
+
+  <form [formGroup]="configForm" style="margin-top: 20px;">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Estoque Mínimo *</mat-label>
+      <input matInput type="number" formControlName="estoqueMinimo" required>
+      <mat-error *ngIf="configForm.get('estoqueMinimo')?.hasError('required')">
+        Estoque mínimo é obrigatório
+      </mat-error>
+      <mat-error *ngIf="configForm.get('estoqueMinimo')?.hasError('min')">
+        Estoque mínimo deve ser maior ou igual a zero
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Estoque Máximo</mat-label>
+      <input matInput type="number" formControlName="estoqueMaximo">
+      <mat-hint>Opcional - Define o estoque máximo desejado</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Observação</mat-label>
+      <textarea matInput formControlName="observacao" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvarConfiguracao()" [disabled]="!configForm.valid">
+    Salvar
+  </button>
+</mat-dialog-actions>

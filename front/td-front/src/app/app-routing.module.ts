@@ -26,6 +26,7 @@ import { RegistroInicialComponent } from './components/registro-inicial/registro
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
+import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
       {path:'clientes',component:ClientesListComponent},
       {path: 'produtos', component:ProdutosComponent},
       {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent},
+      {path: 'estoque', component:EstoqueListComponent},
       {path: 'atendimento', component: ChatComponent}
 
       
