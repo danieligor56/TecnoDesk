@@ -65,13 +65,12 @@ public class ProdutoService {
 	
 	public Produtos alterarProduto(long id, ProdutosDTO dto, String codEmpresa) {
 		try {
-			Optional<Produtos> produtoOptional = produtoRepository.findById(id);
 			
-			if (produtoOptional.isPresent()) {
-				Produtos produtoExistente = produtoOptional.get();
-				long chave = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+			Produtos produtoExistente = produtoRepository.encontrarProduto(id, codEmp);
+			
+			if (produtoExistente != null) {
 				
-				if(produtoExistente.getEmpresa().getId() == chave) {
 					// Atualiza os campos do produto existente com os dados do DTO
 					produtoExistente.setNome(dto.getNome());
 					produtoExistente.setDescricao(dto.getDescricao());
@@ -86,9 +85,7 @@ public class ProdutoService {
 					
 					produtoRepository.save(produtoExistente);
 					return produtoExistente;
-				} else {
-					throw new NotFound("Produto não pertence a esta empresa");
-				}
+				
 			} else {
 				throw new NotFound("Não há produtos cadastrados com esse ID");
 			}
@@ -99,13 +96,12 @@ public class ProdutoService {
 	
 	public void deletarProduto(long id, String codEmpresa) throws Exception {
 		
-		Optional<Produtos> produtoOptional = produtoRepository.findById(id);
-		
-		if (produtoOptional.isPresent()) {
-			Produtos existeProduto = produtoOptional.get();
-			long chave = decriptService.decriptCodEmp(codEmpresa);
+		long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+		Produtos produtoExistente = produtoRepository.encontrarProduto(id, codEmp);
+	
+		if (produtoExistente != null) {	
 			
-			if(existeProduto.getEmpresa().getId() == chave) {
+			if(produtoExistente.getEmpresa().getId() == codEmp) {
 				produtoRepository.deleteById(id);
 			} else {
 				throw new NotFound("Produto não pertence a esta empresa");
