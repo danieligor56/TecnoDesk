@@ -6,6 +6,8 @@
     width: 13rem;
     background-color: #1B242D;
     color: #A8B6BF;
+    overflow-x: hidden;
+    
 }
 
 .sidenav i {

@@ -1,0 +1,135 @@
+<div class="chat-container">
+  <!-- Sidebar com lista de conversas -->
+  <div class="conversations-sidebar">
+    <div class="sidebar-header">
+      <div class="header-content">
+        <h2>
+          <mat-icon>support_agent</mat-icon>
+          Atendimento
+        </h2>
+        <button class="new-chat-btn" mat-icon-button title="Nova conversa">
+          <mat-icon>chat</mat-icon>
+        </button>
+      </div>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Buscar conversas</mat-label>
+          <input matInput [(ngModel)]="searchTerm" placeholder="Digite para buscar...">
+          <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="conversations-list">
+      <div 
+        *ngFor="let conversation of filteredConversations" 
+        class="conversation-item"
+        [class.active]="selectedConversation?.id === conversation.id"
+        (click)="selectConversation(conversation)">
+        <div class="avatar">
+          <span class="avatar-icon">{{ conversation.avatar }}</span>
+          <span *ngIf="conversation.isOnline" class="online-indicator"></span>
+        </div>
+        <div class="conversation-info">
+          <div class="conversation-header">
+            <span class="conversation-name">{{ conversation.name }}</span>
+            <span class="conversation-time">{{ formatTime(conversation.lastMessageTime) }}</span>
+          </div>
+          <div class="conversation-preview">
+            <span class="last-message">{{ conversation.lastMessage }}</span>
+            <span *ngIf="conversation.unread > 0" class="unread-badge">
+              {{ conversation.unread }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área principal de mensagens -->
+  <div class="chat-main" *ngIf="selectedConversation; else noSelection">
+    <!-- Header do chat -->
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="avatar">
+          <span class="avatar-icon">{{ selectedConversation.avatar }}</span>
+          <span *ngIf="selectedConversation.isOnline" class="online-indicator"></span>
+        </div>
+        <div class="chat-info">
+          <h3>{{ selectedConversation.name }}</h3>
+          <span class="chat-status">
+            {{ selectedConversation.isOnline ? 'Online' : 'Offline' }}
+          </span>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <button mat-icon-button title="Buscar">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button title="Mais opções">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Área de mensagens -->
+    <div class="messages-container" #messagesContainer>
+      <div class="messages">
+        <div 
+          *ngFor="let message of messages" 
+          class="message"
+          [class.sent]="message.sender === 'user'"
+          [class.received]="message.sender === 'support'">
+          <div class="message-bubble">
+            <p>{{ message.text }}</p>
+            <div class="message-footer">
+              <span class="message-time">{{ formatMessageTime(message.timestamp) }}</span>
+              <mat-icon 
+                *ngIf="message.sender === 'user'" 
+                class="status-icon"
+                [class.read]="message.status === 'read'"
+                [class.delivered]="message.status === 'delivered'">
+                {{ message.status === 'read' ? 'done_all' : message.status === 'delivered' ? 'done_all' : 'done' }}
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input de mensagem -->
+    <div class="message-input-container">
+      <button mat-icon-button class="attach-btn" title="Anexar arquivo">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <mat-form-field appearance="outline" class="message-input-field">
+        <textarea 
+          matInput 
+          [(ngModel)]="newMessage"
+          (keydown.enter)="sendMessage()"
+          placeholder="Digite uma mensagem..."
+          rows="1"
+          #messageInput></textarea>
+      </mat-form-field>
+      <button 
+        mat-icon-button 
+        class="send-btn"
+        (click)="sendMessage()"
+        [disabled]="!newMessage.trim()"
+        title="Enviar mensagem">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tela quando nenhuma conversa está selecionada -->
+  <ng-template #noSelection>
+    <div class="no-selection">
+      <div class="no-selection-content">
+        <mat-icon>chat_bubble_outline</mat-icon>
+        <h2>Selecione uma conversa</h2>
+        <p>Escolha uma conversa da lista para começar a conversar</p>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -25,6 +25,7 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
+import { ChatComponent } from './components/atendimento/chat/chat.component';
 
 
 const routes: Routes = [
@@ -52,7 +53,8 @@ const routes: Routes = [
       {path:'manager/:id',component:OsManagerComponent},
       {path:'clientes',component:ClientesListComponent},
       {path: 'produtos', component:ProdutosComponent},
-      {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent}
+      {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent},
+      {path: 'atendimento', component: ChatComponent}
 
       
     ]

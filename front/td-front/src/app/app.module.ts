@@ -57,6 +57,7 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ChatComponent } from './components/atendimento/chat/chat.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ItemServiceCobrarhoraComponent,
     RegistroInicialComponent,
     ProdutosComponent,
-    CriarAlterarProdutoComponent
+    CriarAlterarProdutoComponent,
+    ChatComponent
 
     
 

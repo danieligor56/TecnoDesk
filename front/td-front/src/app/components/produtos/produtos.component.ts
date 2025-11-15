@@ -17,7 +17,7 @@ export class ProdutosComponent implements OnInit {
   produtos: Produtos[] = [];
   dataSource = new MatTableDataSource<Produtos>(this.produtos);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['id','nome','descricao','preco','qtdEstoque','codigo_barras','categoria', 'unidadeMedida'];
+  displayedColumns: string[] = ['id','nome','descricao','preco','qtdEstoque','codigo_barras','categoria', 'unidadeMedida','acoes'];
   eNovoProduto: boolean = false;
   constructor(
     private produtosService: ProdutosService,

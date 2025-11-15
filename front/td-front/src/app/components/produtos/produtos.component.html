@@ -61,23 +61,24 @@
             <td mat-cell *matCellDef="let servico">💲⌚ {{servico.valorServicoHora}} R$ </td>
           </ng-container>  -->
 
-
           <ng-container matColumnDef="acoes">
-            <th mat-header-cell *matHeaderCellDef></th> 
-              <td mat-cell *matCellDef="let produtos"> 
-                <div style="display: flex;">
-                  <!-- <div>
-                    <a typ="button" (click)="openEditDialog($event, servico.id)" mat-stroked-button color="primary" style="margin-right: .5rem;" [routerLink]="servico.id">
-                      <mat-icon id="editar">open_in_new</mat-icon>
-                          Editar
-                    </a>
-                  </div> -->
-                    <!-- <div>
-                      <button  mat-stroked-button color="warn" (click)="openDelDialog($event, servico.id)" id="delete"> <mat-icon>delete</mat-icon>Apagar registro</button>
-                    </div>                 -->
-                  </div>            
-           </td>
-         </ng-container>
+           <th mat-header-cell *matHeaderCellDef></th> 
+          <td mat-cell *matCellDef="let element"> 
+          
+            <a type="button" mat-stroked-button color="primary" [routerLink]="element.id">
+              <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>Editar
+            </a>
+           
+            <button mat-stroked-button style="margin-left: 8px;" color="warn">
+              <mat-icon id="delete"> delete</mat-icon>
+              Excluir registro
+            </button>
+              
+        </td>         
+          
+        </ng-container>
+
+
           
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -94,7 +95,7 @@
           <mat-icon>add</mat-icon>
             Adicionar produto
         </button>
-        &nbsp;
+        <!-- &nbsp;
         <button mat-raised-button color="primary" style="box-shadow: none;">
           <mat-icon>category</mat-icon>
             Categoria
@@ -103,7 +104,7 @@
         <button mat-raised-button color="primary" style="box-shadow: none;">
           <mat-icon>inventory</mat-icon>
           Estoque
-        </button>
+        </button> -->
       </div>
    
 </div>
