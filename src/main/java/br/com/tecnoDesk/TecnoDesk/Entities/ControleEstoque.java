@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,16 +32,23 @@ public class ControleEstoque {
 	@JoinColumn(name = "codigo_empresa",nullable = false)
 	private Empresa empresa;
 	
-	private String nomeProduto;
+	@OneToOne
+	@JoinColumn(name = "produto_id", nullable = false, unique = true)
+	private Produtos produto;
 	
+	@Column(nullable = false)
 	private BigDecimal estoqueAtual = BigDecimal.ZERO;
 
+	@Column(nullable = false)
 	private BigDecimal estoqueMinimo = BigDecimal.ZERO;
 	 
-	private BigDecimal estoqueAnterior = BigDecimal.ZERO;
+	@Column(nullable = true)
+	private BigDecimal estoqueMaximo;
 	
-	private String undMedida = "unidade";
-
-
+	@Column(nullable = true)
+	private String observacao;
+	
+	@Column(nullable = false)
+	private boolean ativo = true;
 
 }

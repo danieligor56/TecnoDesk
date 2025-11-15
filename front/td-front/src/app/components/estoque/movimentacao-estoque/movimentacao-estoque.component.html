@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Movimentação de Estoque</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="movimentacaoForm">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Produto</mat-label>
+      <mat-select formControlName="produtoId" required>
+        <mat-option *ngFor="let produto of produtos" [value]="produto.id">
+          {{produto.nome}} - Estoque: {{produto.quantidadeEstoque}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="movimentacaoForm.get('produtoId')?.hasError('required')">
+        Produto é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Tipo de Movimentação</mat-label>
+      <mat-select formControlName="tipoMovimentacao" required>
+        <mat-option value="ENTRADA">Entrada</mat-option>
+        <mat-option value="SAIDA">Saída</mat-option>
+        <mat-option value="AJUSTE">Ajuste</mat-option>
+      </mat-select>
+      <mat-error *ngIf="movimentacaoForm.get('tipoMovimentacao')?.hasError('required')">
+        Tipo de movimentação é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Quantidade</mat-label>
+      <input matInput type="number" formControlName="quantidade" required>
+      <mat-error *ngIf="movimentacaoForm.get('quantidade')?.hasError('required')">
+        Quantidade é obrigatória
+      </mat-error>
+      <mat-error *ngIf="movimentacaoForm.get('quantidade')?.hasError('min')">
+        Quantidade deve ser maior que zero
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Origem da Movimentação</mat-label>
+      <input matInput formControlName="origemMovimentacao" placeholder="Ex: Compra, Venda, Ajuste Manual">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Observação</mat-label>
+      <textarea matInput formControlName="observacao" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvarMovimentacao()" [disabled]="!movimentacaoForm.valid">
+    Salvar
+  </button>
+</mat-dialog-actions>
