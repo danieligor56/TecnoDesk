@@ -7,17 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
 import br.com.tecnoDesk.TecnoDesk.Services.ProdutoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @Controller
@@ -35,6 +35,11 @@ public class ProdutosController {
 	@GetMapping("/listarProdutos")
 	public ResponseEntity<List<Produtos>> getMethodName(@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.listarProdutos(codEmpresa));
+	}
+	
+	@PutMapping("/alterarProduto/{id}")
+	public ResponseEntity<Produtos> alterarProduto(@PathVariable long id, @RequestBody ProdutosDTO dto, @RequestHeader("CodEmpresa") String codEmpresa) {
+		return ResponseEntity.ok().body(produtoService.alterarProduto(id, dto, codEmpresa));
 	}
 	
 	@DeleteMapping("/deletarProduto/{id}")

@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="label">Criar alterar produtos</h1>
+    <h1 class="label">{{ data.eNovoProduto ? 'Criar produto' : 'Alterar produto' }}</h1>
 
     <div>
       <mat-stepper
@@ -48,8 +48,15 @@
       </mat-slide-toggle>
       
       
-      <div>
-        <button  [disabled]="!btn1valid"  mat-stroked-button color="primary" matStepperNext>Próximo</button>
+      <div style="margin-top: 20px; display: flex; gap: 8px;">
+        <button *ngIf="!data.eNovoProduto" (click)="salvarProduto()" [disabled]="!podeSalvarNoPasso1()" mat-flat-button color="primary">
+          <mat-icon>save</mat-icon>
+          Salvar
+        </button>
+        <button [disabled]="!btn1valid" mat-stroked-button color="primary" matStepperNext>
+          Próximo
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -72,10 +79,19 @@
                 <mat-icon class="custom-icon" matSuffix>payments</mat-icon> 
       </mat-form-field>
 
-      <div>
-        <button mat-stroked-button matStepperPrevious>Voltar</button>
-    &nbsp;
-        <button [disabled]="!btn2valid" mat-stroked-button color="primary" matStepperNext>Próximo</button>
+      <div style="margin-top: 20px; display: flex; gap: 8px;">
+        <button mat-stroked-button matStepperPrevious>
+          <mat-icon>arrow_back</mat-icon>
+          Voltar
+        </button>
+        <button *ngIf="!data.eNovoProduto" (click)="salvarProduto()" [disabled]="!podeSalvarNoPasso2()" mat-flat-button color="primary">
+          <mat-icon>save</mat-icon>
+          Salvar
+        </button>
+        <button [disabled]="!btn2valid" mat-stroked-button color="primary" matStepperNext>
+          Próximo
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -84,12 +100,12 @@
 
         <mat-form-field appearance="fill" style="width: 8rem;">
         <mat-label>Unidade de medida:</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option>Und</mat-option>
-          <mat-option value="option1">Unidade</mat-option>
-          <mat-option value="option2">Kg</mat-option>
-          <mat-option value="option3">Componente</mat-option>
-          <mat-option value="option3">Peça</mat-option>
+        <mat-select formControlName="unidadeMedida">
+          <mat-option value="Und">Und</mat-option>
+          <mat-option value="Unidade">Unidade</mat-option>
+          <mat-option value="Kg">Kg</mat-option>
+          <mat-option value="Componente">Componente</mat-option>
+          <mat-option value="Peça">Peça</mat-option>
         </mat-select>
       </mat-form-field>
   &nbsp;
@@ -99,10 +115,19 @@
         <input type="number" matInput formControlName="quantidadeEstoque" placeholder="Quantidade para estoque" >
       </mat-form-field>
       
-      <div>
-        <button mat-stroked-button matStepperPrevious>Voltar</button>
-  &nbsp;
-        <button (click)='criarNovoProduto()' mat-stroked-button color="primary" matStepperNext>Concluir</button>
+      <div style="margin-top: 20px; display: flex; gap: 8px;">
+        <button mat-stroked-button matStepperPrevious>
+          <mat-icon>arrow_back</mat-icon>
+          Voltar
+        </button>
+        <button *ngIf="data.eNovoProduto" (click)='salvarProduto()' [disabled]="!isFormularioValido()" mat-flat-button color="primary">
+          <mat-icon>check</mat-icon>
+          Concluir
+        </button>
+        <button *ngIf="!data.eNovoProduto" (click)="salvarProduto()" [disabled]="!podeSalvarNoPasso3()" mat-flat-button color="primary">
+          <mat-icon>save</mat-icon>
+          Salvar
+        </button>
       </div>
     </form>
   </mat-step>
