@@ -76,7 +76,8 @@ export class ItemServiceComponent implements OnInit {
     const dialogRef = this.dialog.open(ItemServiceDeleteComponent,{
       data: {
         id :id 
-      }
+      },
+      width: '420px',
     });
 
     dialogRef.afterClosed().subscribe( result =>{

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @Controller
@@ -33,6 +35,12 @@ public class ProdutosController {
 	@GetMapping("/listarProdutos")
 	public ResponseEntity<List<Produtos>> getMethodName(@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.listarProdutos(codEmpresa));
+	}
+	
+	@DeleteMapping("/deletarProduto/{id}")
+	public ResponseEntity<Void> deletarProduto(@RequestParam long id, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		produtoService.deletarProduto(id, codEmpresa);
+		return ResponseEntity.ok().build();
 	}
 	
 }
