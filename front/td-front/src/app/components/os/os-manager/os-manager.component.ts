@@ -16,6 +16,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
+import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/produtos-minilist.component';
 
 @Component({
   selector: 'app-os-manager',
@@ -55,7 +56,8 @@ export class OsManagerComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'descricao', 'valor','vlrDesconto','vlrLiq', 'acoes'];
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
-  valorOrcamento:number = 0;
+  valorOrcamento: TotaisNotaDTO ;
+  // valorOrcamento:number = 0;
   prioridadeos:string = '';
   numTec:number = 0;
   statusOs: string = ''; 
@@ -84,15 +86,11 @@ constructor(
 
   ngOnInit(): void {
     debugger;
-
     this.id = this.route.snapshot.paramMap.get('id');
     this.mapearDadosOS(this.id);
     this.getValorOrcamento(this.id)
     this.dropdownColaborador();
     this.listarItensOrcamento();
-  
- 
-
   }
 
   mapearDadosOS(id:string){
@@ -222,6 +220,23 @@ constructor(
   });
 
   }
+
+  openListaProdutoDialog(id){
+   const dialogRef = this.dialog.open(ProdutosMinilistComponent,{
+    data:{
+        id:id
+    },
+    width:'50rem'
+    
+   });
+    dialogRef.afterClosed().subscribe(response => {
+    if(response){
+      this.listarItensOrcamento();
+    }
+
+  });
+
+  }
   
   openServicoAvulso(id){
     const dialogRef = this.dialog.open(ItemServiceCreateAvulsoComponent,{
@@ -245,18 +260,21 @@ constructor(
       this.orcamentoService.listarServicosOrcamento(response.id).subscribe(servicos => {
         this.servico = servicos
         this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
-        this.FuncValorOrcamento(response.id);
+        // this.FuncValorOrcamento(response.id);
+          this.getValorOrcamento(this.id);
+
       })
       
     })
     
   }
 
-  // FuncValorOrcamento(idOrcamento:number){
-  //  this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
-  //     this.valorOrcamento = response
-  //  })
-  // }
+  FuncValorOrcamento(idOrcamento:number){
+   this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
+      this.valorOrcamento = response
+      
+   })
+  }
 
   alterarTecnicoEPrioridade(){
     debugger;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
+import br.com.tecnoDesk.TecnoDesk.Entities.Servico;
 import br.com.tecnoDesk.TecnoDesk.Services.ProdutoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,11 @@ public class ProdutosController {
 	@GetMapping("/listarProdutos")
 	public ResponseEntity<List<Produtos>> getMethodName(@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.listarProdutos(codEmpresa));
+	}
+	
+	@GetMapping("/buscarProduto/{id}")
+	public Produtos buscarClientePorID(long id,@RequestHeader("CodEmpresa") String codemp) {
+		return produtoService.buscarProdutoPorId(id,codemp);
 	}
 	
 	@PutMapping("/alterarProduto/{id}")

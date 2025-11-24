@@ -13,6 +13,7 @@ import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.ControleEstoque;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
+import br.com.tecnoDesk.TecnoDesk.Entities.Servico;
 import br.com.tecnoDesk.TecnoDesk.Repository.ControleEstoqueRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ProdutoRepository;
@@ -193,6 +194,17 @@ public class ProdutoService {
 		} catch (Exception e) {
 			throw new BadRequest("Não foi possível alterar o produto: "+ e.getMessage());
 		}
+	}
+	
+	public Produtos buscarProdutoPorId(long id,String codEmpresa) {
+
+		try {
+				long codEmp = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+				Produtos produtos = produtoRepository.encontrarProduto(id,codEmp);
+				return produtos;
+			} catch (Exception e) {
+				throw new BadRequest("Não foi possível atender sua solicitação nesse moemnto");
+					}
 	}
 	
 	public void deletarProduto(long id, String codEmpresa) throws Exception {
