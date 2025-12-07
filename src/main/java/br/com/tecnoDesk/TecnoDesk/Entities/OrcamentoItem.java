@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.tecnoDesk.TecnoDesk.Enuns.ProdutoServicoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -62,12 +63,14 @@ public class OrcamentoItem {
     @Column(name = "valorTotal")
     private Double valorTotal = 0.00;
     
-    
     @Column(name = "isAvulso")
     private boolean isAvulso;
+    
+    @Column(name = "ProdutoOuServico")
+    private ProdutoServicoEnum produtoOuServico;
 
 	public OrcamentoItem(Empresa empresa, Orcamento orcamento, long codigoItem, String nomeServicoAvulso,
-			String descricaoServicoAvulso, Double valorUnidadeAvulso, Double valorHoraAvulso, boolean isAvulso) {
+			String descricaoServicoAvulso, Double valorUnidadeAvulso, Double valorHoraAvulso, boolean isAvulso, ProdutoServicoEnum produtoOuServico) {
 		this.empresa = empresa;
 		this.orcamento = orcamento;
 		this.codigoItem = codigoItem;
@@ -76,6 +79,7 @@ public class OrcamentoItem {
 		this.valorUnidadeAvulso = valorUnidadeAvulso;
 		this.valorHoraAvulso = valorHoraAvulso;
 		this.isAvulso = isAvulso;
+		this.produtoOuServico = produtoOuServico;
 	}
     
     

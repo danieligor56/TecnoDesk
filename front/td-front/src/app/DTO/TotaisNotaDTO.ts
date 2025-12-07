@@ -1,4 +1,7 @@
-export class TotaisNotaDTO{
-    valorTotalNota: number
-	valorTotalDescontoServico: number;
+export class TotaisNotaDTO{    
+    valorTotalNota?: number;
+	valorTotalProdutos?: number;
+	valorTotalDescontoProdutos?: number;
+	valorTotalServico?: number;
+	valorTotalDescontoServico?: number;
 }

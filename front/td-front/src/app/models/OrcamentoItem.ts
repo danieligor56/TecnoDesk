@@ -13,6 +13,7 @@ export interface OrcamentoItem{
     descontoServico?:number;
     valorTotal?:number;
     isAvulso:boolean
+    produtoOuServico:number
    
 }
 

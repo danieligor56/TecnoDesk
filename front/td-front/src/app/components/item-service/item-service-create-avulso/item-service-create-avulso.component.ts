@@ -93,7 +93,8 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
                     descricaoServicoAvulso:response.descricaoServico,
                     valorUnidadeAvulso:0,
                     valorHoraAvulso:this.vTotal,
-                    isAvulso:false
+                    isAvulso:false,
+                    produtoOuServico: 0
                       }
                       debugger;
                   this.orcamentoService.inserirItem(this.codOrcamento,this.novoOrcamentoItem)
@@ -114,7 +115,8 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
               descricaoServicoAvulso:this.itemOrcamentoForm.get('valorUnidadeAvulso').value,
               valorUnidadeAvulso:0,
               valorHoraAvulso:this.vTotal,
-              isAvulso:true            
+              isAvulso:true,
+              produtoOuServico: 0            
             }
               this.orcamentoService.inserirItem(this.codOrcamento,this.novoOrcamentoItem)
               this.dialogRef.close(true);
@@ -164,10 +166,12 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
                   descricaoServicoAvulso: response.descricaoServico,
                   valorUnidadeAvulso: vServicoUnd,
                   valorHoraAvulso: vServicoHora,
-                  isAvulso: false
+                  isAvulso: false,
+                  produtoOuServico: 0
                               };
                               if(this.radius > 0){
                     servicoContrato.valorHoraAvulso = this.radius * vServicoHora;
+
                    }
             this.orcamentoService.inserirItem(this.codOrcamento, servicoContrato).subscribe(() => {
             this.dialogRef.close(true);
@@ -185,7 +189,8 @@ export class ItemServiceCreateAvulsoComponent implements OnInit {
                   descricaoServicoAvulso: this.itemOrcamentoForm.get('descricaoServicoAvulso').value,
                   valorUnidadeAvulso: vServicoUnd,
                   valorHoraAvulso: vServicoHora,
-                  isAvulso: true
+                  isAvulso: true,
+                  produtoOuServico: 0
                               };
                    if(this.radius > 0){
                     servicoContrato.valorHoraAvulso = this.radius * vServicoHora;

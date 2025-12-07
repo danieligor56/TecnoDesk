@@ -1,17 +1,17 @@
 package br.com.tecnoDesk.TecnoDesk.Services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.DtoInstantiatingConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.yaml.snakeyaml.tokens.FlowMappingEndToken;
-
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoItemDTO;
@@ -20,18 +20,20 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
+import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
 import br.com.tecnoDesk.TecnoDesk.Entities.Servico;
 import br.com.tecnoDesk.TecnoDesk.Entities.ServicoItem;
+import br.com.tecnoDesk.TecnoDesk.Enuns.ProdutoServicoEnum;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.ProdutoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ServicoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ServicoRepository;
 import exception.BadRequest;
 import exception.NotFound;
-import lombok.experimental.var;
 
 @Service
 public class OrcamentoService {
@@ -59,6 +61,9 @@ public class OrcamentoService {
 	
 	@Autowired
 	ServicoRepository servicoRepository;
+	
+	@Autowired
+	ProdutoRepository produtoRepository;
 	
 	
 	public void criarOrcamento(OrcamentoDTO dto,long codOs,String codempresa) {
@@ -110,8 +115,25 @@ public class OrcamentoService {
 			  	dto.setOrcamento(orcamentoOS);
 			  	
 			  	if(orcamentoItem.getCodigoItem() > 0) {
-			  		Servico servicoItem = servicoRepository.encontrarPorId(orcamentoItem.getCodigoItem(),codEmp.getId());
-			  		dto.setCodigoItem(servicoItem.getId());
+			  		
+			  		long id = 0;
+			  		
+			  		
+					if(orcamentoItem.getProdutoOuServico() == ProdutoServicoEnum.SERVICO) {
+						Servico servico = servicoRepository.encontrarPorId(orcamentoItem.getCodigoItem(),codEmp.getId());
+						id = servico.getId();
+						dto.setCodigoItem(servico.getId());
+						dto.setProdutoOuServico(ProdutoServicoEnum.SERVICO);
+						
+					}
+					
+					else {
+						Produtos produto = produtoRepository.encontrarProduto(orcamentoItem.getCodigoItem(),codEmp.getId());
+						id = produto.getId();
+						dto.setCodigoItem(produto.getId());
+						dto.setProdutoOuServico(ProdutoServicoEnum.PRODUTO);
+					}
+			  				  		
 			  		dto.setNomeServicoAvulso(orcamentoItem.getNomeServicoAvulso());
 			  		dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());
 			  		dto.setAvulso(false);
@@ -123,7 +145,8 @@ public class OrcamentoService {
 					dto.setAvulso(true);
 					dto.setNomeServicoAvulso(orcamentoItem.getNomeServicoAvulso());
 					dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());
-				}			  				  	
+					dto.setProdutoOuServico(ProdutoServicoEnum.SERVICO);
+			  	}			  				  	
 			  	
 			  	if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0.0) {
 			  		dto.setValorUnidadeAvulso(orcamentoItem.getValorUnidadeAvulso());
@@ -143,7 +166,8 @@ public class OrcamentoService {
 			  				dto.getDescricaoServicoAvulso(),
 			  				dto.getValorUnidadeAvulso(),
 			  				dto.getValorHoraAvulso(),
-			  				dto.isAvulso()
+			  				dto.isAvulso(),
+			  				dto.getProdutoOuServico()
 			  				);
 			  	orcamentoRepository.save(novoServicoItem);
 		  	
@@ -214,47 +238,110 @@ public class OrcamentoService {
 			return valorOrcamento.getValorOrcamento();
 	}
 	
-	public TotaisNotaDTO calcularValorOrcamento(long idOrcamento, String codEmpresa) throws Exception{
-		
-		double valorTotal = 0;
-		double valorTotalDesconto = 0;
-		TotaisNotaDTO totaisNotaDTO = new TotaisNotaDTO(); 
-		
-		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-		List<OrcamentoItem> itensOrcamento = orcamentoRepository.listaItens(codEmpr, idOrcamento);
-		
-		for (OrcamentoItem orcamentoItem : itensOrcamento) {
-				
-				if( orcamentoItem.getDescontoServico() > 0 && orcamentoItem != null ) {
-					totaisNotaDTO.valorTotalDescontoServico += orcamentoItem.getDescontoServico();
-					
-				}
-			
-				if( orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0 ) {
-				 Double	valorComDesconto = orcamentoItem.getValorUnidadeAvulso() - orcamentoItem.getDescontoServico();
-				 totaisNotaDTO.valorTotalNota += valorComDesconto;
-				}
-					else {
-						totaisNotaDTO.valorTotalNota += orcamentoItem.getValorHoraAvulso();
-					}
-				
-		}
-		
-			
-				
-		
-		
-		
-		return totaisNotaDTO;
+	public TotaisNotaDTO calcularValorOrcamento(long idOrcamento, String codEmpresa) throws Exception {
+
+	    TotaisNotaDTO totais = new TotaisNotaDTO();
+
+	    // garante que tudo começa em ZERO
+	    totais.setValorTotalProdutos(BigDecimal.ZERO);
+	    totais.setValorTotalServico(BigDecimal.ZERO);
+	    totais.setValorTotalDescontoProdutos(BigDecimal.ZERO);
+	    totais.setValorTotalDescontoServico(BigDecimal.ZERO);
+	    totais.setValorTotalNota(BigDecimal.ZERO);
+
+	    long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+	    List<OrcamentoItem> itens = orcamentoRepository.listaItens(codEmpr, idOrcamento);
+
+	    if (itens == null || itens.isEmpty()) {
+	        return totais;
+	    }
+
+	    for (OrcamentoItem item : itens) {
+
+	        if (item == null) {
+	            continue;
+	        }
+
+	        // Normaliza nulos para ZERO
+	        BigDecimal valorUnidade = toBigDecimal(item.getValorUnidadeAvulso());
+	        BigDecimal valorHora    = toBigDecimal(item.getValorHoraAvulso());
+	        BigDecimal desconto     = toBigDecimal(item.getDescontoServico());
+
+	        if (item.getProdutoOuServico() == ProdutoServicoEnum.SERVICO) {
+
+	            // acumula desconto de serviços
+	            if (desconto.compareTo(BigDecimal.ZERO) > 0) {
+	                totais.setValorTotalDescontoServico(
+	                    totais.getValorTotalDescontoServico().add(desconto)
+	                );
+	            }
+
+	            BigDecimal valorServico;
+
+	            // Se tiver valor por hora (> 0), prioriza ele
+	            if (valorHora.compareTo(BigDecimal.ZERO) > 0) {
+	                valorServico = valorHora;
+	            } else {
+	                // Usa valor unitário com desconto
+	                valorServico = valorUnidade.subtract(desconto);
+	            }
+
+	            // Não deixa valor negativo, por segurança
+	            if (valorServico.compareTo(BigDecimal.ZERO) < 0) {
+	                valorServico = BigDecimal.ZERO;
+	            }
+
+	            totais.setValorTotalServico(
+	                totais.getValorTotalServico().add(valorServico)
+	            );
+
+	        } else { // PRODUTO
+
+	            if (desconto.compareTo(BigDecimal.ZERO) > 0) {
+	                totais.setValorTotalDescontoProdutos(
+	                    totais.getValorTotalDescontoProdutos().add(desconto)
+	                );
+	            }
+
+	            BigDecimal valorProduto = valorUnidade.subtract(desconto);
+
+	            if (valorProduto.compareTo(BigDecimal.ZERO) < 0) {
+	                valorProduto = BigDecimal.ZERO;
+	            }
+
+	            totais.setValorTotalProdutos(
+	                totais.getValorTotalProdutos().add(valorProduto)
+	            );
+	        }
+	    }
+
+	    // total geral = produtos + serviços
+	    totais.setValorTotalNota(
+	        totais.getValorTotalProdutos().add(totais.getValorTotalServico())
+	    );
+
+	    return totais;
+	}
+
+	/**
+	 * Helper pra evitar if de null toda hora.
+	 */
+	private BigDecimal defaultZero(BigDecimal valor) {
+	    return valor == null ? BigDecimal.ZERO : valor;
 	}
 	
-	public void removerServicoFromOrcamento(long numOs, String codEmpresa) {
+	private BigDecimal toBigDecimal(Number valor) {
+	    return valor == null ? BigDecimal.ZERO : BigDecimal.valueOf(valor.doubleValue());
+	}
+
+	public void removerServicoFromOrcamento(long idItemOrcamento, long codigoOrcamento, String codEmpresa) {
 		try {
 			long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-			Orcamento orcamento = repository.encontrarOcamentoPorNumOS(codEmpr,numOs);
-			
+				repository.excluirItemOrcamento(idItemOrcamento,codigoOrcamento, codEmpr);
+					
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new BadRequest("Não foi possível excluir o item do orçamento: "+ e.getMessage());
+		
 		}
 	}
 	

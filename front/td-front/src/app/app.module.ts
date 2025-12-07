@@ -62,6 +62,7 @@ import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/p
 import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
 import { MovimentacaoEstoqueComponent } from './components/estoque/movimentacao-estoque/movimentacao-estoque.component';
 import { ConfigurarEstoqueComponent } from './components/estoque/configurar-estoque/configurar-estoque.component';
+import { ProdutosMinilistComponent } from './components/produtos/produtos-minilist/produtos-minilist.component';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { ConfigurarEstoqueComponent } from './components/estoque/configurar-esto
     ProdutosDeleteComponent,
     EstoqueListComponent,
     MovimentacaoEstoqueComponent,
-    ConfigurarEstoqueComponent
+    ConfigurarEstoqueComponent,
+    ProdutosMinilistComponent
 
     
 

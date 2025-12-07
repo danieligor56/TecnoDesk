@@ -25,6 +25,14 @@ public interface OrcamentoRepository extends JpaRepository<Orcamento, Long>{
 			)
 	Orcamento encontrarOcamentoPorNumOS(long CodEmp,long numOs);
 	
+	@Query(
+			value = "DELETE FROM orcamento_item oi WHERE oi.id = :idItemOrcamento AND oi.codigo_orcamento = :codigoOrcamento"
+					+ " AND codigo_empresa = :CodEmp",
+			nativeQuery = true
+			)
+	void excluirItemOrcamento(long idItemOrcamento, long codigoOrcamento, long CodEmp);
+	
+	
 	
 	
 	

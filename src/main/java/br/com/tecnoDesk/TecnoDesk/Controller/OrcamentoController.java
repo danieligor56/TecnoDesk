@@ -7,11 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import br.com.tecnoDesk.TecnoDesk.DTO.OrcamentoDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.TotaisNotaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
 import br.com.tecnoDesk.TecnoDesk.Services.OrcamentoService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +43,12 @@ public class OrcamentoController {
 		  OrcamentoItem novoItemOrcamento = service.addServicoOrcamento(orcamentoItem, orcamentoId,codEmpresa);
 		  return ResponseEntity.ok().body(novoItemOrcamento); 
 		  }
+	  
+	  @DeleteMapping("/exluirServico")
+	  public ResponseEntity excluirServico(long idItemOrcamento, long codigoOrcamento, @RequestHeader("CodEmpresa") String codEmpresa) {
+		  service.removerServicoFromOrcamento(idItemOrcamento, codigoOrcamento, codEmpresa);
+		  return ResponseEntity.ok().body("Excluído com sucesso.");
+	  } 
 	  
 	 
 	  

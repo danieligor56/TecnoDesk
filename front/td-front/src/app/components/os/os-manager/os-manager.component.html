@@ -292,7 +292,7 @@
                                 <div>
                                     <button (click)="openListaServicoDialog(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
                                     <button (click)="openServicoAvulso(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
-                                    <button  id="buttons" mat-stroked-button color="primary">+ Produto</button>
+                                    <button (click)="openListaProdutoDialog(Os?.numOs)"id="buttons" mat-stroked-button color="primary">+ Produto</button>
                                     <button  id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
                                     <button  id="buttons"mat-stroked-button color="primary">🔥 Montar Kit</button>
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
@@ -315,7 +315,7 @@
                                         
                                         <ng-container matColumnDef="nome">
                                             <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-                                            <td mat-cell *matCellDef="let servico">⚙️ {{servico.nomeServicoAvulso}} </td>
+                                            <td mat-cell *matCellDef="let servico"> {{servico.produtoOuServico === 'SERVICO' ? '⚙️' : '📦' }} {{servico.nomeServicoAvulso}} </td>
                                         </ng-container>
                                         
                                         <ng-container matColumnDef="descricao">
@@ -373,12 +373,12 @@
                                 <div style="display: flex;">
                                     <div class="input-group">
                                         <label for="telefone">Tot.Descontos.Servico</label>
-                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalDescontoServico | number:'1.2-2' }}" readonly>
+                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.	valorTotalDescontoServico | number:'1.2-2' }}" readonly>
                                     </div>
                                     &nbsp;&nbsp;
                                     <div class="input-group">
                                         <label for="telefone">Vlr.Tot.Servico</label>
-                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalNota | number:'1.2-2' }}" readonly>
+                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalServico | number:'1.2-2' }}" readonly>
                                     </div>
 
                                 </div>
@@ -386,12 +386,12 @@
                                     <div style="display: flex;">
                                         <div class="input-group">
                                             <label for="telefone">Tot.Desconto.Produtos:</label>
-                                            <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
+                                             <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalDescontoProdutos | number:'1.2-2' }}" readonly>
                                         </div>
                                     &nbsp;&nbsp;
                                         <div class="input-group">
                                             <label for="telefone">Vlr.Tot.Produtos:</label>
-                                            <input type="text" id="telefone" value="💲&nbsp;80,00rs" readonly>
+                                            <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalProdutos | number:'1.2-2' }}" readonly>
                                         </div>
 
                                 </div>    
