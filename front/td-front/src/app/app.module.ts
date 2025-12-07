@@ -64,6 +64,7 @@ import { MovimentacaoEstoqueComponent } from './components/estoque/movimentacao-
 import { ConfigurarEstoqueComponent } from './components/estoque/configurar-estoque/configurar-estoque.component';
 import { ProdutosMinilistComponent } from './components/produtos/produtos-minilist/produtos-minilist.component';
 import { DiscountDialogComponent } from './components/discount-dialog/discount-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { DiscountDialogComponent } from './components/discount-dialog/discount-d
     MovimentacaoEstoqueComponent,
     ConfigurarEstoqueComponent,
     ProdutosMinilistComponent,
-    DiscountDialogComponent
+    DiscountDialogComponent,
+    ConfirmDialogComponent
 
     
 

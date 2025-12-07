@@ -86,5 +86,20 @@ export class OrcamentoService {
     );
   }
 
+  removerItem(idItem: number, codigoOrcamento: number): Observable<any> {
+    const codEmpresa = sessionStorage.getItem('CompGrpIndent');
+
+    const headers = new HttpHeaders({
+      'codEmpresa': codEmpresa
+    });
+
+    const options = { headers };
+
+    return this.http.delete(
+      `http://localhost:8080/api/v1/orcamento/exluirServico?idItemOrcamento=${idItem}&codigoOrcamento=${codigoOrcamento}`,
+      options
+    );
+  }
+
 
 }
