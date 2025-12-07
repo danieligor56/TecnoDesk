@@ -20,6 +20,7 @@ import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/prod
 import { ProdutoCreateAvulsoComponent } from '../../produtos/produto-create-avulso/produto-create-avulso.component';
 import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
 
 @Component({
   selector: 'app-os-manager',
@@ -404,6 +405,23 @@ constructor(
         } else {
           this.toast.error('Erro: Orçamento não encontrado');
         }
+      }
+    });
+  }
+
+  openKitCreateDialog(id: any) {
+    const dialogRef = this.dialog.open(KitCreateComponent, {
+      data: {
+        id: id
+      },
+      width: '85rem',
+      height: '80vh'
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this.listarItensOrcamento();
+        this.getValorOrcamento(this.id);
       }
     });
   }
