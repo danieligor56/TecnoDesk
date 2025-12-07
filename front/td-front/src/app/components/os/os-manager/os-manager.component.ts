@@ -17,6 +17,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
 import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/produtos-minilist.component';
+import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
 
 @Component({
   selector: 'app-os-manager',
@@ -319,13 +320,31 @@ constructor(
 
     });
 
-     
   }
 
-  
+  openDiscountDialog(item: OrcamentoItem) {
+    const dialogRef = this.dialog.open(DiscountDialogComponent, {
+      data: { item: item },
+      width: '400px'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the item with new discount values
+        item.descontoServico = result.descontoServico;
+        item.valorTotal = result.valorTotal;
+        // Refresh the table data
+        this.dataSource.data = [...this.dataSource.data];
+        // Update totals
+        this.getValorOrcamento(this.id);
+      }
+    });
+  }
 
-  
-  
-  
+  deleteItem(item: OrcamentoItem) {
+    // Placeholder for delete functionality
+    console.log('Delete item:', item);
+    // TODO: Implement delete logic
+  }
+
 }
