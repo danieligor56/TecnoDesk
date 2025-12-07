@@ -74,6 +74,10 @@ export class KitCreateComponent implements OnInit {
     return this.selection.selected.reduce((sum, p) => sum + (p.preco || 0), 0);
   }
 
+  get selectedProductNames(): string {
+    return this.selection.selected.map(p => p.nome).join(', ');
+  }
+
   criarKit() {
     if (this.selection.selected.length === 0) {
       this.toast.warning('Selecione pelo menos um produto para criar o kit.');

@@ -414,8 +414,7 @@ constructor(
       data: {
         id: id
       },
-      width: '85rem',
-      height: '80vh'
+      
     });
 
     dialogRef.afterClosed().subscribe(response => {
