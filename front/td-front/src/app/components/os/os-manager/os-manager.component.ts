@@ -259,9 +259,9 @@ constructor(
     this.orcamentoService.buscarPorId(Number(this.id)).subscribe( response => {
       this.orcamentoService.listarServicosOrcamento(response.id).subscribe(servicos => {
         this.servico = servicos
-        this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
+          this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
         // this.FuncValorOrcamento(response.id);
-          this.getValorOrcamento(this.id);
+            this.getValorOrcamento(this.id);
 
       })
       

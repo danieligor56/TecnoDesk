@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.DtoInstantiatingConverter;
 import org.springframework.stereotype.Service;
@@ -333,15 +334,14 @@ public class OrcamentoService {
 	    return valor == null ? BigDecimal.ZERO : BigDecimal.valueOf(valor.doubleValue());
 	}
 
-
-	
-	public void removerServicoFromOrcamento(long numOs, String codEmpresa) {
+	public void removerServicoFromOrcamento(long idItemOrcamento, long codigoOrcamento, String codEmpresa) {
 		try {
 			long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
-			Orcamento orcamento = repository.encontrarOcamentoPorNumOS(codEmpr,numOs);
-			
+				repository.excluirItemOrcamento(idItemOrcamento,codigoOrcamento, codEmpr);
+					
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new BadRequest("Não foi possível excluir o item do orçamento: "+ e.getMessage());
+		
 		}
 	}
 	
