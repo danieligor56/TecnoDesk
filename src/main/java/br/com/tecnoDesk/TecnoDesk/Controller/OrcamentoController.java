@@ -68,5 +68,11 @@ public class OrcamentoController {
 	  public ResponseEntity<TotaisNotaDTO> valorOrcamento(@RequestParam long orcamento_id,@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{
 		  return ResponseEntity.ok().body(service.calcularValorOrcamento(orcamento_id, codEmpresa));
 	  }
+
+	@PostMapping("atualizarDesconto")
+	public ResponseEntity<OrcamentoItem> atualizarDesconto(@RequestParam long itemId, @RequestParam double desconto, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		OrcamentoItem itemAtualizado = service.atualizarDesconto(itemId, desconto, codEmpresa);
+		return ResponseEntity.ok().body(itemAtualizado);
+	}
 	
 }

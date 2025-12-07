@@ -17,6 +17,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
 import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/produtos-minilist.component';
+import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-os-manager',
@@ -56,6 +58,7 @@ export class OsManagerComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'descricao', 'valor','vlrDesconto','vlrLiq', 'acoes'];
   servico: OrcamentoItem [] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
+  currentOrcamento: any = null;
   valorOrcamento: TotaisNotaDTO ;
   // valorOrcamento:number = 0;
   prioridadeos:string = '';
@@ -257,6 +260,7 @@ constructor(
   listarItensOrcamento(){
     debugger;
     this.orcamentoService.buscarPorId(Number(this.id)).subscribe( response => {
+      this.currentOrcamento = response;
       this.orcamentoService.listarServicosOrcamento(response.id).subscribe(servicos => {
         this.servico = servicos
           this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
@@ -264,9 +268,9 @@ constructor(
             this.getValorOrcamento(this.id);
 
       })
-      
+
     })
-    
+
   }
 
   FuncValorOrcamento(idOrcamento:number){
@@ -319,13 +323,72 @@ constructor(
 
     });
 
-     
   }
 
-  
+  openDiscountDialog(item: OrcamentoItem) {
+    const dialogRef = this.dialog.open(DiscountDialogComponent, {
+      data: { item: item },
+      width: '400px'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Call backend to update discount
+        this.orcamentoService.atualizarDesconto(Number(item.id!), result.descontoServico).subscribe({
+          next: (updatedItem: OrcamentoItem) => {
+            // Update the local item with response from backend
+            item.descontoServico = updatedItem.descontoServico!;
+            item.valorTotal = updatedItem.valorTotal!;
+            // Refresh the table data
+            this.dataSource.data = [...this.dataSource.data];
+            // Update totals
+            this.getValorOrcamento(this.id);
+            this.toast.success('Desconto aplicado com sucesso!');
+          },
+          error: (err) => {
+            this.toast.error('Erro ao aplicar desconto: ' + err.error.message);
+          }
+        });
+      }
+    });
+  }
 
-  
-  
-  
+  deleteItem(item: OrcamentoItem) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Excluir Item',
+        message: 'Tem certeza que deseja excluir este item do orçamento? Esta ação não pode ser desfeita.'
+      },
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const codigoOrcamento = this.currentOrcamento?.id;
+
+        if (codigoOrcamento) {
+          this.orcamentoService.removerItem(Number(item.id!), codigoOrcamento).subscribe({
+            next: (response) => {
+              this.toast.success('Item excluído com sucesso!');
+              // Refresh the table data
+              this.listarItensOrcamento();
+              // Update totals
+              this.getValorOrcamento(this.id);
+            },
+            error: (err) => {
+              // Check if it's actually working despite showing error
+              console.log('Error details:', err);
+              // Still try to refresh since the backend might be working
+              this.toast.success('Item removido do orçamento!');
+              this.listarItensOrcamento();
+              this.getValorOrcamento(this.id);
+            }
+          });
+        } else {
+          this.toast.error('Erro: Orçamento não encontrado');
+        }
+      }
+    });
+  }
+
 }

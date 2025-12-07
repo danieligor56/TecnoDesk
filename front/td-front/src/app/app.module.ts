@@ -63,6 +63,8 @@ import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-
 import { MovimentacaoEstoqueComponent } from './components/estoque/movimentacao-estoque/movimentacao-estoque.component';
 import { ConfigurarEstoqueComponent } from './components/estoque/configurar-estoque/configurar-estoque.component';
 import { ProdutosMinilistComponent } from './components/produtos/produtos-minilist/produtos-minilist.component';
+import { DiscountDialogComponent } from './components/discount-dialog/discount-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -101,7 +103,9 @@ import { ProdutosMinilistComponent } from './components/produtos/produtos-minili
     EstoqueListComponent,
     MovimentacaoEstoqueComponent,
     ConfigurarEstoqueComponent,
-    ProdutosMinilistComponent
+    ProdutosMinilistComponent,
+    DiscountDialogComponent,
+    ConfirmDialogComponent
 
     
 

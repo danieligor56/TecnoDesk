@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Aplicar Desconto</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Tipo de Desconto</mat-label>
+    <mat-select [(ngModel)]="discountType" (selectionChange)="onDiscountChange()">
+      <mat-option value="reais">R$ (Reais)</mat-option>
+      <mat-option value="percent">% (Percentual)</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Valor do Desconto</mat-label>
+    <input matInput type="number" [(ngModel)]="discountValue" (input)="onDiscountChange()" min="0" step="0.01">
+    <span matSuffix *ngIf="discountType === 'reais'">R$</span>
+    <span matSuffix *ngIf="discountType === 'percent'">%</span>
+  </mat-form-field>
+
+  <p *ngIf="discountType === 'percent'">
+    Valor base: R$ {{ (data.item.valorUnidadeAvulso || data.item.valorHoraAvulso || 0) | number:'1.2-2' }}
+  </p>
+  <p *ngIf="discountType === 'percent'">
+    Desconto calculado: R$ {{ descontoServico | number:'1.2-2' }}
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="applyDiscount()">Aplicar Desconto</button>
+</mat-dialog-actions>

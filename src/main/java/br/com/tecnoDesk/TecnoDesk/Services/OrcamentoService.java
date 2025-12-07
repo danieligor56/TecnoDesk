@@ -338,12 +338,57 @@ public class OrcamentoService {
 		try {
 			long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
 				repository.excluirItemOrcamento(idItemOrcamento,codigoOrcamento, codEmpr);
-					
+
 		} catch (Exception e) {
 			throw new BadRequest("Não foi possível excluir o item do orçamento: "+ e.getMessage());
-		
+
+		}
+	}
+
+	public OrcamentoItem atualizarDesconto(long itemId, double desconto, String codEmpresa) throws Exception {
+		long codEmpr = Long.valueOf(decriptService.decriptCodEmp(codEmpresa));
+
+		Empresa empresa = empresaRepository.findEmpresaById(codEmpr);
+		if (empresa == null) {
+			throw new NotFound("Empresa não encontrada");
+		}
+
+		try {
+
+			OrcamentoItem item = orcamentoRepository.findById(itemId).orElse(null);
+			if (item == null) {
+				throw new NotFound("Item do orçamento não encontrado");
+			}
+
+			// Validar se o item pertence à empresa
+			if (!Long.valueOf(codEmpr).equals(item.getEmpresa().getId())) {
+				throw new BadRequest("Item não pertence à empresa informada");
+			}
+
+			// Atualizar o desconto
+			item.setDescontoServico(desconto);
+
+			// Recalcular o valor total
+			double valorBase = item.getValorHoraAvulso() != null && item.getValorHoraAvulso() > 0
+				? item.getValorHoraAvulso()
+				: item.getValorUnidadeAvulso() != null ? item.getValorUnidadeAvulso() : 0.0;
+
+			double valorTotal = valorBase - desconto;
+			if (valorTotal < 0) {
+				valorTotal = 0.0; // Não permitir valores negativos
+			}
+
+			item.setValorTotal(valorTotal);
+
+			// Salvar as alterações
+			return orcamentoRepository.save(item);
+
+		} catch (Exception e) {
+			if (e instanceof NotFound || e instanceof BadRequest) {
+				throw e;
+			}
+			throw new BadRequest("Não foi possível atualizar o desconto: " + e.getMessage());
 		}
 	}
 	
 }
-

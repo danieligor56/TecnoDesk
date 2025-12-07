@@ -60,14 +60,45 @@ export class OrcamentoService {
 
   valorOrcamento(idOrcamento:number): Observable<TotaisNotaDTO>{
     const codEmpresa = sessionStorage.getItem('CompGrpIndent');
-  
+
     const headers = new HttpHeaders({
       'codEmpresa': codEmpresa
     });
-  
+
     const options = { headers };
 
     return this.http.get<TotaisNotaDTO>(`http://localhost:8080/api/v1/orcamento/valorOrcamento?orcamento_id=${idOrcamento}`,options);
+  }
+
+  atualizarDesconto(itemId: number, desconto: number): Observable<OrcamentoItem> {
+    const codEmpresa = sessionStorage.getItem('CompGrpIndent');
+
+    const headers = new HttpHeaders({
+      'codEmpresa': codEmpresa
+    });
+
+    const options = { headers };
+
+    return this.http.post<OrcamentoItem>(
+      `http://localhost:8080/api/v1/orcamento/atualizarDesconto?itemId=${itemId}&desconto=${desconto}`,
+      {},
+      options
+    );
+  }
+
+  removerItem(idItem: number, codigoOrcamento: number): Observable<any> {
+    const codEmpresa = sessionStorage.getItem('CompGrpIndent');
+
+    const headers = new HttpHeaders({
+      'codEmpresa': codEmpresa
+    });
+
+    const options = { headers };
+
+    return this.http.delete(
+      `http://localhost:8080/api/v1/orcamento/exluirServico?idItemOrcamento=${idItem}&codigoOrcamento=${codigoOrcamento}`,
+      options
+    );
   }
 
 
