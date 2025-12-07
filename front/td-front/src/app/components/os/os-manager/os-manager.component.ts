@@ -330,13 +330,22 @@ constructor(
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Update the item with new discount values
-        item.descontoServico = result.descontoServico;
-        item.valorTotal = result.valorTotal;
-        // Refresh the table data
-        this.dataSource.data = [...this.dataSource.data];
-        // Update totals
-        this.getValorOrcamento(this.id);
+        // Call backend to update discount
+        this.orcamentoService.atualizarDesconto(Number(item.id!), result.descontoServico).subscribe({
+          next: (updatedItem: OrcamentoItem) => {
+            // Update the local item with response from backend
+            item.descontoServico = updatedItem.descontoServico!;
+            item.valorTotal = updatedItem.valorTotal!;
+            // Refresh the table data
+            this.dataSource.data = [...this.dataSource.data];
+            // Update totals
+            this.getValorOrcamento(this.id);
+            this.toast.success('Desconto aplicado com sucesso!');
+          },
+          error: (err) => {
+            this.toast.error('Erro ao aplicar desconto: ' + err.error.message);
+          }
+        });
       }
     });
   }
