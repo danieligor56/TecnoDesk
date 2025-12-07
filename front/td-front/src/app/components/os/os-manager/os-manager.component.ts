@@ -17,6 +17,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
 import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/produtos-minilist.component';
+import { ProdutoCreateAvulsoComponent } from '../../produtos/produto-create-avulso/produto-create-avulso.component';
 import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
@@ -252,9 +253,25 @@ constructor(
       if(response){
         this.listarItensOrcamento();
       }
-      
+
     });
-    
+
+  }
+
+  openProdutoAvulso(id){
+    const dialogRef = this.dialog.open(ProdutoCreateAvulsoComponent,{
+      data:{
+        id:id
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if(response){
+        this.listarItensOrcamento();
+      }
+
+    });
+
   }
 
   listarItensOrcamento(){
