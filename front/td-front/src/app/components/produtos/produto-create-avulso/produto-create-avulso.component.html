@@ -1,0 +1,65 @@
+<div class="containe">
+    <div>
+        <h3 class="label">Produto avulso 📦</h3>
+    </div>
+    <form [formGroup]="produtoOrcamentoForm">
+
+      <mat-form-field class="example-full-width" *ngIf="isProduct" appearance="fill" style="margin-right: 8px;width: 100%;">
+        <mat-label>Nome produto</mat-label>
+        <input matInput
+        formControlName="nomeProdutoAvulso">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+        <mat-label>Descreva o produto</mat-label>
+        <input matInput
+        formControlName="descricaoProdutoAvulso">
+        <mat-error *ngIf="produtoOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
+         Informa uma descrição para o produto.
+        </mat-error>
+      </mat-form-field>
+
+      <div >
+        <h3 class="label">Valor do produto 📊</h3>
+    </div>
+
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Valor do produto</mat-label>
+        <input
+        mask="separator.2" thousandSeparator="." decimalMarker=","
+        matInput type="text"   placeholder="0,00 R$"
+        formControlName="valorUnidadeAvulso">
+        <mat-icon class="custom-icon" matSuffix>payments</mat-icon>
+        <mat-error *ngIf="produtoOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
+          Valor é <strong>obrigatório</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 1rem;">
+        <mat-label>Quantidade</mat-label>
+        <input matInput [(ngModel)]="quantidade"
+        type="number"
+        formControlName="quantidade"
+        min="1"
+        (click)="calcValorPorQuantidade()">
+    </mat-form-field>
+
+    </form>
+
+    <div style="margin-bottom: 2;margin-top: 1rem; float: right;">
+      <button (click)="inserirProdutoAvulso()" mat-raised-button  color="primary" style="margin-right: 4px;">Adicionar produto</button>
+      <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>
+    </div>
+
+    <mat-error *ngIf="quantidade < 1">
+      É necessário informar a quantidade
+    </mat-error>
+
+    <mat-checkbox class="example-margin" [(ngModel)]="isProduct" style="margin-right: 8px;">Gravar em produtos ?</mat-checkbox>
+    <div style="font-size: 12px;width: 100%;">
+        <p *ngIf="isProduct"><b>Caso não escolha um nome para o produto a descrição sera utilizada como nome.</b></p>
+    </div>
+
+
+
+</div>

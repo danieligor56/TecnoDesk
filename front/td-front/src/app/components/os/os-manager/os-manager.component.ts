@@ -17,8 +17,10 @@ import { MatSelectChange } from '@angular/material/select';
 import { laudoTecnicoDTO } from 'src/app/DTO/LaudoTecnicoDTO';
 import { TotaisNotaDTO } from 'src/app/DTO/TotaisNotaDTO';
 import { ProdutosMinilistComponent } from '../../produtos/produtos-minilist/produtos-minilist.component';
+import { ProdutoCreateAvulsoComponent } from '../../produtos/produto-create-avulso/produto-create-avulso.component';
 import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
 
 @Component({
   selector: 'app-os-manager',
@@ -252,9 +254,25 @@ constructor(
       if(response){
         this.listarItensOrcamento();
       }
-      
+
     });
-    
+
+  }
+
+  openProdutoAvulso(id){
+    const dialogRef = this.dialog.open(ProdutoCreateAvulsoComponent,{
+      data:{
+        id:id
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if(response){
+        this.listarItensOrcamento();
+      }
+
+    });
+
   }
 
   listarItensOrcamento(){
@@ -387,6 +405,22 @@ constructor(
         } else {
           this.toast.error('Erro: Orçamento não encontrado');
         }
+      }
+    });
+  }
+
+  openKitCreateDialog(id: any) {
+    const dialogRef = this.dialog.open(KitCreateComponent, {
+      data: {
+        id: id
+      },
+      
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this.listarItensOrcamento();
+        this.getValorOrcamento(this.id);
       }
     });
   }

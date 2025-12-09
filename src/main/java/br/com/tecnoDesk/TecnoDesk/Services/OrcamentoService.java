@@ -32,6 +32,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ProdutoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ServicoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ServicoRepository;
+import ch.qos.logback.core.joran.conditional.IfAction;
 import exception.BadRequest;
 import exception.NotFound;
 
@@ -144,8 +145,8 @@ public class OrcamentoService {
 					dto.setCodigoItem(0);
 					dto.setAvulso(true);
 					dto.setNomeServicoAvulso(orcamentoItem.getNomeServicoAvulso());
-					dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());
-					dto.setProdutoOuServico(ProdutoServicoEnum.SERVICO);
+					dto.setDescricaoServicoAvulso(orcamentoItem.getDescricaoServicoAvulso());				
+					dto.setProdutoOuServico(orcamentoItem.getProdutoOuServico());
 			  	}			  				  	
 			  	
 			  	if(orcamentoItem.getValorHoraAvulso() == null || orcamentoItem.getValorHoraAvulso() <= 0.0) {
