@@ -21,6 +21,7 @@ import { ProdutoCreateAvulsoComponent } from '../../produtos/produto-create-avul
 import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
   selector: 'app-os-manager',
@@ -85,7 +86,8 @@ constructor(
     private colaboradorService:ColaboradorService,
     private dialog: MatDialog,
     private orcamentoService:OrcamentoService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private pdfService: PdfService
   
   ) { }
 
@@ -421,6 +423,29 @@ constructor(
       if (response) {
         this.listarItensOrcamento();
         this.getValorOrcamento(this.id);
+      }
+    });
+  }
+
+  sendOrcamento() {
+    if (!this.Os || !this.Os.numOs) {
+      this.toast.error('OS não encontrada');
+      return;
+    }
+
+    this.pdfService.gerarPdfOrcamento(this.Os.numOs).subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `orcamento_OS_${this.Os.numOs}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.toast.success('PDF do orçamento gerado com sucesso!');
+      },
+      error: (err) => {
+        console.error('Erro ao gerar PDF:', err);
+        this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
       }
     });
   }

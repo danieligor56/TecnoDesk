@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Os_entrada } from '../models/Os-entrada';
 import { Observable } from 'rxjs';
@@ -21,5 +21,19 @@ export class PdfService {
     
     return this.http.post<Blob>("http://localhost:8080/gerarPdf/osEntrada",os,options);
   }  
+
+  gerarPdfOrcamento(numOS: number): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+    });
+    const params = new HttpParams().set('numOS', numOS.toString());
+    const options = { 
+      headers: headers, 
+      responseType: 'blob' as 'json',
+      params: params
+    };
+    
+    return this.http.post<Blob>("http://localhost:8080/gerarPdf/orcamento", null, options);
+  }
 
 }
