@@ -21,12 +21,21 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.TotaisNotaDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
+import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
+import br.com.tecnoDesk.TecnoDesk.Enuns.ProdutoServicoEnum;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class GeneratePDfService {
@@ -45,6 +54,15 @@ public class GeneratePDfService {
 	
 	@Autowired
 	DocumentUtils documentUtils;
+	
+	@Autowired
+	OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	OrcamentoItemRepository orcamentoItemRepository;
+	
+	@Autowired
+	OrcamentoService orcamentoService;
 
 	
 	  public byte[] gerarPdfOsentrada(OS_Entrada osFront,String codEmpresa) throws
@@ -541,6 +559,432 @@ public class GeneratePDfService {
 			return bytes.toByteArray();
 	}
 				
+	}
+	
+	public byte[] gerarPdfOrcamento(long numOS, String codEmpresa) throws Exception {
+		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+			
+			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+			
+			OS_Entrada os = osRepository.findByNumOs(numOS, empresa.getId());
+			if (os == null) {
+				throw new Exception("OS não encontrada");
+			}
+			
+			Orcamento orcamento = orcamentoRepository.encontrarOcamentoPorNumOS(empresa.getId(), os.getId());
+			if (orcamento == null) {
+				throw new Exception("Orçamento não encontrado para esta OS");
+			}
+			
+			List<OrcamentoItem> itens = orcamentoItemRepository.listaItens(empresa.getId(), orcamento.getId());
+			
+			TotaisNotaDTO totais = orcamentoService.calcularValorOrcamento(orcamento.getId(), codEmpresa);
+			
+			
+			Document documento = new Document();
+			PdfWriter.getInstance(documento, bytes);
+			
+			//CONFIGURAÇÕES PDF:
+			documento.setMargins(20, 20, 20, 20);
+			documento.setPageSize(PageSize.A4);
+			
+			//FONTE
+			Font marcadorHeader = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+			Font fonteNumOsFont = new Font(Font.FontFamily.HELVETICA, 16);
+			Font fonteTabela = new Font(Font.FontFamily.HELVETICA, 9);
+			Font fonteTabelaBold = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD);
+			
+			//MAIN DIV HEADER - Cabeçalho com dados da empresa
+			PdfPTable divHeader = new PdfPTable(3);
+			divHeader.setWidthPercentage(100);
+			divHeader.setSpacingAfter(2);
+			
+			PdfPCell imgDivHeaderDiv = new PdfPCell();
+			imgDivHeaderDiv.setBorder(imgDivHeaderDiv.LEFT | imgDivHeaderDiv.TOP | imgDivHeaderDiv.BOTTOM);
+			imgDivHeaderDiv.setBorderColor(BaseColor.LIGHT_GRAY);
+			
+			PdfPCell dadosEmpresa = new PdfPCell();
+			dadosEmpresa.setBorder(dadosEmpresa.BOTTOM | dadosEmpresa.TOP);
+			dadosEmpresa.setBorderColor(BaseColor.LIGHT_GRAY);
+			dadosEmpresa.setPadding(4);
+			dadosEmpresa.setHorizontalAlignment(dadosEmpresa.ALIGN_LEFT);
+			
+			PdfPCell numOSCell = new PdfPCell();
+			numOSCell.setBorderColor(BaseColor.LIGHT_GRAY);
+			numOSCell.setHorizontalAlignment(numOSCell.ALIGN_BASELINE);
+			
+			float[] columnWidths = {20f, 60f, 10f};
+			divHeader.setWidths(columnWidths);
+			
+			//IMAGEM
+			Paragraph imgText = new Paragraph("[LOGO EMPRESA]");
+			imgText.setAlignment(imgText.ALIGN_BASELINE);
+			imgDivHeaderDiv.addElement(imgText);
+			
+			//DADOS EMPRESA
+			Paragraph rzSocial = new Paragraph(empresa.getNomEmpresa());
+			rzSocial.setAlignment(rzSocial.ALIGN_RIGHT);
+			rzSocial.setFont(marcadorHeader);
+			
+			Paragraph endereco = new Paragraph(empresa.getLogra() + " , " + empresa.getNum() + " - " + empresa.getBairro() + " - " 
+					+ empresa.getMunicipio() + " - " + empresa.getUf() + " - " + "CEP: " + empresa.getCep());
+			endereco.setAlignment(endereco.ALIGN_RIGHT);
+			
+			Paragraph dadosEmp = new Paragraph("CNPJ: " + empresa.getDocEmpresa() + " | " + "Tel (" + empresa.getTel() + ")");
+			dadosEmp.setAlignment(rzSocial.ALIGN_RIGHT);
+			
+			Paragraph tituloPage = new Paragraph("Orçamento Técnico");
+			tituloPage.setFont(marcadorHeader);
+			tituloPage.setAlignment(tituloPage.ALIGN_CENTER);
+			tituloPage.setSpacingAfter(5);
+			
+			dadosEmpresa.addElement(rzSocial);
+			dadosEmpresa.addElement(endereco);
+			dadosEmpresa.addElement(dadosEmp);
+			dadosEmpresa.addElement(tituloPage);
+			
+			//OS
+			Paragraph NumOs = new Paragraph("O.S :");
+			NumOs.setAlignment(NumOs.ALIGN_CENTER);
+			NumOs.setFont(marcadorHeader);
+			Paragraph codOs = new Paragraph(String.valueOf(os.getNumOs()));
+			codOs.setFont(fonteNumOsFont);
+			codOs.setAlignment(codOs.ALIGN_CENTER);
+			codOs.setSpacingBefore(10);
+			
+			numOSCell.addElement(NumOs);
+			numOSCell.addElement(codOs);
+			
+			divHeader.addCell(imgDivHeaderDiv);
+			divHeader.addCell(dadosEmpresa);
+			divHeader.addCell(numOSCell);
+			
+			//SEGUNDA LINHA: Data de emissão
+			PdfPTable row2 = new PdfPTable(2);
+			row2.setWidthPercentage(100);
+			float[] row2float = {3f, 8f};
+			row2.setWidths(row2float);
+			
+			PdfPTable titleRow2 = new PdfPTable(2);
+			titleRow2.setWidthPercentage(100);
+			
+			PdfPCell titleDataEmiss = new PdfPCell();
+			Paragraph vTitleDataEmiss = new Paragraph("Data e hora de emissão: ");
+			vTitleDataEmiss.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+			vTitleDataEmiss.setFont(new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD));
+			titleDataEmiss.setBorder(0);
+			titleDataEmiss.addElement(vTitleDataEmiss);
+			
+			PdfPCell titleFuncionamento = new PdfPCell();
+			Paragraph vtitleFuncionamento = new Paragraph("Horário de atendimento: ");
+			vtitleFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			vtitleFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD));
+			titleFuncionamento.addElement(vtitleFuncionamento);
+			titleFuncionamento.setBorder(0);
+			titleFuncionamento.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			
+			titleRow2.addCell(titleDataEmiss);
+			titleRow2.addCell(titleFuncionamento);
+			
+			//DATA E HORA DE CRIAÇÃO
+			PdfPCell dataEhora = new PdfPCell();
+			// TODO: Recuperar data de criação do orçamento dinamicamente do banco de dados
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			Paragraph vDataHora = new Paragraph(sdf.format(new Date())); // Dado mockado - substituir pela data real do orçamento
+			vDataHora.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			dataEhora.setPadding(0);
+			dataEhora.addElement(vDataHora);
+			row2.addCell(dataEhora);
+			
+			//HORARIO DE FUNCIONAMENTO
+			PdfPCell horarioFuncionamento = new PdfPCell(new Phrase("Horario funcionamento: "));
+			horarioFuncionamento.setBorder(0);
+			// TODO: Recuperar horário de funcionamento da empresa dinamicamente
+			Paragraph vHorarioFuncionamento = new Paragraph("segunda a sexta-feira:9h às 19\nsábados, das 9h às 14h"); // Dado mockado
+			vHorarioFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			vHorarioFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD));
+			horarioFuncionamento.addElement(vHorarioFuncionamento);
+			row2.addCell(horarioFuncionamento);
+			
+			// DIVISÃO CLIENTE - Dados do cliente
+			PdfPTable clienteDiv = new PdfPTable(1);
+			clienteDiv.setWidthPercentage(100);
+			clienteDiv.setSpacingBefore(5);
+			
+			PdfPCell clienteDivCel = new PdfPCell(new Phrase("Cliente", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			clienteDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			clienteDivCel.setBorder(0);
+			clienteDivCel.setFixedHeight(20);
+			clienteDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			clienteDiv.addCell(clienteDivCel);
+			
+			//TITULO DOS CAMPOS CLIENTE
+			PdfPTable divClienteTitulo = new PdfPTable(3);
+			divClienteTitulo.setWidthPercentage(100);
+			float[] widthTitulos = {8f, 3f, 3f};
+			divClienteTitulo.setWidths(widthTitulos);
+			divClienteTitulo.setSpacingBefore(2);
+			
+			PdfPCell nomeTituloCliente = new PdfPCell(new Phrase("Nome do cliente"));
+			nomeTituloCliente.setBorder(0);
+			PdfPCell telefoneTituloCliente = new PdfPCell(new Phrase("Telefone"));
+			telefoneTituloCliente.setBorder(0);
+			PdfPCell documentoTituloCliente = new PdfPCell(new Phrase("CPF/CNPJ"));
+			documentoTituloCliente.setBorder(0);
+			
+			divClienteTitulo.addCell(nomeTituloCliente);
+			divClienteTitulo.addCell(telefoneTituloCliente);
+			divClienteTitulo.addCell(documentoTituloCliente);
+			
+			//DADOS CLIENTE
+			PdfPTable divDadosTitulo = new PdfPTable(5);
+			divDadosTitulo.setWidthPercentage(100);
+			float[] widthDados = {8f, 0.1f, 3f, 0.1f, 3f};
+			divDadosTitulo.setWidths(widthDados);
+			divDadosTitulo.setSpacingBefore(2);
+			
+			PdfPCell space1 = new PdfPCell();
+			space1.setBorder(0);
+			PdfPCell space2 = new PdfPCell();
+			space2.setBorder(0);
+			PdfPCell space3 = new PdfPCell();
+			space3.setBorder(0);
+			
+			PdfPCell nomeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getNome()));
+			nomeDadosCliente.setPadding(1);
+			nomeDadosCliente.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			PdfPCell telefoneDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCel1()));
+			telefoneDadosCliente.setPadding(1);
+			PdfPCell documentoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getDocumento()));
+			
+			divDadosTitulo.addCell(nomeDadosCliente);
+			divDadosTitulo.addCell(space1);
+			divDadosTitulo.addCell(telefoneDadosCliente);
+			divDadosTitulo.addCell(space2);
+			divDadosTitulo.addCell(documentoDadosCliente);
+			
+			//ENDEREÇO CLIENTE
+			PdfPTable divClienteEnderecoTitulo = new PdfPTable(7);
+			divClienteEnderecoTitulo.setWidthPercentage(100);
+			float[] widthTitulosEndereco = {6f, 0.1f, 3f, 0.1f, 2f, 0.1f, 3f};
+			divClienteEnderecoTitulo.setWidths(widthTitulosEndereco);
+			divClienteEnderecoTitulo.setSpacingBefore(2);
+			
+			PdfPCell EnderecoTituloCliente = new PdfPCell(new Phrase("Endereço"));
+			EnderecoTituloCliente.setBorder(0);
+			PdfPCell localidadeTituloCliente = new PdfPCell(new Phrase("Localidade"));
+			localidadeTituloCliente.setBorder(0);
+			PdfPCell cepTituloCliente = new PdfPCell(new Phrase("Cep"));
+			cepTituloCliente.setBorder(0);
+			PdfPCell obsTituloCliente = new PdfPCell(new Phrase("Observação"));
+			obsTituloCliente.setBorder(0);
+			
+			divClienteEnderecoTitulo.addCell(EnderecoTituloCliente);
+			divClienteEnderecoTitulo.addCell(space1);
+			divClienteEnderecoTitulo.addCell(localidadeTituloCliente);
+			divClienteEnderecoTitulo.addCell(space2);
+			divClienteEnderecoTitulo.addCell(cepTituloCliente);
+			divClienteEnderecoTitulo.addCell(space3);
+			divClienteEnderecoTitulo.addCell(obsTituloCliente);
+			
+			//DADOS ENDEREÇO
+			PdfPTable divDadosEndereco = new PdfPTable(7);
+			divDadosEndereco.setWidthPercentage(100);
+			float[] widthDadosEndereco = {6f, 0.1f, 3f, 0.1f, 2f, 0.1f, 3f};
+			divDadosEndereco.setWidths(widthDadosEndereco);
+			divDadosEndereco.setSpacingBefore(2);
+			
+			PdfPCell enderecoDadosCliente = new PdfPCell(new Phrase(os.getCliente().getLogradouro() + ", nº: " + os.getCliente().getNumero()));
+			PdfPCell localidadeDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCidade() + " - " + os.getCliente().getEstado()));
+			localidadeDadosCliente.setFixedHeight(2f);
+			PdfPCell cepDadosCliente = new PdfPCell(new Phrase(os.getCliente().getCep()));
+			cepDadosCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			PdfPCell obsDadosCliente = new PdfPCell(new Phrase(os.getCliente().getObs() != null ? os.getCliente().getObs() : ""));
+			
+			divDadosEndereco.addCell(enderecoDadosCliente);
+			divDadosEndereco.addCell(space1);
+			divDadosEndereco.addCell(localidadeDadosCliente);
+			divDadosEndereco.addCell(space2);
+			divDadosEndereco.addCell(cepDadosCliente);
+			divDadosEndereco.addCell(space3);
+			divDadosEndereco.addCell(obsDadosCliente);
+			
+			// DIVISÃO SERVIÇOS E PRODUTOS
+			PdfPTable servicosProdutosDiv = new PdfPTable(1);
+			servicosProdutosDiv.setWidthPercentage(100);
+			servicosProdutosDiv.setSpacingBefore(5);
+			
+			PdfPCell servicosProdutosDivCel = new PdfPCell(new Phrase("Serviços e Produtos", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			servicosProdutosDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			servicosProdutosDivCel.setBorder(0);
+			servicosProdutosDivCel.setFixedHeight(20);
+			servicosProdutosDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			servicosProdutosDiv.addCell(servicosProdutosDivCel);
+			
+			//TABELA DE ITENS
+			PdfPTable tabelaItens = new PdfPTable(6);
+			tabelaItens.setWidthPercentage(100);
+			float[] widthColunas = {3f, 4f, 2f, 2f, 2f, 2f};
+			tabelaItens.setWidths(widthColunas);
+			tabelaItens.setSpacingBefore(2);
+			
+			//Cabeçalho da tabela
+			PdfPCell cellTipo = new PdfPCell(new Phrase("Tipo", fonteTabelaBold));
+			cellTipo.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellTipo.setBorder(1);
+			cellTipo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			PdfPCell cellNome = new PdfPCell(new Phrase("Nome/Descrição", fonteTabelaBold));
+			cellNome.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellNome.setBorder(1);
+			cellNome.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			PdfPCell cellQtd = new PdfPCell(new Phrase("Qtd", fonteTabelaBold));
+			cellQtd.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellQtd.setBorder(1);
+			cellQtd.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			PdfPCell cellValorUnit = new PdfPCell(new Phrase("Valor Unit.", fonteTabelaBold));
+			cellValorUnit.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellValorUnit.setBorder(1);
+			cellValorUnit.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			PdfPCell cellDesconto = new PdfPCell(new Phrase("Desconto", fonteTabelaBold));
+			cellDesconto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellDesconto.setBorder(1);
+			cellDesconto.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			PdfPCell cellTotal = new PdfPCell(new Phrase("Total", fonteTabelaBold));
+			cellTotal.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cellTotal.setBorder(1);
+			cellTotal.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			
+			tabelaItens.addCell(cellTipo);
+			tabelaItens.addCell(cellNome);
+			tabelaItens.addCell(cellQtd);
+			tabelaItens.addCell(cellValorUnit);
+			tabelaItens.addCell(cellDesconto);
+			tabelaItens.addCell(cellTotal);
+			
+			//Adicionar itens
+			double totalGeral = 0.0;
+			for (OrcamentoItem item : itens) {
+				//Tipo
+				String tipo = item.getProdutoOuServico() == ProdutoServicoEnum.SERVICO ? "Serviço" : "Produto";
+				PdfPCell cellTipoItem = new PdfPCell(new Phrase(tipo, fonteTabela));
+				cellTipoItem.setBorder(1);
+				cellTipoItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				
+				//Nome/Descrição
+				String nomeDesc = item.getNomeServicoAvulso() != null ? item.getNomeServicoAvulso() : "";
+				if (item.getDescricaoServicoAvulso() != null && !item.getDescricaoServicoAvulso().isEmpty()) {
+					nomeDesc += "\n" + item.getDescricaoServicoAvulso();
+				}
+				PdfPCell cellNomeItem = new PdfPCell(new Phrase(nomeDesc, fonteTabela));
+				cellNomeItem.setBorder(1);
+				cellNomeItem.setPadding(3);
+				
+				//Quantidade - TODO: Recuperar quantidade dinamicamente do item
+				// Por enquanto usando 1 como padrão
+				double qtd = 1.0; // Dado mockado - substituir pela quantidade real do item
+				PdfPCell cellQtdItem = new PdfPCell(new Phrase(String.format("%.2f", qtd), fonteTabela));
+				cellQtdItem.setBorder(1);
+				cellQtdItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+				
+				//Valor Unitário
+				double valorUnit = 0.0;
+				if (item.getValorHoraAvulso() != null && item.getValorHoraAvulso() > 0) {
+					valorUnit = item.getValorHoraAvulso();
+				} else if (item.getValorUnidadeAvulso() != null && item.getValorUnidadeAvulso() > 0) {
+					valorUnit = item.getValorUnidadeAvulso();
+				}
+				PdfPCell cellValorUnitItem = new PdfPCell(new Phrase(String.format("R$ %.2f", valorUnit), fonteTabela));
+				cellValorUnitItem.setBorder(1);
+				cellValorUnitItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+				
+				//Desconto
+				double desconto = item.getDescontoServico() != null ? item.getDescontoServico() : 0.0;
+				PdfPCell cellDescontoItem = new PdfPCell(new Phrase(String.format("R$ %.2f", desconto), fonteTabela));
+				cellDescontoItem.setBorder(1);
+				cellDescontoItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+				
+				//Total
+				double totalItem = item.getValorTotal() != null ? item.getValorTotal() : (valorUnit * qtd - desconto);
+				if (totalItem < 0) totalItem = 0.0;
+				totalGeral += totalItem;
+				PdfPCell cellTotalItem = new PdfPCell(new Phrase(String.format("R$ %.2f", totalItem), fonteTabela));
+				cellTotalItem.setBorder(1);
+				cellTotalItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+				
+				tabelaItens.addCell(cellTipoItem);
+				tabelaItens.addCell(cellNomeItem);
+				tabelaItens.addCell(cellQtdItem);
+				tabelaItens.addCell(cellValorUnitItem);
+				tabelaItens.addCell(cellDescontoItem);
+				tabelaItens.addCell(cellTotalItem);
+			}
+			
+			//TOTAL GERAL
+			PdfPTable tabelaTotal = new PdfPTable(2);
+			tabelaTotal.setWidthPercentage(100);
+			tabelaTotal.setSpacingBefore(10);
+			float[] widthTotal = {8f, 2f};
+			tabelaTotal.setWidths(widthTotal);
+			
+			PdfPCell cellLabelTotal = new PdfPCell(new Phrase("TOTAL GERAL:", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			cellLabelTotal.setBorder(1);
+			cellLabelTotal.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			cellLabelTotal.setPadding(5);
+			
+			PdfPCell cellValorTotal = new PdfPCell(new Phrase(String.format("R$ %.2f", totais.valorTotalNota), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			cellValorTotal.setBorder(1);
+			cellValorTotal.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			cellValorTotal.setPadding(5);
+			cellValorTotal.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			
+			tabelaTotal.addCell(cellLabelTotal);
+			tabelaTotal.addCell(cellValorTotal);
+			
+			//ASSINATURAS
+			PdfPTable assinaturas = new PdfPTable(3);
+			assinaturas.setWidthPercentage(100);
+			float[] assinaturasWidth = {7f, 1f, 7f};
+			assinaturas.setWidths(assinaturasWidth);
+			assinaturas.setSpacingBefore(50);
+			
+			PdfPCell assinaturaEmpresa = new PdfPCell(new Phrase(empresa.getNomEmpresa()));
+			assinaturaEmpresa.setBorder(1);
+			assinaturaEmpresa.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			assinaturaEmpresa.setFixedHeight(60);
+			
+			PdfPCell assinaturaCliente = new PdfPCell(new Phrase(os.getCliente().getNome()));
+			assinaturaCliente.setBorder(1);
+			assinaturaCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			assinaturaCliente.setFixedHeight(60);
+			
+			assinaturas.addCell(assinaturaEmpresa);
+			assinaturas.addCell(space1);
+			assinaturas.addCell(assinaturaCliente);
+			
+			documento.open();
+			
+			documento.add(divHeader);
+			documento.add(titleRow2);
+			documento.add(row2);
+			documento.add(clienteDiv);
+			documento.add(divClienteTitulo);
+			documento.add(divDadosTitulo);
+			documento.add(divClienteEnderecoTitulo);
+			documento.add(divDadosEndereco);
+			documento.add(servicosProdutosDiv);
+			documento.add(tabelaItens);
+			documento.add(tabelaTotal);
+			documento.add(assinaturas);
+			
+			documento.close();
+			
+			return bytes.toByteArray();
+		}
 	}
 	
 	
