@@ -67,6 +67,8 @@ import { DiscountDialogComponent } from './components/discount-dialog/discount-d
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ProdutoCreateAvulsoComponent } from './components/produtos/produto-create-avulso/produto-create-avulso.component';
 import { KitCreateComponent } from './components/kits/kit-create/kit-create.component';
+import { OsRapidaListComponent } from './components/os-rapida/os-rapida-list.component';
+import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create.component';
 
 
 @NgModule({
@@ -109,7 +111,9 @@ import { KitCreateComponent } from './components/kits/kit-create/kit-create.comp
     DiscountDialogComponent,
     ConfirmDialogComponent,
     ProdutoCreateAvulsoComponent,
-    KitCreateComponent
+    KitCreateComponent,
+    OsRapidaListComponent,
+    OsRapidaCreateComponent
     
   
   ],

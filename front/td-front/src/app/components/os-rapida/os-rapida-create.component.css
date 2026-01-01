@@ -1,0 +1,85 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.titPage {
+  margin-bottom: 20px;
+}
+
+.titPage h1 {
+  color: #3f51b5;
+  margin: 0;
+}
+
+.form-card {
+  padding: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.submit-btn {
+  min-width: 160px;
+}
+
+.cancel-btn {
+  min-width: 120px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .submit-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+/* Estilos para Material Form Fields */
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-card {
+  margin-bottom: 20px;
+}
+
+.mat-mdc-textarea {
+  min-height: 80px;
+}
+
+/* Ícones nos campos */
+.mat-icon {
+  color: #666;
+}

@@ -1,0 +1,102 @@
+
+table{
+    width: 100%;
+}
+
+.container {
+  padding: 20px;
+}
+
+.titPage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#osH1 {
+  margin: 0;
+  color: #3f51b5;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-novo {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-em_andamento {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-concluido {
+  background-color: #e8f5e8;
+  color: #388e3c;
+}
+
+.status-cancelada {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.actionsButtons {
+  text-align: right;
+}
+
+.action-icons-container {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.action-icon {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.action-icon:hover {
+  background-color: #f5f5f5;
+}
+
+.icon-view {
+  color: #2196f3;
+}
+
+.icon-edit {
+  color: #ff9800;
+}
+
+.icon-manage {
+  color: #4caf50;
+}
+
+.icon-print {
+  color: #9c27b0;
+}
+
+.icon-cancel {
+  color: #f44336;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.mat-mdc-paginator {
+  margin-top: 16px;
+}
+
