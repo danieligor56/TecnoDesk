@@ -1,265 +1,437 @@
-<body style="margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;">
-  <div class="container">
+<div class="registration-wrapper">
+  <div class="registration-container">
+    <div class="header-section">
+      <h1 class="page-title">
+        <mat-icon class="title-icon">rocket_launch</mat-icon>
+        Primeiros Passos
+      </h1>
+      <p class="page-subtitle">Complete seu cadastro em poucos passos</p>
+    </div>
 
-      <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-        <h1 id="osH1">Primeiros passos !</h1>       
-      </div>
-
-    <mat-stepper #stepper class="mat-elevation-z4">
+    <mat-stepper #stepper class="custom-stepper" [linear]="true">
+      <!-- PASSO 1: Cadastrar Assistência -->
       <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Cadastrar assistência</ng-template>
-
-          <div style="margin-top: 1rem;margin-bottom: .2rem;">
-            <section class="example-section">
-              <mat-checkbox (click)="checkedCpf()" [(ngModel)]="isCpf" [ngModelOptions]="{standalone: true}" class="example-margin">Utilizar CPF</mat-checkbox>
-              <mat-checkbox (click)="checkedCnpj()" [(ngModel)]="isCnpj" [ngModelOptions]="{standalone: true}" class="example-margin">CNPJ</mat-checkbox>
-            </section>
+        <ng-template matStepLabel>
+          <div class="step-label">
+            <mat-icon>business</mat-icon>
+            <span>Dados da Empresa</span>
+          </div>
+        </ng-template>
+        
+        <form [formGroup]="firstFormGroup" class="form-content">
+          <div class="document-type-section">
+            <p class="section-hint">Selecione o tipo de documento:</p>
+            <div class="checkbox-group">
+              <mat-checkbox 
+                (click)="checkedCpf()" 
+                [(ngModel)]="isCpf" 
+                [ngModelOptions]="{standalone: true}" 
+                class="custom-checkbox">
+                <mat-icon class="checkbox-icon">badge</mat-icon>
+                Utilizar CPF
+              </mat-checkbox>
+              <mat-checkbox 
+                (click)="checkedCnpj()" 
+                [(ngModel)]="isCnpj" 
+                [ngModelOptions]="{standalone: true}" 
+                class="custom-checkbox">
+                <mat-icon class="checkbox-icon">corporate_fare</mat-icon>
+                CNPJ
+              </mat-checkbox>
+            </div>
           </div>
 
-          <mat-form-field class="fullWidth" appearance="fill">
-            <mat-label>Documento empresa</mat-label>
-            <input
-            *ngIf="isCpf"
-             (blur)="validarEmpresaExistenteDoc()"
-            formControlName="docEmpresa"
-            required 
-            mask="000.000.000-00"
-            matInput placeholder="Insira o CPF">
-
-            <input
-            (blur)="validarEmpresaExistenteDoc()"
-            *ngIf="isCnpj"
-            required 
-            mask="00.000.000/0000-00"
-            formControlName="docEmpresa"
-            matInput placeholder="CNPJ da empresa">
-            <mat-icon matSuffix>badge</mat-icon>
-            <mat-error>
-                       <b>Por favor, informar o CNPJ da empresa</b>
-                  </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field class="fullWidth" *ngIf="isCnpj" appearance="fill">
-            <mat-label>Razão social</mat-label>
-            <input
-            formControlName="razaoSocial"
-            required 
-            matInput placeholder="Razão social da empresa">
-            <mat-icon matSuffix>person</mat-icon>
-                  <mat-error>
-                       <b>É necessário informar a razão social</b>
-                  </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="fullWidth" appearance="fill">
-            <mat-label>Nome fantasia</mat-label>
-            <input
-            formControlName="nomEmpresa"
-            required 
-            matInput placeholder="Insira o nome da sua assistência">
-            <mat-icon matSuffix>person</mat-icon>
-                  <mat-error>
-                       <b>Por favor, informar o nome fantasia</b>
-                  </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field class="halfWidth" appearance="fill" style="margin-right: 1rem;">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="mail"
-                  required>
-                  <mat-icon matSuffix>mail</mat-icon>
-                   <mat-error>
-                       <b>É necessário informar o email</b>
-                  </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="halfWidth" appearance="fill">
-            <mat-label>Confirmar Email</mat-label>
-            <input matInput formControlName="confirmEmail"
-                  required>
-                  <mat-icon matSuffix>alternate_email</mat-icon>
-                    <mat-error *ngIf="firstFormGroup.get('confirmEmail').hasError('matching') && firstFormGroup.get('confirmEmail').touched">
-                       <b>Email não coincide</b>
-                  </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field  class="halfWidth" appearance="fill" style="margin-right: 1rem;">
-            <mat-label>Contato principal (Celular)</mat-label>
-            <input  mask="(00) 00000-0000" matInput 
-            formControlName="cel" placeholder="(00) 00000-0000"
-                  required>
-                  <mat-icon matSuffix>call</mat-icon>
-                   <mat-error>
-                       <b>É necessário informar um número para o contato</b>
-                  </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="halfWidth" appearance="fill">
-            <mat-label>Contato secundario (Telefone)</mat-label>
-            <input mask="(00) 0000-0000" matInput 
-            formControlName="tel" placeholder="Se houver, informe o contato secundário"
-                  >
-                  <mat-icon matSuffix>call</mat-icon>
-          </mat-form-field>
-
-          <mat-form-field class="fullWidth" appearance="fill">
-            <mat-label>Site</mat-label>
-            <input matInput formControlName="site" placeholder="www.seusite.com.br">
-                  <mat-icon matSuffix>public</mat-icon>
-          </mat-form-field>
-
-          <div>
-            <button routerLink="/login" mat-button style="background-color: #707070; color: #ffffff; margin-right: 0.5rem;float:  right;">Voltar para o login</button>
-            <button [disabled]="!validarPrimeiroPasso()" mat-flat-button color="primary" matStepperNext >Próximo</button>
+          <div class="form-grid">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Documento da Empresa</mat-label>
+              <input
+                *ngIf="isCpf"
+                (blur)="validarEmpresaExistenteDoc()"
+                formControlName="docEmpresa"
+                required 
+                mask="000.000.000-00"
+                matInput 
+                placeholder="000.000.000-00">
+              <input
+                *ngIf="isCnpj"
+                (blur)="validarEmpresaExistenteDoc()"
+                required 
+                mask="00.000.000/0000-00"
+                formControlName="docEmpresa"
+                matInput 
+                placeholder="00.000.000/0000-00">
+              <mat-icon matPrefix>badge</mat-icon>
+              <mat-error>
+                <b>Por favor, informe o documento da empresa</b>
+              </mat-error>
+            </mat-form-field>
             
+            <mat-form-field appearance="outline" class="full-width" *ngIf="isCnpj">
+              <mat-label>Razão Social</mat-label>
+              <input
+                formControlName="razaoSocial"
+                required 
+                matInput 
+                placeholder="Razão social da empresa">
+              <mat-icon matPrefix>corporate_fare</mat-icon>
+              <mat-error>
+                <b>É necessário informar a razão social</b>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nome Fantasia</mat-label>
+              <input
+                formControlName="nomEmpresa"
+                required 
+                matInput 
+                placeholder="Nome da sua assistência">
+              <mat-icon matPrefix>store</mat-icon>
+              <mat-error>
+                <b>Por favor, informe o nome fantasia</b>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Email</mat-label>
+              <input 
+                matInput 
+                formControlName="mail"
+                type="email"
+                required
+                placeholder="empresa@exemplo.com">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error>
+                <b>É necessário informar um email válido</b>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Confirmar Email</mat-label>
+              <input 
+                matInput 
+                formControlName="confirmEmail"
+                type="email"
+                required
+                placeholder="Confirme o email">
+              <mat-icon matPrefix>mark_email_read</mat-icon>
+              <mat-error *ngIf="firstFormGroup.get('confirmEmail').hasError('matching') && firstFormGroup.get('confirmEmail').touched">
+                <b>Os emails não coincidem</b>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Celular</mat-label>
+              <input 
+                mask="(00) 00000-0000" 
+                matInput 
+                formControlName="cel" 
+                placeholder="(00) 00000-0000"
+                required>
+              <mat-icon matPrefix>phone_android</mat-icon>
+              <mat-error>
+                <b>É necessário informar um número de celular</b>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Telefone (Opcional)</mat-label>
+              <input 
+                mask="(00) 0000-0000" 
+                matInput 
+                formControlName="tel" 
+                placeholder="(00) 0000-0000">
+              <mat-icon matPrefix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Site (Opcional)</mat-label>
+              <input 
+                matInput 
+                formControlName="site" 
+                placeholder="www.seusite.com.br">
+              <mat-icon matPrefix>language</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              routerLink="/login" 
+              mat-stroked-button 
+              class="btn-secondary">
+              <mat-icon>arrow_back</mat-icon>
+              Voltar para Login
+            </button>
+            <button 
+              [disabled]="!validarPrimeiroPasso()" 
+              mat-raised-button 
+              color="primary" 
+              matStepperNext
+              class="btn-primary">
+              Próximo
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
           </div>
         </form>
-        </mat-step>
+      </mat-step>
       
+      <!-- PASSO 2: Endereço -->
       <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Endereço empresa</ng-template>
-          
-          <div style="color:#707070">
-              <p><b>Primeiro, insira o Cep</b></p>
+        <ng-template matStepLabel>
+          <div class="step-label">
+            <mat-icon>location_on</mat-icon>
+            <span>Endereço</span>
           </div>
+        </ng-template>
+        
+        <form [formGroup]="secondFormGroup" class="form-content">
+          <div class="cep-hint">
+            <mat-icon>info</mat-icon>
+            <p>Primeiro, insira o CEP para preencher automaticamente os demais campos</p>
+          </div>
+          
+          <div class="form-grid">
+            <mat-form-field appearance="outline" class="cep-field">
+              <mat-label>CEP</mat-label>
+              <input
+                (blur)="autoCep(secondFormGroup.get('cep').value)"          
+                formControlName="cep"
+                matInput 
+                placeholder="00000-000" 
+                mask="00.000-000" 
+                name="cep"
+                required>
+              <mat-icon matPrefix>pin_drop</mat-icon>
+              <mat-error>
+                <b>CEP é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
             
-          <mat-form-field  class="tinyWidth" appearance="fill">
-          <mat-label>Cep</mat-label>
-          <input
-          (blur)="autoCep(secondFormGroup.get('cep').value)"          
-          formControlName="cep"
-          matInput placeholder="00.000-000" mask="00.000-000" name="cep">
-        </mat-form-field>
-        <br>
-        <mat-form-field class="tinyWidth" appearance="fill" style="margin-right: .3rem;">
-          <mat-label>Estado</mat-label>
-          <input
-          formControlName="uf"
-          matInput placeholder="">
-        </mat-form-field>
-        
-        <mat-form-field class="tinyWidth" appearance="fill">
-          <mat-label>Cidade</mat-label>
-          <input
-          formControlName="municipio"
-          matInput placeholder="">
-        </mat-form-field>
-        <br>
-         <mat-form-field class="halfWidth" appearance="fill" style="margin-right: .3rem;">
-          <mat-label>logradouro</mat-label>
-          <input
-          formControlName="logra"
-          matInput placeholder="">
-        </mat-form-field>
-        
+            <mat-form-field appearance="outline" class="small-field">
+              <mat-label>Estado (UF)</mat-label>
+              <input
+                formControlName="uf"
+                matInput 
+                placeholder="UF"
+                required>
+              <mat-icon matPrefix>map</mat-icon>
+              <mat-error>
+                <b>Estado é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="medium-field">
+              <mat-label>Cidade</mat-label>
+              <input
+                formControlName="municipio"
+                matInput 
+                placeholder="Cidade"
+                required>
+              <mat-icon matPrefix>location_city</mat-icon>
+              <mat-error>
+                <b>Cidade é obrigatória</b>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="large-field">
+              <mat-label>Logradouro</mat-label>
+              <input
+                formControlName="logra"
+                matInput 
+                placeholder="Rua, Avenida, etc."
+                required>
+              <mat-icon matPrefix>signpost</mat-icon>
+              <mat-error>
+                <b>Logradouro é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="tinyWidth" appearance="fill" style="margin-right: .3rem;">
-          <mat-label>numero</mat-label>
-          <input
-          type="nu"
-          formControlName="num"
-          matInput placeholder="">
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="small-field">
+              <mat-label>Número</mat-label>
+              <input
+                type="number"
+                formControlName="num"
+                matInput 
+                placeholder="Nº"
+                required>
+              <mat-icon matPrefix>pin</mat-icon>
+              <mat-error>
+                <b>Número é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="tinyWidth" appearance="fill">
-          <mat-label>Bairro:</mat-label>
-          <input
-          formControlName="bairro"
-          matInput placeholder="">
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="medium-field">
+              <mat-label>Bairro</mat-label>
+              <input
+                formControlName="bairro"
+                matInput 
+                placeholder="Bairro"
+                required>
+              <mat-icon matPrefix>home</mat-icon>
+              <mat-error>
+                <b>Bairro é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="halfWidth" appearance="fill">
-          <mat-label>OBS:</mat-label>
-          <input 
-          fornControlName="comp"
-          matInput placeholder="">
-        </mat-form-field>
-
-       
-          
-        <div>
-            <!-- <button routerLink="/login" class="mat-elevation-z4"  mat-button style="background-color: #707070; color: #ffffff;float: right;">Ir para o login</button> -->
-            <button [disabled]="!validarSegundoPasso()" class="mat-elevation-z4" mat-flat-button color="primary" matStepperNext style="margin-right: 0.5rem;">Próximo</button>
-            <button mat-button matStepperPrevious style="background-color: #707070; color: #ffffff; ">Voltar</button>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Complemento (Opcional)</mat-label>
+              <input 
+                formControlName="comp"
+                matInput 
+                placeholder="Apartamento, sala, etc.">
+              <mat-icon matPrefix>description</mat-icon>
+            </mat-form-field>
           </div>
-        
+          
+          <div class="form-actions">
+            <button 
+              mat-stroked-button 
+              matStepperPrevious
+              class="btn-secondary">
+              <mat-icon>arrow_back</mat-icon>
+              Voltar
+            </button>
+            <button 
+              [disabled]="!validarSegundoPasso()" 
+              mat-raised-button 
+              color="primary" 
+              matStepperNext
+              class="btn-primary">
+              Próximo
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
         </form>
-        </mat-step>
+      </mat-step>
       
+      <!-- PASSO 3: Informações Pessoais -->
       <mat-step [stepControl]="thirdFormGroup">
-        <form [formGroup]="thirdFormGroup">
-          <ng-template matStepLabel>Informações pessoais</ng-template>
-          <mat-form-field class="fullWidth" appearance="fill">
-            <mat-label>Nome completo</mat-label>
-            <input
-            formControlName="nomeCompleto"
-            required 
-            matInput placeholder="Exp: João">
-            <mat-icon matSuffix>person</mat-icon>
-          </mat-form-field>
+        <ng-template matStepLabel>
+          <div class="step-label">
+            <mat-icon>person</mat-icon>
+            <span>Dados Pessoais</span>
+          </div>
+        </ng-template>
+        
+        <form [formGroup]="thirdFormGroup" class="form-content">
+          <div class="form-grid">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nome Completo</mat-label>
+              <input
+                formControlName="nomeCompleto"
+                required 
+                matInput 
+                placeholder="Ex: João Silva">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-error>
+                <b>Nome completo é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field class="halfWidth" appearance="fill" style="margin-right: 1rem;">
-            <mat-label>Email</mat-label>
-            <input 
-            formControlName="mail"
-            required
-            matInput placeholder="joao@exemplo.com">
-            <mat-icon matSuffix>mail</mat-icon>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Email</mat-label>
+              <input 
+                formControlName="mail"
+                type="email"
+                required
+                matInput 
+                placeholder="joao@exemplo.com">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error>
+                <b>Email é obrigatório</b>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field class="halfWidth" appearance="fill">
-            <mat-label>Confirmar Email</mat-label>
-            <input matInput formControlName="confirmEmail" required>
-                  <mat-icon matSuffix>alternate_email</mat-icon>
-                    <mat-error *ngIf="thirdFormGroup.get('confirmEmail').hasError('matching') && thirdFormGroup.get('confirmEmail').touched">
-                       <b>Email não coincide</b>
-                    </mat-error>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Confirmar Email</mat-label>
+              <input 
+                matInput 
+                formControlName="confirmEmail" 
+                type="email"
+                required
+                placeholder="Confirme o email">
+              <mat-icon matPrefix>mark_email_read</mat-icon>
+              <mat-error *ngIf="thirdFormGroup.get('confirmEmail').hasError('matching') && thirdFormGroup.get('confirmEmail').touched">
+                <b>Os emails não coincidem</b>
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field  class="fullWidth" id="senha" name="senha" appearance="fill">
-        <mat-label>Senha</mat-label>
-        <input 
-        formControlName="pass"
-        required
-        type="password"
-        matInput placeholder="Insira sua senha"  >
-        <mat-icon matSuffix>password</mat-icon>
-      </mat-form-field>
-      
-      <mat-form-field  id="confirmasenha" name="confirmaSenha"class="fullWidth"  appearance="fill">
-        <mat-label>Confirme sua senha</mat-label>
-         <input
-          fornControlName="passConfirm"
-          required
-          matInput
-          type="password"
-          placeholder="Insira a senha novamente">
-         <mat-icon matSuffix>password</mat-icon>
-         <mat-error >
-          Confirmação de senha é obrigatória e deve coincidir com a senha.
-        </mat-error>
-      </mat-form-field>
-      <!-- *ngIf="colaboradorCreateForm.get('confirmaSenha').invalid && colaboradorCreateForm.get('confirmaSenha').touched" -->
-
-          <div>
-            <button routerLink="/login" class="mat-elevation-z4"  mat-button style="background-color: #707070; color: #ffffff;float: right;">Voltar para o login</button>
-            <button  class="mat-elevation-z4" mat-button matStepperNext style="background-color: #1F66FE; color: #ffffff;">Próximo</button>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Senha</mat-label>
+              <input 
+                formControlName="pass"
+                required
+                type="password"
+                matInput 
+                placeholder="Mínimo 6 caracteres">
+              <mat-icon matPrefix>lock</mat-icon>
+              <mat-error>
+                <b>Senha é obrigatória</b>
+              </mat-error>
+            </mat-form-field>
             
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Confirmar Senha</mat-label>
+              <input
+                formControlName="passConfirm"
+                required
+                matInput
+                type="password"
+                placeholder="Confirme sua senha">
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <mat-error>
+                <b>Confirmação de senha é obrigatória</b>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              routerLink="/login" 
+              mat-stroked-button
+              class="btn-secondary">
+              <mat-icon>arrow_back</mat-icon>
+              Voltar para Login
+            </button>
+            <button 
+              mat-raised-button 
+              color="primary" 
+              matStepperNext
+              class="btn-primary">
+              Próximo
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
           </div>
         </form>
-        </mat-step>
+      </mat-step>
       
+      <!-- PASSO 4: Concluído -->
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <ng-template matStepLabel>
+          <div class="step-label">
+            <mat-icon>check_circle</mat-icon>
+            <span>Concluído</span>
+          </div>
+        </ng-template>
+        
+        <div class="completion-content">
+          <div class="success-icon">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <h2>Cadastro Concluído!</h2>
+          <p>Seu cadastro foi realizado com sucesso. Você pode fazer login agora.</p>
+          <div class="form-actions">
+            <button 
+              routerLink="/login" 
+              mat-raised-button 
+              color="primary"
+              class="btn-primary">
+              <mat-icon>login</mat-icon>
+              Ir para Login
+            </button>
+          </div>
         </div>
-        </mat-step>
+      </mat-step>
     </mat-stepper>
-
   </div>
-</body>
+</div>
