@@ -83,17 +83,19 @@ public class ColaboradorController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PutMapping("desativarColab/{id}")
-	public ResponseEntity<Colaborador> desativaColaborador(@RequestParam long id) {
-		colaboradorService.desativaColaborador(id);
-		return ResponseEntity.noContent().build();
-	}
+	/*
+	 * @PutMapping("desativarColab/{id}") public ResponseEntity<Colaborador>
+	 * desativaColaborador(@RequestParam long id) {
+	 * colaboradorService.desativaColaborador(id); return
+	 * ResponseEntity.noContent().build(); }
+	 */
 	
-	@PutMapping("ativarColab/{id}")
-	public ResponseEntity<Colaborador> ativaColaborador(@RequestParam long id) {
-		colaboradorService.ativaColaborador(id);
-		return ResponseEntity.noContent().build();
-	}
+	/*
+	 * @PutMapping("ativarColab/{id}") public ResponseEntity<Colaborador>
+	 * ativaColaborador(@RequestParam long id) {
+	 * colaboradorService.ativaColaborador(id); return
+	 * ResponseEntity.noContent().build(); }
+	 */
 	
 	@GetMapping("buscarPorEmpresa/{id}")
 	public List<Colaborador> encontrarColaboradores(long id){
