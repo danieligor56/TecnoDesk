@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Detalhes da OS Rápida</h2>
+<mat-dialog-content>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>ID:</strong> {{ data.osRapida.id }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Cliente:</strong> {{ data.osRapida.clienteNome }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Telefone:</strong> {{ data.osRapida.clienteTelefone || 'Não informado' }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Equipamento/Serviço:</strong> {{ data.osRapida.equipamentoServico }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Problema Relatado:</strong> {{ data.osRapida.problemaRelatado }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Status:</strong>
+      <span class="status-badge" [ngClass]="'status-' + (data.osRapida.status || 'NOVO').toLowerCase()">
+        {{ getStatusLabel(data.osRapida.status) }}
+      </span>
+    </div>
+
+    <div class="detail-item">
+      <strong>Valor Estimado:</strong> {{ data.osRapida.valorEstimado ? 'R$ ' + data.osRapida.valorEstimado : 'Não informado' }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Prazo Combinado:</strong> {{ data.osRapida.prazoCombinado || 'Não informado' }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Observações:</strong> {{ data.osRapida.observacoes || 'Nenhuma' }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Técnico Responsável:</strong> {{ data.osRapida.tecnicoResponsavel || 'Não informado' }}
+    </div>
+
+    <div class="detail-item">
+      <strong>Data Abertura:</strong> {{ data.osRapida.dataAbertura }}
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">Fechar</button>
+</mat-dialog-actions>

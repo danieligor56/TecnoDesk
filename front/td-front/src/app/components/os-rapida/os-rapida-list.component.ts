@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { OsRapida } from 'src/app/models/OsRapida';
 import { OsRapidaService } from 'src/app/services/os-rapida.service';
+import { OsRapidaDetailDialogComponent } from './os-rapida-detail-dialog.component';
 
 @Component({
   selector: 'app-os-rapida-list',
   templateUrl: './os-rapida-list.component.html',
   styleUrls: ['./os-rapida-list.component.css']
 })
-export class OsRapidaListComponent implements OnInit {
+export class OsRapidaListComponent implements OnInit, AfterViewInit {
   ELEMENT_DATA: OsRapida[] = [];
   dataSource = new MatTableDataSource<OsRapida>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['clienteNome', 'equipamentoServico', 'problemaRelatado', 'status', 'dataAbertura', 'acoes'];
@@ -20,7 +22,8 @@ export class OsRapidaListComponent implements OnInit {
 
   constructor(
     private osRapidaService: OsRapidaService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -78,6 +81,19 @@ export class OsRapidaListComponent implements OnInit {
     if (!status) return 'status-badge status-novo';
     const statusUpper = status.toUpperCase().trim();
     return `status-badge status-${statusUpper}`;
+  }
+
+  visualizarDetalhes(osRapida: OsRapida): void {
+    this.dialog.open(OsRapidaDetailDialogComponent, {
+      width: '600px',
+      data: { osRapida: osRapida }
+    });
+  }
+
+  editarOsRapida(osRapida: OsRapida): void {
+    // Por enquanto, redirecionar para a página de criação
+    // Em uma implementação futura, poderia passar o ID para edição
+    alert('Funcionalidade de edição será implementada em breve.\n\nPara editar, crie uma nova OS com os dados atualizados.');
   }
 
 }

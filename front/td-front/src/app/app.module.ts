@@ -69,6 +69,7 @@ import { ProdutoCreateAvulsoComponent } from './components/produtos/produto-crea
 import { KitCreateComponent } from './components/kits/kit-create/kit-create.component';
 import { OsRapidaListComponent } from './components/os-rapida/os-rapida-list.component';
 import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create.component';
+import { OsRapidaDetailDialogComponent } from './components/os-rapida/os-rapida-detail-dialog.component';
 
 
 @NgModule({
@@ -113,7 +114,8 @@ import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create
     ProdutoCreateAvulsoComponent,
     KitCreateComponent,
     OsRapidaListComponent,
-    OsRapidaCreateComponent
+    OsRapidaCreateComponent,
+    OsRapidaDetailDialogComponent
     
   
   ],
