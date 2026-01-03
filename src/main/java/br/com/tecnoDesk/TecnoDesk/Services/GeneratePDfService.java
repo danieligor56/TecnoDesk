@@ -26,11 +26,13 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
 import br.com.tecnoDesk.TecnoDesk.Entities.OrcamentoItem;
+import br.com.tecnoDesk.TecnoDesk.Entities.OsRapida;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Aparelhos;
 import br.com.tecnoDesk.TecnoDesk.Enuns.ProdutoServicoEnum;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OsRapidaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import java.util.List;
@@ -63,6 +65,9 @@ public class GeneratePDfService {
 	
 	@Autowired
 	OrcamentoService orcamentoService;
+
+	@Autowired
+	OsRapidaRepository osRapidaRepository;
 
 	
 	  public byte[] gerarPdfOsentrada(OS_Entrada osFront,String codEmpresa) throws
@@ -986,6 +991,364 @@ public class GeneratePDfService {
 			return bytes.toByteArray();
 		}
 	}
-	
-	
+
+	public byte[] gerarPdfOsRapida(OsRapida osRapida, String codEmpresa) throws Exception {
+		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+
+			Empresa empresa = empresaRepository.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+
+			Document documento = new Document();
+			PdfWriter.getInstance(documento, bytes);
+
+			//CONFIGURAÇÕES PDF:
+			documento.setMargins(20, 20, 20, 20);
+			documento.setPageSize(PageSize.A4);
+
+			//FONTE
+			Font marcadorHeader = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+			Font fonteNumOsFont = new Font(Font.FontFamily.HELVETICA, 16);
+
+			//MAIN DIV HEADER.
+			PdfPTable divHeader = new PdfPTable(3);
+			divHeader.setWidthPercentage(100);
+			divHeader.setSpacingAfter(2);
+
+			PdfPCell imgDivHeaderDiv = new PdfPCell();
+			imgDivHeaderDiv.setBorder(imgDivHeaderDiv.LEFT | imgDivHeaderDiv.TOP | imgDivHeaderDiv.BOTTOM);
+			imgDivHeaderDiv.setBorderColor(BaseColor.LIGHT_GRAY);
+
+			PdfPCell dadosEmpresa = new PdfPCell();
+			dadosEmpresa.setBorder(dadosEmpresa.BOTTOM | dadosEmpresa.TOP);
+			dadosEmpresa.setBorderColor(BaseColor.LIGHT_GRAY);
+			dadosEmpresa.setPadding(4);
+			dadosEmpresa.setHorizontalAlignment(dadosEmpresa.ALIGN_LEFT);
+
+			PdfPCell numOSCell = new PdfPCell();
+			numOSCell.setBorderColor(BaseColor.LIGHT_GRAY);
+			numOSCell.setHorizontalAlignment(numOSCell.ALIGN_BASELINE);
+
+			float[] columnWidths = {20f, 60f, 10f};
+			divHeader.setWidths(columnWidths);
+
+			//IMAGEM
+			Paragraph imgText = new Paragraph("[LOGO EMPRESA]");
+			imgText.setAlignment(imgText.ALIGN_BASELINE);
+			imgDivHeaderDiv.addElement(imgText);
+
+			//DADOS EMPRESA.
+			Paragraph rzSocial = new Paragraph(empresa.getNomEmpresa());
+			rzSocial.setAlignment(rzSocial.ALIGN_RIGHT);
+			rzSocial.setFont(marcadorHeader);
+
+			Paragraph endereco = new Paragraph(empresa.getLogra() + " , " + empresa.getNum() + " - " + empresa.getBairro() + " - "
+					+ empresa.getMunicipio() + " - " + empresa.getUf() + " - " + "CEP: " + empresa.getCep());
+			endereco.setAlignment(endereco.ALIGN_RIGHT);
+
+			Paragraph dadosEmp = new Paragraph("CNPJ: " + empresa.getDocEmpresa() + " | " + "Tel (" + empresa.getTel() + ")");
+			dadosEmp.setAlignment(rzSocial.ALIGN_RIGHT);
+
+			Paragraph tituloPage = new Paragraph("OS Rápida");
+			tituloPage.setFont(marcadorHeader);
+			tituloPage.setAlignment(tituloPage.ALIGN_CENTER);
+			tituloPage.setSpacingAfter(5);
+
+			dadosEmpresa.addElement(rzSocial);
+			dadosEmpresa.addElement(endereco);
+			dadosEmpresa.addElement(dadosEmp);
+			dadosEmpresa.addElement(tituloPage);
+
+			//OS RÁPIDA - ID
+			Paragraph NumOs = new Paragraph("OS Rápida:");
+			NumOs.setAlignment(NumOs.ALIGN_CENTER);
+			NumOs.setFont(marcadorHeader);
+			Paragraph codOs = new Paragraph("ID: " + osRapida.getId());
+			codOs.setFont(fonteNumOsFont);
+			codOs.setAlignment(codOs.ALIGN_CENTER);
+			codOs.setSpacingBefore(10);
+
+			numOSCell.addElement(NumOs);
+			numOSCell.addElement(codOs);
+
+			divHeader.addCell(imgDivHeaderDiv);
+			divHeader.addCell(dadosEmpresa);
+			divHeader.addCell(numOSCell);
+
+			//SEGUNDA LINHA: Data de criação
+			PdfPTable row2 = new PdfPTable(2);
+			row2.setWidthPercentage(100);
+			float[] row2float = {3f, 8f};
+			row2.setWidths(row2float);
+
+			PdfPTable titleRow2 = new PdfPTable(2);
+			titleRow2.setWidthPercentage(100);
+
+			PdfPCell titleDataEmiss = new PdfPCell();
+			Paragraph vTitleDataEmiss = new Paragraph("Data de abertura: ");
+			vTitleDataEmiss.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+			vTitleDataEmiss.setFont(new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD));
+			titleDataEmiss.setBorder(0);
+			titleDataEmiss.addElement(vTitleDataEmiss);
+
+			PdfPCell titleFuncionamento = new PdfPCell();
+			Paragraph vtitleFuncionamento = new Paragraph("Horário de atendimento: ");
+			vtitleFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			vtitleFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD));
+			titleFuncionamento.addElement(vtitleFuncionamento);
+			titleFuncionamento.setBorder(0);
+			titleFuncionamento.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+
+			titleRow2.addCell(titleDataEmiss);
+			titleRow2.addCell(titleFuncionamento);
+
+			//DATA DE ABERTURA
+			PdfPCell dataEhora = new PdfPCell();
+			Paragraph vDataHora = new Paragraph(osRapida.getDataAbertura());
+			vDataHora.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			dataEhora.setPadding(0);
+			dataEhora.addElement(vDataHora);
+			row2.addCell(dataEhora);
+
+			//HORARIO DE FUNCIONAMENTO
+			PdfPCell horarioFuncionamento = new PdfPCell(new Phrase("Horario funcionamento: "));
+			horarioFuncionamento.setBorder(0);
+			Paragraph vHorarioFuncionamento = new Paragraph("segunda a sexta-feira: 9h às 19\nsábados, das 9h às 14h");
+			vHorarioFuncionamento.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+			vHorarioFuncionamento.setFont(new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD));
+			horarioFuncionamento.addElement(vHorarioFuncionamento);
+			row2.addCell(horarioFuncionamento);
+
+			//DIVISÃO CLIENTE.
+			PdfPTable clienteDiv = new PdfPTable(1);
+			clienteDiv.setWidthPercentage(100);
+			clienteDiv.setSpacingBefore(5);
+
+			PdfPCell clienteDivCel = new PdfPCell(new Phrase("Cliente", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			clienteDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			clienteDivCel.setBorder(0);
+			clienteDivCel.setFixedHeight(20);
+			clienteDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			clienteDiv.addCell(clienteDivCel);
+
+			//TITULO DOS CAMPOS CLIENTE.
+			PdfPTable divClienteTitulo = new PdfPTable(3);
+			divClienteTitulo.setWidthPercentage(100);
+			float[] widthTitulos = {8f, 3f, 3f};
+			divClienteTitulo.setWidths(widthTitulos);
+			divClienteTitulo.setSpacingBefore(2);
+
+			PdfPCell nomeTituloCliente = new PdfPCell(new Phrase("Nome do cliente"));
+			nomeTituloCliente.setBorder(0);
+			PdfPCell telefoneTituloCliente = new PdfPCell(new Phrase("Telefone"));
+			telefoneTituloCliente.setBorder(0);
+			PdfPCell statusTituloCliente = new PdfPCell(new Phrase("Status"));
+			statusTituloCliente.setBorder(0);
+
+			divClienteTitulo.addCell(nomeTituloCliente);
+			divClienteTitulo.addCell(telefoneTituloCliente);
+			divClienteTitulo.addCell(statusTituloCliente);
+
+			//dados cliente
+			PdfPTable divDadosCliente = new PdfPTable(5);
+			divDadosCliente.setWidthPercentage(100);
+			float[] widthDadosCliente = {8f, 0.1f, 3f, 0.1f, 3f};
+			divDadosCliente.setWidths(widthDadosCliente);
+			divDadosCliente.setSpacingBefore(2);
+
+			PdfPCell space1 = new PdfPCell();
+			space1.setBorder(0);
+			PdfPCell space2 = new PdfPCell();
+			space2.setBorder(0);
+
+			PdfPCell nomeDadosCliente = new PdfPCell(new Phrase(osRapida.getClienteNome()));
+			nomeDadosCliente.setPadding(1);
+			nomeDadosCliente.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+			PdfPCell telefoneDadosCliente = new PdfPCell(new Phrase(osRapida.getClienteTelefone() != null ? osRapida.getClienteTelefone() : "Não informado"));
+			telefoneDadosCliente.setPadding(1);
+
+			PdfPCell statusDadosCliente = new PdfPCell(new Phrase(osRapida.getStatus() != null ? osRapida.getStatus().toString() : "NOVO"));
+
+			divDadosCliente.addCell(nomeDadosCliente);
+			divDadosCliente.addCell(space1);
+			divDadosCliente.addCell(telefoneDadosCliente);
+			divDadosCliente.addCell(space2);
+			divDadosCliente.addCell(statusDadosCliente);
+
+			//DIVISÃO SERVIÇO/EQUIPAMENTO
+			PdfPTable servicoDiv = new PdfPTable(1);
+			servicoDiv.setWidthPercentage(100);
+			servicoDiv.setSpacingBefore(5);
+
+			PdfPCell servicoDivCel = new PdfPCell(new Phrase("Serviço/Equipamento", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			servicoDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			servicoDivCel.setBorder(0);
+			servicoDivCel.setFixedHeight(20);
+			servicoDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			servicoDiv.addCell(servicoDivCel);
+
+			//TITULO CAMPOS SERVIÇO
+			PdfPTable divServicoTitulo = new PdfPTable(3);
+			divServicoTitulo.setWidthPercentage(100);
+			float[] widthServico = {8f, 0.1f, 8f};
+			divServicoTitulo.setWidths(widthServico);
+			divServicoTitulo.setSpacingBefore(2);
+
+			PdfPCell equipamentoTitulo = new PdfPCell(new Phrase("Equipamento/Serviço"));
+			equipamentoTitulo.setBorder(0);
+			PdfPCell problemaTitulo = new PdfPCell(new Phrase("Problema Relatado"));
+			problemaTitulo.setBorder(0);
+
+			divServicoTitulo.addCell(equipamentoTitulo);
+			divServicoTitulo.addCell(space1);
+			divServicoTitulo.addCell(problemaTitulo);
+
+			//DADOS SERVIÇO
+			PdfPTable divDadosServico = new PdfPTable(3);
+			divDadosServico.setWidthPercentage(100);
+			float[] widthDadosServico = {8f, 0.1f, 8f};
+			divDadosServico.setWidths(widthDadosServico);
+			divDadosServico.setSpacingBefore(2);
+
+			PdfPCell equipamentoDados = new PdfPCell(new Phrase(osRapida.getEquipamentoServico()));
+			equipamentoDados.setPadding(3);
+
+			PdfPCell problemaDados = new PdfPCell(new Phrase(osRapida.getProblemaRelatado()));
+			problemaDados.setPadding(3);
+
+			divDadosServico.addCell(equipamentoDados);
+			divDadosServico.addCell(space1);
+			divDadosServico.addCell(problemaDados);
+
+			//DIVISÃO VALORES E PRAZOS
+			PdfPTable valoresDiv = new PdfPTable(1);
+			valoresDiv.setWidthPercentage(100);
+			valoresDiv.setSpacingBefore(5);
+
+			PdfPCell valoresDivCel = new PdfPCell(new Phrase("Valores e Prazos", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			valoresDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			valoresDivCel.setBorder(0);
+			valoresDivCel.setFixedHeight(20);
+			valoresDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			valoresDiv.addCell(valoresDivCel);
+
+			//TITULO CAMPOS VALORES
+			PdfPTable divValoresTitulo = new PdfPTable(3);
+			divValoresTitulo.setWidthPercentage(100);
+			float[] widthValores = {4f, 0.1f, 4f};
+			divValoresTitulo.setWidths(widthValores);
+			divValoresTitulo.setSpacingBefore(2);
+
+			PdfPCell valorEstimadoTitulo = new PdfPCell(new Phrase("Valor Estimado"));
+			valorEstimadoTitulo.setBorder(0);
+			PdfPCell prazoCombinadoTitulo = new PdfPCell(new Phrase("Prazo Combinado"));
+			prazoCombinadoTitulo.setBorder(0);
+
+			divValoresTitulo.addCell(valorEstimadoTitulo);
+			divValoresTitulo.addCell(space1);
+			divValoresTitulo.addCell(prazoCombinadoTitulo);
+
+			//DADOS VALORES
+			PdfPTable divDadosValores = new PdfPTable(3);
+			divDadosValores.setWidthPercentage(100);
+			float[] widthDadosValores = {4f, 0.1f, 4f};
+			divDadosValores.setWidths(widthDadosValores);
+			divDadosValores.setSpacingBefore(2);
+
+			String valorEstimadoStr = osRapida.getValorEstimado() != null ?
+				"R$ " + String.format("%.2f", osRapida.getValorEstimado()) : "Não informado";
+			PdfPCell valorEstimadoDados = new PdfPCell(new Phrase(valorEstimadoStr));
+			valorEstimadoDados.setPadding(3);
+			valorEstimadoDados.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+			String prazoCombinadoStr = osRapida.getPrazoCombinado() != null ?
+				osRapida.getPrazoCombinado() : "Não informado";
+			PdfPCell prazoCombinadoDados = new PdfPCell(new Phrase(prazoCombinadoStr));
+			prazoCombinadoDados.setPadding(3);
+			prazoCombinadoDados.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+
+			divDadosValores.addCell(valorEstimadoDados);
+			divDadosValores.addCell(space1);
+			divDadosValores.addCell(prazoCombinadoDados);
+
+			//OBSERVAÇÕES
+			PdfPTable observacoesDiv = new PdfPTable(1);
+			observacoesDiv.setWidthPercentage(100);
+			observacoesDiv.setSpacingBefore(5);
+
+			PdfPCell observacoesDivCel = new PdfPCell(new Phrase("Observações Internas", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			observacoesDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			observacoesDivCel.setBorder(0);
+			observacoesDivCel.setFixedHeight(20);
+			observacoesDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			observacoesDiv.addCell(observacoesDivCel);
+
+			PdfPCell observacoesDados = new PdfPCell(new Phrase(osRapida.getObservacoes() != null ? osRapida.getObservacoes() : "Nenhuma observação"));
+			observacoesDados.setPadding(8);
+			observacoesDiv.addCell(observacoesDados);
+
+			//TÉCNICO RESPONSÁVEL
+			PdfPTable tecnicoDiv = new PdfPTable(1);
+			tecnicoDiv.setWidthPercentage(100);
+			tecnicoDiv.setSpacingBefore(5);
+
+			PdfPCell tecnicoDivCel = new PdfPCell(new Phrase("Técnico Responsável", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+			tecnicoDivCel.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			tecnicoDivCel.setBorder(0);
+			tecnicoDivCel.setFixedHeight(20);
+			tecnicoDivCel.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			tecnicoDiv.addCell(tecnicoDivCel);
+
+			PdfPCell tecnicoDados = new PdfPCell(new Phrase(osRapida.getTecnicoResponsavel() != null ? osRapida.getTecnicoResponsavel() : "Não informado"));
+			tecnicoDados.setPadding(5);
+			tecnicoDiv.addCell(tecnicoDados);
+
+			//ASSINATURAS
+			PdfPTable assinaturas = new PdfPTable(3);
+			assinaturas.setWidthPercentage(100);
+			float[] assinaturasWidth = {7f, 1f, 7f};
+			assinaturas.setWidths(assinaturasWidth);
+			assinaturas.setSpacingBefore(50);
+
+			PdfPCell assinaturaEmpresa = new PdfPCell(new Phrase(empresa.getNomEmpresa()));
+			assinaturaEmpresa.setBorder(1);
+			assinaturaEmpresa.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			assinaturaEmpresa.setFixedHeight(60);
+
+			PdfPCell assinaturaCliente = new PdfPCell(new Phrase(osRapida.getClienteNome()));
+			assinaturaCliente.setBorder(1);
+			assinaturaCliente.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+			assinaturaCliente.setFixedHeight(60);
+
+			assinaturas.addCell(assinaturaEmpresa);
+			assinaturas.addCell(space1);
+			assinaturas.addCell(assinaturaCliente);
+
+			documento.open();
+
+			documento.add(divHeader);
+			documento.add(titleRow2);
+			documento.add(row2);
+			documento.add(clienteDiv);
+			documento.add(divClienteTitulo);
+			documento.add(divDadosCliente);
+			documento.add(servicoDiv);
+			documento.add(divServicoTitulo);
+			documento.add(divDadosServico);
+			documento.add(valoresDiv);
+			documento.add(divValoresTitulo);
+			documento.add(divDadosValores);
+			documento.add(observacoesDiv);
+			documento.add(tecnicoDiv);
+			documento.add(assinaturas);
+
+			documento.close();
+
+			return bytes.toByteArray();
+		}
+	}
+
+	public OsRapida buscarOsRapidaPorId(long id) {
+		return osRapidaRepository.findById(id).orElse(null);
+	}
+
 }

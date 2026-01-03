@@ -40,26 +40,34 @@
         </ng-container>
         
         <ng-container matColumnDef="acoes">
-           <th mat-header-cell *matHeaderCellDef></th> 
-          <td mat-cell *matCellDef="let element"> 
-          
-            <a type="button" mat-stroked-button color="primary" [routerLink]="element.id" (click)="$event.preventDefault()" (click)="openDialog($event, element.id)">
-              <mat-icon style="margin-right: 10px;margin-left: 6px;"  id="editar">open_in_new</mat-icon>Editar
-            </a>
-           
-            <button mat-stroked-button style="margin-left: 8px;" color="warn" (click)="openDelDialog($event, element.id)">
+           <th mat-header-cell *matHeaderCellDef></th>
+          <td class="actionsButtons" mat-cell *matCellDef="let element">
+            <div class="action-icons-container">
               <mat-icon
-              id="delete"
-              >delete
+                class="action-icon icon-edit"
+                (click)="openDialog($event, element.id)"
+                matTooltip="Editar cliente"
+                matTooltipPosition="above">
+                edit
               </mat-icon>
-              Excluir registro
-            </button>
 
-            <button (click)="abrirOsComCliente(element.id)" mat-stroked-button style="margin-left: 8px;"><mat-icon>assignment_add</mat-icon>O.S</button>
+              <mat-icon
+                class="action-icon icon-delete"
+                (click)="openDelDialog($event, element.id)"
+                matTooltip="Excluir cliente"
+                matTooltipPosition="above">
+                delete
+              </mat-icon>
 
-
-              
-        </td>         
+              <mat-icon
+                class="action-icon icon-os"
+                (click)="abrirOsComCliente(element.id)"
+                matTooltip="Criar OS para cliente"
+                matTooltipPosition="above">
+                assignment_add
+              </mat-icon>
+            </div>
+        </td>
           
         </ng-container>
   

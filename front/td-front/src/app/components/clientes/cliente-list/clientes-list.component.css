@@ -54,5 +54,38 @@ th{
   .container{
     width: 95%;
     padding: 1rem;
-    
+
+  }
+
+  .actionsButtons {
+    text-align: right;
+  }
+
+  .action-icons-container {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .action-icon {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  .action-icon:hover {
+    background-color: #f5f5f5;
+  }
+
+  .icon-edit {
+    color: #ff9800;
+  }
+
+  .icon-delete {
+    color: #f44336;
+  }
+
+  .icon-os {
+    color: #2196f3;
   }

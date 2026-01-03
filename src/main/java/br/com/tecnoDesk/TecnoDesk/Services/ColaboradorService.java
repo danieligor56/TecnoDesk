@@ -32,6 +32,9 @@ public class ColaboradorService {
 	
 	@Autowired
 	DecriptService decriptService;
+	
+	@Autowired 
+	Utils utils;
 
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO, String codEmpresa) throws Exception {
 			
@@ -44,6 +47,7 @@ public class ColaboradorService {
 				colaboradorDTO.setEmpresa(empresa);
 				
 				var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
+				addNovCob.setId((long) utils.callNextId(empresa.getId(), 2));
 				
 			
 				colaboradorRespository.save(addNovCob);
@@ -73,8 +77,8 @@ public class ColaboradorService {
 	public Colaborador buscarPorID(Long id,String codEmpresa) throws Exception {
 		
 		try {
-			
-				Colaborador colab = colaboradorRespository.findItById(id);
+				Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
+				Colaborador colab = colaboradorRespository.findItById(id, empresa.getId());
 				
 							
 				if(colab.getEmpresa().getId() == decriptService.decriptCodEmp(codEmpresa)) {
@@ -98,7 +102,8 @@ public class ColaboradorService {
 		
 		try {
 			
-			Colaborador existeCob = colaboradorRespository.findItById(id);
+			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
+			Colaborador existeCob = colaboradorRespository.findItById(id, empresa.getId());
 			String chave = secUtil.decrypt(codEmpresa);
 			var colaboradorEmUso = colaboradorRespository.colaboradorEmUso(id,Long.valueOf(chave));
 			
@@ -121,11 +126,12 @@ public class ColaboradorService {
 	}
 		
 
-	public void alterColab(Long id, ColaboradorDTO colaboradorDTO,String codEmpresa) {
+	public void alterColab(long id, ColaboradorDTO colaboradorDTO,String codEmpresa) {
 		
 		try {
 			
-			Colaborador colab = colaboradorRespository.findItById(id);
+			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
+			Colaborador colab = colaboradorRespository.findItById(id, empresa.getId());
 			
 			if (colaboradorRespository.existsById(colab.getId())) {
 			
@@ -144,11 +150,12 @@ public class ColaboradorService {
 	
 	}
 
-	public void desativaColaborador(long id) {
+	public void desativaColaborador(long id, String codEmpresa) {
 		
 		try {
 			
-			Colaborador colab = colaboradorRespository.findItById(id);
+			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
+			Colaborador colab = colaboradorRespository.findItById(id, empresa.getId());
 			colab.setAtvReg(true);
 			
 		} catch (Exception e) {  
@@ -157,11 +164,12 @@ public class ColaboradorService {
 		}
 	}
 		
-	public void ativaColaborador(long id) {
+	public void ativaColaborador(long id,String codEmpresa) {
 		
 		try {
 			
-			Colaborador colab = colaboradorRespository.findItById(id);
+			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
+			Colaborador colab = colaboradorRespository.findItById(id, empresa.getId());
 			colab.setAtvReg(false);
 	
 			

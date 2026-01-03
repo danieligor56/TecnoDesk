@@ -15,6 +15,8 @@ import { ClientesDeleteComponent } from './components/clientes/clientes-delete/c
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
 import { OsListComponent } from './components/os/os-list/os-list.component';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
+import { OsRapidaListComponent } from './components/os-rapida/os-rapida-list.component';
+import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create.component';
 import { ItemServiceComponent } from './components/item-service/item-service.component';
 import { ItemServiceCreateComponent } from './components/item-service/item-service-create/item-service-create.component';
 import { ItemServiceUpdateComponent } from './components/item-service/item-service-update/item-service-update.component';
@@ -52,6 +54,9 @@ const routes: Routes = [
       {path:'os/list',component:OsListComponent},
       {path:'os/manager',component:OsManagerComponent},
       {path:'manager/:id',component:OsManagerComponent},
+      {path:'os-rapida/list',component:OsRapidaListComponent},
+      {path:'os-rapida/create',component:OsRapidaCreateComponent},
+      {path:'os-rapida/edit/:id',component:OsRapidaCreateComponent},
       {path:'clientes',component:ClientesListComponent},
       {path: 'produtos', component:ProdutosComponent},
       {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent},
