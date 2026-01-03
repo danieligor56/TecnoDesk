@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ getTitle() }}</h2>
+<mat-dialog-content>
+  <div class="dialog-content">
+    <mat-icon [ngClass]="data.action === 'close' ? 'icon-success' : 'icon-warning'">
+      {{ data.action === 'close' ? 'check_circle' : 'warning' }}
+    </mat-icon>
+    <p class="message">{{ getMessage() }}</p>
+
+    <div class="os-info" *ngIf="data.action === 'close'">
+      <strong>Cliente:</strong> {{ data.osRapida.clienteNome }}<br>
+      <strong>Serviço:</strong> {{ data.osRapida.equipamentoServico }}<br>
+      <strong>Valor Estimado:</strong> {{ data.osRapida.valorEstimado ? 'R$ ' + data.osRapida.valorEstimado : 'Não informado' }}
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Voltar</button>
+  <button mat-raised-button [color]="getConfirmButtonColor()" (click)="onConfirm()">
+    {{ getConfirmButtonText() }}
+  </button>
+</mat-dialog-actions>

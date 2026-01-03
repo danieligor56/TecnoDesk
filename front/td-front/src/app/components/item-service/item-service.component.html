@@ -33,20 +33,26 @@
 
 
           <ng-container matColumnDef="acoes">
-            <th mat-header-cell *matHeaderCellDef></th> 
-              <td mat-cell *matCellDef="let servico"> 
-                <div style="display: flex;">
-                  <div>
-                    <a typ="button" (click)="openEditDialog($event, servico.id)" mat-stroked-button color="primary" style="margin-right: .5rem;" [routerLink]="servico.id">
-                      <mat-icon id="editar">open_in_new</mat-icon>
-                          Editar
-                    </a>
-                  </div>
-                    <div>
-                      <button  mat-stroked-button color="warn" (click)="openDelDialog($event, servico.id)" id="delete"> <mat-icon>delete</mat-icon>Apagar registro</button>
-                    </div>                
-                  </div>            
-           </td>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td class="actionsButtons" mat-cell *matCellDef="let servico">
+              <div class="action-icons-container">
+                <mat-icon
+                  class="action-icon icon-edit"
+                  (click)="openEditDialog($event, servico.id)"
+                  matTooltip="Editar serviço"
+                  matTooltipPosition="above">
+                  edit
+                </mat-icon>
+
+                <mat-icon
+                  class="action-icon icon-delete"
+                  (click)="openDelDialog($event, servico.id)"
+                  matTooltip="Excluir serviço"
+                  matTooltipPosition="above">
+                  delete
+                </mat-icon>
+              </div>
+          </td>
          </ng-container>
           
       
@@ -64,6 +70,3 @@
       </div>
    
 </div>
-
-
-

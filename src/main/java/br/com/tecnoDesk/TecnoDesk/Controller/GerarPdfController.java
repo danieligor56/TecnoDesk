@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
+import br.com.tecnoDesk.TecnoDesk.Entities.OsRapida;
 import br.com.tecnoDesk.TecnoDesk.Services.GeneratePDfService;
 
 @Controller
@@ -39,14 +40,32 @@ public class GerarPdfController {
 	@PostMapping("/orcamento")
 	public ResponseEntity<byte[]> gerarPdfOrcamento(@RequestParam long numOS, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
 		byte[] pdfOrcamento = pdfService.gerarPdfOrcamento(numOS, codEmpresa);
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=orcamento.pdf");
 		headers.setContentType(org.springframework.http.MediaType.APPLICATION_PDF);
-		
+
 		return ResponseEntity.ok()
 				.headers(headers)
 				.body(pdfOrcamento);
 	}
-	
+
+	@PostMapping("/osRapida")
+	public ResponseEntity<byte[]> gerarPdfOsRapida(@RequestParam long id, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		OsRapida osRapida = pdfService.buscarOsRapidaPorId(id);
+		if (osRapida == null) {
+			throw new Exception("OS Rápida não encontrada");
+		}
+
+		byte[] pdfOsRapida = pdfService.gerarPdfOsRapida(osRapida, codEmpresa);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=os-rapida-" + id + ".pdf");
+		headers.setContentType(org.springframework.http.MediaType.APPLICATION_PDF);
+
+		return ResponseEntity.ok()
+				.headers(headers)
+				.body(pdfOsRapida);
+	}
+
 }

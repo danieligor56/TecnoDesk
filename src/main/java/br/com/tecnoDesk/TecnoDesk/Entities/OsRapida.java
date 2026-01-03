@@ -61,13 +61,23 @@ public class OsRapida {
 	    @Column(length = 500)
 	    private String observacoes;
 
-	    // Técnico responsável (usuário logado)
-	    @Column(name = "tecnico_responsavel", nullable = false, length = 100)
-	    private String tecnicoResponsavel;
+    // Técnico responsável (usuário logado)
+    @Column(name = "tecnico_responsavel", nullable = false, length = 100)
+    private String tecnicoResponsavel;
 
-	    // Datas
-	    @Column(name = "data_abertura", nullable = false)
-	    private String dataAbertura;
+    // Código da empresa (para segregação de dados)
+    @Column(name = "codigo_empresa", nullable = false)
+    private Long codigoEmpresa;
+
+    // Datas
+    @Column(name = "data_abertura", nullable = false)
+    private String dataAbertura;
+
+    @Column(name = "data_conclusao")
+    private String dataConclusao;
+
+    @Column(name = "data_cancelamento")
+    private String dataCancelamento;
 
 	  
 

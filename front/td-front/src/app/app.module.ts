@@ -70,6 +70,7 @@ import { KitCreateComponent } from './components/kits/kit-create/kit-create.comp
 import { OsRapidaListComponent } from './components/os-rapida/os-rapida-list.component';
 import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create.component';
 import { OsRapidaDetailDialogComponent } from './components/os-rapida/os-rapida-detail-dialog.component';
+import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-close-dialog.component';
 
 
 @NgModule({
@@ -115,7 +116,8 @@ import { OsRapidaDetailDialogComponent } from './components/os-rapida/os-rapida-
     KitCreateComponent,
     OsRapidaListComponent,
     OsRapidaCreateComponent,
-    OsRapidaDetailDialogComponent
+    OsRapidaDetailDialogComponent,
+    OsRapidaCloseDialogComponent
     
   
   ],

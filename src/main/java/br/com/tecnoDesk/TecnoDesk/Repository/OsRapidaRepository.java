@@ -15,8 +15,10 @@ public interface OsRapidaRepository extends JpaRepository<OsRapida, Long> {
 
     List<OsRapida> findAll();
 
-    @Query(value = "SELECT * FROM os_rapida WHERE tecnico_responsavel = :tecnico",
+    @Query(value = "SELECT * FROM os_rapida WHERE tecnico_responsavel = :tecnico AND codigo_empresa = :codEmp AND status = 'NOVO' ",
            nativeQuery = true)
-    List<OsRapida> findByTecnicoResponsavel(String tecnico);
+    List<OsRapida> findByTecnicoResponsavel(String tecnico, long codEmp);
+
+    List<OsRapida> findByCodigoEmpresa(long codEmp);
 
 }

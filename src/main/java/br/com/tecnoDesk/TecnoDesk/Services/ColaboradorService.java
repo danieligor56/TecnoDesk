@@ -32,6 +32,9 @@ public class ColaboradorService {
 	
 	@Autowired
 	DecriptService decriptService;
+	
+	@Autowired 
+	Utils utils;
 
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO, String codEmpresa) throws Exception {
 			
@@ -44,6 +47,7 @@ public class ColaboradorService {
 				colaboradorDTO.setEmpresa(empresa);
 				
 				var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
+				addNovCob.setId((long) utils.callNextId(empresa.getId(), 2));
 				
 			
 				colaboradorRespository.save(addNovCob);

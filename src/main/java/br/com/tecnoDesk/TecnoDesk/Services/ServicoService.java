@@ -42,12 +42,16 @@ public class ServicoService {
 	@Autowired
 	DecriptService decriptService;
 	
+	@Autowired 
+	Utils utils;
+	
 	public Servico criarNovoServico(ServicoDTO servicoDTO, String codEmpresa) {
 		try {
 			
 			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
 			servicoDTO.setEmpresa(empresa);
 			Servico novoServico= modelMapper.map(servicoDTO, Servico.class);
+			novoServico.setId((long) utils.callNextId(empresa.getId(), 9));
 			return servicoRepository.save(novoServico);
 
 		} catch (Exception e) {

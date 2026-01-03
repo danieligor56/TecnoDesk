@@ -88,6 +88,28 @@ table{
   color: #f44336;
 }
 
+.icon-pdf {
+  color: #d32f2f;
+}
+
+.icon-close {
+  color: #4caf50;
+}
+
+.icon-cancel {
+  color: #f44336;
+}
+
+.action-icon.disabled {
+  color: #9e9e9e !important;
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
+
+.action-icon.disabled:hover {
+  background-color: transparent !important;
+}
+
 .mat-mdc-form-field {
   width: 100%;
 }
@@ -99,4 +121,3 @@ table{
 .mat-mdc-paginator {
   margin-top: 16px;
 }
-

@@ -56,6 +56,7 @@ const routes: Routes = [
       {path:'manager/:id',component:OsManagerComponent},
       {path:'os-rapida/list',component:OsRapidaListComponent},
       {path:'os-rapida/create',component:OsRapidaCreateComponent},
+      {path:'os-rapida/edit/:id',component:OsRapidaCreateComponent},
       {path:'clientes',component:ClientesListComponent},
       {path: 'produtos', component:ProdutosComponent},
       {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent},

@@ -71,6 +71,32 @@
               matTooltipPosition="above">
               edit
             </mat-icon>
+
+            <mat-icon
+              class="action-icon icon-pdf"
+              (click)="gerarPdf(element)"
+              matTooltip="Gerar PDF"
+              matTooltipPosition="above">
+              picture_as_pdf
+            </mat-icon>
+
+            <mat-icon
+              class="action-icon icon-close"
+              (click)="encerrarOsRapida(element)"
+              matTooltip="Encerrar OS"
+              matTooltipPosition="above"
+              [class.disabled]="element.status === 'ENCERRADA' || element.status === 'CANCELADA'">
+              check_circle
+            </mat-icon>
+
+            <mat-icon
+              class="action-icon icon-cancel"
+              (click)="cancelarOsRapida(element)"
+              matTooltip="Cancelar OS"
+              matTooltipPosition="above"
+              [class.disabled]="element.status === 'ENCERRADA' || element.status === 'CANCELADA'">
+              cancel
+            </mat-icon>
           </div>
         </td>
       </ng-container>

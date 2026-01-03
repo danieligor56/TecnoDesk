@@ -3,9 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OsRapida } from 'src/app/models/OsRapida';
 import { OsRapidaService } from 'src/app/services/os-rapida.service';
 import { OsRapidaDetailDialogComponent } from './os-rapida-detail-dialog.component';
+import { OsRapidaCloseDialogComponent } from './os-rapida-close-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-os-rapida-list',
@@ -23,7 +26,9 @@ export class OsRapidaListComponent implements OnInit, AfterViewInit {
   constructor(
     private osRapidaService: OsRapidaService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -91,9 +96,87 @@ export class OsRapidaListComponent implements OnInit, AfterViewInit {
   }
 
   editarOsRapida(osRapida: OsRapida): void {
-    // Por enquanto, redirecionar para a página de criação
-    // Em uma implementação futura, poderia passar o ID para edição
-    alert('Funcionalidade de edição será implementada em breve.\n\nPara editar, crie uma nova OS com os dados atualizados.');
+    if (osRapida.id) {
+      this.router.navigate(['/os-rapida/edit', osRapida.id]);
+    } else {
+      this.toast.error('ID da OS não encontrado');
+    }
+  }
+
+  gerarPdf(osRapida: OsRapida): void {
+    if (osRapida.id) {
+      const tecnicoResponsavel = sessionStorage.getItem('usuarioNome') || 'Técnico';
+      const headers = new HttpHeaders({
+        'TecnicoResponsavel': tecnicoResponsavel,
+        'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+      });
+      const options = { headers: headers, responseType: 'blob' as 'json' };
+
+      this.http.post(`http://localhost:8080/gerarPdf/osRapida?id=${osRapida.id}`, {}, options)
+        .subscribe({
+          next: (response: any) => {
+            const blob = new Blob([response], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `os-rapida-${osRapida.id}.pdf`;
+            link.click();
+            window.URL.revokeObjectURL(url);
+            this.toast.success('PDF gerado com sucesso!');
+          },
+          error: (error) => {
+            this.toast.error('Erro ao gerar PDF: ' + error.message);
+          }
+        });
+    } else {
+      this.toast.error('ID da OS não encontrado');
+    }
+  }
+
+  encerrarOsRapida(osRapida: OsRapida): void {
+    if (osRapida.id && (osRapida.status !== 'ENCERRADA' && osRapida.status !== 'CANCELADA')) {
+      const dialogRef = this.dialog.open(OsRapidaCloseDialogComponent, {
+        width: '500px',
+        data: { osRapida: osRapida, action: 'close' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.osRapidaService.encerrarOsRapida(osRapida.id!).subscribe({
+            next: () => {
+              this.toast.success('OS Rápida encerrada com sucesso!');
+              this.findAllOsRapidas(); // Recarrega a lista
+            },
+            error: (error) => {
+              this.toast.error('Erro ao encerrar OS Rápida: ' + error.message);
+            }
+          });
+        }
+      });
+    }
+  }
+
+  cancelarOsRapida(osRapida: OsRapida): void {
+    if (osRapida.id && (osRapida.status !== 'ENCERRADA' && osRapida.status !== 'CANCELADA')) {
+      const dialogRef = this.dialog.open(OsRapidaCloseDialogComponent, {
+        width: '500px',
+        data: { osRapida: osRapida, action: 'cancel' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.osRapidaService.cancelarOsRapida(osRapida.id!).subscribe({
+            next: () => {
+              this.toast.success('OS Rápida cancelada com sucesso!');
+              this.findAllOsRapidas(); // Recarrega a lista
+            },
+            error: (error) => {
+              this.toast.error('Erro ao cancelar OS Rápida: ' + error.message);
+            }
+          });
+        }
+      });
+    }
   }
 
 }

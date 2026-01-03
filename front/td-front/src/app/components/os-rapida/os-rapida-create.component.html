@@ -1,6 +1,6 @@
 <div class="container">
   <div class="titPage">
-    <h1>Nova OS Rápida</h1>
+    <h1>{{ pageTitle }}</h1>
   </div>
 
   <mat-card class="form-card">
@@ -73,8 +73,8 @@
         <div class="button-row">
           <button mat-raised-button color="primary" type="submit"
                   [disabled]="osRapidaForm.invalid" class="submit-btn">
-            <mat-icon>save</mat-icon>
-            Criar OS Rápida
+            <mat-icon>{{ isEditing ? 'update' : 'save' }}</mat-icon>
+            {{ submitButtonText }}
           </button>
 
           <button mat-button type="button" (click)="onCancel()" class="cancel-btn">

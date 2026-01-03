@@ -25,7 +25,6 @@ import lombok.Setter;
 public class Colaborador {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID",nullable = false,unique = true)
 	private long id;
 	
