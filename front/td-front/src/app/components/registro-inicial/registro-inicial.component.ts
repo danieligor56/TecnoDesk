@@ -40,8 +40,7 @@ export class RegistroInicialComponent implements OnInit {
   ngOnInit(): void {
 
      this.firstFormGroup = this._formBuilder.group({
-      firstCtrl:['', Validators.required],
-      razaoSocial:['',Validators.required],
+      razaoSocial:[''],
       nomEmpresa:['',Validators.required],
       docEmpresa:['',Validators.required],
       mail:['',[Validators.required,Validators.email]],
@@ -53,6 +52,10 @@ export class RegistroInicialComponent implements OnInit {
     },{
        validators: [Validation.match('mail','confirmEmail')]
     });
+
+    // Set initial validators based on default isCnpj = true
+    this.firstFormGroup.get('razaoSocial').setValidators([Validators.required]);
+    this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
 
     this.secondFormGroup = this._formBuilder.group({
       cep: ['', Validators.required],
@@ -102,11 +105,12 @@ export class RegistroInicialComponent implements OnInit {
     const docEmpresa = this.firstFormGroup.get('docEmpresa').valid;
     const mail = this.firstFormGroup.get('mail').valid;
     const cel = this.firstFormGroup.get('cel').valid;
-    
+    const razaoSocial = this.isCnpj ? this.firstFormGroup.get('razaoSocial').valid : true;
+
     const validaMails = this.firstFormGroup.get('mail').value;
     const confirEmail = this.firstFormGroup.get('confirmEmail').value
 
-    if(nomEmpresa && docEmpresa && mail && cel && confirEmail == validaMails){
+    if(nomEmpresa && docEmpresa && mail && cel && confirEmail == validaMails && razaoSocial){
         return true
     }
         return false
@@ -144,13 +148,19 @@ export class RegistroInicialComponent implements OnInit {
 
 
   checkedCpf(){
-    
-    this.isCnpj = false
+    this.isCpf = true;
+    this.isCnpj = false;
+    // Remove required validator for razaoSocial when CPF is selected
+    this.firstFormGroup.get('razaoSocial').clearValidators();
+    this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
   }
 
   checkedCnpj(){
     this.isCpf = false;
-    
+    this.isCnpj = true;
+    // Add required validator for razaoSocial when CNPJ is selected
+    this.firstFormGroup.get('razaoSocial').setValidators([Validators.required]);
+    this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
   }
 
   

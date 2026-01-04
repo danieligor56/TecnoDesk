@@ -1337,7 +1337,7 @@ public class GeneratePDfService {
 			documento.add(valoresDiv);
 			documento.add(divValoresTitulo);
 			documento.add(divDadosValores);
-			documento.add(observacoesDiv);
+			/* documento.add(observacoesDiv); */
 			documento.add(tecnicoDiv);
 			documento.add(assinaturas);
 
