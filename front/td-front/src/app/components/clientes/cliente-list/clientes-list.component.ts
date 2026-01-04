@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Cliente } from 'src/app/models/Cliente';
 import {MatPaginator} from '@angular/material/paginator';
@@ -16,14 +16,14 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./clientes-list.component.css']
 })
 
-export class ClientesListComponent implements OnInit, AfterViewInit {
+export class ClientesListComponent implements OnInit {
   ELEMENT_DATA: Cliente[]=[];
   dataSource = new MatTableDataSource<Cliente>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['sequencial','nome','documento','email','cel1','acoes'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
-  
+
+
   constructor(
     private cliService:ClienteService,
     private dialog: MatDialog,
@@ -32,10 +32,6 @@ export class ClientesListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.findAllcli();
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   findAllcli(){
