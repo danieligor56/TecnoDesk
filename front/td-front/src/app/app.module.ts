@@ -25,6 +25,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { NgxMaskModule } from 'ngx-mask';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -151,6 +152,7 @@ import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-c
     HttpClientModule,
     JwtModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatFormFieldModule,
     MatGridListModule,
     MatSelectModule,

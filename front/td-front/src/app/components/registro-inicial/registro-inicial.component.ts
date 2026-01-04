@@ -26,8 +26,7 @@ export class RegistroInicialComponent implements OnInit {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  isCpf: boolean = false;
-  isCnpj: boolean = true;
+  documentType: 'cpf' | 'cnpj' = 'cnpj';
   isEmailMacth:boolean = false;
   habilitarBotao:boolean = false;
  
@@ -109,7 +108,7 @@ export class RegistroInicialComponent implements OnInit {
     const docEmpresa = this.firstFormGroup.get('docEmpresa').valid;
     const mail = this.firstFormGroup.get('mail').valid;
     const cel = this.firstFormGroup.get('cel').valid;
-    const razaoSocial = this.isCnpj ? this.firstFormGroup.get('razaoSocial').valid : true;
+    const razaoSocial = this.documentType === 'cnpj' ? this.firstFormGroup.get('razaoSocial').valid : true;
 
     const validaMails = this.firstFormGroup.get('mail').value;
     const confirEmail = this.firstFormGroup.get('confirmEmail').value
@@ -151,19 +150,16 @@ export class RegistroInicialComponent implements OnInit {
   }
 
 
-  checkedCpf(){
-    this.isCpf = true;
-    this.isCnpj = false;
-    // Remove required validator for razaoSocial when CPF is selected
-    this.firstFormGroup.get('razaoSocial').clearValidators();
-    this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
+  onDocumentTypeChange() {
+    this.updateValidators();
   }
 
-  checkedCnpj(){
-    this.isCpf = false;
-    this.isCnpj = true;
-    // Add required validator for razaoSocial when CNPJ is selected
-    this.firstFormGroup.get('razaoSocial').setValidators([Validators.required]);
+  updateValidators() {
+    if (this.documentType === 'cpf') {
+      this.firstFormGroup.get('razaoSocial').clearValidators();
+    } else {
+      this.firstFormGroup.get('razaoSocial').setValidators([Validators.required]);
+    }
     this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
   }
 

@@ -21,44 +21,36 @@
         <form [formGroup]="firstFormGroup" class="form-content">
           <div class="document-type-section">
             <p class="section-hint">Selecione o tipo de documento:</p>
-            <div class="checkbox-group">
-              <mat-checkbox 
-                (click)="checkedCpf()" 
-                [(ngModel)]="isCpf" 
-                [ngModelOptions]="{standalone: true}" 
-                class="custom-checkbox">
-                <mat-icon class="checkbox-icon">badge</mat-icon>
+            <mat-radio-group [(ngModel)]="documentType" [ngModelOptions]="{standalone: true}" (change)="onDocumentTypeChange()" class="radio-group">
+              <mat-radio-button value="cpf" class="custom-radio">
+                <mat-icon class="radio-icon">badge</mat-icon>
                 Utilizar CPF
-              </mat-checkbox>
-              <mat-checkbox 
-                (click)="checkedCnpj()" 
-                [(ngModel)]="isCnpj" 
-                [ngModelOptions]="{standalone: true}" 
-                class="custom-checkbox">
-                <mat-icon class="checkbox-icon">corporate_fare</mat-icon>
+              </mat-radio-button>
+              <mat-radio-button value="cnpj" class="custom-radio">
+                <mat-icon class="radio-icon">corporate_fare</mat-icon>
                 CNPJ
-              </mat-checkbox>
-            </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-grid">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Documento da Empresa</mat-label>
               <input
-                *ngIf="isCpf"
+                *ngIf="documentType === 'cpf'"
                 (blur)="validarEmpresaExistenteDoc()"
                 formControlName="docEmpresa"
-                required 
+                required
                 mask="000.000.000-00"
-                matInput 
+                matInput
                 placeholder="000.000.000-00">
               <input
-                *ngIf="isCnpj"
+                *ngIf="documentType === 'cnpj'"
                 (blur)="validarEmpresaExistenteDoc()"
-                required 
+                required
                 mask="00.000.000/0000-00"
                 formControlName="docEmpresa"
-                matInput 
+                matInput
                 placeholder="00.000.000/0000-00">
               <mat-icon matPrefix>badge</mat-icon>
               <mat-error>
@@ -66,7 +58,7 @@
               </mat-error>
             </mat-form-field>
             
-            <mat-form-field appearance="outline" class="full-width" *ngIf="isCnpj">
+            <mat-form-field appearance="outline" class="full-width" *ngIf="documentType === 'cnpj'">
               <mat-label>Razão Social</mat-label>
               <input
                 formControlName="razaoSocial"
