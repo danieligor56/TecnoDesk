@@ -37,21 +37,15 @@ public class ColaboradorService {
 	Utils utils;
 
 	public Colaborador adicionaColaborador(ColaboradorDTO colaboradorDTO, String codEmpresa) throws Exception {
-			
-		
-		
+				
 		try {
 			
-				Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
-				
+				Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));				
 				colaboradorDTO.setEmpresa(empresa);
 				
 				var addNovCob = modelMapper.map(colaboradorDTO, Colaborador.class);
-				addNovCob.setId((long) utils.callNextId(empresa.getId(), 2));
-				
-			
-				colaboradorRespository.save(addNovCob);
-				
+				addNovCob.setSequencial((long) utils.callNextId(empresa.getId(), 2));
+				colaboradorRespository.save(addNovCob);				
 				return null;
 				
 			} catch (Exception e) {

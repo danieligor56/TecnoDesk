@@ -13,9 +13,9 @@
   <div>
     <table mat-table [dataSource]="dataSource">
   
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> id </th>
-        <td mat-cell *matCellDef="let element">🆔 {{element.id}} </td>
+      <ng-container matColumnDef="sequencial">
+        <th mat-header-cell *matHeaderCellDef> Cod </th>
+        <td mat-cell *matCellDef="let element">🆔 {{element.sequencial}} </td>
       </ng-container>
   
       <ng-container matColumnDef="name">
@@ -25,7 +25,7 @@
   
       <ng-container matColumnDef="weight">
         <th mat-header-cell *matHeaderCellDef> Cargo/Função </th>
-        <td mat-cell *matCellDef="let element">🧑‍🔧 {{element.ocupacao}} </td>
+        <td mat-cell *matCellDef="let element">{{formatOccupations(element.ocupacao)}}</td>
       </ng-container>
 
       <ng-container matColumnDef="email">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Cliente } from 'src/app/models/Cliente';
 import {MatPaginator} from '@angular/material/paginator';
@@ -16,10 +16,10 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./clientes-list.component.css']
 })
 
-export class ClientesListComponent implements OnInit {
+export class ClientesListComponent implements OnInit, AfterViewInit {
   ELEMENT_DATA: Cliente[]=[];
   dataSource = new MatTableDataSource<Cliente>(this.ELEMENT_DATA);
-  displayedColumns: string[] = ['id','nome','documento','email','cel1','acoes'];
+  displayedColumns: string[] = ['sequencial','nome','documento','email','cel1','acoes'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -34,13 +34,25 @@ export class ClientesListComponent implements OnInit {
     this.findAllcli();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   findAllcli(){
     this.cliService.findAll()
     .subscribe(response => {
       this.ELEMENT_DATA = response;
       this.dataSource = new MatTableDataSource<Cliente>(response);
       this.dataSource.paginator = this.paginator;
-    
+      this.dataSource.filterPredicate = (data: Cliente, filter: string) => {
+        const filterValue = filter.trim().toLowerCase();
+        return data.sequencial?.toString().includes(filterValue) ||
+               data.nome?.toLowerCase().includes(filterValue) ||
+               data.documento?.toLowerCase().includes(filterValue) ||
+               data.email?.toLowerCase().includes(filterValue) ||
+               data.cel1?.toLowerCase().includes(filterValue);
+      };
+
     })
   }
 

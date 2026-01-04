@@ -3,6 +3,7 @@ import { Empresa } from "./Empresa";
 export interface Cliente{
 
 	id?:number;
+	sequencial?:number;
 	empresa:Empresa;
     nome:string;
 	email:string;

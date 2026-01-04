@@ -45,7 +45,7 @@ public class UsuarioService {
 	
 		String maskPassword = new BCryptPasswordEncoder().encode(usuarioDTO.pass());
 		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmpresa),usuarioDTO.nomeCompleto());
-		novoUsuario.setId((long) utils.callNextId(codEmpresa, 11));
+		/* novoUsuario.setId((long) utils.callNextId(codEmpresa, 11)); */
 		usuarioRepository.save(novoUsuario);
 	}
 	
@@ -59,7 +59,7 @@ public class UsuarioService {
 		
 			String maskPassword = new BCryptPasswordEncoder().encode(pass);
 			Usuarios novoUsuario = new Usuarios(email,maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmpresa),nomeCompleto);
-			novoUsuario.setId((long) utils.callNextId(codEmpresa, 11));
+			/* novoUsuario.setId((long) utils.callNextId(codEmpresa, 11)); */
 			usuarioRepository.save(novoUsuario);
 			
 			

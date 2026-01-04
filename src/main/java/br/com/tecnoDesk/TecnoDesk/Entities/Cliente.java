@@ -31,6 +31,9 @@ public class Cliente implements Serializable {
 	@Column(name = "ID",nullable = false,unique = true)
 	private long id;
 	
+	@Column(name = "codigo_sequencial")
+	private long sequencial;
+	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)
 	private Empresa empresa;
