@@ -7,6 +7,9 @@ import { CdkNestedTreeNode } from '@angular/cdk/tree';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { ToastrService } from 'ngx-toastr';
 import { CepService } from 'src/app/services/autoCep.service';
+import { RegistroInicialService } from 'src/app/services/registro-inicial.service';
+import { EmpresaUsuarioDTO } from 'src/app/models/EmpresaUsuarioDTO';
+import { MatStepper } from '@angular/material/stepper';
 
 
 
@@ -33,8 +36,9 @@ export class RegistroInicialComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private empresaService: EmpresaService,
     private toast: ToastrService,
-    private servCep:CepService
-     
+    private servCep: CepService,
+    private registroService: RegistroInicialService
+
   ) { }
 
   ngOnInit(): void {
@@ -70,15 +74,15 @@ export class RegistroInicialComponent implements OnInit {
 
     this.thirdFormGroup = this._formBuilder.group({
       nomeCompleto: ['', Validators.required],
-      mail: ['',[Validators.required,Validators.email]],
+      email: ['',[Validators.required,Validators.email]],
       confirmEmail:['',[Validators.required,Validators.email]],
       pass: ['',Validators.required],
       passConfirm: ['',Validators.required]
 
     },
   {
-       validators: [Validation.match('mail','confirmEmail')]
-       
+       validators: [Validation.match('email','confirmEmail'), Validation.match('pass','passConfirm')]
+
     });
     
     
@@ -161,6 +165,42 @@ export class RegistroInicialComponent implements OnInit {
     // Add required validator for razaoSocial when CNPJ is selected
     this.firstFormGroup.get('razaoSocial').setValidators([Validators.required]);
     this.firstFormGroup.get('razaoSocial').updateValueAndValidity();
+  }
+
+  submitRegistro(stepper: MatStepper) {
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
+      const dto: EmpresaUsuarioDTO = {
+        razaoSocial: this.firstFormGroup.get('razaoSocial').value || '',
+        nomEmpresa: this.firstFormGroup.get('nomEmpresa').value,
+        docEmpresa: this.firstFormGroup.get('docEmpresa').value,
+        mail: this.firstFormGroup.get('mail').value,
+        cel: this.firstFormGroup.get('cel').value,
+        tel: this.firstFormGroup.get('tel').value || '',
+        site: this.firstFormGroup.get('site').value || '',
+        cep: this.secondFormGroup.get('cep').value,
+        logra: this.secondFormGroup.get('logra').value,
+        num: parseInt(this.secondFormGroup.get('num').value),
+        comp: this.secondFormGroup.get('comp').value || '',
+        bairro: this.secondFormGroup.get('bairro').value,
+        municipio: this.secondFormGroup.get('municipio').value,
+        uf: this.secondFormGroup.get('uf').value,
+        nomeCompleto: this.thirdFormGroup.get('nomeCompleto').value,
+        email: this.thirdFormGroup.get('email').value,
+        pass: this.thirdFormGroup.get('pass').value
+      };
+
+      this.registroService.registro(dto).subscribe(
+        response => {
+          this.toast.success('Registro realizado com sucesso!');
+          stepper.next();
+        },
+        error => {
+          this.toast.error('Erro ao registrar. Tente novamente.');
+        }
+      );
+    } else {
+      this.toast.error('Verifique os dados e tente novamente.');
+    }
   }
 
   

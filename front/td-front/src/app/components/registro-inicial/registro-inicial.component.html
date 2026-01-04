@@ -330,11 +330,11 @@
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Email</mat-label>
-              <input 
-                formControlName="mail"
+              <input
+                formControlName="email"
                 type="email"
                 required
-                matInput 
+                matInput
                 placeholder="joao@exemplo.com">
               <mat-icon matPrefix>email</mat-icon>
               <mat-error>
@@ -379,7 +379,10 @@
                 type="password"
                 placeholder="Confirme sua senha">
               <mat-icon matPrefix>lock_outline</mat-icon>
-              <mat-error>
+              <mat-error *ngIf="thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').touched">
+                <b>As senhas não coincidem</b>
+              </mat-error>
+              <mat-error *ngIf="!thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').invalid && thirdFormGroup.get('passConfirm').touched">
                 <b>Confirmação de senha é obrigatória</b>
               </mat-error>
             </mat-form-field>
@@ -393,13 +396,14 @@
               <mat-icon>arrow_back</mat-icon>
               Voltar para Login
             </button>
-            <button 
-              mat-raised-button 
-              color="primary" 
-              matStepperNext
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="submitRegistro(stepper)"
+              [disabled]="!thirdFormGroup.valid"
               class="btn-primary">
-              Próximo
-              <mat-icon>arrow_forward</mat-icon>
+              Finalizar Cadastro
+              <mat-icon>check</mat-icon>
             </button>
           </div>
         </form>

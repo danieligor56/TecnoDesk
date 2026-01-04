@@ -39,7 +39,6 @@ public class Usuarios implements Serializable,UserDetails{
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	@Column(name = "Nome",nullable = false,unique = true)
