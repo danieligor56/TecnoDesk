@@ -12,8 +12,8 @@
         <table mat-table [dataSource]="dataSource" matSort>
          
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let servico">🆔 {{servico.id}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cod </th>
+            <td mat-cell *matCellDef="let servico">🆔 {{servico.sequencial}} </td>
           </ng-container>
 
           <ng-container matColumnDef="progress">

@@ -50,7 +50,7 @@ export class OsListComponent implements OnInit {
     const search = this.searchTerm.toLowerCase();
 
     this.dataSource.data = this.ELEMENT_DATA.filter(os =>
-      os.numOs?.toString().toLowerCase().includes(search) ||
+      os.sequencial?.toString().toLowerCase().includes(search) ||
       os.cliente?.nome.toLowerCase().includes(search) ||
       os.colaborador?.nome.toLowerCase().includes(search) ||
       os.statusOS?.toString().toLowerCase().includes(search) ||
@@ -69,7 +69,7 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
     const link = document.createElement('a');
     link.href = url
     window.open(url,'_blank')
-    link.download = 'Ordem de serviço Nº: '+ response.numOs +'.pdf'
+    link.download = 'Ordem de serviço Nº: '+ response.sequencial +'.pdf'
     link.click(); 
   });
 

@@ -51,6 +51,9 @@ public class OsService {
 	
 	@Autowired
 	OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	Utils utils;
 
 
 	public OS_Entrada crianova(OS_EntradaDTO osDTO,String codEmpresa) throws BadRequestException {
@@ -66,14 +69,12 @@ public class OsService {
 			novaOs.setDataAbertura(formatter.format(now));
 			novaOs.setEmpresa(empresa);
 			
-			OS_Entrada codUltimaOs = osRepository.findLastOne(empresa.getId());
-			
-			if(codUltimaOs == null) {
-				novaOs.setNumOs(1);
-			}
-			else {
-				novaOs.setNumOs(codUltimaOs.getNumOs() + 1);
-			}
+			/* OS_Entrada codUltimaOs = osRepository.findLastOne(empresa.getId()); */
+			/*
+			 * if(codUltimaOs == null) { novaOs.setNumOs(1); } else {
+			 * novaOs.setNumOs(codUltimaOs.getNumOs() + 1); }
+			 */
+			novaOs.setSequencial( (long) utils.callNextId(empresa.getId(), 7));
 			
 			osRepository.save(novaOs);
 			

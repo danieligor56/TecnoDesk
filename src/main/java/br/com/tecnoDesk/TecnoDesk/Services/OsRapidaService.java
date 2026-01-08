@@ -43,7 +43,7 @@ public class OsRapidaService {
             osRapida.setStatus(StatusOS.NOVO);
             osRapida.setTecnicoResponsavel(tecnicoResponsavel);
             osRapida.setCodigoEmpresa(codEmp);
-            osRapida.setId((long) utils.callNextId(codEmp,11));
+            osRapida.setId((long) utils.callNextId(codEmp,12));
             // Set current date
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();

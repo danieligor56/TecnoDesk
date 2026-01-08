@@ -25,11 +25,11 @@ import lombok.Setter;
 
 public class OS_EntradaDTO {
 		
+	private long sequencial;
+	
 	private Cliente cliente;
 	
 	private Colaborador colaborador;
-	
-	private long numOs;
 
 	private Aparelhos aparelhos;
 

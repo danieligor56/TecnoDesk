@@ -17,7 +17,7 @@ public interface OsRepository extends JpaRepository<OS_Entrada,Long> {
 	
 	List<OS_Entrada> findOsByEmpresaId(long CodEmp);
 	
-	@Query(value = "SELECT * FROM os_abertura os WHERE os.num_os = :numOs AND os.codigo_empresa = :codEmp",
+	@Query(value = "SELECT * FROM os_abertura os WHERE os.codigo_sequencial = :numOs AND os.codigo_empresa = :codEmp",
 			nativeQuery = true)
 	OS_Entrada findByNumOs(long numOs,long codEmp);
 	

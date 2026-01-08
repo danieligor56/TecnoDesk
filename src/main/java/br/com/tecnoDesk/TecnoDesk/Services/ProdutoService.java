@@ -60,7 +60,7 @@ public class ProdutoService {
 				long sequencial = (long) utils.callNextId(emp.getId(),8);
 				
 				Produtos novoProduto = modelMapper.map(dto, Produtos.class);
-				novoProduto.setId(sequencial);
+				novoProduto.setSequencial(sequencial);
 				novoProduto.setEmpresa(emp);
 				
 				// Se código de barras não foi informado (0 ou negativo), gera automaticamente no padrão EAN-13

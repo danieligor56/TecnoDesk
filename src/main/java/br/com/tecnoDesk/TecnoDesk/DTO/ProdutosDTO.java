@@ -15,6 +15,7 @@ import lombok.Setter;
 
 public class ProdutosDTO {
 	
+	private long sequencial;
 	private Empresa empresa;
 	private String nome; 
 	private String descricao;

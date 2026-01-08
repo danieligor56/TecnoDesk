@@ -1,5 +1,6 @@
 export interface OsRapida {
   id?: number;
+  sequencial?: number;
   clienteNome: string;
   clienteTelefone?: string;
   equipamentoServico: string;

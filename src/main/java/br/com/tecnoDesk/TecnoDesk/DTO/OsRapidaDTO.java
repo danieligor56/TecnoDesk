@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class OsRapidaDTO {
 	
+	private long sequencial;
+	
     private String clienteNome;
 
     private String clienteTelefone;

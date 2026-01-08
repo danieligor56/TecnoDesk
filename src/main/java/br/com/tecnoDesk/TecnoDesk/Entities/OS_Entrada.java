@@ -30,8 +30,8 @@ public class OS_Entrada {
 	@Column(name = "Cod_OS", nullable = false, unique = true)
 	private long id;
 	
-	@Column(name="NumOs",nullable = false)
-	private long numOs;
+	@Column(name = "codigo_sequencial")
+	private long sequencial;
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)

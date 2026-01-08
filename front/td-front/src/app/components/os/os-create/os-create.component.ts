@@ -203,7 +203,7 @@ export class OsCreateComponent implements OnInit {
           const link = document.createElement('a');
           link.href = url
           window.open(url,'_blank')
-          link.download = 'Ordem de serviço Nº: '+response.numOs+'.pdf'
+          link.download = 'Ordem de serviço Nº: '+response.sequencial+'.pdf'
           link.click(); 
         }),
         

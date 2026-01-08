@@ -39,7 +39,7 @@ public class Usuarios implements Serializable,UserDetails{
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
 	@Column(name = "Nome",nullable = false,unique = true)

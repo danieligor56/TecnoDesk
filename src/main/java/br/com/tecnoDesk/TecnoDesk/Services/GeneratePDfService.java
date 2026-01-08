@@ -70,7 +70,7 @@ public class GeneratePDfService {
 	OsRapidaRepository osRapidaRepository;
 
 	
-	  public byte[] gerarPdfOsentrada(OS_Entrada osFront,String codEmpresa) throws
+	public byte[] gerarPdfOsentrada(OS_Entrada osFront,String codEmpresa) throws
 	  Exception {
 	 
 	/* public byte[] gerarPdfOsentrada() throws Exception { */
@@ -168,7 +168,7 @@ public class GeneratePDfService {
 		Paragraph NumOs = new Paragraph("O.S :");
 		NumOs.setAlignment(NumOs.ALIGN_CENTER);
 		NumOs.setFont(marcadorHeader);
-		Paragraph codOs = new Paragraph(String.valueOf(os.getNumOs()));
+		Paragraph codOs = new Paragraph(String.valueOf(os.getSequencial()));
 		codOs.setFont(fonteNumOsFont);
 		codOs.setAlignment(codOs.ALIGN_CENTER);
 		codOs.setSpacingBefore(10);
@@ -652,7 +652,7 @@ public class GeneratePDfService {
 			Paragraph NumOs = new Paragraph("O.S :");
 			NumOs.setAlignment(NumOs.ALIGN_CENTER);
 			NumOs.setFont(marcadorHeader);
-			Paragraph codOs = new Paragraph(String.valueOf(os.getNumOs()));
+			Paragraph codOs = new Paragraph(String.valueOf(os.getSequencial()));
 			codOs.setFont(fonteNumOsFont);
 			codOs.setAlignment(codOs.ALIGN_CENTER);
 			codOs.setSpacingBefore(10);
@@ -1061,7 +1061,7 @@ public class GeneratePDfService {
 			Paragraph NumOs = new Paragraph("OS Rápida:");
 			NumOs.setAlignment(NumOs.ALIGN_CENTER);
 			NumOs.setFont(marcadorHeader);
-			Paragraph codOs = new Paragraph("ID: " + osRapida.getId());
+			Paragraph codOs = new Paragraph("R - "+ osRapida.getSequencial());
 			codOs.setFont(fonteNumOsFont);
 			codOs.setAlignment(codOs.ALIGN_CENTER);
 			codOs.setSpacingBefore(10);
