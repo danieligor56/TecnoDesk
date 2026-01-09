@@ -60,13 +60,15 @@ export class LoginComponent {
     if (this.validaInput()) {
       localStorage.clear();
       this.service.anthenticate(this.cred).subscribe(resposta => {
-        this.service.succesLogin(resposta.body.substring(10).replace(/["}]/g, ''));
+        this.service.succesLogin(resposta.token);
+        sessionStorage.setItem('usuarioNome', resposta.nomeUsuario)
+        sessionStorage.setItem('CompGrpIndent',resposta.CompGrpIndent)
         this.router.navigate(['']);
-        this.service.getCodEmpresa(this.cred.email).subscribe(
-          (key) => {
-            sessionStorage.setItem('CompGrpIndent', JSON.stringify(key).replace(/["]/g, ''));
-          }
-        );
+        // this.service.getCodEmpresa(this.cred.email).subscribe(
+        //   (key) => {
+        //     sessionStorage.setItem('CompGrpIndent', JSON.stringify(key).replace(/["]/g, ''));
+        //   }
+        // );
       },
         () => {
           this.toast.error('Usuário e/ou senha inválidos');

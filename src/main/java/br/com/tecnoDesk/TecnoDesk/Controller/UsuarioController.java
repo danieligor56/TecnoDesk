@@ -20,6 +20,7 @@ import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
 import br.com.tecnoDesk.TecnoDesk.Services.TokenService;
 import br.com.tecnoDesk.TecnoDesk.Services.UsuarioService;
+import br.com.tecnoDesk.TecnoDesk.Services.Utils;
 import exception.NotFound;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -58,7 +59,7 @@ public class UsuarioController {
 			httpSession.setAttribute("CodEmpresa", codEmp);
 			org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
 
-			return ResponseEntity.ok().body(new LoginResponseDTO(token));
+			return ResponseEntity.ok().body(new LoginResponseDTO(token,usuario.getNomeCompleto(),secUtil.encrypt(codEmp)));
 			 
 			
 		} catch (Exception e) {
