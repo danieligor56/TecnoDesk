@@ -138,13 +138,13 @@
   font-weight: 500;
 }
 
-.checkbox-group {
+.radio-group {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
 }
 
-.custom-checkbox {
+.custom-radio {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -154,11 +154,11 @@
   transition: all 0.3s ease;
 }
 
-.custom-checkbox:hover {
+.custom-radio:hover {
   background: #e9ecef;
 }
 
-.checkbox-icon {
+.radio-icon {
   font-size: 20px;
   width: 20px;
   height: 20px;

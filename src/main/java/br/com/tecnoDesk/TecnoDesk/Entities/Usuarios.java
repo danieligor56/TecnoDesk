@@ -38,8 +38,8 @@ public class Usuarios implements Serializable,UserDetails{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "id",nullable = false,unique = true)
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id",nullable = false,unique = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
 	@Column(name = "Nome",nullable = false,unique = true)

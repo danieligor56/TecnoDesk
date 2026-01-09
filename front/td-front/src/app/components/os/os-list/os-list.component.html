@@ -22,7 +22,7 @@
     
         <ng-container matColumnDef="numOs">
           <th mat-header-cell *matHeaderCellDef> Número OS </th>
-          <td mat-cell *matCellDef="let element">🔢<b> {{element.numOs}}</b></td>
+          <td mat-cell *matCellDef="let element">🔢<b> {{element.sequencial}}</b></td>
         </ng-container>
 
         <ng-container matColumnDef="cliente">
@@ -58,13 +58,13 @@
           <th mat-header-cell *matHeaderCellDef></th> 
          <td class="actionsButtons" mat-cell *matCellDef="let element"> 
           <div class="action-icons-container">
-            <a [routerLink]="['/manager',element.numOs]" class="action-icon-wrapper" matTooltip="Gerenciar OS" matTooltipPosition="above">
+            <a [routerLink]="['/manager',element.sequencial]" class="action-icon-wrapper" matTooltip="Gerenciar OS" matTooltipPosition="above">
               <mat-icon class="action-icon icon-manage">edit_note</mat-icon>
             </a>
             
             <mat-icon 
               class="action-icon icon-print" 
-              (click)="imprimirOs(element.numOs)" 
+              (click)="imprimirOs(element.sequencial)" 
               matTooltip="Imprimir OS" 
               matTooltipPosition="above">
               print
@@ -72,7 +72,7 @@
 
             <mat-icon 
               class="action-icon icon-cancel" 
-              (click)="cancelarOs(element.numOs)" 
+              (click)="cancelarOs(element.sequencial)"
               matTooltip="Cancelar OS" 
               matTooltipPosition="above">
               block

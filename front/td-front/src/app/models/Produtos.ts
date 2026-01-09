@@ -2,6 +2,7 @@ import { Empresa } from "./Empresa";
 
 export interface Produtos {
     id?: number;
+    sequencial?: number;
     empresa?: Empresa;
     nome: string; 
     descricao?: string;

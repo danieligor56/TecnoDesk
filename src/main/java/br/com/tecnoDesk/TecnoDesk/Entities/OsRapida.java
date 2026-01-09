@@ -29,6 +29,9 @@ public class OsRapida {
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
+	    
+	    @Column(name = "codigo_sequencial")
+		private long sequencial;
 
 	    // Identificação simples do cliente
 	    @Column(name = "cliente_nome", nullable = false, length = 120)

@@ -16,6 +16,8 @@ import lombok.Setter;
 
 public class ColaboradorDTO {
 	
+	private long sequencial;
+	
 	private Empresa empresa;
 	
 	private String nome;

@@ -34,6 +34,9 @@ public class ClienteService {
 	
 	@Autowired
 	DecriptService decriptService;
+	
+	@Autowired
+	Utils utils;
 
 	public Cliente criaNovoCliente(ClienteDTO clienteDTO, String codEmpresa) {
 		try {
@@ -41,6 +44,7 @@ public class ClienteService {
 			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
 			clienteDTO.setEmpresa(empresa);
 			Cliente novoCliente = modelMapper.map(clienteDTO, Cliente.class);
+			novoCliente.setSequencial((long)utils.callNextId(empresa.getId(), 1));
 			return clienteRepository.save(novoCliente);
 
 		} catch (Exception e) {

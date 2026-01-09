@@ -23,7 +23,6 @@ import lombok.Setter;
 public class Empresa {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name="ID",unique = true,nullable = false)
 	private long id;
 	

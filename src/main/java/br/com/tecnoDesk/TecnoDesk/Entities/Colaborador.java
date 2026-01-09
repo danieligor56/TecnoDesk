@@ -25,8 +25,12 @@ import lombok.Setter;
 public class Colaborador {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID",nullable = false,unique = true)
 	private long id;
+	
+	@Column(name = "codigo_sequencial")
+	private long sequencial;
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa",nullable = false)

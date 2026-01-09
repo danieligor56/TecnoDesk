@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { API_COONFIG } from '../config/api.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
+import { LogingResponseDTO } from '../DTO/LoginResponseDTO';
 
 
 @Injectable({
@@ -18,13 +19,9 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
   
-  anthenticate(cred:Creds){
+  anthenticate(cred:Creds): Observable<LogingResponseDTO>{
     
-    return this.http.post("http://localhost:8080/auth/login",cred,{
-      observe:'response',
-      responseType:'text'
-      
-    }) 
+    return this.http.post<LogingResponseDTO>("http://localhost:8080/auth/login",cred) 
   }
 
   

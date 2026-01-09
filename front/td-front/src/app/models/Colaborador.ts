@@ -4,6 +4,7 @@ import { Empresa } from "./Empresa";
 export interface Colaborador{
 
     id?:number;
+	sequencial?:number;
 	empresa?:Empresa;
 	nome?:string;
 	documento?:string;
@@ -19,5 +20,6 @@ export interface Colaborador{
 	cep?:String;
 	// ********* //
     atvReg?:boolean;
+	
 
 }

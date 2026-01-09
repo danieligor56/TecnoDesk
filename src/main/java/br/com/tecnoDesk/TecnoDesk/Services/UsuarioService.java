@@ -32,6 +32,9 @@ public class UsuarioService {
 	@Autowired
 	EmpresaRepository empresaRepository;
 	
+	@Autowired
+	Utils utils;
+	
 	public void registrarUsuario(UsuarioRegisterDTO usuarioDTO,long codEmpresa) throws Exception {
 
 		
@@ -42,8 +45,28 @@ public class UsuarioService {
 	
 		String maskPassword = new BCryptPasswordEncoder().encode(usuarioDTO.pass());
 		Usuarios novoUsuario = new Usuarios(usuarioDTO.email(),maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmpresa),usuarioDTO.nomeCompleto());
-		
+		/* novoUsuario.setId((long) utils.callNextId(codEmpresa, 11)); */
 		usuarioRepository.save(novoUsuario);
+	}
+	
+	public void registrarUsuarioTelaInicial(String nomeCompleto,String email,
+			String pass,
+			long codEmpresa) throws Exception {		
+		try {
+			
+			if(this.usuarioRepository.findByEmail(email) != null)
+				throw new BadRequest("Email já cadastrado");
+		
+			String maskPassword = new BCryptPasswordEncoder().encode(pass);
+			Usuarios novoUsuario = new Usuarios(email,maskPassword,Roles.ADMIN,true,empresaRepository.findEmpresaById(codEmpresa),nomeCompleto);
+			/* novoUsuario.setId((long) utils.callNextId(codEmpresa, 11)); */
+			usuarioRepository.save(novoUsuario);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public long getCodEmpresa(String email) {

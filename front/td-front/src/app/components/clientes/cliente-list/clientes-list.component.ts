@@ -19,11 +19,11 @@ import { Route, Router } from '@angular/router';
 export class ClientesListComponent implements OnInit {
   ELEMENT_DATA: Cliente[]=[];
   dataSource = new MatTableDataSource<Cliente>(this.ELEMENT_DATA);
-  displayedColumns: string[] = ['id','nome','documento','email','cel1','acoes'];
+  displayedColumns: string[] = ['sequencial','nome','documento','email','cel1','acoes'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
-  
+
+
   constructor(
     private cliService:ClienteService,
     private dialog: MatDialog,
@@ -40,7 +40,15 @@ export class ClientesListComponent implements OnInit {
       this.ELEMENT_DATA = response;
       this.dataSource = new MatTableDataSource<Cliente>(response);
       this.dataSource.paginator = this.paginator;
-    
+      this.dataSource.filterPredicate = (data: Cliente, filter: string) => {
+        const filterValue = filter.trim().toLowerCase();
+        return data.sequencial?.toString().includes(filterValue) ||
+               data.nome?.toLowerCase().includes(filterValue) ||
+               data.documento?.toLowerCase().includes(filterValue) ||
+               data.email?.toLowerCase().includes(filterValue) ||
+               data.cel1?.toLowerCase().includes(filterValue);
+      };
+
     })
   }
 

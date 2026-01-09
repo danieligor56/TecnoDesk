@@ -3,6 +3,8 @@ package br.com.tecnoDesk.TecnoDesk.Entities;
 import java.math.BigDecimal;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -31,8 +33,13 @@ uniqueConstraints = {
 @AllArgsConstructor
 public class Produtos {
 	
-	@Id 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "ID",nullable = false,unique = true)
 	private Long id; 
+	
+	@Column(name = "codigo_sequencial")
+	private long sequencial;
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa", nullable = false)

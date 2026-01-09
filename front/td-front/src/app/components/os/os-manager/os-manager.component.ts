@@ -37,7 +37,7 @@ export class OsManagerComponent implements OnInit {
   Os: Os_entrada = {
     
     id: 0,
-    numOs: 0,
+    sequencial: 0,
     empresa: undefined,
     cliente: undefined,
     colaborador: undefined,
@@ -305,7 +305,7 @@ constructor(
     const tecnicoPrioridadeDto: TecnicoEPrioridadeDTO = {
       tecnicoId: this.responsalveTecnico.id, 
       prioridadeOS: Number(this.prioridadeos),
-      numOs: this.Os.numOs
+      numOs: this.Os.sequencial
     }
 
     this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto);
@@ -314,13 +314,13 @@ constructor(
 
   alterStsOS(event: MatSelectChange){
     debugger;
-    this.osService.alterarStatusOS(this.Os.numOs, Number(this.statusOs));
+    this.osService.alterarStatusOS(this.Os.sequencial, Number(this.statusOs));
   }
 
   updateDiagnosticoTecnico(){
     debugger;
     const dto: laudoTecnicoDTO = {
-      numOS: this.Os.numOs,
+      numOS: this.Os.sequencial,
       laudo: this.Os.laudoTecnico
     }
     this.osService.alterarDiagnosticoTecnico(dto).subscribe({
@@ -428,17 +428,17 @@ constructor(
   }
 
   sendOrcamento() {
-    if (!this.Os || !this.Os.numOs) {
+    if (!this.Os || !this.Os.sequencial) {
       this.toast.error('OS não encontrada');
       return;
     }
 
-    this.pdfService.gerarPdfOrcamento(this.Os.numOs).subscribe({
+    this.pdfService.gerarPdfOrcamento(this.Os.sequencial).subscribe({
       next: (blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `orcamento_OS_${this.Os.numOs}.pdf`;
+        link.download = `orcamento_OS_${this.Os.sequencial}.pdf`;
         link.click();
         window.URL.revokeObjectURL(url);
         this.toast.success('PDF do orçamento gerado com sucesso!');

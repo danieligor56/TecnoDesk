@@ -28,7 +28,7 @@
                 <div class="os-dados">
                     
                     <div>                    
-                        <h1 class="label" style="margin-bottom: .2rem;">Número da OS:<b>{{Os?.numOs}} 📋</b></h1>
+                        <h1 class="label" style="margin-bottom: .2rem;">Número da OS:<b>{{Os?.sequencial}} 📋</b></h1>
                     </div>
                     
                     <div class="cliente-os">
@@ -290,11 +290,11 @@
                             <h3>Orçamento</h3>
                             <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
                                 <div>
-                                    <button (click)="openListaServicoDialog(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
-                                    <button (click)="openServicoAvulso(Os?.numOs)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
-                                    <button (click)="openListaProdutoDialog(Os?.numOs)"id="buttons" mat-stroked-button color="primary">+ Produto</button>
-                                    <button (click)="openProdutoAvulso(Os?.numOs)" id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
-                                    <button (click)="openKitCreateDialog(Os?.numOs)" id="buttons"mat-stroked-button color="primary">🔥 Montar Kit</button>
+                                    <button (click)="openListaServicoDialog(Os?.sequencial)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
+                                    <button (click)="openServicoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
+                                    <button (click)="openListaProdutoDialog(Os?.sequencial)"id="buttons" mat-stroked-button color="primary">+ Produto</button>
+                                    <button (click)="openProdutoAvulso(Os?.sequencial)" id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
+                                    <button (click)="openKitCreateDialog(Os?.sequencial)" id="buttons"mat-stroked-button color="primary">🔥 Montar Kit</button>
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
                                     <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
                                 </div>
@@ -364,7 +364,7 @@
 
                         <div id="orcamentoTotais">
                             <h3>Detalhes</h3>
-                            <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.numOs}} 📋</b></h2>
+                            <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.sequencial}} 📋</b></h2>
                             
                             <div class="input-group">
                                 <label for="telefone">Cliente:</label>

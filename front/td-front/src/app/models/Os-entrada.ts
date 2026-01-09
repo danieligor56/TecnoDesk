@@ -5,7 +5,7 @@ import { Empresa } from "./Empresa";
 export interface Os_entrada{
   
   id: number;
-  numOs: number;
+  sequencial?: number;
   empresa: Empresa;
   cliente: Cliente;
   colaborador: Colaborador;

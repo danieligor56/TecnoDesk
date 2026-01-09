@@ -21,6 +21,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ServicoDTO {
 	
+	private long sequencial;
+	
 	private Empresa empresa;
 	
 	

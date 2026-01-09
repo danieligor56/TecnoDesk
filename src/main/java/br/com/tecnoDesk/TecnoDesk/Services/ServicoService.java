@@ -51,7 +51,7 @@ public class ServicoService {
 			Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmpresa));
 			servicoDTO.setEmpresa(empresa);
 			Servico novoServico= modelMapper.map(servicoDTO, Servico.class);
-			novoServico.setId((long) utils.callNextId(empresa.getId(), 9));
+			novoServico.setSequencial((long) utils.callNextId(empresa.getId(), 9));
 			return servicoRepository.save(novoServico);
 
 		} catch (Exception e) {
@@ -74,7 +74,6 @@ public class ServicoService {
 				throw new BadRequest("Não foi possível atender sua solicitação nesse moemnto");
 					}
 	}
-	
 	
 	public Cliente alterarServico(long id, ServicoDTO servicoDTO,String codEmpresa) {
 		

@@ -51,6 +51,7 @@ export class ColaboradorUpdateComponent implements OnInit {
    
     this.colaboradorCreateForm = this.fb.group({
       id:[this.data.id],
+      sequencial:[null],
       nome: [
         null,
         Validators.minLength(4)],
@@ -176,8 +177,6 @@ validaCampos():boolean{
 }
   
   updateColaborador(): void{
-
-
 
     const id = this.colaboradorCreateForm.get('id').value;
     const colaboradorData = this.colaboradorCreateForm.value;

@@ -11,6 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClienteDTO {
+	
+	private long sequencial;
 
 	private String nome;
 	
