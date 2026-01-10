@@ -58,7 +58,7 @@ export class OsMecanicaEntradaComponent implements OnInit {
     });
 
     this.veiculoForm = this.fb.group({
-      placa: ['', [Validators.required, Validators.pattern(/^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/)]],
+      placa: ['', [Validators.required, Validators.minLength(7)]],
       marca: [''],
       modelo: [''],
       ano: [''],

@@ -33,7 +33,7 @@
           <input matInput formControlName="placa" placeholder="ABC1234" style="text-transform: uppercase;">
           <mat-hint>Formato: ABC1234 (busca automática)</mat-hint>
           <mat-error *ngIf="veiculoForm.get('placa')?.invalid && veiculoForm.get('placa')?.touched">
-            Placa obrigatória no formato correto
+            Placa obrigatória (7 caracteres)
           </mat-error>
         </mat-form-field>
 
