@@ -58,6 +58,7 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
 import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/produtos-delete.component';
 import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
@@ -72,6 +73,7 @@ import { OsRapidaListComponent } from './components/os-rapida/os-rapida-list.com
 import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create.component';
 import { OsRapidaDetailDialogComponent } from './components/os-rapida/os-rapida-detail-dialog.component';
 import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-close-dialog.component';
+import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/os-mecanica-entrada.component';
 
 
 @NgModule({
@@ -118,9 +120,10 @@ import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-c
     OsRapidaListComponent,
     OsRapidaCreateComponent,
     OsRapidaDetailDialogComponent,
-    OsRapidaCloseDialogComponent
-    
-  
+    OsRapidaCloseDialogComponent,
+    OsMecanicaEntradaComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -160,7 +163,8 @@ import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-c
     MatTreeModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
  
    
     
