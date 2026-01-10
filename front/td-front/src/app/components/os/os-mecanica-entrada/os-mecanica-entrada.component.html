@@ -31,20 +31,31 @@
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Placa *</mat-label>
           <input matInput formControlName="placa" placeholder="ABC1234" style="text-transform: uppercase;">
-          <mat-hint>Formato: ABC1234</mat-hint>
+          <mat-hint>Formato: ABC1234 (busca automática)</mat-hint>
           <mat-error *ngIf="veiculoForm.get('placa')?.invalid && veiculoForm.get('placa')?.touched">
             Placa obrigatória no formato correto
           </mat-error>
         </mat-form-field>
 
-        <div class="loading-indicator" *ngIf="isLoadingPlaca">
-          <mat-spinner diameter="20"></mat-spinner>
-          <span>Buscando dados...</span>
-        </div>
+        <div class="placa-status">
+          <div class="loading-indicator" *ngIf="isLoadingPlaca">
+            <mat-spinner diameter="16"></mat-spinner>
+            <span>Buscando dados da placa...</span>
+          </div>
 
-        <div class="error-message" *ngIf="placaError">
-          <mat-icon color="warn">warning</mat-icon>
-          <span>Placa não encontrada</span>
+          <div class="error-message" *ngIf="placaError">
+            <mat-icon color="warn">warning</mat-icon>
+            <span>Placa não encontrada</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo da Marca -->
+      <div class="vehicle-logo-section" *ngIf="vehicleLogo">
+        <div class="logo-container">
+          <img [src]="vehicleLogo" [alt]="'Logo ' + veiculoForm.get('marca')?.value"
+               class="brand-logo" (error)="onLogoError($event)">
+          <p class="logo-label">Logo da Marca</p>
         </div>
       </div>
 

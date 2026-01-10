@@ -26,6 +26,7 @@ export class OsMecanicaEntradaComponent implements OnInit {
   colaboradores: Colaborador[] = [];
   isLoadingPlaca = false;
   placaError = false;
+  vehicleLogo = '';
 
   prioridades = [
     { value: 'NORMAL', label: '📌 Normal' },
@@ -73,8 +74,18 @@ export class OsMecanicaEntradaComponent implements OnInit {
 
     // Watch for placa changes to auto-fill vehicle data
     this.veiculoForm.get('placa')?.valueChanges.subscribe(placa => {
-      if (this.veiculoForm.get('placa')?.valid && placa) {
-        this.buscarDadosVeiculo(placa);
+      if (placa && placa.length === 7) {
+        this.buscarDadosVeiculo(placa.toUpperCase());
+      } else {
+        // Clear vehicle data if placa is incomplete
+        this.vehicleLogo = '';
+        this.placaError = false;
+        this.veiculoForm.patchValue({
+          marca: '',
+          modelo: '',
+          ano: '',
+          cor: ''
+        });
       }
     });
   }
@@ -93,6 +104,7 @@ export class OsMecanicaEntradaComponent implements OnInit {
   buscarDadosVeiculo(placa: string): void {
     this.isLoadingPlaca = true;
     this.placaError = false;
+    this.vehicleLogo = '';
 
     this.utilsService.pegarDadosCarro(placa).subscribe({
       next: (dados: ApiPlacaResponseDTO) => {
@@ -102,11 +114,13 @@ export class OsMecanicaEntradaComponent implements OnInit {
           ano: dados.ano,
           cor: dados.cor
         });
+        this.vehicleLogo = dados.logo;
         this.isLoadingPlaca = false;
       },
       error: () => {
         this.placaError = true;
         this.isLoadingPlaca = false;
+        this.vehicleLogo = '';
         this.toast.warning('Placa não encontrada ou serviço indisponível');
       }
     });
@@ -201,6 +215,7 @@ export class OsMecanicaEntradaComponent implements OnInit {
       modelo: this.veiculoForm.value.modelo,
       ano: this.veiculoForm.value.ano,
       cor: this.veiculoForm.value.cor,
+      logo: this.vehicleLogo,
       // OS data
       kmEntrada: this.osForm.value.kmEntrada,
       diagnosticoInicial: this.osForm.value.diagnosticoInicial,
@@ -233,9 +248,16 @@ export class OsMecanicaEntradaComponent implements OnInit {
     this.clienteForm.reset();
     this.veiculoForm.reset();
     this.osForm.reset({ prioridadeOS: 'NORMAL' });
+    this.vehicleLogo = '';
+    this.placaError = false;
   }
 
   voltar(): void {
     this.router.navigate(['/os/list']);
+  }
+
+  onLogoError(event: any): void {
+    // Hide the logo if it fails to load
+    event.target.style.display = 'none';
   }
 }

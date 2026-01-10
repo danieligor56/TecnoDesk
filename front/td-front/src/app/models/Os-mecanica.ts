@@ -16,6 +16,7 @@ export interface Os_Mecanica {
   modelo: string;
   ano: string;
   cor: string;
+  logo?: string;
   combustivel?: string;
   // OS data
   kmEntrada?: number;
