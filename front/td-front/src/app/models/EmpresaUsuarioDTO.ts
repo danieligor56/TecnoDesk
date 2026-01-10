@@ -14,6 +14,8 @@ export interface EmpresaUsuarioDTO {
 
     site: string;
 
+    segmento: number
+
     cep: string;
 
     logra: string;

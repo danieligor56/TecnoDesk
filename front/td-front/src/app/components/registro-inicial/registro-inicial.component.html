@@ -33,6 +33,20 @@
             </mat-radio-group>
           </div>
 
+          <div class="document-type-section">
+            <p class="section-hint">Selecione o segmento da empresa:</p>
+            <mat-radio-group formControlName="segmento" class="radio-group">
+              <mat-radio-button value="0" class="custom-radio">
+                <mat-icon class="radio-icon">electrical_services</mat-icon>
+                Eletrônica
+              </mat-radio-button>
+              <mat-radio-button value="1" class="custom-radio">
+                <mat-icon class="radio-icon">build</mat-icon>
+                Oficina
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
           <div class="form-grid">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Documento da Empresa</mat-label>

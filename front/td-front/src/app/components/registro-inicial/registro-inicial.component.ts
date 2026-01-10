@@ -50,7 +50,8 @@ export class RegistroInicialComponent implements OnInit {
       confirmEmail:['',[Validators.required,Validators.email]],
       cel:['',Validators.required],
       tel:[''],
-      site:['']
+      site:[''],
+      segmento:['',Validators.required]
 
     },{
        validators: [Validation.match('mail','confirmEmail')]
@@ -108,12 +109,13 @@ export class RegistroInicialComponent implements OnInit {
     const docEmpresa = this.firstFormGroup.get('docEmpresa').valid;
     const mail = this.firstFormGroup.get('mail').valid;
     const cel = this.firstFormGroup.get('cel').valid;
+    const segmento = this.firstFormGroup.get('segmento').valid;
     const razaoSocial = this.documentType === 'cnpj' ? this.firstFormGroup.get('razaoSocial').valid : true;
 
     const validaMails = this.firstFormGroup.get('mail').value;
     const confirEmail = this.firstFormGroup.get('confirmEmail').value
 
-    if(nomEmpresa && docEmpresa && mail && cel && confirEmail == validaMails && razaoSocial){
+    if(nomEmpresa && docEmpresa && mail && cel && segmento && confirEmail == validaMails && razaoSocial){
         return true
     }
         return false
@@ -173,6 +175,7 @@ export class RegistroInicialComponent implements OnInit {
         cel: this.firstFormGroup.get('cel').value,
         tel: this.firstFormGroup.get('tel').value || '',
         site: this.firstFormGroup.get('site').value || '',
+        segmento: parseInt(this.firstFormGroup.get('segmento').value),
         cep: this.secondFormGroup.get('cep').value,
         logra: this.secondFormGroup.get('logra').value,
         num: parseInt(this.secondFormGroup.get('num').value),

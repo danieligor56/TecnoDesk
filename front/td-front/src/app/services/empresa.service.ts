@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,16 @@ export class EmpresaService {
 
   checkCompanyExistsByDoc(doc: string): Observable<boolean>{
    return this.http.get<boolean>(`http://localhost:8080/empresa/VerificarPorDoc?documento=${doc}`)
+  }
+
+  buscarSegmentoEmpresa(): Observable<number>{
+     const headers = new HttpHeaders({
+          'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+        })
+
+        const options = { headers: headers }
+
+     return this.http.get<number>('http://localhost:8080/empresa/buscarSegmentoEmpresa',options)
   }
 
 
