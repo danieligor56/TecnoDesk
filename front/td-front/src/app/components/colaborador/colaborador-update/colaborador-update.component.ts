@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
 import { AuthService } from 'src/app/services/auth.service';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Validation from 'src/app/validators/validadorSenha';
@@ -34,7 +34,7 @@ export class ColaboradorUpdateComponent implements OnInit {
 
   constructor(
      private fb: FormBuilder,
-     private servCep: CepService,
+     private servCep: UtilsService,
      private toast: ToastrService,
      private colaboradorService:ColaboradorService,
      private router:Router,

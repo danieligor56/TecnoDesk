@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
 import { AuthService } from 'src/app/services/auth.service';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -24,7 +24,7 @@ export class ClientesUpdateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private servCep: CepService,
+    private servCep: UtilsService,
     private toast: ToastrService,
     private router:Router,
     private clienteService:ClienteService,

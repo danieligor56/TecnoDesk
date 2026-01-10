@@ -2,6 +2,7 @@ package br.com.tecnoDesk.TecnoDesk.Controller;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,10 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.tecnoDesk.TecnoDesk.DTO.ApiPlacaResponseDTO;
+import br.com.tecnoDesk.TecnoDesk.DTO.VeiculoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Veiculo;
 import br.com.tecnoDesk.TecnoDesk.Services.VeiculoService;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/veiculos")
@@ -23,9 +29,14 @@ public class VeiculoController {
 	VeiculoService veiculoService;
 
 	@PostMapping
-	public ResponseEntity<Veiculo> criarVeiculo(@RequestBody Veiculo veiculo) {
-		Veiculo novoVeiculo = veiculoService.criarVeiculo(veiculo);
+	public ResponseEntity<Veiculo> criarVeiculo(@RequestBody VeiculoDTO veiculo,@RequestHeader("CodEmpresa") String codemp) {
+		Veiculo novoVeiculo = veiculoService.criarVeiculo(veiculo,codemp);
 		return ResponseEntity.ok(novoVeiculo);
+	}
+	
+	@GetMapping("/getDadosCarro")
+	public ResponseEntity<Mono<ApiPlacaResponseDTO>> pegarDadosPorPlaca(String placa){
+		return ResponseEntity.ok().body(veiculoService.pegarInformacoesCarroApi(placa));
 	}
 
 	@GetMapping

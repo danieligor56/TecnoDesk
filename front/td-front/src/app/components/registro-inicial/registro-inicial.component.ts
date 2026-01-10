@@ -6,7 +6,7 @@ import Validation from 'src/app/validators/validatorEmail';
 import { CdkNestedTreeNode } from '@angular/cdk/tree';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { ToastrService } from 'ngx-toastr';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { RegistroInicialService } from 'src/app/services/registro-inicial.service';
 import { EmpresaUsuarioDTO } from 'src/app/models/EmpresaUsuarioDTO';
 import { MatStepper } from '@angular/material/stepper';
@@ -35,7 +35,7 @@ export class RegistroInicialComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private empresaService: EmpresaService,
     private toast: ToastrService,
-    private servCep: CepService,
+    private servCep: UtilsService,
     private registroService: RegistroInicialService
 
   ) { }

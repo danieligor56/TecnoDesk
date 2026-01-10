@@ -5,8 +5,12 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import br.com.tecnoDesk.TecnoDesk.DTO.ApiPlacaResponseDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.VeiculoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Veiculo;
@@ -14,6 +18,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.VeiculoRepository;
 import exception.BadRequest;
 import exception.NotFound;
+import reactor.core.publisher.Mono;
 
 @Service
 public class VeiculoService {
@@ -32,6 +37,12 @@ public class VeiculoService {
 	
 	@Autowired
 	Utils utils;
+	
+	@Autowired
+	WebClient webClient;
+	
+	@Value("${api.placa.endpoint}")
+	public String token;
 
 	public Veiculo criarVeiculo(VeiculoDTO dto,String codEmpresa) {
 		try {
@@ -53,6 +64,22 @@ public class VeiculoService {
 		
 	}
 
+
+	public Mono<ApiPlacaResponseDTO> pegarInformacoesCarroApi(String placa) {
+		try {
+			return this.webClient.get()
+			        .uri("/" + placa + "/" + this.token)
+			        .accept(MediaType.APPLICATION_JSON)
+			        .header("Accept", "application/json")
+			        .retrieve()
+			        .bodyToMono(ApiPlacaResponseDTO.class);
+		} catch (Exception e) {
+			throw new BadRequest("Não foi possível recuperar a placa do carro de forma dinâmica"+ e.getMessage());
+		}
+	    
+	}
+	
+	
 	public List<Veiculo> listarVeiculos() {
 		return veiculoRepository.findAll();
 	}
