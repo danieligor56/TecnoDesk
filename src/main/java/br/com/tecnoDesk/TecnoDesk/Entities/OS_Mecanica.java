@@ -29,6 +29,9 @@ public class OS_Mecanica {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "cod_os", nullable = false)
 	private Long id;
+	
+	@Column(name = "codigo_sequencial")
+	private long sequencial;
 
 	@ManyToOne
 	@JoinColumn(name = "codigo_empresa", nullable = false)
@@ -41,6 +44,10 @@ public class OS_Mecanica {
 	@ManyToOne
 	@JoinColumn(name = "veiculo_id", nullable = false)
 	private Veiculo veiculo;
+	
+	@ManyToOne
+	@JoinColumn(name = "colaborador_id",nullable = true)
+	private Colaborador colaborador; // RESPONSÁVEL PELA ABERTURA DA OS.
 
 	@ManyToOne
 	@JoinColumn(name = "tecnico_responsavel")
@@ -54,9 +61,12 @@ public class OS_Mecanica {
 
 	@Column(name = "km_saida")
 	private Integer kmSaida;
-
-	@Column(name = "diagnostico_inicial")
-	private String diagnosticoInicial;
+	
+	@Column(name = "recCliente", nullable = false)
+	private String reclamacaoCliente;
+	
+	@Column(name = "testeInicial", nullable = false)
+	private String initTest;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status_os")
@@ -65,7 +75,8 @@ public class OS_Mecanica {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "prioridade_os")
 	private PrioridadeOS prioridadeOS;
+	
+	@Column(name = "chkList", nullable = false)
+	private String checkList;
 
-	@Column(name = "observacoes")
-	private String observacoes;
 }
