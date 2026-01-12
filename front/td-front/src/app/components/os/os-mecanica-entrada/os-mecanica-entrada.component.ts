@@ -29,6 +29,8 @@ export class OsMecanicaEntradaComponent implements OnInit {
   placaError = false;
   vehicleLogo = '';
 
+  cpfOrCnpj:boolean = true;
+
   // CADASTRO PARA CLIENTES. 
   nomeCliente:String = '';
   cttPrincipalCliente: string = '';
