@@ -11,6 +11,7 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { OsService } from 'src/app/services/os.service';
 import { UtilsService } from 'src/app/services/UtilsService.service';
 import { ApiPlacaResponseDTO } from 'src/app/DTO/ApiPlacaResponseDTO ';
+import { ClienteCreateOsComponent } from '../cliente-create-os/cliente-create-os.component';
 
 @Component({
   selector: 'app-os-mecanica-entrada',
@@ -27,6 +28,11 @@ export class OsMecanicaEntradaComponent implements OnInit {
   isLoadingPlaca = false;
   placaError = false;
   vehicleLogo = '';
+
+  // CADASTRO PARA CLIENTES. 
+  nomeCliente:String = '';
+  cttPrincipalCliente: string = '';
+  docCliente: string = '';
 
   prioridades = [
     { value: 'NORMAL', label: '📌 Normal' },
@@ -54,7 +60,8 @@ export class OsMecanicaEntradaComponent implements OnInit {
   private initializeForms(): void {
     this.clienteForm = this.fb.group({
       nome: ['', Validators.required],
-      telefone: ['', Validators.required]
+      telefone: ['', Validators.required],
+      documento: ['', Validators.required]
     });
 
     this.veiculoForm = this.fb.group({
@@ -145,6 +152,69 @@ export class OsMecanicaEntradaComponent implements OnInit {
       this.toast.warning('Preencha todos os campos obrigatórios');
     }
   }
+
+  buscarClientePorDoc(): void {
+    debugger;
+  const doc = this.clienteForm.get('documento')?.value;
+
+  if (!doc) {
+    // Se não houver documento, não faz sentido chamar o serviço
+    return;
+  }
+
+  this.clienteService.encontrarClientePorDocumento(doc).subscribe({
+    next: (response) => {
+      if (response?.id) {
+        this.nomeCliente = response.nome;
+        this.cttPrincipalCliente = response.cel1;
+        this.docCliente = response.documento;
+        // this.enderecoCliente = `${response.logradouro}, ${response.numero}.`;
+
+        this.clienteForm.patchValue({
+          nome: this.nomeCliente,
+          telefone: this.cttPrincipalCliente,
+          documento: this.docCliente,
+          // cliente: { id: response.id } // se existir grupo cliente
+        });
+      }
+      
+      if(this.docCliente == '') {
+        this.openDialog();
+      }
+      
+    },
+    error: () => {
+      if (this.docCliente) {
+        this.openDialog();
+      }
+    }
+  });
+}
+
+  openDialog(){
+    const dialogRef = this.dialog.open(ClienteCreateOsComponent,{
+        data: {documento: this.clienteForm.get('documento').value},disableClose:true
+      }); 
+      
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'closeData'){
+          this.apagarDadosCliente();
+          
+        }
+  
+        this.buscarClientePorDoc();
+        
+  
+      })
+      
+    }
+
+  apagarDadosCliente(){
+    this.docCliente = '';
+    this.nomeCliente = '';
+    this.cttPrincipalCliente = '';
+  }
+  
 
   private createClienteData(): Cliente {
     return {
@@ -260,4 +330,6 @@ export class OsMecanicaEntradaComponent implements OnInit {
     // Hide the logo if it fails to load
     event.target.style.display = 'none';
   }
+
+
 }

@@ -18,6 +18,12 @@ public class OSMecanicaService {
 		if (osMecanica.getVeiculo() == null) {
 			throw new IllegalArgumentException("Veículo é obrigatório na OS Mecânica");
 		}
+		
+		
+		
+		
+		
+		
 		return osMecanicaRepository.save(osMecanica);
 	}
 

@@ -25,9 +25,17 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	List<Cliente>listAll(long CodEmp);
 	
-	Cliente findByDocumento(String documento);
+	@Query(
+			value = "SELECT * FROM Cliente c WHERE c.codigo_empresa = :codEmpresa AND c.documento = :documento",
+			nativeQuery = true
+			)
+	Cliente findByDocumento(String documento,long codEmpresa);
 	
-	boolean existsByDocumento(String documento);
+	@Query(
+			value = "SELECT COUNT(*) FROM Cliente c WHERE c.codigo_empresa = :codEmpresa AND c.documento = :documento",
+			nativeQuery = true
+			)
+	int verificarPorDocumento(String documento,long codEmpresa);
 	
 	boolean existsById(long id);
 }

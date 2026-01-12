@@ -7,6 +7,19 @@
     <form [formGroup]="clienteForm" class="form-section">
       <h3>👤 Cliente</h3>
       <div class="form-row">
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Documento *</mat-label>
+          <input matInput formControlName="documento" 
+          placeholder="Nome do cliente" 
+          (blur)="buscarClientePorDoc()"
+          matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00" [dropSpecialCharacters]="false" >
+          <mat-error *ngIf="clienteForm.get('documento')?.invalid && clienteForm.get('documento')?.touched">
+            O Documento é obrigatório
+          </mat-error>
+                   
+        </mat-form-field>
+
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Nome *</mat-label>
           <input matInput formControlName="nome" placeholder="Nome do cliente">

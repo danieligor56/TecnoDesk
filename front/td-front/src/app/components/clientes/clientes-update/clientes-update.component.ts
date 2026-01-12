@@ -86,10 +86,10 @@ export class ClientesUpdateComponent implements OnInit {
 
       const nomeValid = this.clienteCreateForm.get('nome').valid;
       const documentoValid = this.clienteCreateForm.get('documento').valid;
-      const emailValid = this.clienteCreateForm.get('email').valid;
+      // const emailValid = this.clienteCreateForm.get('email').valid;
       const cel1Valid = this.clienteCreateForm.get('cel1').valid;
     
-        if(nomeValid && documentoValid && emailValid && cel1Valid ){
+        if(nomeValid && documentoValid && cel1Valid ){
           
           return true
           
