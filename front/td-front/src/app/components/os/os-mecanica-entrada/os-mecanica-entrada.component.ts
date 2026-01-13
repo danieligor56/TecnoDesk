@@ -59,6 +59,12 @@ export class OsMecanicaEntradaComponent implements OnInit {
     this.loadTecnicos();
   }
 
+  limparCampos(){
+    this.clienteForm.get('nome').setValue('');
+    this.clienteForm.get('telefone').setValue('');
+    this.clienteForm.get('documento').setValue('');
+  }
+
   private initializeForms(): void {
     this.clienteForm = this.fb.group({
       nome: ['', Validators.required],
@@ -331,6 +337,11 @@ export class OsMecanicaEntradaComponent implements OnInit {
   onLogoError(event: any): void {
     // Hide the logo if it fails to load
     event.target.style.display = 'none';
+  }
+
+  toggleDocType(event: any): void {
+    this.cpfOrCnpj = event.checked;
+    this.clienteForm.patchValue({ documento: '' });
   }
 
 

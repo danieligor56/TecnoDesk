@@ -22,7 +22,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 			value = "SELECT * FROM Cliente c WHERE c.codigo_empresa = :CodEmp",
 			nativeQuery = true
 			)
-	
 	List<Cliente>listAll(long CodEmp);
 	
 	@Query(
