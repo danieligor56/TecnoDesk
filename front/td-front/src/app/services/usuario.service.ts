@@ -9,15 +9,23 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  criarUsuario(usuario:Usuarios): Observable<Usuarios>{
+  criarUsuario(usuario: Usuarios): Observable<Usuarios> {
 
     const headers = new HttpHeaders({
-      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
     })
-    
-      const options = { headers: headers }
-     return this.http.post<Usuarios>('http://localhost:8080/auth/register',usuario,options);
+
+    const options = { headers: headers }
+    return this.http.post<Usuarios>('http://localhost:8080/auth/register', usuario, options);
+  }
+
+  listarUsuarios(): Observable<Usuarios[]> {
+    const headers = new HttpHeaders({
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+    })
+    const options = { headers: headers }
+    return this.http.get<Usuarios[]>('http://localhost:8080/auth/listar', options);
   }
 }

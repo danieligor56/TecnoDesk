@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>{{ data.isNew ? 'Nova Visita Técnica' : 'Editar Visita Técnica #' + data.visita?.sequencial }}</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="visitaForm" class="visita-form">
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clienteId">
+                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+                        {{cliente.nome}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="visitaForm.get('clienteId')?.hasError('required')">Cliente é obrigatório</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Técnico Responsável</mat-label>
+                <mat-select formControlName="tecnicoId">
+                    <mat-option *ngFor="let tecnico of tecnicos" [value]="tecnico.id">
+                        {{tecnico.nome}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="visitaForm.get('tecnicoId')?.hasError('required')">Técnico é obrigatório</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Data da Visita</mat-label>
+                <input matInput type="date" formControlName="dataVisita">
+                <mat-error *ngIf="visitaForm.get('dataVisita')?.hasError('required')">Data é obrigatória</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Hora da Visita</mat-label>
+                <input matInput type="time" formControlName="horaVisita">
+                <mat-error *ngIf="visitaForm.get('horaVisita')?.hasError('required')">Hora é obrigatória</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Tipo da Visita</mat-label>
+                <mat-select formControlName="tipoVisita">
+                    <mat-option *ngFor="let tipo of tipoOpcoes" [value]="tipo">
+                        {{traduzirTipo(tipo)}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="statusVisita">
+                    <mat-option *ngFor="let status of statusOpcoes" [value]="status">
+                        {{traduzirStatus(status)}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Endereço da Visita (se diferente do cliente)</mat-label>
+            <input matInput formControlName="enderecoVisita" placeholder="Logradouro, número, bairro, cidade...">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Observações Gerais</mat-label>
+            <textarea matInput formControlName="observacoes" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width"
+            *ngIf="!data.isNew || visitaForm.get('statusVisita')?.value === 'FINALIZADA'">
+            <mat-label>Relatório Técnico (O que foi realizado)</mat-label>
+            <textarea matInput formControlName="relatorioTecnico" rows="4"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Próxima Visita Sugerida</mat-label>
+            <input matInput type="date" formControlName="proximaVisitaSugerida">
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="salvar()" [disabled]="visitaForm.invalid">
+        {{ data.isNew ? 'Agendar' : 'Salvar Alterações' }}
+    </button>
+</mat-dialog-actions>
