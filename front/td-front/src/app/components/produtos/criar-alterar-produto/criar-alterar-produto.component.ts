@@ -222,7 +222,7 @@ export class CriarAlterarProdutoComponent implements OnInit {
         descricao: produto.descricao || '',
         marca: produto.marca || '',
         codigo_barras: produto.codigo_barras || '',
-        categoria: produto.categoria?.id || '',
+        categoria: (produto.categoria as any)?.id || '',
         produtoAtivo: produto.produtoAtivo !== undefined ? produto.produtoAtivo : true
       });
 
@@ -232,13 +232,9 @@ export class CriarAlterarProdutoComponent implements OnInit {
       });
 
       this.thirdFormGroup.patchValue({
-        unidadeMedida: produto.unidadeMedida || '',
+        unidadeMedida: (produto.unidadeMedida as any)?.id || '',
         quantidadeEstoque: produto.quantidadeEstoque || ''
       });
-
-      if (produto.unidadeMedida) {
-        this.thirdFormGroup.patchValue({ unidadeMedida: (produto.unidadeMedida as any).id });
-      }
 
       // Valida os botões após carregar os dados
       this.validarBtn1();
