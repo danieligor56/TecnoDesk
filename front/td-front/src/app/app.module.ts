@@ -4,46 +4,46 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent } from './components/header/header.component';
 import { ColaboradorListComponent } from './components/colaborador/colaborador-list/colaborador-list.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ColaboradorCreateComponent } from './components/colaborador/colaborador-create/colaborador-create.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMaskModule } from 'ngx-mask';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatSelectModule} from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ColaboradorUpdateComponent } from './components/colaborador/colaborador-update/colaborador-update.component';
 import { ColaboradorDeleteComponent } from './components/colaborador/colaborador-delete/colaborador-delete.component';
 import { ClientesListComponent } from './components/clientes/cliente-list/clientes-list.component';
 import { ClienteCreateComponent } from './components/clientes/cliente-create/cliente-create.component';
 import { ClientesDeleteComponent } from './components/clientes/clientes-delete/clientes-delete.component';
 import { ClientesUpdateComponent } from './components/clientes/clientes-update/clientes-update.component';
-import {MatTreeModule} from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
 import { OsCreateComponent } from './components/os/os-create/os-create.component';
 import { OsListComponent } from './components/os/os-list/os-list.component';
 import { ClienteCreateOsComponent } from './components/os/cliente-create-os/cliente-create-os.component';
 import { CancelarOSComponent } from './components/os/cancelar-os/cancelar-os.component';
 import { OsCreateSucssesComponent } from './components/os/os-create/os-create-sucsses/os-create-sucsses.component';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { OsManagerComponent } from './components/os/os-manager/os-manager.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ItemServiceComponent } from './components/item-service/item-service.component';
@@ -56,9 +56,9 @@ import { ItemServiceCobrarhoraComponent } from './components/item-service/item-s
 import { RegistroInicialComponent } from './components/registro-inicial/registro-inicial.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
 import { ProdutosDeleteComponent } from './components/produtos/produtos-delete/produtos-delete.component';
 import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
@@ -74,6 +74,8 @@ import { OsRapidaCreateComponent } from './components/os-rapida/os-rapida-create
 import { OsRapidaDetailDialogComponent } from './components/os-rapida/os-rapida-detail-dialog.component';
 import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-close-dialog.component';
 import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/os-mecanica-entrada.component';
+import { ManageUnitsDialogComponent } from './components/produtos/manage-units-dialog/manage-units-dialog.component';
+import { ManageCategoriesDialogComponent } from './components/produtos/manage-categories-dialog/manage-categories-dialog.component';
 
 
 @NgModule({
@@ -121,7 +123,9 @@ import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/
     OsRapidaCreateComponent,
     OsRapidaDetailDialogComponent,
     OsRapidaCloseDialogComponent,
-    OsMecanicaEntradaComponent
+    OsMecanicaEntradaComponent,
+    ManageUnitsDialogComponent,
+    ManageCategoriesDialogComponent
 
 
   ],
@@ -143,14 +147,14 @@ import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/
     MatTableModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule,   
+    FormsModule,
     ToastrModule.forRoot({
-        timeOut:3000,
-        closeButton:true,
-        progressBar:true
-      }),
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true
+    }),
     NgxMaskModule.forRoot({
-      
+
     }),
     HttpClientModule,
     JwtModule,
@@ -165,11 +169,11 @@ import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/
     MatSlideToggleModule,
     MatTooltipModule,
     MatProgressSpinnerModule
- 
-   
-    
-   
-  
+
+
+
+
+
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
@@ -177,5 +181,5 @@ import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/
 export class AppModule { }
 
 
-//É para ficar em providers, a classe está comentada durante a verificação do trecho de código. 
+//É para ficar em providers, a classe está comentada durante a verificação do trecho de código.
 //AuthInterceptorProvider

@@ -1,0 +1,43 @@
+<div class="manage-container">
+  <h2 mat-dialog-title>Gerenciar Unidades de Medida</h2>
+  
+  <mat-dialog-content>
+    <div class="form-row">
+      <mat-form-field appearance="outline" style="flex: 2;">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="newUnit.nome" placeholder="Ex: Kilograma">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Sigla</mat-label>
+        <input matInput [(ngModel)]="newUnit.sigla" placeholder="Ex: KG">
+      </mat-form-field>
+      
+      <button mat-mini-fab color="primary" (click)="save()" [disabled]="!newUnit.nome || !newUnit.sigla">
+        <mat-icon>{{ isEditing ? 'check' : 'add' }}</mat-icon>
+      </button>
+      
+      <button *ngIf="isEditing" mat-mini-fab color="warn" (click)="cancelEdit()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-list>
+      <mat-list-item *ngFor="let unit of units">
+        <span matLine>{{ unit.nome }} ({{ unit.sigla }})</span>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="edit(unit)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(unit)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Fechar</button>
+  </mat-dialog-actions>
+</div>

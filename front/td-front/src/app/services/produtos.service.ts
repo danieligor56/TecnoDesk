@@ -8,47 +8,46 @@ import { Produtos } from '../models/Produtos';
 })
 export class ProdutosService {
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  listarProdutos(): Observable<Produtos[]>{
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
-      return this.http.get<Produtos[]>("http://localhost:8080/api/v1/produtos/listarProdutos?codEmpresa=://localhost:8080/api/v1/servico/listaServico",options)
-    }
-
-     encontrarPorId(id): Observable<Produtos>{
-        debugger;
-        const headers = new HttpHeaders({
-          'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-        })
-        const options = { headers: headers }
-        return this.http.get<Produtos>(`http://localhost:8080/api/v1/produtos/buscarProduto/{id}?id=${id}`,options)
-      }
-
-  criarNovoProduto(produtoDto: Produtos): Observable<Produtos>{
+  listarProdutos(): Observable<Produtos[]> {
     const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-    const options = { headers: headers }
-    return this.http.post<Produtos>('http://localhost:8080/api/v1/produtos/criarProdutos',produtoDto,options)
-  }  
-
-  alterarProduto(id: number, produtoDto: Produtos): Observable<Produtos>{
-    const headers = new HttpHeaders({
-      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.put<Produtos>(`http://localhost:8080/api/v1/produtos/alterarProduto/${id}`,produtoDto,options)
+    return this.http.get<Produtos[]>("http://localhost:8080/api/v1/produtos/listarProdutos", options)
   }
 
-  deletarProduto(id: bigint): Observable<Produtos>{
+  encontrarPorId(id: any): Observable<Produtos> {
     const headers = new HttpHeaders({
-      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.delete<Produtos>(`http://localhost:8080/api/v1/produtos/deletarProduto/{id}?id=${id}`,options)
+    return this.http.get<Produtos>(`http://localhost:8080/api/v1/produtos/buscarProduto/${id}`, options)
+  }
+
+  criarNovoProduto(produtoDto: any): Observable<Produtos> {
+    const headers = new HttpHeaders({
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+    })
+    const options = { headers: headers }
+    return this.http.post<Produtos>('http://localhost:8080/api/v1/produtos/criarProdutos', produtoDto, options)
+  }
+
+  alterarProduto(id: number, produtoDto: any): Observable<Produtos> {
+    const headers = new HttpHeaders({
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+    })
+    const options = { headers: headers }
+    return this.http.put<Produtos>(`http://localhost:8080/api/v1/produtos/alterarProduto/${id}`, produtoDto, options)
+  }
+
+  deletarProduto(id: any): Observable<Produtos> {
+    const headers = new HttpHeaders({
+      'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
+    })
+    const options = { headers: headers }
+    return this.http.delete<Produtos>(`http://localhost:8080/api/v1/produtos/deletarProduto/${id}`, options)
   }
 
 
