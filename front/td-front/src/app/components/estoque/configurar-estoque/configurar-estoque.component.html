@@ -3,7 +3,8 @@
 <mat-dialog-content>
   <div *ngIf="data?.controleEstoque?.produto">
     <p><strong>Produto:</strong> {{data.controleEstoque.produto.nome}}</p>
-    <p><strong>Estoque Atual:</strong> {{data.controleEstoque.estoqueAtual}} {{data.controleEstoque.produto.unidadeMedida || ''}}</p>
+    <p><strong>Estoque Atual:</strong> {{data.controleEstoque.estoqueAtual}}
+      {{data.controleEstoque.produto.unidadeMedida?.sigla || ''}}</p>
   </div>
 
   <form [formGroup]="configForm" style="margin-top: 20px;">

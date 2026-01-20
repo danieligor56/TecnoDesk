@@ -1,81 +1,85 @@
 <div class="container">
-    <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-        <h1 id="osH1">Controle de Estoque</h1>       
-    </div>
+  <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+    <h1 id="osH1">Controle de Estoque</h1>
+  </div>
 
-    <mat-form-field appearance="standard">
-        <mat-label>🔍 Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome do produto" #input>
-    </mat-form-field>
-    
-    <div>
-        <table mat-table [dataSource]="dataSource">
-         
-          <ng-container matColumnDef="produto">
-            <th mat-header-cell *matHeaderCellDef> Produto </th>
-            <td mat-cell *matCellDef="let controle">🛍️ {{controle.produto?.nome}} </td>
-          </ng-container>
+  <mat-form-field appearance="standard">
+    <mat-label>🔍 Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome do produto" #input>
+  </mat-form-field>
 
-          <ng-container matColumnDef="estoqueAtual">
-            <th mat-header-cell *matHeaderCellDef> Estoque Atual </th>
-            <td mat-cell *matCellDef="let controle">📦 {{controle.estoqueAtual}} {{controle.produto?.unidadeMedida || ''}} </td>
-          </ng-container>
+  <div>
+    <table mat-table [dataSource]="dataSource">
 
-          <ng-container matColumnDef="estoqueMinimo">
-            <th mat-header-cell *matHeaderCellDef> Estoque Mínimo </th>
-            <td mat-cell *matCellDef="let controle">⚠️ {{controle.estoqueMinimo}} {{controle.produto?.unidadeMedida || ''}} </td>
-          </ng-container>
+      <ng-container matColumnDef="produto">
+        <th mat-header-cell *matHeaderCellDef> Produto </th>
+        <td mat-cell *matCellDef="let controle">🛍️ {{controle.produto?.nome}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="estoqueMaximo">
-            <th mat-header-cell *matHeaderCellDef> Estoque Máximo </th>
-            <td mat-cell *matCellDef="let controle">📊 {{controle.estoqueMaximo || '-'}} {{controle.produto?.unidadeMedida || ''}} </td>
-          </ng-container>
+      <ng-container matColumnDef="estoqueAtual">
+        <th mat-header-cell *matHeaderCellDef> Estoque Atual </th>
+        <td mat-cell *matCellDef="let controle">📦 {{controle.estoqueAtual}} {{controle.produto?.unidadeMedida?.sigla ||
+          ''}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let controle">
-              <span [class]="getStatusClass(controle)">{{getStatusEstoque(controle)}}</span>
-            </td>
-          </ng-container>
+      <ng-container matColumnDef="estoqueMinimo">
+        <th mat-header-cell *matHeaderCellDef> Estoque Mínimo </th>
+        <td mat-cell *matCellDef="let controle">⚠️ {{controle.estoqueMinimo}} {{controle.produto?.unidadeMedida?.sigla
+          || ''}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="acoes">
-           <th mat-header-cell *matHeaderCellDef></th> 
-          <td mat-cell *matCellDef="let element"> 
-          
-            <button type="button" mat-stroked-button color="primary" (click)="openMovimentacao(element)" style="margin-right: 8px;">
-              <mat-icon style="margin-right: 5px;">swap_horiz</mat-icon>Movimentar
-            </button>
-           
-            <button mat-stroked-button color="accent" (click)="openConfigurar(element)">
-              <mat-icon style="margin-right: 5px;">settings</mat-icon>
-              Configurar
-            </button>
-              
-        </td>         
-          
-        </ng-container>
+      <ng-container matColumnDef="estoqueMaximo">
+        <th mat-header-cell *matHeaderCellDef> Estoque Máximo </th>
+        <td mat-cell *matCellDef="let controle">📊 {{controle.estoqueMaximo || '-'}}
+          {{controle.produto?.unidadeMedida?.sigla || ''}} </td>
+      </ng-container>
 
-          
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      
-          
-        </table>
-      
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-      </div>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let controle">
+          <span [class]="getStatusClass(controle)">{{getStatusEstoque(controle)}}</span>
+        </td>
+      </ng-container>
 
-      <div id="buttons">
-        <button (click)="openMovimentacao()" mat-flat-button color="primary">
-          <mat-icon>add</mat-icon>
-            Nova Movimentação
-        </button>
-        &nbsp;
-        <button (click)="verificarEstoqueBaixo()" mat-raised-button color="warn">
-          <mat-icon>warning</mat-icon>
-          Verificar Estoque Baixo
-        </button>
-      </div>
-   
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+
+          <button type="button" mat-stroked-button color="primary" (click)="openMovimentacao(element)"
+            style="margin-right: 8px;">
+            <mat-icon style="margin-right: 5px;">swap_horiz</mat-icon>Movimentar
+          </button>
+
+          <button mat-stroked-button color="accent" (click)="openConfigurar(element)">
+            <mat-icon style="margin-right: 5px;">settings</mat-icon>
+            Configurar
+          </button>
+
+        </td>
+
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <div id="buttons">
+    <button (click)="openMovimentacao()" mat-flat-button color="primary">
+      <mat-icon>add</mat-icon>
+      Nova Movimentação
+    </button>
+    &nbsp;
+    <button (click)="verificarEstoqueBaixo()" mat-raised-button color="warn">
+      <mat-icon>warning</mat-icon>
+      Verificar Estoque Baixo
+    </button>
+  </div>
+
 </div>
