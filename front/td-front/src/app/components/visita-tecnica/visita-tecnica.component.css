@@ -68,3 +68,15 @@ table {
         margin-bottom: 10px;
     }
 }
+
+.dt-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.time-label {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 500;
+}

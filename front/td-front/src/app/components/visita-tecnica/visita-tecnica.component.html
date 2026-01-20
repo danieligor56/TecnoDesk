@@ -34,7 +34,12 @@
 
             <ng-container matColumnDef="dataHora">
                 <th mat-header-cell *matHeaderCellDef> Data e Hora </th>
-                <td mat-cell *matCellDef="let visita"> 📅 {{visita.dataVisita}} às {{visita.horaVisita}} </td>
+                <td mat-cell *matCellDef="let visita">
+                    <div class="dt-container">
+                        <span>📅 {{visita.dataVisita | date:'dd/MM/yyyy'}}</span>
+                        <span class="time-label">⏰ {{visita.horaVisita}}</span>
+                    </div>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="tipo">
