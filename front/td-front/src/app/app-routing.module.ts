@@ -30,42 +30,44 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CriarAlterarProdutoComponent } from './components/produtos/criar-alterar-produto/criar-alterar-produto.component';
 import { ChatComponent } from './components/atendimento/chat/chat.component';
 import { EstoqueListComponent } from './components/estoque/estoque-list/estoque-list.component';
+import { VisitaTecnicaComponent } from './components/visita-tecnica/visita-tecnica.component';
 
 
 const routes: Routes = [
   {
-    path:'login',component:LoginComponent
-  },{
-    path:'registroInicial',component:RegistroInicialComponent
+    path: 'login', component: LoginComponent
+  }, {
+    path: 'registroInicial', component: RegistroInicialComponent
   },
   {
-    path:'',component:NavComponent,canActivate: [AuthGuard],children:[
-      {path:'home',component:HomeComponent},
-      {path: 'itemService',component:ItemServiceComponent},
-      {path: 'itemService/create',component:ItemServiceCreateComponent},
-      {path: 'itemService/update', component:ItemServiceUpdateComponent},
-      {path: 'itemService/delete', component:ItemServiceDeleteComponent},
-      {path: 'itemService/minilist',component:ItemServicelMinilistComponent},
-      {path: 'itemService/createAvulso',component:ItemServiceCreateAvulsoComponent},
-      {path: 'itemService/cobrarHora',component:ItemServiceCobrarhoraComponent},  
-      {path:'colaborador',component:ColaboradorListComponent},
-      {path:'colaborador/update/:id',component:ColaboradorUpdateComponent},
-      {path:'os/create',component:OsCreateComponent},
-      {path:'os/create/:id',component:OsCreateComponent},
-      {path:'os/list',component:OsListComponent},
-      {path:'os/manager',component:OsManagerComponent},
-      {path:'manager/:id',component:OsManagerComponent},
-      {path:'os-mecanica/entrada',component:OsMecanicaEntradaComponent},
-      {path:'os-rapida/list',component:OsRapidaListComponent},
-      {path:'os-rapida/create',component:OsRapidaCreateComponent},
-      {path:'os-rapida/edit/:id',component:OsRapidaCreateComponent},
-      {path:'clientes',component:ClientesListComponent},
-      {path: 'produtos', component:ProdutosComponent},
-      {path: 'criarAlterarProdutos',component: CriarAlterarProdutoComponent},
-      {path: 'estoque', component:EstoqueListComponent},
-      {path: 'atendimento', component: ChatComponent}
+    path: '', component: NavComponent, canActivate: [AuthGuard], children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'itemService', component: ItemServiceComponent },
+      { path: 'itemService/create', component: ItemServiceCreateComponent },
+      { path: 'itemService/update', component: ItemServiceUpdateComponent },
+      { path: 'itemService/delete', component: ItemServiceDeleteComponent },
+      { path: 'itemService/minilist', component: ItemServicelMinilistComponent },
+      { path: 'itemService/createAvulso', component: ItemServiceCreateAvulsoComponent },
+      { path: 'itemService/cobrarHora', component: ItemServiceCobrarhoraComponent },
+      { path: 'colaborador', component: ColaboradorListComponent },
+      { path: 'colaborador/update/:id', component: ColaboradorUpdateComponent },
+      { path: 'os/create', component: OsCreateComponent },
+      { path: 'os/create/:id', component: OsCreateComponent },
+      { path: 'os/list', component: OsListComponent },
+      { path: 'os/manager', component: OsManagerComponent },
+      { path: 'manager/:id', component: OsManagerComponent },
+      { path: 'os-mecanica/entrada', component: OsMecanicaEntradaComponent },
+      { path: 'os-rapida/list', component: OsRapidaListComponent },
+      { path: 'os-rapida/create', component: OsRapidaCreateComponent },
+      { path: 'os-rapida/edit/:id', component: OsRapidaCreateComponent },
+      { path: 'clientes', component: ClientesListComponent },
+      { path: 'produtos', component: ProdutosComponent },
+      { path: 'criarAlterarProdutos', component: CriarAlterarProdutoComponent },
+      { path: 'estoque', component: EstoqueListComponent },
+      { path: 'atendimento', component: ChatComponent },
+      { path: 'visitas-tecnicas', component: VisitaTecnicaComponent }
 
-      
+
     ]
   }
 ];

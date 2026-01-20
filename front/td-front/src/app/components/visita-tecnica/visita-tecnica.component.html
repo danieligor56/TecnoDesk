@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="titPage">
+        <h1 id="osH1">Gerenciamento de Visitas Técnicas 🛠️</h1>
+    </div>
+
+    <!-- <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+    <h1 id="osH1">Cliente</h1>       
+  </div> -->
+
+    <div class="actions">
+        <mat-form-field appearance="standard" class="filter">
+            <mat-label>🔍 Filtrar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome do cliente ou técnico" #input>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" (click)="openCriarDialog()">
+            <mat-icon>add</mat-icon> Nova Visita
+        </button>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="sequencial">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let visita"> {{visita.sequencial}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cliente">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let visita"> 👤 {{visita.clienteNome}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tecnico">
+                <th mat-header-cell *matHeaderCellDef> Técnico </th>
+                <td mat-cell *matCellDef="let visita"> 👷 {{visita.tecnicoNome}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dataHora">
+                <th mat-header-cell *matHeaderCellDef> Data e Hora </th>
+                <td mat-cell *matCellDef="let visita">
+                    <div class="dt-container">
+                        <span>📅 {{visita.dataVisita | date:'dd/MM/yyyy'}}</span>
+                        <span class="time-label">⏰ {{visita.horaVisita}}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                <td mat-cell *matCellDef="let visita"> {{traduzirTipo(visita.tipoVisita)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let visita">
+                    <span [class]="getStatusClass(visita.statusVisita)">{{traduzirStatus(visita.statusVisita)}}</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let visita">
+                    <button mat-icon-button color="primary" (click)="openEditarDialog(visita)" matTooltip="Editar">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="excluir(visita)" matTooltip="Excluir">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7">Nenhuma visita técnica encontrada para o filtro "{{input.value}}"</td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecione a página"></mat-paginator>
+    </div>
+</div>

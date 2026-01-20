@@ -76,6 +76,8 @@ import { OsRapidaCloseDialogComponent } from './components/os-rapida/os-rapida-c
 import { OsMecanicaEntradaComponent } from './components/os/os-mecanica-entrada/os-mecanica-entrada.component';
 import { ManageUnitsDialogComponent } from './components/produtos/manage-units-dialog/manage-units-dialog.component';
 import { ManageCategoriesDialogComponent } from './components/produtos/manage-categories-dialog/manage-categories-dialog.component';
+import { VisitaTecnicaComponent } from './components/visita-tecnica/visita-tecnica.component';
+import { VisitaTecnicaDialogComponent } from './components/visita-tecnica/visita-tecnica-dialog/visita-tecnica-dialog.component';
 
 
 @NgModule({
@@ -125,7 +127,9 @@ import { ManageCategoriesDialogComponent } from './components/produtos/manage-ca
     OsRapidaCloseDialogComponent,
     OsMecanicaEntradaComponent,
     ManageUnitsDialogComponent,
-    ManageCategoriesDialogComponent
+    ManageCategoriesDialogComponent,
+    VisitaTecnicaComponent,
+    VisitaTecnicaDialogComponent
 
 
   ],

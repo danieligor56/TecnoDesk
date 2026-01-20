@@ -1,0 +1,30 @@
+.visita-form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    flex: 1;
+}
+
+mat-dialog-content {
+    max-height: 70vh;
+}
+
+@media (max-width: 600px) {
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

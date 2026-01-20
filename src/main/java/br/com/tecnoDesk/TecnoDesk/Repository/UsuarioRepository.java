@@ -7,15 +7,14 @@ import org.springframework.stereotype.Repository;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import java.util.List;
 
-
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuarios, Long>{
-	
+public interface UsuarioRepository extends JpaRepository<Usuarios, Long> {
+
 	UserDetails findByEmail(String email);
-	
+
 	Usuarios findItByEmail(String email);
-	
+
 	Boolean existsByEmail(String email);
 
+	List<Usuarios> findByEmpresaId(long empresaId);
 }
-
