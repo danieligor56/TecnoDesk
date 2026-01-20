@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.DTO;
 
+import br.com.tecnoDesk.TecnoDesk.Enuns.Segmento;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,8 @@ public class EmpresaUsuarioDTO {
 	private String tel;
 	
 	private String site;
+	
+	private int segmento;
 	
 	//BLOCO ENDEREÇO - SESSÃO EMPRESA //
 	private String cep;

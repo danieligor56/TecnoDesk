@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.tecnoDesk.TecnoDesk.DTO.EmpresaUsuarioDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Segmento;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import exception.BadRequest;
 import lombok.extern.java.Log;
@@ -53,6 +54,12 @@ public class RegistroInicialService {
 			novaEmpresa.setBairro(dto.getBairro());
 			novaEmpresa.setMunicipio(dto.getMunicipio());
 			novaEmpresa.setUf(dto.getUf());
+			
+			if(dto.getSegmento() == 0)
+				novaEmpresa.setSegmento(Segmento.eletronica);
+			
+			if(dto.getSegmento() == 1)
+				novaEmpresa.setSegmento(Segmento.mecanica);
 			
 			// PEGANDO SEQUENCIAL PARA NOVA EMPRESA. 
 			novaEmpresa.setId((long) utils.callNextId(1,3 ));

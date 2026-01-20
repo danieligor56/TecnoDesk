@@ -1,5 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Entities;
 
+import br.com.tecnoDesk.TecnoDesk.Enuns.Segmento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +51,8 @@ public class Empresa {
 	@Column(name="site",unique = true)
 	private String site;
 	
+	@Column
+	private Segmento segmento;
 	
 	//BLOCO ENDEREÇO//
 	@Column(name="cep")

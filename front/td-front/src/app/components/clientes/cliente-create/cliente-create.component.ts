@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Ocupacao } from 'src/app/enuns/Ocupacao';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -27,7 +27,7 @@ export class ClienteCreateComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ClienteCreateComponent>,
     private fb: FormBuilder,
-    private servCep: CepService,
+    private servCep: UtilsService,
     private toast: ToastrService,
     private router:Router,
     private clienteService:ClienteService   

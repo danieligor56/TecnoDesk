@@ -7,6 +7,7 @@ export interface Empresa{
     cel:string;
     tel:string;
     site:string;
+    segmento: number
     cep:string;
     logra:string;
     num:number;

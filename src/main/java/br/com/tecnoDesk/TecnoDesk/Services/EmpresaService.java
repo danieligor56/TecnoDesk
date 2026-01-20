@@ -14,6 +14,9 @@ public class EmpresaService {
 	@Autowired
 	EmpresaRepository empresaRepository;
 	
+	@Autowired
+	DecriptService decriptService;
+	
 	public Empresa buscarEmpresoPorID(long codEmp) {
 		return empresaRepository.findEmpresaById(codEmp);
 	}
@@ -21,4 +24,10 @@ public class EmpresaService {
 	public boolean existsByDoc(String documento) {
 		return empresaRepository.existsByDocEmpresa(documento);
 	}
+	
+	public int pegarSegmentoEmpresa(String codEmp) throws Exception {
+		Empresa empresa = empresaRepository.findEmpresaById(decriptService.decriptCodEmp(codEmp));
+		return empresa.getSegmento().ordinal(); 
+	}
+	
 }

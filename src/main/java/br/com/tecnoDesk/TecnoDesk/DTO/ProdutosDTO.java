@@ -14,19 +14,19 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class ProdutosDTO {
-	
+
 	private long sequencial;
 	private Empresa empresa;
-	private String nome; 
+	private String nome;
 	private String descricao;
 	@JsonProperty("marca")
 	private String marcaProduto;
 	private BigDecimal preco;
 	private BigDecimal precoCusto;
 	private Integer quantidadeEstoque;
-	private long codigo_barras; 
-	private String categoria;
-	private String unidadeMedida;
+	private long codigo_barras;
+	private Long categoria;
+	private Long unidadeMedida;
 	private boolean produtoAtivo;
 
 }

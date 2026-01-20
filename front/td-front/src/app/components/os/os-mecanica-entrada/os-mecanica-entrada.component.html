@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+    <h1 id="osH1">Nova OS Mecânica</h1>
+  </div>
+
+  <div class="os-form-container">
+    <form [formGroup]="clienteForm" class="form-section">
+      <h3>👤 Cliente</h3>
+        
+      
+
+      <div class="form-row">
+        <div class="form-field full-width">
+          <p style="margin: 0; font-weight: 500;">Tipo de Documento:</p>
+          <mat-slide-toggle [checked]="cpfOrCnpj" (click)="limparCampos()" (change)="toggleDocType($event)" name="cpfOrCnpj" id="cpfOrCnpj">{{ cpfOrCnpj ? 'CPF' : 'CNPJ' }}</mat-slide-toggle>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field full-width">
+          <mat-label>Documento *</mat-label>
+          <input matInput formControlName="documento"
+          [placeholder]="cpfOrCnpj ? 'Exp: xxx.xxx.xxx-xx' : 'Exp: 00.000.000/0000-00'"
+          (blur)="buscarClientePorDoc()"
+          [mask]="cpfOrCnpj ? '000.000.000.00' : '00.000.000/0000-00'"
+          [dropSpecialCharacters]="false">
+          <mat-error *ngIf="clienteForm.get('documento')?.invalid && clienteForm.get('documento')?.touched">
+            O Documento é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Nome *</mat-label>
+          <input matInput formControlName="nome" placeholder="Nome do cliente">
+          <mat-error *ngIf="clienteForm.get('nome')?.invalid && clienteForm.get('nome')?.touched">
+            Nome é obrigatório
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Telefone *</mat-label>
+          <input matInput formControlName="telefone" placeholder="(11) 99999-9999">
+          <mat-error *ngIf="clienteForm.get('telefone')?.invalid && clienteForm.get('telefone')?.touched">
+            Telefone é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <form [formGroup]="veiculoForm" class="form-section">
+      <h3>🚗 Veículo</h3>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Placa *</mat-label>
+          <input matInput formControlName="placa" placeholder="ABC1234" style="text-transform: uppercase;">
+          <mat-hint>Formato: ABC1234 (busca automática)</mat-hint>
+          <mat-error *ngIf="veiculoForm.get('placa')?.invalid && veiculoForm.get('placa')?.touched">
+            Placa obrigatória (7 caracteres)
+          </mat-error>
+        </mat-form-field>
+
+        <div class="placa-status">
+          <div class="loading-indicator" *ngIf="isLoadingPlaca">
+            <mat-spinner diameter="16"></mat-spinner>
+            <span>Buscando dados da placa...</span>
+          </div>
+
+          <div class="error-message" *ngIf="placaError">
+            <mat-icon color="warn">warning</mat-icon>
+            <span>Placa não encontrada</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo da Marca -->
+      <div class="vehicle-logo-section" *ngIf="vehicleLogo">
+        <div class="logo-container">
+          <img [src]="vehicleLogo" [alt]="'Logo ' + veiculoForm.get('marca')?.value"
+               class="brand-logo" (error)="onLogoError($event)">
+          <p class="logo-label">Logo da Marca</p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="modelo" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Ano</mat-label>
+          <input matInput formControlName="ano" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Cor</mat-label>
+          <input matInput formControlName="cor" readonly>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <form [formGroup]="osForm" class="form-section">
+      <h3>🔧 Ordem de Serviço</h3>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Km de Entrada</mat-label>
+          <input matInput type="number" formControlName="kmEntrada" placeholder="000000">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Prioridade *</mat-label>
+          <mat-select formControlName="prioridadeOS">
+            <mat-option *ngFor="let prioridade of prioridades" [value]="prioridade.value">
+              {{ prioridade.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="osForm.get('prioridadeOS')?.invalid && osForm.get('prioridadeOS')?.touched">
+            Prioridade é obrigatória
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field full-width">
+          <mat-label>Diagnóstico Inicial</mat-label>
+          <textarea matInput formControlName="diagnosticoInicial" rows="3"
+                    placeholder="Descreva brevemente o problema relatado pelo cliente"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Técnico Responsável</mat-label>
+          <mat-select formControlName="tecnico_responsavel">
+            <mat-option [value]="null">Selecione um técnico</mat-option>
+            <mat-option *ngFor="let tecnico of colaboradores" [value]="tecnico.id">
+              {{ tecnico.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" (click)="salvarOS()"
+              [disabled]="!isFormValid()" class="action-button">
+        💾 Salvar OS Mecânica
+      </button>
+
+      <button mat-stroked-button color="basic" (click)="voltar()" class="action-button">
+        ↩️ Voltar
+      </button>
+    </div>
+  </div>
+</div>

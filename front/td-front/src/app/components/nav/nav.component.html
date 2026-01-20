@@ -30,9 +30,19 @@
             <li class="tree">
               <p routerLink="/clientes" class="linkOs">Clientes</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">people</i>
             </li>
-            <li class="tree">
+            <li class="tree" *ngIf="segmentoEmpresa === 0">
               <p routerLink="produtos" class="linkOs">Produtos</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">inventory_2</i>
             </li>
+
+            <li class="tree" *ngIf="segmentoEmpresa === 1">
+              <p routerLink="produtos" class="linkOs">Peças</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">inventory_2</i>
+            </li>
+
+             <li class="tree" *ngIf="segmentoEmpresa === 1">
+              <p routerLink="produtos" class="linkOs">Veiculos</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">toys</i>
+            </li>
+            
+
             <li class="tree">
               <p routerLink="/itemService" class="linkOs">Serviços</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">design_services</i>
             </li>
@@ -55,6 +65,9 @@
             </li>
             <li  class="tree">
               <p routerLink="os-rapida/list" class="linkOs">OS Rápida</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">flash_on</i>
+            </li>
+            <li  class="tree">
+              <p routerLink="os-mecanica/entrada" class="linkOs">OS Mecânica</p><i style="font-size: 18px;margin-left: 3px;" class="material-icons">build</i>
             </li>
           </ul>
       </div>

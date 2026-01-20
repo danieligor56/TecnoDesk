@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.ClienteDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.ColaboradorDTO;
@@ -116,14 +118,18 @@ public class ClienteService {
 		
 		String chave = secUtil.decrypt(codEmpresa);
 
-		if (!clienteRepository.existsByDocumento(doc)) {
-			throw new NotFound("Nenhum cliente encontrado com o documento fornecido");
-		}
+		/*if (clienteRepository.verificarPorDocumento(doc,Long.valueOf(chave) <= 0)) {
+			return null;
+		}*/
 		
-		Cliente cli = clienteRepository.findByDocumento(doc);
+		Cliente cli = clienteRepository.findByDocumento(doc, Long.valueOf(chave));
+		
+		if(cli == null)
+			return null;
 		
 		if(cli.getEmpresa().getId() != Long.valueOf(chave)) {
-			throw new NotFound("Nenhum cliente encontrado com o documento fornecido");
+			/* throw new NotFound("Nenhum cliente encontrado com o documento fornecido"); */
+			return null;
 		}
 		
 		return cli;

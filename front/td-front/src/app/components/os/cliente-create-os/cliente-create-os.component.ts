@@ -3,7 +3,7 @@ import { AbstractControlOptions, Form, FormArray, FormBuilder, FormControl, Form
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { OsCreateComponent } from '../os-create/os-create.component';
 import { ClienteCreateComponent } from '../../clientes/cliente-create/cliente-create.component';
@@ -21,7 +21,7 @@ export class ClienteCreateOsComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    private servCep: CepService,
+    private servCep: UtilsService,
     private toast: ToastrService,
     private router:Router,
     private clienteService:ClienteService,
@@ -93,10 +93,10 @@ export class ClienteCreateOsComponent implements OnInit {
 
     const nomeValid = this.clienteCreateForm.get('nome').valid;
     const documentoValid = this.clienteCreateForm.get('documento').valid;
-    const emailValid = this.clienteCreateForm.get('email').valid;
+    // const emailValid = this.clienteCreateForm.get('email').valid;
     const cel1Valid = this.clienteCreateForm.get('cel1').valid;
   
-      if(nomeValid && documentoValid && emailValid && cel1Valid ){
+      if(nomeValid && documentoValid && cel1Valid ){
         
         return true
         

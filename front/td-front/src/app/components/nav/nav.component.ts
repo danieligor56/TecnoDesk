@@ -3,6 +3,7 @@ import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmpresaService } from 'src/app/services/empresa.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,10 +14,16 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavComponent implements OnInit {
 treeos:boolean = false;
 treeCadastros:boolean = false;
-  
-constructor(private router: Router,private authService:AuthService,private toastr:ToastrService) { }
+segmentoEmpresa:number = 0;  
+
+constructor(
+  private router: Router,
+  private authService:AuthService,
+  private toastr:ToastrService,
+  private empresaService: EmpresaService) { }
 
   ngOnInit(): void {
+    this.buscarSegmentoEmpresa()
     this.router.navigate(['home'])
     //home
   }
@@ -35,7 +42,6 @@ constructor(private router: Router,private authService:AuthService,private toast
   }
 
   setTreeOs(){
-    debugger;
     if(this.treeos == true){
       this.treeos = false;
     }else{
@@ -50,6 +56,12 @@ constructor(private router: Router,private authService:AuthService,private toast
     }else{
       this.treeCadastros = true;
     }
+  }
+
+  buscarSegmentoEmpresa(){
+    this.empresaService.buscarSegmentoEmpresa().subscribe( response => {
+      this.segmentoEmpresa = response;
+    })
   }
 
 

@@ -6,7 +6,7 @@ import Validation from 'src/app/validators/validatorEmail';
 import { CdkNestedTreeNode } from '@angular/cdk/tree';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { ToastrService } from 'ngx-toastr';
-import { CepService } from 'src/app/services/autoCep.service';
+import { UtilsService } from 'src/app/services/UtilsService.service';
 import { RegistroInicialService } from 'src/app/services/registro-inicial.service';
 import { EmpresaUsuarioDTO } from 'src/app/models/EmpresaUsuarioDTO';
 import { MatStepper } from '@angular/material/stepper';
@@ -35,7 +35,7 @@ export class RegistroInicialComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private empresaService: EmpresaService,
     private toast: ToastrService,
-    private servCep: CepService,
+    private servCep: UtilsService,
     private registroService: RegistroInicialService
 
   ) { }
@@ -50,7 +50,8 @@ export class RegistroInicialComponent implements OnInit {
       confirmEmail:['',[Validators.required,Validators.email]],
       cel:['',Validators.required],
       tel:[''],
-      site:['']
+      site:[''],
+      segmento:['',Validators.required]
 
     },{
        validators: [Validation.match('mail','confirmEmail')]
@@ -108,12 +109,13 @@ export class RegistroInicialComponent implements OnInit {
     const docEmpresa = this.firstFormGroup.get('docEmpresa').valid;
     const mail = this.firstFormGroup.get('mail').valid;
     const cel = this.firstFormGroup.get('cel').valid;
+    const segmento = this.firstFormGroup.get('segmento').valid;
     const razaoSocial = this.documentType === 'cnpj' ? this.firstFormGroup.get('razaoSocial').valid : true;
 
     const validaMails = this.firstFormGroup.get('mail').value;
     const confirEmail = this.firstFormGroup.get('confirmEmail').value
 
-    if(nomEmpresa && docEmpresa && mail && cel && confirEmail == validaMails && razaoSocial){
+    if(nomEmpresa && docEmpresa && mail && cel && segmento && confirEmail == validaMails && razaoSocial){
         return true
     }
         return false
@@ -173,6 +175,7 @@ export class RegistroInicialComponent implements OnInit {
         cel: this.firstFormGroup.get('cel').value,
         tel: this.firstFormGroup.get('tel').value || '',
         site: this.firstFormGroup.get('site').value || '',
+        segmento: parseInt(this.firstFormGroup.get('segmento').value),
         cep: this.secondFormGroup.get('cep').value,
         logra: this.secondFormGroup.get('logra').value,
         num: parseInt(this.secondFormGroup.get('num').value),

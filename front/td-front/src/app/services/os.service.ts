@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Os_entrada } from '../models/Os-entrada';
+import { Os_Mecanica } from '../models/Os-mecanica';
 import { Observable } from 'rxjs';
 import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 import { ToastrService } from 'ngx-toastr';
@@ -94,7 +95,14 @@ export class OsService {
 
       return this.http.post(`http://localhost:8080/Os/salvarDiagnostico`,dto,options);
     }
-  
-  
+
+    createOsMecanica(os: Os_Mecanica): Observable<Os_Mecanica>{
+      const headers = new HttpHeaders({
+        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      })
+      const options = { headers: headers }
+
+      return this.http.post<Os_Mecanica>("http://localhost:8080/Os/criarNovaOSMecanica", os, options);
+    }
 
 }

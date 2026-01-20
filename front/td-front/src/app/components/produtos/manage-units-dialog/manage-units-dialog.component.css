@@ -1,0 +1,16 @@
+.manage-container {
+  padding: 10px;
+}
+.form-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.actions {
+  display: flex;
+  gap: 5px;
+}
+mat-list-item {
+  border-bottom: 1px solid #eee;
+}
