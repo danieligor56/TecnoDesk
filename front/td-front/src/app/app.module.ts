@@ -78,6 +78,7 @@ import { ManageUnitsDialogComponent } from './components/produtos/manage-units-d
 import { ManageCategoriesDialogComponent } from './components/produtos/manage-categories-dialog/manage-categories-dialog.component';
 import { VisitaTecnicaComponent } from './components/visita-tecnica/visita-tecnica.component';
 import { VisitaTecnicaDialogComponent } from './components/visita-tecnica/visita-tecnica-dialog/visita-tecnica-dialog.component';
+import { QuantityDialogComponent } from './components/shared/quantity-dialog/quantity-dialog.component';
 
 
 @NgModule({
@@ -129,7 +130,8 @@ import { VisitaTecnicaDialogComponent } from './components/visita-tecnica/visita
     ManageUnitsDialogComponent,
     ManageCategoriesDialogComponent,
     VisitaTecnicaComponent,
-    VisitaTecnicaDialogComponent
+    VisitaTecnicaDialogComponent,
+    QuantityDialogComponent
 
 
   ],

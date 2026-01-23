@@ -12,9 +12,9 @@
         <i class="material-icons">home</i>Home
       </a>
 
-      <a mat-list-item routerLink="/atendimento">
+      <!-- <a mat-list-item routerLink="/atendimento">
         <i class="material-icons">support_agent</i>Atendimento
-      </a>
+      </a> -->
 
       <a mat-list-item routerLink="/visitas-tecnicas">
         <i class="material-icons">engineering</i>Visita Técnica
@@ -92,6 +92,9 @@
     <div class="nav-footer">
       <a mat-list-item (click)="abrirSuporte()" class="footer-item">
         <i class="material-icons">support_agent</i> Suporte
+      </a>
+      <a mat-list-item (click)="abrirSuporte()" class="footer-item">
+        <i class="material-icons">settings</i> Configurações
       </a>
       <a mat-list-item (click)="logout()" class="footer-item">
         <i class="material-icons">logout</i> Sair

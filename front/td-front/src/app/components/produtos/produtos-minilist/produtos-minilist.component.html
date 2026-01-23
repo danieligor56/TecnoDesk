@@ -1,65 +1,58 @@
 <div class="container">
-    <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-        <h1 id="osH1">Produtos</h1>       
-    </div>
+  <div class="titPage" style="padding:5px;margin-bottom: 10px;">
+    <h1 id="osH1">Produtos</h1>
+  </div>
 
-    <mat-form-field appearance="standard">
-        <mat-label>🔍 Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar produto" #input>
-      </mat-form-field>
-    
-    <div>
-        <table mat-table [dataSource]="dataSource" matSort>
-         
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let produto"> 🆔 {{produto.sequencial}} </td>
-          </ng-container>
+  <mat-form-field appearance="standard">
+    <mat-label>🔍 Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar produto" #input>
+  </mat-form-field>
 
-          <ng-container matColumnDef="progress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Produto </th>
-            <td mat-cell *matCellDef="let produto"> 📦 {{produto.nome}} </td>
-          </ng-container>
+  <div>
+    <table mat-table [dataSource]="dataSource" matSort>
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
-            <td mat-cell *matCellDef="let produto"> 📋 {{produto.descricao}} </td>
-          </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let produto"> 🆔 {{produto.sequencial}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="fruit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor do produto </th>
-            <td mat-cell *matCellDef="let produto"> 	💲 {{produto.preco}} R$ </td>
-          </ng-container>
-        
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Produto </th>
+        <td mat-cell *matCellDef="let produto"> 📦 {{produto.nome}} </td>
+      </ng-container>
 
-          
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+        <td mat-cell *matCellDef="let produto"> 📋 {{produto.descricao}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="add">
-            <th mat-header-cell *matHeaderCellDef></th> 
-              <td mat-cell *matCellDef="let servico"> 
-                <div class="example-button-container" style="float: right;">      
-                      <!-- <mat-icon style="color: #6D706D;">add_circle</mat-icon> -->
-                      <!-- <button *ngIf="servico.valorServicoHora > 0" mat-flat-button (click)="cobrarHoraDialog(servico.valorServicoHora,servico.id)" style="background-color: #2D4961;color: white;font-size: 12px;margin-right: 8px;">Cobrar por hora</button> -->
-                      <button mat-flat-button (click)="adicionarServico(servico.id,true)" style="background-color: #3497D9;color: white;font-size: 12px;">adicionar</button>
+      <ng-container matColumnDef="fruit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor do produto </th>
+        <td mat-cell *matCellDef="let produto"> 💲 {{produto.preco}} R$ </td>
+      </ng-container>
 
-                    </div>          
-              </td>
-         </ng-container>
+      <ng-container matColumnDef="add">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let servico">
+          <div class="example-button-container" style="float: right;">
+            <button mat-flat-button (click)="adicionarServico(servico.id,true)"
+              style="background-color: #3497D9;color: white;font-size: 12px;">adicionar</button>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      
-        </table>
-      
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-      </div>
-      <div style="display: flex;float:right;margin-top: 1rem;">
-            <button (click)="openCreatServiceDialog()" mat-flat-button color="primary" style="margin-right: .2rem;">Novo serviço</button> 
-            <button (click)="closeDialog()" mat-flat-button color="warn">Cancelar</button>
-      </div>
-      
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+  <div style="display: flex;float:right;margin-top: 1rem;">
+    <button (click)="openCreatServiceDialog()" mat-flat-button color="primary" style="margin-right: .2rem;">Novo
+      serviço</button>
+    <button (click)="closeDialog()" mat-flat-button color="warn">Cancelar</button>
+  </div>
+
 </div>
-
-
-
-

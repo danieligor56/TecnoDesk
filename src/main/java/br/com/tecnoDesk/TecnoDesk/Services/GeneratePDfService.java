@@ -884,9 +884,8 @@ public class GeneratePDfService {
 				cellNomeItem.setBorder(1);
 				cellNomeItem.setPadding(3);
 
-				// Quantidade - TODO: Recuperar quantidade dinamicamente do item
-				// Por enquanto usando 1 como padrão
-				double qtd = 1.0; // Dado mockado - substituir pela quantidade real do item
+				// Quantidade
+				double qtd = item.getQuantidade() != null ? item.getQuantidade() : 1.0;
 				PdfPCell cellQtdItem = new PdfPCell(new Phrase(String.format("%.2f", qtd), fonteTabela));
 				cellQtdItem.setBorder(1);
 				cellQtdItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
@@ -909,7 +908,8 @@ public class GeneratePDfService {
 				cellDescontoItem.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
 
 				// Total
-				double totalItem = item.getValorTotal() != null ? item.getValorTotal() : (valorUnit * qtd - desconto);
+				double totalItem = item.getValorTotal() != null && item.getValorTotal() > 0 ? item.getValorTotal()
+						: (valorUnit * qtd - desconto);
 				if (totalItem < 0)
 					totalItem = 0.0;
 				totalGeral += totalItem;

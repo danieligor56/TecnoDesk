@@ -1,19 +1,20 @@
 import { Empresa } from "./Empresa";
 
-export interface OrcamentoItem{
+export interface OrcamentoItem {
 
-    id?:bigint;
-    empresa?:Empresa;
-    codOrcamento?:number,
-    codigoItem?:number;
-    nomeServicoAvulso?:string,
-    descricaoServicoAvulso?:string,
-    valorUnidadeAvulso?:number;
-    valorHoraAvulso?:number;
-    descontoServico?:number;
-    valorTotal?:number;
-    isAvulso:boolean
-    produtoOuServico:number
-   
+    id?: bigint;
+    empresa?: Empresa;
+    codOrcamento?: number,
+    codigoItem?: number;
+    nomeServicoAvulso?: string,
+    descricaoServicoAvulso?: string,
+    valorUnidadeAvulso?: number;
+    valorHoraAvulso?: number;
+    descontoServico?: number;
+    valorTotal?: number;
+    isAvulso: boolean
+    produtoOuServico: number
+    quantidade?: number;
+
 }
 

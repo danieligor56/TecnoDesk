@@ -1,0 +1,8 @@
+.quantity-container {
+    padding: 10px;
+    min-width: 300px;
+}
+
+mat-form-field {
+    margin-top: 10px;
+}
