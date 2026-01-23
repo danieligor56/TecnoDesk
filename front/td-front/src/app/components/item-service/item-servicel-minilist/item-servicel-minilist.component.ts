@@ -9,7 +9,6 @@ import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { ItemServiceCobrarhoraComponent } from '../item-service-cobrarhora/item-service-cobrarhora.component';
 import { switchMap } from 'rxjs/operators';
-import { QuantityDialogComponent } from '../../shared/quantity-dialog/quantity-dialog.component';
 
 @Component({
   selector: 'app-item-servicel-minilist',
@@ -75,21 +74,7 @@ export class ItemServicelMinilistComponent implements OnInit {
   encontrarOrcamento() { }
 
   adicionarServico(id: number | string, cobrarPorUnd: boolean) {
-    debugger;
-
-    const servicoSelecionado = this.servico.find(s => s.id === String(id));
-    const nomeServico = servicoSelecionado ? servicoSelecionado.nomeServico : 'Serviço';
-
-    const dialogRef = this.dialog.open(QuantityDialogComponent, {
-      data: { nomeItem: nomeServico },
-      width: '350px'
-    });
-
-    dialogRef.afterClosed().subscribe(quantidade => {
-      if (quantidade && quantidade > 0) {
-        this.executarAdicao(id, cobrarPorUnd, quantidade);
-      }
-    });
+    this.executarAdicao(id, cobrarPorUnd, 1);
   }
 
   private executarAdicao(id: number | string, cobrarPorUnd: boolean, quantidade: number) {
