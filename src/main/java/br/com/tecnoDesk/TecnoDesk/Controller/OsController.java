@@ -22,7 +22,7 @@ import br.com.tecnoDesk.TecnoDesk.Services.OsService;
 import exception.BadRequest;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import br.com.tecnoDesk.TecnoDesk.Entities.HistoricoOS;
 
 @Controller
 @RequestMapping("/Os")
@@ -34,40 +34,50 @@ public class OsController {
 	OsService osService;
 
 	@PostMapping("/criarNovaOS")
-	public ResponseEntity<OS_Entrada> criarOsEntrada(@RequestBody OS_EntradaDTO osDTO,@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {		
-		return ResponseEntity.ok().body(osService.crianova(osDTO,codEmpresa));
+	public ResponseEntity<OS_Entrada> criarOsEntrada(@RequestBody OS_EntradaDTO osDTO,
+			@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
+		return ResponseEntity.ok().body(osService.crianova(osDTO, codEmpresa));
 
 	}
-	
+
 	@GetMapping("/listarOS")
-	public ResponseEntity<List<OS_Entrada>> listarOS(@RequestHeader("CodEmpresa") String codEmpresa) throws Exception{		
+	public ResponseEntity<List<OS_Entrada>> listarOS(@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
 		return ResponseEntity.ok().body(osService.listarOS(codEmpresa));
 	}
-	
+
 	@GetMapping("/numOs")
-	public ResponseEntity<OS_Entrada> buscarOsPorNumero(@RequestParam long numOS ,@RequestHeader("CodEmpresa") String codEmpresa)throws Exception {
-		return ResponseEntity.ok().body(osService.buscarPorNumOs(numOS,codEmpresa));
-		
+	public ResponseEntity<OS_Entrada> buscarOsPorNumero(@RequestParam long numOS,
+			@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		return ResponseEntity.ok().body(osService.buscarPorNumOs(numOS, codEmpresa));
+
 	}
-	
+
 	@PutMapping("/alterarTecnicEprioridade")
 	public ResponseEntity alterarTecnicoEprioridade(@RequestBody TecnicoEPrioridadeDTO dto,
 			@RequestHeader("CodEmpresa") String codEmpresa) {
-		this.osService.alterarTecnicoPrioridadeOs(dto,codEmpresa);
-		
+		this.osService.alterarTecnicoPrioridadeOs(dto, codEmpresa);
+
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PutMapping("/alterarStatusOs")
-	public ResponseEntity alterarStatusOs(@RequestParam long numOs,int stsOS, @RequestHeader("CodEmpresa") String codEmpresa ) throws BadRequestException {
-		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);	
+	public ResponseEntity alterarStatusOs(@RequestParam long numOs, int stsOS,
+			@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
+		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PostMapping("/salvarDiagnostico")
-	public ResponseEntity salvarDiagnosticoTecnico(@RequestBody UpdateLaudoTecnicoDTO dto, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+	public ResponseEntity salvarDiagnosticoTecnico(@RequestBody UpdateLaudoTecnicoDTO dto,
+			@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
 		this.osService.salvarDiagnosticoTecnico(dto, codEmpresa);
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/{id}/historico")
+	public ResponseEntity<List<HistoricoOS>> listarHistorico(@PathVariable long id,
+			@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+		return ResponseEntity.ok(this.osService.historicoOSService.listarPorOs(id, codEmpresa));
 	}
 
 }

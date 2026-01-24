@@ -22,6 +22,7 @@ import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.c
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
 import { PdfService } from 'src/app/services/pdf.service';
+import { HistoricoOS } from 'src/app/models/HistoricoOS';
 
 @Component({
   selector: 'app-os-manager',
@@ -75,6 +76,8 @@ export class OsManagerComponent implements OnInit {
 
   };
 
+  historico: HistoricoOS[] = [];
+
 
 
 
@@ -98,6 +101,7 @@ export class OsManagerComponent implements OnInit {
     this.getValorOrcamento(this.id)
     this.dropdownColaborador();
     this.listarItensOrcamento();
+    this.carregarHistorico();
   }
 
   mapearDadosOS(id: string) {
@@ -299,7 +303,6 @@ export class OsManagerComponent implements OnInit {
 
     })
   }
-
   alterarTecnicoEPrioridade() {
     debugger;
     const tecnicoPrioridadeDto: TecnicoEPrioridadeDTO = {
@@ -308,13 +311,29 @@ export class OsManagerComponent implements OnInit {
       numOs: this.Os.sequencial
     }
 
-    this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto);
+    this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto).subscribe({
+      next: () => {
+        this.toast.success("OS alterada com sucesso.")
+        this.carregarHistorico();
+      },
+      error: (err) => {
+        this.toast.error("Falha ao atualizar a OS, contate o suporte " + err)
+      }
+    });
 
   }
 
   alterStsOS(event: MatSelectChange) {
     debugger;
-    this.osService.alterarStatusOS(this.Os.sequencial, Number(this.statusOs));
+    this.osService.alterarStatusOS(this.Os.sequencial, Number(this.statusOs)).subscribe({
+      next: () => {
+        this.toast.success("Status da OS alterado com suocesso.")
+        this.carregarHistorico();
+      },
+      error: (err) => {
+        this.toast.error("Falha na alteração da OS " + err.error.message)
+      }
+    });
   }
 
   updateDiagnosticoTecnico() {
@@ -326,6 +345,7 @@ export class OsManagerComponent implements OnInit {
     this.osService.alterarDiagnosticoTecnico(dto).subscribe({
       next: () => {
         this.toast.success('Diagnostico preenchido com sucesso.')
+        this.carregarHistorico();
       },
       error: (err) => {
         this.toast.error(err.error.message)
@@ -476,6 +496,17 @@ export class OsManagerComponent implements OnInit {
 
     const url = `https://api.whatsapp.com/send?phone=55${numero}&text=${encodeURIComponent(mensagem)}`;
     window.open(url, '_blank');
+  }
+
+  carregarHistorico() {
+    this.osService.getHistorico(Number(this.id)).subscribe({
+      next: (response) => {
+        this.historico = response;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar histórico:', err);
+      }
+    });
   }
 
 }

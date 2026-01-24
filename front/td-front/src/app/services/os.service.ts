@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 import { ToastrService } from 'ngx-toastr';
 import { laudoTecnicoDTO } from '../DTO/LaudoTecnicoDTO';
+import { HistoricoOS } from '../models/HistoricoOS';
 
 @Injectable({
   providedIn: 'root'
@@ -13,96 +14,88 @@ import { laudoTecnicoDTO } from '../DTO/LaudoTecnicoDTO';
 export class OsService {
 
   constructor(
-    private http:HttpClient,
-     private toast: ToastrService
+    private http: HttpClient,
+    private toast: ToastrService
   ) { }
 
-  createOsEntrada(os:Os_entrada): Observable<Os_entrada>{
-  debugger;   
+  createOsEntrada(os: Os_entrada): Observable<Os_entrada> {
+    debugger;
     const headers = new HttpHeaders({
-      'codEmpresa':sessionStorage.getItem('CompGrpIndent')
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
     })
     const options = { headers: headers }
 
-    return this.http.post<Os_entrada>("http://localhost:8080/Os/criarNovaOS",os,options);
-    
-    }
+    return this.http.post<Os_entrada>("http://localhost:8080/Os/criarNovaOS", os, options);
 
-    findAllOs(): Observable<Os_entrada[]>{
-     
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
+  }
 
-      return this.http.get<Os_entrada[]>("http://localhost:8080/Os/listarOS",options);
-    
-    }
+  findAllOs(): Observable<Os_entrada[]> {
 
-    findOsByNumOs(numOs:number): Observable<Os_entrada>{
-     
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
 
-      return this.http.get<Os_entrada>(`http://localhost:8080/Os/numOs?numOS=${numOs}`,options);
-    
-    }
+    return this.http.get<Os_entrada[]>("http://localhost:8080/Os/listarOS", options);
 
-    alterarTecnicoEPrioridade(dto: TecnicoEPrioridadeDTO){
-    debugger;
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
+  }
 
-      return this.http.put("http://localhost:8080/Os/alterarTecnicEprioridade",dto,options).subscribe({
-        next: ()=> {
-          this.toast.success("OS alterada com sucesso.")
-        },
-        error: (err) => {
-          this.toast.error("Falha ao atualizar a OS, contate o suporte"+ err)
-        } 
-      })
-    }
+  findOsByNumOs(numOs: number): Observable<Os_entrada> {
 
-    alterarStatusOS(numOs: number, stsOS:number){
-      debugger;
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
-      
-      return this.http.put(
-        `http://localhost:8080/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`,{},options).subscribe({
-       
-          next: ()=> {
-          this.toast.success("Status da OS alterado com suocesso.")
-        },
-        error: (err) => {
-          this.toast.error("Falha na alteração da OS"+ err.error.message)
-        }
-      })
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
 
-    }
+    return this.http.get<Os_entrada>(`http://localhost:8080/Os/numOs?numOS=${numOs}`, options);
 
-    alterarDiagnosticoTecnico(dto: laudoTecnicoDTO){
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
+  }
 
-      return this.http.post(`http://localhost:8080/Os/salvarDiagnostico`,dto,options);
-    }
+  alterarTecnicoEPrioridade(dto: TecnicoEPrioridadeDTO): Observable<any> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
 
-    createOsMecanica(os: Os_Mecanica): Observable<Os_Mecanica>{
-      const headers = new HttpHeaders({
-        'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-      })
-      const options = { headers: headers }
+    return this.http.put("http://localhost:8080/Os/alterarTecnicEprioridade", dto, options);
+  }
 
-      return this.http.post<Os_Mecanica>("http://localhost:8080/Os/criarNovaOSMecanica", os, options);
-    }
+  alterarStatusOS(numOs: number, stsOS: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.put(
+      `http://localhost:8080/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`, {}, options);
+
+  }
+
+  alterarDiagnosticoTecnico(dto: laudoTecnicoDTO) {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.post(`http://localhost:8080/Os/salvarDiagnostico`, dto, options);
+  }
+
+  createOsMecanica(os: Os_Mecanica): Observable<Os_Mecanica> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.post<Os_Mecanica>("http://localhost:8080/Os/criarNovaOSMecanica", os, options);
+  }
+
+  getHistorico(osId: number): Observable<HistoricoOS[]> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+
+    return this.http.get<HistoricoOS[]>(`http://localhost:8080/Os/${osId}/historico`, options);
+  }
 
 }

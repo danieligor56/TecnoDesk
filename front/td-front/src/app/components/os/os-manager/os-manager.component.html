@@ -493,7 +493,31 @@
 
         <!-- Historico de movimentação -->
         <mat-tab label="Histórico">
+            <div class="tab-content" style="padding: 20px;">
+                <h3 style="margin-bottom: 20px; color: #555;">Linha do tempo da OS</h3>
 
+                <div *ngIf="historico.length === 0"
+                    style="text-align: center; color: #666; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                    <mat-icon
+                        style="font-size: 48px; height: 48px; width: 48px; margin-bottom: 10px;">history</mat-icon>
+                    <p>Nenhum histórico disponível para esta OS ainda.</p>
+                </div>
+
+                <div class="history-container">
+                    <div *ngFor="let item of historico" class="history-card">
+                        <div class="history-dot"></div>
+                        <div class="history-content">
+                            <div class="history-header">
+                                <span class="history-description">{{item.descricao}}</span>
+                                <span class="history-date">{{item.dataAlteracao}}</span>
+                            </div>
+                            <div class="history-footer">
+                                <span class="history-responsible">👤 Responsável: <b>{{item.responsavel}}</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </mat-tab>
 
 
