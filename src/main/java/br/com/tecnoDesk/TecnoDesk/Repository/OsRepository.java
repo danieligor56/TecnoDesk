@@ -32,5 +32,8 @@ public interface OsRepository extends JpaRepository<OS_Entrada, Long> {
 	
 	@Query(value = "select count(*) from os_abertura oa where oa.sts_os not in (0,7,8,9) and oa.codigo_empresa = :empresaId ", nativeQuery = true)
 	long countOsAndamento(long empresaId);
+	
+	@Query(value = "select total_orcamentos_mes_atual(:empresaId)", nativeQuery = true)
+	long totalValorOsMensal(long empresaId);
 
 }

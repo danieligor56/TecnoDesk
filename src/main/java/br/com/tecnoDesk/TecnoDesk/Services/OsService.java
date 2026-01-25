@@ -85,7 +85,7 @@ public class OsService {
 			novoOrcamentoOS.setOs(novaOs);
 			novoOrcamentoOS.setStatusOR(StatusOR.NOVO);
 			orcamentoRepository.save(novoOrcamentoOS);
-
+			
 			historicoOSService.registrar(novaOs, "OS Aberta");
 
 			return novaOs;
@@ -165,6 +165,8 @@ public class OsService {
 				Empresa empresa = empresaRepository
 						.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
 				OS_Entrada os = osRepository.findByNumOs(numOS, empresa.getId());
+				
+				Orcamento orcamento = orcamentoRepository.encontrarOcamentoPorNumOS(empresa.getId(), os.getId());
 
 				switch (stsOs) {
 					case 0: {
@@ -177,6 +179,9 @@ public class OsService {
 					}
 					case 2: {
 						os.setStatusOS(StatusOS.AGUARDANDO_RESP_ORCAMENTO);
+						orcamento.setStatusOR(StatusOR.AGUARDANDO_RESPOSTA);
+						orcamentoRepository.save(orcamento);
+						
 						break;
 					}
 					case 3: {
@@ -201,6 +206,8 @@ public class OsService {
 					}
 					case 8: {
 						os.setStatusOS(StatusOS.CANCELADA);
+						orcamento.setStatusOR(StatusOR.ENCERRADO);
+						orcamentoRepository.save(orcamento);
 						break;
 					}
 					case 9: {

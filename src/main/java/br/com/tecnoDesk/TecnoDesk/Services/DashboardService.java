@@ -24,24 +24,20 @@ public class DashboardService {
     private DecriptService decriptService;
 
     public DashboardStatsDTO getStats(String codEmpresa) throws Exception {
-        Long empresaId = decriptService.decriptCodEmp(codEmpresa);
+        
+    	Long empresaId = decriptService.decriptCodEmp(codEmpresa);
 
         DashboardStatsDTO stats = new DashboardStatsDTO();
 
         // Count OS Abertas (NOVO status)
-		/*
-		 * stats.setOsAbertas(osRepository.countByEmpresaIdAndStatusOS(empresaId,
-		 * StatusOS.NOVO));
-		 */
-        
-        stats.setOsAbertas(osRepository.countOsAberta(empresaId));
+		  stats.setOsAbertas(osRepository.countByEmpresaIdAndStatusOS(empresaId,
+		  StatusOS.NOVO));
 
-        // Count Em Andamento
-		/*
-		 * stats.setEmAndamento(osRepository.countByEmpresaIdAndStatusOS(empresaId,
-		 * StatusOS.EM_ANDAMENTO));
-		 */
-        stats.setEmAndamento(osRepository.countOsAndamento(empresaId));
+        // Count Em Andamento:
+		  stats.setEmAndamento(osRepository.countByEmpresaIdAndStatusOS(empresaId,
+		  StatusOS.EM_ANDAMENTO));
+		 
+			/* stats.setEmAndamento(osRepository.countOsAndamento(empresaId)); */
 
         // Count Finalizadas Hoje
         LocalDate hoje = LocalDate.now();
@@ -50,10 +46,10 @@ public class DashboardService {
         stats.setFinalizadasHoje(osRepository.countFinalizadasHoje(empresaId, dataHoje + "%"));
 
         // Faturamento do Mês - placeholder (você pode implementar a lógica real)
-        stats.setFaturamentoMes(0.0);
+        stats.setFaturamentoMes(osRepository.totalValorOsMensal(empresaId));
 
         // Count Orçamentos Pendentes
-        stats.setOrcamentosPendentes(orcamentoRepository.countByEmpresaIdAndStatusOR(empresaId, StatusOR.NOVO));
+        stats.setOrcamentosPendentes(orcamentoRepository.countByEmpresaIdAndStatusOR(empresaId, StatusOR.AGUARDANDO_RESPOSTA));
 
         return stats;
     }
