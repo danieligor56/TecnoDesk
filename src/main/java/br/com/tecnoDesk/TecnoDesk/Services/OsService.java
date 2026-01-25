@@ -204,6 +204,9 @@ public class OsService {
 						break;
 					}
 					case 9: {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+						LocalDateTime now = LocalDateTime.now();
+						os.setDataEncerramento(formatter.format(now));
 						os.setStatusOS(StatusOS.ENCERRADA);
 						break;
 					}
