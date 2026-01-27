@@ -49,8 +49,11 @@ public class OS_Entrada {
 	@JoinColumn(name = "tecnico_responsavel")
 	private Colaborador tecnico_responsavel;
 	
-	@Column(name = "dtAbert",nullable = false)
+	@Column(name = "dt_abertura",nullable = false)
 	private String dataAbertura;
+	
+	@Column(name = "dt_encerramento",nullable = true)
+	private String dataEncerramento;
 	
 	//APARELHO: 
 	

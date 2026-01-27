@@ -1,16 +1,144 @@
-<mat-card class="card mat-elevation-z8">
-    <mat-card-header >
-      <mat-card-title>Tecno Desk</mat-card-title>
-      <mat-card-subtitle>"Transformando Desafios Técnicos em Soluções Simples: Sua Assistência Técnica Sob Controle."</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="assets/img/15635849_5650727.svg" alt="Menu img">
-    <mat-card-content>
-      <p>
-        "Bem-vindo à nossa plataforma de gerenciamento de assistências técnicas!
-         Aqui, você encontrará todas as ferramentas necessárias para administrar sua assistência técnica de forma eficiente e eficaz. 
-         Desde o acompanhamento de tickets de suporte até o agendamento de serviços e a gestão de estoque, estamos aqui para simplificar o seu dia a dia e ajudar a oferecer o melhor serviço aos seus clientes. 
-         Explore nossos recursos e descubra como podemos ajudar a otimizar o seu negócio. 
-         Estamos aqui para apoiá-lo em cada passo do caminho. Bem-vindo ao futuro da gestão de assistências técnicas!"
-      </p>
-    </mat-card-content>
-  </mat-card>
+<div class="dashboard-container">
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <div class="stat-card card-abertas">
+      <div class="stat-icon">
+        <mat-icon>folder_open</mat-icon>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">OS Abertas</div>
+        <div class="stat-value">{{stats.osAbertas}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card card-andamento">
+      <div class="stat-icon">
+        <mat-icon>sync</mat-icon>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Em Andamento</div>
+        <div class="stat-value">{{stats.emAndamento}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card card-finalizadas">
+      <div class="stat-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Finalizadas Hoje</div>
+        <div class="stat-value">{{stats.finalizadasHoje}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card card-faturamento">
+      <div class="stat-icon">
+        <mat-icon>attach_money</mat-icon>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Faturamento Mês</div>
+        <div class="stat-value">R$ {{stats.faturamentoMes | number:'1.2-2'}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card card-orcamentos">
+      <div class="stat-icon">
+        <mat-icon>description</mat-icon>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Orçamentos Pendentes</div>
+        <div class="stat-value">{{stats.orcamentosPendentes}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions-section">
+    <h2 class="section-title">Ações Rápidas</h2>
+    <div class="quick-actions-grid">
+      <button mat-raised-button color="primary" class="action-btn" (click)="novaOS()">
+        <mat-icon>build</mat-icon>
+        Nova OS
+      </button>
+      <button mat-raised-button color="primary" class="action-btn" (click)="novoCliente()">
+        <mat-icon>person_add</mat-icon>
+        Novo Cliente
+      </button>
+      <button mat-raised-button color="primary" class="action-btn" (click)="novoProduto()">
+        <mat-icon>inventory_2</mat-icon>
+        Novo Produto
+      </button>
+      <button mat-raised-button color="accent" class="action-btn whatsapp-btn">
+        <mat-icon>whatsapp</mat-icon>
+        Enviar WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+    <!-- Recent OS -->
+    <div class="content-card">
+      <h2 class="section-title">OS Recentes</h2>
+      <div class="os-table" *ngIf="!loading && recentOS.length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th>Nº OS</th>
+              <th>Cliente</th>
+              <th>Status</th>
+              <th>Abertura</th>
+              <th>Técnico</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let os of recentOS">
+              <td class="os-number">#{{os.sequencial}}</td>
+              <td>{{os.cliente?.nome}}</td>
+              <td>
+                <span class="status-badge" [ngClass]="getStatusClass(os.statusOS)">
+                  {{getStatusLabel(os.statusOS)}}
+                </span>
+              </td>
+              <td>{{os.dataAbertura}}</td>
+              <td>{{os.tecnico_responsavel?.nome || '-'}}</td>
+              <td>
+                <button mat-button color="primary" (click)="abrirOS(os.sequencial)">
+                  Abrir
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-state" *ngIf="!loading && recentOS.length === 0">
+        <mat-icon>inbox</mat-icon>
+        <p>Nenhuma OS encontrada</p>
+      </div>
+      <div class="loading-state" *ngIf="loading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="content-card alerts-card">
+      <h2 class="section-title">Alertas</h2>
+      <div class="alerts-list">
+        <div class="alert-item alert-warning" *ngIf="stats.orcamentosPendentes > 0">
+          <mat-icon>warning</mat-icon>
+          <div class="alert-content">
+            <strong>{{stats.orcamentosPendentes}}</strong> Orçamentos aguardando aprovação
+          </div>
+        </div>
+        <div class="alert-item alert-info">
+          <mat-icon>schedule</mat-icon>
+          <div class="alert-content">
+            Sistema funcionando normalmente
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

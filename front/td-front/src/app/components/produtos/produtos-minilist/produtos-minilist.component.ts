@@ -8,9 +8,7 @@ import { ItemServiceService } from 'src/app/services/item-service.service';
 import { OrcamentoItem } from 'src/app/models/OrcamentoItem';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { switchMap } from 'rxjs/operators';
-import { ItemServicelMinilistComponent } from '../../item-service/item-servicel-minilist/item-servicel-minilist.component';
 import { ItemServiceCreateComponent } from '../../item-service/item-service-create/item-service-create.component';
-import { ItemServiceCobrarhoraComponent } from '../../item-service/item-service-cobrarhora/item-service-cobrarhora.component';
 import { ProdutosService } from 'src/app/services/produtos.service';
 import { Produtos } from 'src/app/models/Produtos';
 
@@ -21,23 +19,23 @@ import { Produtos } from 'src/app/models/Produtos';
 })
 
 export class ProdutosMinilistComponent implements OnInit {
-servico: ItemService [] = [];
-produto: Produtos[] = [];
-displayedColumns: string[] = ['id', 'progress','name','fruit','add'];
-dataSource = new MatTableDataSource<Produtos>(this.produto);
-servicoContrato: OrcamentoItem;
-codOrcamento:number = 0;
-valorHorasServico:number = 0;
+  servico: ItemService[] = [];
+  produto: any[] = [];
+  displayedColumns: string[] = ['id', 'progress', 'name', 'fruit', 'quantidade', 'add'];
+  dataSource = new MatTableDataSource<any>(this.produto);
+  servicoContrato: OrcamentoItem;
+  codOrcamento: number = 0;
+  valorHorasServico: number = 0;
 
 
-@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private itemService:ItemServiceService,
-    private dialog:MatDialog,
-    private dialogRef: MatDialogRef<Produtos>,
+    private itemService: ItemServiceService,
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<ProdutosMinilistComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
-    private  orcamentoService:OrcamentoService,
+    private orcamentoService: OrcamentoService,
     private produtoService: ProdutosService
   ) { }
 
@@ -45,87 +43,92 @@ valorHorasServico:number = 0;
     this.encontrarProdutos();
   }
 
-   encontrarProdutos(){
-    
-    this.produtoService.listarProdutos().subscribe( response => {
-      this.produto = response;
-        this.dataSource = new MatTableDataSource<Produtos>(response);
-          this.dataSource.paginator = this.paginator;
+  encontrarProdutos() {
+
+    this.produtoService.listarProdutos().subscribe(response => {
+      this.produto = response.map(p => ({ ...p, quantidade_pedida: 1 }));
+      this.dataSource = new MatTableDataSource<any>(this.produto);
+      this.dataSource.paginator = this.paginator;
 
     })
 
 
-      
-      }
 
-  applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    
-          if (this.dataSource.paginator) {
-            this.dataSource.paginator.firstPage();
-          }
-        }
-
-
-  closeDialog(){
-    this.dialogRef.close();
-    }
- 
-  
-    openCreatServiceDialog(){
-    
-      const dialogRef = this.dialog.open(ItemServiceCreateComponent);
-      dialogRef.afterClosed().subscribe(response => {
-        if(response)
-          this.encontrarProdutos();
-      })
   }
 
-  encontrarOrcamento(){}
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
+
+  openCreatServiceDialog() {
+
+    const dialogRef = this.dialog.open(ItemServiceCreateComponent);
+    dialogRef.afterClosed().subscribe(response => {
+      if (response)
+        this.encontrarProdutos();
+    })
+  }
+
+  aumentarQtd(produto: any) {
+    produto.quantidade_pedida++;
+  }
+
+  diminuirQtd(produto: any) {
+    if (produto.quantidade_pedida > 1) {
+      produto.quantidade_pedida--;
+    }
+  }
 
   adicionarServico(id: number, cobrarPorUnd: boolean) {
-  debugger;
+    debugger;
 
-  const numbOs = Number(this.data.id);
+    const produtoSelecionado = this.produto.find(p => p.id === id);
+    const quantidade = produtoSelecionado ? produtoSelecionado.quantidade_pedida : 1;
 
-  this.orcamentoService.buscarPorId(numbOs).pipe(
-    switchMap(orcamento => {
-      this.codOrcamento = orcamento.id;
-      return this.produtoService.encontrarPorId(id);
-    }),
-    switchMap(response => {
-      this.servicoContrato = {
-        empresa: response.empresa,
-        codOrcamento: this.codOrcamento,
-        codigoItem: Number(response.id) ? Number(response.id) : 0,
-        nomeServicoAvulso: response.nome,
-        descricaoServicoAvulso: response.descricao,
-        valorUnidadeAvulso: cobrarPorUnd ? response.preco : 0,
-        valorHoraAvulso: 0,
-        isAvulso: false,
-        produtoOuServico: 1
-      };
+    const numbOs = Number(this.data.id);
 
-
-      // já retorna o observable de inserirItem
-      return this.orcamentoService.inserirItem(this.codOrcamento, this.servicoContrato);
-    })
-  ).subscribe({
-    next: () => {
-      this.dialogRef.close(true); // só fecha depois que o backend confirmar
-    },
-    error: err => {
-      console.error("Erro ao adicionar serviço:", err);
-      // aqui você pode exibir um snackbar/toast para o usuário
-    }
-  });
-}
-
- 
+    this.orcamentoService.buscarPorId(numbOs).pipe(
+      switchMap(orcamento => {
+        this.codOrcamento = orcamento.id;
+        return this.produtoService.encontrarPorId(id);
+      }),
+      switchMap(response => {
+        this.servicoContrato = {
+          empresa: response.empresa,
+          codOrcamento: this.codOrcamento,
+          codigoItem: Number(response.id) ? Number(response.id) : 0,
+          nomeServicoAvulso: response.nome,
+          descricaoServicoAvulso: response.descricao,
+          valorUnidadeAvulso: cobrarPorUnd ? response.preco : 0,
+          valorHoraAvulso: 0,
+          isAvulso: false,
+          produtoOuServico: 1,
+          quantidade: quantidade
+        };
 
 
-
-
+        // já retorna o observable de inserirItem
+        return this.orcamentoService.inserirItem(this.codOrcamento, this.servicoContrato);
+      })
+    ).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      },
+      error: err => {
+        console.error("Erro ao adicionar produto:", err);
+      }
+    });
+  }
 
 }

@@ -20,7 +20,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Table(name = "orcamento_item")
 @Getter
 @Setter
@@ -32,19 +31,19 @@ public class OrcamentoItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne
-	@JoinColumn(name = "codigo_empresa",nullable = false)
-	private Empresa empresa;
-    
+    @JoinColumn(name = "codigo_empresa", nullable = false)
+    private Empresa empresa;
+
     @ManyToOne
-	@JoinColumn(name = "codigo_orcamento",nullable = true)
+    @JoinColumn(name = "codigo_orcamento", nullable = true)
     @JsonIgnore
-	private Orcamento orcamento;
-    
-    @Column(name = "codigo_item",nullable = true)
+    private Orcamento orcamento;
+
+    @Column(name = "codigo_item", nullable = true)
     private long codigoItem;
-    
+
     @Column(name = "nome_servico")
     private String nomeServicoAvulso;
 
@@ -56,32 +55,35 @@ public class OrcamentoItem {
 
     @Column(name = "valor_hora")
     private Double valorHoraAvulso;
-    
+
     @Column(name = "desconto")
     private Double descontoServico = 0.00;
-    
+
     @Column(name = "valorTotal")
     private Double valorTotal = 0.00;
-    
+
     @Column(name = "isAvulso")
     private boolean isAvulso;
-    
+
     @Column(name = "ProdutoOuServico")
     private ProdutoServicoEnum produtoOuServico;
 
-	public OrcamentoItem(Empresa empresa, Orcamento orcamento, long codigoItem, String nomeServicoAvulso,
-			String descricaoServicoAvulso, Double valorUnidadeAvulso, Double valorHoraAvulso, boolean isAvulso, ProdutoServicoEnum produtoOuServico) {
-		this.empresa = empresa;
-		this.orcamento = orcamento;
-		this.codigoItem = codigoItem;
-		this.nomeServicoAvulso = nomeServicoAvulso;
-		this.descricaoServicoAvulso = descricaoServicoAvulso;
-		this.valorUnidadeAvulso = valorUnidadeAvulso;
-		this.valorHoraAvulso = valorHoraAvulso;
-		this.isAvulso = isAvulso;
-		this.produtoOuServico = produtoOuServico;
-	}
-    
-    
-    
+    @Column(name = "quantidade")
+    private Double quantidade = 1.0;
+
+    public OrcamentoItem(Empresa empresa, Orcamento orcamento, long codigoItem, String nomeServicoAvulso,
+            String descricaoServicoAvulso, Double valorUnidadeAvulso, Double valorHoraAvulso, boolean isAvulso,
+            ProdutoServicoEnum produtoOuServico, Double quantidade) {
+        this.empresa = empresa;
+        this.orcamento = orcamento;
+        this.codigoItem = codigoItem;
+        this.nomeServicoAvulso = nomeServicoAvulso;
+        this.descricaoServicoAvulso = descricaoServicoAvulso;
+        this.valorUnidadeAvulso = valorUnidadeAvulso;
+        this.valorHoraAvulso = valorHoraAvulso;
+        this.isAvulso = isAvulso;
+        this.produtoOuServico = produtoOuServico;
+        this.quantidade = quantidade != null ? quantidade : 1.0;
+    }
+
 }

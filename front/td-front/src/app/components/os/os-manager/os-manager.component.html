@@ -1,18 +1,18 @@
 <div class="container">
-    
+
     <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-        <h1 id="osH1">Ordem de serviço</h1>       
+        <h1 id="osH1">Ordem de serviço</h1>
     </div>
 
     <mat-tab-group mat-align-tabs="start" animationDuration="500ms" style="overflow: hidden;">
 
-        
-        
+
+
 
         <mat-tab label="Ordem de serviço">
 
 
-        <!-- <div style="width: 32rem; margin-left: .5rem;">
+            <!-- <div style="width: 32rem; margin-left: .5rem;">
             <mat-form-field appearance="fill" >
                 <mat-label>Status OS </mat-label>
                 <mat-select>
@@ -22,22 +22,22 @@
         </div> -->
 
             <div class="tab-content" style="display: flex;">
-                
-              
+
+
 
                 <div class="os-dados">
-                    
-                    <div>                    
+
+                    <div>
                         <h1 class="label" style="margin-bottom: .2rem;">Número da OS:<b>{{Os?.sequencial}} 📋</b></h1>
                     </div>
-                    
+
                     <div class="cliente-os">
                         <h3>Cliente</h3>
                         <!-- Primeira linha: Nome e Código -->
                         <div class="row">
                             <div class="input-group">
                                 <label for="cliente">Nome:</label>
-                                <input type="text" id="cliente" [value]="Os?.cliente?.nome" readonly>   
+                                <input type="text" id="cliente" [value]="Os?.cliente?.nome" readonly>
                             </div>
                             <div class="input-group" style="width: 80px;">
                                 <label for="cod">Cod.:</label>
@@ -51,10 +51,11 @@
                                 <label for="telefone">Telefone:</label>
                                 <input type="text" id="telefone" [value]="Os?.cliente?.cel1" readonly>
                             </div>
-                            <div class="input-group"  style="width: 250px;">
+                            <div class="input-group" style="width: 250px;">
                                 <label for="endereco">Endereço:</label>
-                                <input type="text" id="endereco" [value]="Os?.cliente?.logradouro + ', ' + Os?.cliente?.numero" readonly>
-                            </div>                        
+                                <input type="text" id="endereco"
+                                    [value]="Os?.cliente?.logradouro + ', ' + Os?.cliente?.numero" readonly>
+                            </div>
                         </div>
 
                         <!-- Terceira linha: Documento e Email -->
@@ -70,76 +71,81 @@
                         </div>
                     </div>
 
-                    <div  id="parametros-os">
+                    <div id="parametros-os">
                         <h3>Parametros OS</h3>
-                        <div style="width: 250px;margin-bottom: 1rem;">                  
+                        <div style="width: 250px;margin-bottom: 1rem;">
                             <div class="input-group">
                                 <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
                                 <input type="text" id="telefone" [value]="Os?.colaborador?.nome" readonly width="80px">
                             </div>
                             <div style="display: flex;">
-                                <div class="input-group">                              
-                                <mat-form-field appearance="legacy">
-                                    <label for="telefone">Responsável técnico:</label>
-                                    
-                                        <mat-select [(ngModel)]="responsalveTecnico.id" (selectionChange)="onColaboradorChange($event.value)">
-                                            <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador.id">
-                                            {{ colaborador.nome }}
+                                <div class="input-group">
+                                    <mat-form-field appearance="legacy">
+                                        <label for="telefone">Responsável técnico:</label>
+
+                                        <mat-select [(ngModel)]="responsalveTecnico.id"
+                                            (selectionChange)="onColaboradorChange($event.value)">
+                                            <mat-option *ngFor="let colaborador of colaboradores"
+                                                [value]="colaborador.id">
+                                                {{ colaborador.nome }}
                                             </mat-option>
                                         </mat-select>
-                                  </mat-form-field>
-                                <!-- <input type="text" id="telefone" value="" readonly> -->
+                                    </mat-form-field>
+                                    <!-- <input type="text" id="telefone" value="" readonly> -->
+                                </div>
+
+                                <div class="input-group">
+                                    <mat-form-field appearance="legacy" style="margin-left: .5rem;">
+                                        <label>Tipo de prioridade: </label>
+                                        <mat-select [(ngModel)]="prioridadeos" name="prioridadeos">
+                                            <mat-option value=0>📌 Normal</mat-option>
+                                            <mat-option value=1>🔥 Crítica / Urgente / Emergencial</mat-option>
+                                            <mat-option value=2>🔄 Garantia</mat-option>
+                                            <mat-option value=3>⏱️ Prioridade</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                             </div>
-    
-                            <div class="input-group">
-                                <mat-form-field appearance="legacy" style="margin-left: .5rem;">
-                                    <label>Tipo de prioridade: </label>
-                                    <mat-select [(ngModel)]="prioridadeos" name="prioridadeos">
-                                      <mat-option value=0>📌 Normal</mat-option>
-                                      <mat-option value=1>🔥 Crítica / Urgente / Emergencial</mat-option>
-                                      <mat-option value=2>🔄 Garantia</mat-option>
-                                      <mat-option value=3>⏱️ Prioridade</mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                            </div>
-                            </div>
-    
-                            
-    
-                            
+
+
+
+
                         </div>
-    
-                      </div>
-                                         
+
+                    </div>
+
                 </div>
 
-                 
+
                 <div class="rec-cli" style="margin-left: 30px;">
                     <h3 style="margin-bottom: 5px;">Resumo do problema</h3>
-                    
+
                     <div>
                         <div>
                             <mat-form-field class="dataCli" style="width: 400px; margin-right: 10px;" appearance="fill">
                                 <mat-label>Reclamação do cliente:</mat-label>
-                                <textarea style="resize: none; height: 1 rem;" matInput placeholder="" readonly>{{Os?.reclamacaoCliente}}</textarea>                               
-                            </mat-form-field>    
+                                <textarea style="resize: none; height: 1 rem;" matInput placeholder=""
+                                    readonly>{{Os?.reclamacaoCliente}}</textarea>
+                            </mat-form-field>
                         </div>
                         <div style="margin-bottom: 2rem;">
                             <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
                                 <mat-label>Resultado do teste inicial:</mat-label>
-                                <textarea style="resize: none; height: 8px;" matInput placeholder="" readonly>{{Os?.initTest}}</textarea>
-                            </mat-form-field>    
+                                <textarea style="resize: none; height: 8px;" matInput placeholder=""
+                                    readonly>{{Os?.initTest}}</textarea>
+                            </mat-form-field>
                         </div>
-                        
+
                         <!-- <div id="containerImgOsManager">
                             <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
                         </div> -->
-                        
-                        
+
+
                         <div>
-                            <mat-form-field appearance="fill" >
-                                 <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
+                            <mat-form-field appearance="fill">
+                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                <mat-select [(ngModel)]="statusOs" name="statusOS"
+                                    (selectionChange)="alterStsOS($event)">
                                     <mat-option value="0">⚪Nova</mat-option>
                                     <mat-option value="1">🔵 Em andamento</mat-option>
                                     <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
@@ -149,43 +155,45 @@
                                     <mat-option value="6">🔴 Pendente</mat-option>
                                     <mat-option value="7">🟢 Concluída</mat-option>
                                     <mat-option value="8">⚫ Cancelada</mat-option>
-                                    <mat-option value="9">✅ Encerrada    </mat-option>
+                                    <mat-option value="9">✅ Encerrada </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <button (click)="alterarTecnicoEPrioridade()" mat-stroked-button color="primary" style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
-                        <button [routerLink]="['/os/list']" mat-stroked-button color="basic" style="width: 100%;align-self: baseline;">Voltar para lista</button>
+                        <button (click)="alterarTecnicoEPrioridade()" mat-stroked-button color="primary"
+                            style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                        <button [routerLink]="['/os/list']" mat-stroked-button color="basic"
+                            style="width: 100%;align-self: baseline;">Voltar para lista</button>
 
-                  </div>
-                  
-                 
-                        
-                                        
-                                       
+                    </div>
+
+
+
+
+
                 </div>
-                
+
             </div>
         </mat-tab>
 
         <!-- Aba de Dados do Equipamento -->
-         
+
         <mat-tab label="Equipamento" style="overflow: none;">
-            
+
             <div class="tab-content" style="display: flex;">
                 <div class="equipamento-dados">
                     <!-- <h3>Dados do Equipamento:</h3> -->
                     <div class="equip-os">
                         <h3 style="margin-bottom: 0px;">Equipamento</h3>
-                         <!-- Segunda linha: Endereço e Telefone  -->
-                         <div class="row">
+                        <!-- Segunda linha: Endereço e Telefone  -->
+                        <div class="row">
                             <div class="input-group">
                                 <label for="telefone">Aparelho:</label>
                                 <input type="text" id="telefone" value="{{Os?.aparelhos}}" readonly>
                             </div>
-                            <div class="input-group"  style="width: 250px;">
+                            <div class="input-group" style="width: 250px;">
                                 <label for="endereco">Marca:</label>
                                 <input type="text" id="endereco" value="{{Os?.marcaAparelho}}" readonly>
-                            </div>                        
+                            </div>
                         </div>
                         <div class="row">
                             <div class="input-group">
@@ -196,69 +204,70 @@
                                 <label for="email">Número de série:</label>
                                 <input type="text" id="email" value="{{Os?.snAparelho}}" readonly>
                             </div>
-                            
+
                         </div>
                         <div class="row">
                             <div>
                                 <mat-form-field class="dataCli" style="width: 500px;margin-top: 8px;" appearance="fill">
                                     <mat-label>Estado do aparelho:</mat-label>
-                                    <textarea style="resize: none;height: 102px;" value="{{Os?.checkList}}" matInput placeholder="" readonly></textarea>
+                                    <textarea style="resize: none;height: 102px;" value="{{Os?.checkList}}" matInput
+                                        placeholder="" readonly></textarea>
                                     <mat-icon matSuffix>assignment</mat-icon>
-                                </mat-form-field>    
+                                </mat-form-field>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div id="containerImgOsEquip">
-                    <img src="/assets/img/img-os-manage-equip.svg" alt="" >
+                    <img src="/assets/img/img-os-manage-equip.svg" alt="">
                 </div>
 
             </div>
 
-            
+
 
         </mat-tab>
 
         <!-- Orcamento -->
-         <!-- Aba de Serviço -->
+        <!-- Aba de Serviço -->
         <mat-tab label="Diagnóstico">
             <div class="tab-content">
-                <div class="servico-dados">            
+                <div class="servico-dados">
                     <div id="laudoTecnico">
-                        
-                        
+
+
                         <div>
                             <h3>Laudo técnico</h3>
 
-                    <mat-form-field class="dataCli" appearance="fill">
-                     <mat-label>Defeito reclamado pelo cliente:  </mat-label>
-                     <input
-                     disabled
-                     matInput>
-                     {{Os?.reclamacaoCliente}}
-                    </mat-form-field>
-                     
-                    <mat-form-field class="dataCli" appearance="fill">
-                     <mat-label>Resultado do teste inicial</mat-label>   
-                     <input
-                     disabled
-                     matInput>
-                     {{Os?.initTest}}
-                    </mat-form-field>
+                            <mat-form-field class="dataCli" appearance="fill">
+                                <mat-label>Defeito reclamado pelo cliente: </mat-label>
+                                <input disabled matInput>
+                                {{Os?.reclamacaoCliente}}
+                            </mat-form-field>
+
+                            <mat-form-field class="dataCli" appearance="fill">
+                                <mat-label>Resultado do teste inicial</mat-label>
+                                <input disabled matInput>
+                                {{Os?.initTest}}
+                            </mat-form-field>
 
                             <mat-form-field class="fullWidth" appearance="fill">
                                 <mat-label>Diagnóstico Técnico</mat-label>
-                                <textarea matInput rows="4" style="resize: none;" placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado" [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
-                                <button (click)="updateDiagnosticoTecnico()" mat-flat-button color="primary" style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
+                                <textarea matInput rows="4" style="resize: none;"
+                                    placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"
+                                    [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
+                                <button (click)="updateDiagnosticoTecnico()" mat-flat-button color="primary"
+                                    style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
                             </mat-form-field>
                         </div>
 
-                         <div>
-                            <mat-form-field appearance="fill" >
-                                 <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                <mat-select [(ngModel)]="statusOs" name="statusOS"
+                                    (selectionChange)="alterStsOS($event)">
                                     <mat-option value="0">⚪Nova</mat-option>
                                     <mat-option value="1">🔵 Em andamento</mat-option>
                                     <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
@@ -268,16 +277,16 @@
                                     <mat-option value="6">🔴 Pendente</mat-option>
                                     <mat-option value="7">🟢 Concluída</mat-option>
                                     <mat-option value="8">⚫ Cancelada</mat-option>
-                                    <mat-option value="9">✅ Encerrada    </mat-option>
+                                    <mat-option value="9">✅ Encerrada </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        
+
 
                     </div>
                 </div>
 
-                
+
 
             </div>
         </mat-tab>
@@ -285,21 +294,26 @@
         <!-- Aba de Serviço -->
         <mat-tab label="Orçamento">
             <div class="tab-content">
-                <div class="servico-dados">            
-                        <div id="orcamento">
-                            <h3>Orçamento</h3>
-                            <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
-                                <div>
-                                    <button (click)="openListaServicoDialog(Os?.sequencial)" id="buttons" mat-stroked-button color="primary">+ Serviço</button>
-                                    <button (click)="openServicoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button color="primary">+ Serviço avulso</button>
-                                    <button (click)="openListaProdutoDialog(Os?.sequencial)"id="buttons" mat-stroked-button color="primary">+ Produto</button>
-                                    <button (click)="openProdutoAvulso(Os?.sequencial)" id="buttons"mat-stroked-button color="primary">+ Produto avulso</button>
-                                    <button (click)="openKitCreateDialog(Os?.sequencial)" id="buttons"mat-stroked-button color="primary">🔥 Montar Kit</button>
-                                    <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
-                                    <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
-                                </div>
-                                
-                                <!-- <div class="valorTotal">
+                <div class="servico-dados">
+                    <div id="orcamento">
+                        <h3>Orçamento</h3>
+                        <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
+                            <div>
+                                <button (click)="openListaServicoDialog(Os?.sequencial)" id="buttons" mat-stroked-button
+                                    color="primary">+ Serviço</button>
+                                <button (click)="openServicoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button
+                                    color="primary">+ Serviço avulso</button>
+                                <button (click)="openListaProdutoDialog(Os?.sequencial)" id="buttons" mat-stroked-button
+                                    color="primary">+ Produto</button>
+                                <button (click)="openProdutoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button
+                                    color="primary">+ Produto avulso</button>
+                                <button (click)="openKitCreateDialog(Os?.sequencial)" id="buttons" mat-stroked-button
+                                    color="primary">🔥 Montar Kit</button>
+                                <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
+                                <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
+                            </div>
+
+                            <!-- <div class="valorTotal">
                                     <div style="height: 100%;align-content: center;">
                                         <h1 style="color: #6D706D;margin: 0;">Total: </h1>
                                     </div>
@@ -307,152 +321,206 @@
                                         <h1 style="color: #6D706D;margin: 0;height: 100%;width: 100%;">{{valorOrcamento}} R$💰</h1>
                                     </div>
                                 </div> -->
-                            </div>
-                            <div id="orca">
-                                <h4 style="background-color: #CCCCCC;padding: 6px;color:#666;">Itens do orçamento:</h4>
-
-                                <table mat-table [dataSource]="dataSource" matSort style="background-color:#CCCCCC; width: 100%;">
-                                        
-                                        <ng-container matColumnDef="nome">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-                                            <td mat-cell *matCellDef="let servico"> {{servico.produtoOuServico === 'SERVICO' ? '⚙️' : '📦' }} {{servico.nomeServicoAvulso}} </td>
-                                        </ng-container>
-                                        
-                                        <ng-container matColumnDef="descricao">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Descrição</b></th>
-                                            <td mat-cell *matCellDef="let servico">🛠️ {{servico.descricaoServicoAvulso}} </td>
-                                        </ng-container>
-                                       
-                                        <ng-container matColumnDef="valor">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor bruto</th>
-                                            <td mat-cell *matCellDef="let servico">
-                                              <ng-container *ngIf="servico.valorHoraAvulso > 0; else unidade">
-                                               💵 {{ servico.valorHoraAvulso | number:'1.2-2' }}
-                                              </ng-container>
-                                              <ng-template #unidade>
-                                                <ng-container *ngIf="servico.valorUnidadeAvulso > 0">
-                                                💵  {{ servico.valorUnidadeAvulso | number:'1.2-2' }}
-                                                </ng-container>
-                                              </ng-template>
-                                            </td>
-                                          </ng-container>
-
-                                        <ng-container matColumnDef="vlrDesconto">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Descontos</b></th>
-                                            <td mat-cell *matCellDef="let servico" >🏷️&nbsp;{{servico.descontoServico | number:'1.2-2' }} </td>
-                                        </ng-container>
-
-                                         <ng-container matColumnDef="vlrLiq">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Valor liquido</b></th>
-                                            <td mat-cell *matCellDef="let servico" >💰&nbsp;{{servico.valorTotal | number:'1.2-2' }} </td>
-                                        </ng-container>
-
-
-                                        <ng-container matColumnDef="acoes">
-                                            <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                                            <td mat-cell *matCellDef="let servico">
-                                                <mat-icon style="color: #FFD700; margin-right: 1rem; cursor: pointer;" (click)="openDiscountDialog(servico)">discount</mat-icon>
-                                                <mat-icon style="color: #FF7871; cursor: pointer;" (click)="deleteItem(servico)">delete</mat-icon>
-                                            </td>
-                                        </ng-container>
-                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>                                   
-                                  </table>
-
-                            </div>              
                         </div>
+                        <div id="orca">
+                            <h4 style="background-color: #CCCCCC;padding: 6px;color:#666;">Itens do orçamento:</h4>
 
-                        <div id="orcamentoTotais">
-                            <h3>Detalhes</h3>
-                            <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.sequencial}} 📋</b></h2>
-                            
+                            <table mat-table [dataSource]="dataSource" matSort
+                                style="background-color:#CCCCCC; width: 100%;">
+
+                                <ng-container matColumnDef="nome">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+                                    <td mat-cell *matCellDef="let servico"> {{servico.produtoOuServico === 'SERVICO' ?
+                                        '⚙️' : '📦' }} {{servico.nomeServicoAvulso}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="descricao">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        <b>Descrição</b>
+                                    </th>
+                                    <td mat-cell *matCellDef="let servico">🛠️ {{servico.descricaoServicoAvulso}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="valor">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor
+                                        Un./Hr.
+                                    </th>
+                                    <td mat-cell *matCellDef="let servico">
+                                        <ng-container *ngIf="servico.valorHoraAvulso > 0; else unidade">
+                                            💵 {{ servico.valorHoraAvulso | number:'1.2-2' }}
+                                        </ng-container>
+                                        <ng-template #unidade>
+                                            <ng-container *ngIf="servico.valorUnidadeAvulso > 0">
+                                                💵 {{ servico.valorUnidadeAvulso | number:'1.2-2' }}
+                                            </ng-container>
+                                        </ng-template>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="quantidade">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Qtd.</b>
+                                    </th>
+                                    <td mat-cell *matCellDef="let servico"> {{ servico.quantidade | number:'1.2-2' }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="vlrDesconto">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        <b>Desconto</b>
+                                    </th>
+                                    <td mat-cell *matCellDef="let servico">🏷️&nbsp;{{servico.descontoServico |
+                                        number:'1.2-2' }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="vlrLiq">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Total
+                                            Item</b></th>
+                                    <td mat-cell *matCellDef="let servico">💰&nbsp;{{servico.valorTotal | number:'1.2-2'
+                                        }} </td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="acoes">
+                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                    <td mat-cell *matCellDef="let servico">
+                                        <mat-icon style="color: #FFD700; margin-right: 1rem; cursor: pointer;"
+                                            (click)="openDiscountDialog(servico)">discount</mat-icon>
+                                        <mat-icon style="color: #FF7871; cursor: pointer;"
+                                            (click)="deleteItem(servico)">delete</mat-icon>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div id="orcamentoTotais">
+                        <h3>Detalhes</h3>
+                        <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.sequencial}} 📋</b></h2>
+
+                        <div class="input-group">
+                            <label for="telefone">Cliente:</label>
+                            <input type="text" id="telefone" value="👤&nbsp;{{Os?.cliente?.nome}}" readonly>
+                        </div>
+                        <div style="display: flex;">
                             <div class="input-group">
-                                <label for="telefone">Cliente:</label>
-                                <input type="text" id="telefone" value="👤&nbsp;{{Os?.cliente?.nome}}" readonly>
+                                <label for="telefone">Tot.Descontos.Servico</label>
+                                <input type="text" id="telefone"
+                                    value="💲&nbsp;{{ totaisNota.	valorTotalDescontoServico | number:'1.2-2' }}"
+                                    readonly>
                             </div>
-                                <div style="display: flex;">
-                                    <div class="input-group">
-                                        <label for="telefone">Tot.Descontos.Servico</label>
-                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.	valorTotalDescontoServico | number:'1.2-2' }}" readonly>
-                                    </div>
-                                    &nbsp;&nbsp;
-                                    <div class="input-group">
-                                        <label for="telefone">Vlr.Tot.Servico</label>
-                                        <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalServico | number:'1.2-2' }}" readonly>
-                                    </div>
-
-                                </div>
-                                
-                                    <div style="display: flex;">
-                                        <div class="input-group">
-                                            <label for="telefone">Tot.Desconto.Produtos:</label>
-                                             <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalDescontoProdutos | number:'1.2-2' }}" readonly>
-                                        </div>
-                                    &nbsp;&nbsp;
-                                        <div class="input-group">
-                                            <label for="telefone">Vlr.Tot.Produtos:</label>
-                                            <input type="text" id="telefone" value="💲&nbsp;{{ totaisNota.valorTotalProdutos | number:'1.2-2' }}" readonly>
-                                        </div>
-
-                                </div>    
-
-                                <div class="input-group">
-                                        <label for="telefone">Valor total:</label>
-                                        <input type="text" id="telefone" value="💲 {{ totaisNota.valorTotalNota | number:'1.2-2' }}" readonly>
-                                    </div>
-                            
-
-                           
-
-                            
-
-                             <div class="input-group" style="display: flex; width: 100%; margin-bottom: .3rem;">
-                                <label for="telefone">Orçamento:</label>
-                                    <div>
-                                        <button mat-raised-button color="primary" id="sendOrcamento" (click)="sendOrcamento()">🖨️ Imprimir</button>
-                                    </div>
-
-                                    <div>
-                                        <button mat-raised-button color="primary">📱 Enviar via Whatsup</button>
-                                    </div>
-
-                            </div>
-
+                            &nbsp;&nbsp;
                             <div class="input-group">
-                                <mat-form-field appearance="fill" >
-                                    <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                        <mat-select [(ngModel)]="statusOs" name="statusOS" (selectionChange)="alterStsOS($event)">
-                                            <mat-option value="0">⚪Nova</mat-option>
-                                            <mat-option value="1">🔵 Em andamento</mat-option>
-                                            <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
-                                            <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
-                                            <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
-                                            <mat-option value="5">🟢 Orçamento aprovado</mat-option>
-                                            <mat-option value="6">🔴 Pendente</mat-option>
-                                            <mat-option value="7">🟢 Concluída</mat-option>
-                                            <mat-option value="8">⚫ Cancelada</mat-option>
-                                            <mat-option value="9">✅ Encerrada    </mat-option>
-                                        </mat-select>
-                                </mat-form-field>
-                        </div>
-                            
+                                <label for="telefone">Vlr.Tot.Servico</label>
+                                <input type="text" id="telefone"
+                                    value="💲&nbsp;{{ totaisNota.valorTotalServico | number:'1.2-2' }}" readonly>
+                            </div>
+
                         </div>
 
-                    
-                   
+                        <div style="display: flex;">
+                            <div class="input-group">
+                                <label for="telefone">Tot.Desconto.Produtos:</label>
+                                <input type="text" id="telefone"
+                                    value="💲&nbsp;{{ totaisNota.valorTotalDescontoProdutos | number:'1.2-2' }}"
+                                    readonly>
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="input-group">
+                                <label for="telefone">Vlr.Tot.Produtos:</label>
+                                <input type="text" id="telefone"
+                                    value="💲&nbsp;{{ totaisNota.valorTotalProdutos | number:'1.2-2' }}" readonly>
+                            </div>
+
+                        </div>
+
+                        <div class="input-group">
+                            <label for="telefone">Valor total:</label>
+                            <input type="text" id="telefone" value="💲 {{ totaisNota.valorTotalNota | number:'1.2-2' }}"
+                                readonly>
+                        </div>
+
+
+
+
+
+
+                        <div class="input-group" style="display: flex; width: 100%; margin-bottom: .3rem;">
+                            <label for="telefone">Orçamento:</label>
+                            <div>
+                                <button mat-raised-button color="primary" id="sendOrcamento"
+                                    (click)="sendOrcamento()">🖨️ Imprimir</button>
+                            </div>
+
+                            <div>
+                                <button mat-raised-button color="primary" (click)="enviarWhatsApp()">📱 Enviar via
+                                    Whatsup</button>
+                            </div>
+
+                        </div>
+
+                        <div class="input-group">
+                            <mat-form-field appearance="fill">
+                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                <mat-select [(ngModel)]="statusOs" name="statusOS"
+                                    (selectionChange)="alterStsOS($event)">
+                                    <mat-option value="0">⚪Nova</mat-option>
+                                    <mat-option value="1">🔵 Em andamento</mat-option>
+                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
+                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
+                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
+                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                    <mat-option value="6">🔴 Pendente</mat-option>
+                                    <mat-option value="7">🟢 Concluída</mat-option>
+                                    <mat-option value="8">⚫ Cancelada</mat-option>
+                                    <mat-option value="9">✅ Encerrada </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+
+
                 </div>
 
-                
+
 
             </div>
         </mat-tab>
 
         <!-- Historico de movimentação -->
-         <mat-tab label="Histórico">
-            
+        <mat-tab label="Histórico">
+            <div class="tab-content" style="padding: 20px;">
+                <h3 style="margin-bottom: 20px; color: #555;">Linha do tempo da OS</h3>
+
+                <div *ngIf="historico.length === 0"
+                    style="text-align: center; color: #666; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                    <mat-icon
+                        style="font-size: 48px; height: 48px; width: 48px; margin-bottom: 10px;">history</mat-icon>
+                    <p>Nenhum histórico disponível para esta OS ainda.</p>
+                </div>
+
+                <div class="history-container">
+                    <div *ngFor="let item of historico" class="history-card">
+                        <div class="history-dot"></div>
+                        <div class="history-content">
+                            <div class="history-header">
+                                <span class="history-description">{{item.descricao}}</span>
+                                <span class="history-date">{{item.dataAlteracao}}</span>
+                            </div>
+                            <div class="history-footer">
+                                <span class="history-responsible">👤 Responsável: <b>{{item.responsavel}}</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </mat-tab>
 
-        
+
     </mat-tab-group>
-    
+
 </div>

@@ -22,6 +22,7 @@ import { DiscountDialogComponent } from '../../discount-dialog/discount-dialog.c
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
 import { PdfService } from 'src/app/services/pdf.service';
+import { HistoricoOS } from 'src/app/models/HistoricoOS';
 
 @Component({
   selector: 'app-os-manager',
@@ -29,13 +30,13 @@ import { PdfService } from 'src/app/services/pdf.service';
   styleUrls: ['./os-manager.component.css']
 })
 export class OsManagerComponent implements OnInit {
-  responsalveTecnico:Colaborador = {
+  responsalveTecnico: Colaborador = {
     id: null
   };
   [x: string]: any;
-  nomeCliente:string = '';
+  nomeCliente: string = '';
   Os: Os_entrada = {
-    
+
     id: 0,
     sequencial: 0,
     empresa: undefined,
@@ -54,41 +55,43 @@ export class OsManagerComponent implements OnInit {
     snAparelho: '',
     laudoTecnico: '',
   };
-  id:string;
-  colaboradores:Colaborador[] = [];
-  osCreateForm:FormGroup;
-  colaborador1:Colaborador;
-  displayedColumns: string[] = ['nome', 'descricao', 'valor','vlrDesconto','vlrLiq', 'acoes'];
-  servico: OrcamentoItem [] = [];
+  id: string;
+  colaboradores: Colaborador[] = [];
+  osCreateForm: FormGroup;
+  colaborador1: Colaborador;
+  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'quantidade', 'vlrDesconto', 'vlrLiq', 'acoes'];
+  servico: OrcamentoItem[] = [];
   dataSource = new MatTableDataSource<OrcamentoItem>(this.servico);
   currentOrcamento: any = null;
-  valorOrcamento: TotaisNotaDTO ;
+  valorOrcamento: TotaisNotaDTO;
   // valorOrcamento:number = 0;
-  prioridadeos:string = '';
-  numTec:number = 0;
-  statusOs: string = ''; 
+  prioridadeos: string = '';
+  numTec: number = 0;
+  statusOs: string = '';
   laudoTecnico: string = ''
-  vOrcamento:number = 0;
+  vOrcamento: number = 0;
   totaisNota: TotaisNotaDTO = {
     valorTotalNota: 0,
     valorTotalDescontoServico: 0
 
   };
-  
-  
+
+  historico: HistoricoOS[] = [];
 
 
- 
 
-constructor(
+
+
+
+  constructor(
     private osService: OsService,
     private route: ActivatedRoute,
-    private colaboradorService:ColaboradorService,
+    private colaboradorService: ColaboradorService,
     private dialog: MatDialog,
-    private orcamentoService:OrcamentoService,
+    private orcamentoService: OrcamentoService,
     private toast: ToastrService,
     private pdfService: PdfService
-  
+
   ) { }
 
   ngOnInit(): void {
@@ -98,15 +101,16 @@ constructor(
     this.getValorOrcamento(this.id)
     this.dropdownColaborador();
     this.listarItensOrcamento();
+    this.carregarHistorico();
   }
 
-  mapearDadosOS(id:string){
+  mapearDadosOS(id: string) {
     debugger;
-     return this.osService.findOsByNumOs(Number(id)).subscribe(
+    return this.osService.findOsByNumOs(Number(id)).subscribe(
       response => {
         this.Os = response;
 
-         if (response.tecnico_responsavel) {
+        if (response.tecnico_responsavel) {
           this.responsalveTecnico = response.tecnico_responsavel;
         } else {
           this.responsalveTecnico = {
@@ -126,81 +130,81 @@ constructor(
             cep: null,
             atvReg: null,
           };
-          
+
         }
-          // this.responsalveTecnico = response?.tecnico_responsavel;
+        // this.responsalveTecnico = response?.tecnico_responsavel;
 
         switch (response?.prioridadeOS) {
-      case "NORMAL":
-        this.prioridadeos = "0";
-        break;
-      case "URGENCIA":
-        this.prioridadeos = "1";
-        break;
-      case "GARANTIA":
-        this.prioridadeos = "2";
-        break;
-      case "PRIORITARIA":
-        this.prioridadeos = "3";
-        break;
-      default:
-        this.prioridadeos = "0";
-    }
+          case "NORMAL":
+            this.prioridadeos = "0";
+            break;
+          case "URGENCIA":
+            this.prioridadeos = "1";
+            break;
+          case "GARANTIA":
+            this.prioridadeos = "2";
+            break;
+          case "PRIORITARIA":
+            this.prioridadeos = "3";
+            break;
+          default:
+            this.prioridadeos = "0";
+        }
 
-      // this.statusOs = response?.statusOS;
+        // this.statusOs = response?.statusOS;
 
-    switch (response?.statusOS){
-        case "NOVO":
-          this.statusOs = '0';
+        switch (response?.statusOS) {
+          case "NOVO":
+            this.statusOs = '0';
             break;
-        case "EM_ANDAMENTO":
-          this.statusOs = '1';
+          case "EM_ANDAMENTO":
+            this.statusOs = '1';
             break;
-        case "AGUARDANDO_RESP_ORCAMENTO":
-          this.statusOs = '2'
+          case "AGUARDANDO_RESP_ORCAMENTO":
+            this.statusOs = '2'
             break;
-        case "AGUARDANDO_PECAS":
-          this.statusOs = '3';
+          case "AGUARDANDO_PECAS":
+            this.statusOs = '3';
             break;
-        case "AGUARDANDO_RETIRADA":
-          this.statusOs = '4';
+          case "AGUARDANDO_RETIRADA":
+            this.statusOs = '4';
             break;
-        case "ORCAMENTO_APROVADO":
-          this.statusOs = '5';
+          case "ORCAMENTO_APROVADO":
+            this.statusOs = '5';
             break;
-        case "PENDENTE":
-          this.statusOs = '6';
+          case "PENDENTE":
+            this.statusOs = '6';
             break;
-        case "CONCLUIDO":
-          this.statusOs = '7';
+          case "CONCLUIDO":
+            this.statusOs = '7';
             break;
-        case "CANCELADA":
-          this.statusOs = '8';
+          case "CANCELADA":
+            this.statusOs = '8';
             break;
-        case "ENCERRADA":
-          this.statusOs = '9';
-            break;                               
+          case "ENCERRADA":
+            this.statusOs = '9';
+            break;
 
-      }
+        }
 
-      
-        
+
+
       })
 
-      
+
 
   }
 
-  dropdownColaborador(){
+  dropdownColaborador() {
     debugger;
     this.colaboradorService.listarTecnicos().subscribe(
       (response) => {
         this.colaboradores = response
-    }),
+      }),
 
-    (error) => {
-      console.error("Não foi possível carregar os colaboradores.")
-    }
+      (error) => {
+        console.error("Não foi possível carregar os colaboradores.")
+      }
 
   };
 
@@ -211,49 +215,16 @@ constructor(
     });
   }
 
-  openListaServicoDialog(id){
-   const dialogRef = this.dialog.open(ItemServicelMinilistComponent,{
-    data:{
-        id:id
-    },
-    width:'50rem'
-    
-   });
-    dialogRef.afterClosed().subscribe(response => {
-    if(response){
-      this.listarItensOrcamento();
-    }
-
-  });
-
-  }
-
-  openListaProdutoDialog(id){
-   const dialogRef = this.dialog.open(ProdutosMinilistComponent,{
-    data:{
-        id:id
-    },
-    width:'50rem'
-    
-   });
-    dialogRef.afterClosed().subscribe(response => {
-    if(response){
-      this.listarItensOrcamento();
-    }
-
-  });
-
-  }
-  
-  openServicoAvulso(id){
-    const dialogRef = this.dialog.open(ItemServiceCreateAvulsoComponent,{
-      data:{
-        id:id
+  openListaServicoDialog(id) {
+    const dialogRef = this.dialog.open(ItemServicelMinilistComponent, {
+      data: {
+        id: id
       },
-    });
+      width: '50rem'
 
+    });
     dialogRef.afterClosed().subscribe(response => {
-      if(response){
+      if (response) {
         this.listarItensOrcamento();
       }
 
@@ -261,15 +232,16 @@ constructor(
 
   }
 
-  openProdutoAvulso(id){
-    const dialogRef = this.dialog.open(ProdutoCreateAvulsoComponent,{
-      data:{
-        id:id
+  openListaProdutoDialog(id) {
+    const dialogRef = this.dialog.open(ProdutosMinilistComponent, {
+      data: {
+        id: id
       },
-    });
+      width: '50rem'
 
+    });
     dialogRef.afterClosed().subscribe(response => {
-      if(response){
+      if (response) {
         this.listarItensOrcamento();
       }
 
@@ -277,15 +249,47 @@ constructor(
 
   }
 
-  listarItensOrcamento(){
+  openServicoAvulso(id) {
+    const dialogRef = this.dialog.open(ItemServiceCreateAvulsoComponent, {
+      data: {
+        id: id
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this.listarItensOrcamento();
+      }
+
+    });
+
+  }
+
+  openProdutoAvulso(id) {
+    const dialogRef = this.dialog.open(ProdutoCreateAvulsoComponent, {
+      data: {
+        id: id
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this.listarItensOrcamento();
+      }
+
+    });
+
+  }
+
+  listarItensOrcamento() {
     debugger;
-    this.orcamentoService.buscarPorId(Number(this.id)).subscribe( response => {
+    this.orcamentoService.buscarPorId(Number(this.id)).subscribe(response => {
       this.currentOrcamento = response;
       this.orcamentoService.listarServicosOrcamento(response.id).subscribe(servicos => {
         this.servico = servicos
-          this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
+        this.dataSource = new MatTableDataSource<OrcamentoItem>(servicos);
         // this.FuncValorOrcamento(response.id);
-            this.getValorOrcamento(this.id);
+        this.getValorOrcamento(this.id);
 
       })
 
@@ -293,53 +297,69 @@ constructor(
 
   }
 
-  FuncValorOrcamento(idOrcamento:number){
-   this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response =>{
+  FuncValorOrcamento(idOrcamento: number) {
+    this.orcamentoService.valorOrcamento(idOrcamento).subscribe(response => {
       this.valorOrcamento = response
-      
-   })
-  }
 
-  alterarTecnicoEPrioridade(){
+    })
+  }
+  alterarTecnicoEPrioridade() {
     debugger;
     const tecnicoPrioridadeDto: TecnicoEPrioridadeDTO = {
-      tecnicoId: this.responsalveTecnico.id, 
+      tecnicoId: this.responsalveTecnico.id,
       prioridadeOS: Number(this.prioridadeos),
       numOs: this.Os.sequencial
     }
 
-    this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto);
-    
+    this.osService.alterarTecnicoEPrioridade(tecnicoPrioridadeDto).subscribe({
+      next: () => {
+        this.toast.success("OS alterada com sucesso.")
+        this.carregarHistorico();
+      },
+      error: (err) => {
+        this.toast.error("Falha ao atualizar a OS, contate o suporte " + err)
+      }
+    });
+
   }
 
-  alterStsOS(event: MatSelectChange){
+  alterStsOS(event: MatSelectChange) {
     debugger;
-    this.osService.alterarStatusOS(this.Os.sequencial, Number(this.statusOs));
+    this.osService.alterarStatusOS(this.Os.sequencial, Number(this.statusOs)).subscribe({
+      next: () => {
+        this.toast.success("Status da OS alterado com suocesso.")
+        this.carregarHistorico();
+      },
+      error: (err) => {
+        this.toast.error("Falha na alteração da OS " + err.error.message)
+      }
+    });
   }
 
-  updateDiagnosticoTecnico(){
+  updateDiagnosticoTecnico() {
     debugger;
     const dto: laudoTecnicoDTO = {
       numOS: this.Os.sequencial,
       laudo: this.Os.laudoTecnico
     }
     this.osService.alterarDiagnosticoTecnico(dto).subscribe({
-      next: ()=> { 
+      next: () => {
         this.toast.success('Diagnostico preenchido com sucesso.')
-    },
-      error: (err)=> {
+        this.carregarHistorico();
+      },
+      error: (err) => {
         this.toast.error(err.error.message)
-    }
-      })
-    
+      }
+    })
+
   }
 
-  getValorOrcamento(numOs:string){
-   const numOsNumber = Number(numOs)
+  getValorOrcamento(numOs: string) {
+    const numOsNumber = Number(numOs)
     this.orcamentoService.buscarPorId(numOsNumber).subscribe(orcamento => {
-        this.orcamentoService.valorOrcamento(orcamento.id).subscribe( response =>{
-          this.totaisNota = response;
-   })
+      this.orcamentoService.valorOrcamento(orcamento.id).subscribe(response => {
+        this.totaisNota = response;
+      })
 
     });
 
@@ -416,7 +436,7 @@ constructor(
       data: {
         id: id
       },
-      
+
     });
 
     dialogRef.afterClosed().subscribe(response => {
@@ -446,6 +466,45 @@ constructor(
       error: (err) => {
         console.error('Erro ao gerar PDF:', err);
         this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
+      }
+    });
+  }
+
+  enviarWhatsApp() {
+    if (!this.Os || !this.Os.cliente || !this.Os.cliente.cel1) {
+      this.toast.error('Número de telefone do cliente não encontrado');
+      return;
+    }
+
+    const numero = this.Os.cliente.cel1.replace(/\D/g, '');
+    const nomeEmpresa = this.Os.empresa?.nomEmpresa || 'nossa equipe';
+    let mensagem = `Olá, ${this.Os.cliente.nome}, tudo bem?\n\n`;
+    mensagem += `Segue o orçamento referente à Ordem de Serviço nº ${this.Os.sequencial}:\n\n`;
+    mensagem += `💻 Equipamento: ${(this.Os.marcaAparelho ? this.Os.marcaAparelho + ' ' : '') + (this.Os.descricaoModelo || '')}\n\n`;
+    mensagem += `Serviços e Produtos:\n`;
+    this.dataSource.data.forEach(item => {
+      // @ts-ignore
+      const icone = item.produtoOuServico == 'SERVICO' ? '⚙️' : '📦';
+      const valor = item.valorTotal ? item.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'R$ 0,00';
+      mensagem += `${icone} ${item.nomeServicoAvulso}: ${valor}\n`;
+    });
+
+    mensagem += `\n💰 Total do orçamento: ${this.totaisNota.valorTotalNota.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}\n\n`;
+
+    mensagem += `Qualquer dúvida ou ajuste, fico à disposição.\n\n`;
+    mensagem += `Atenciosamente,\n${nomeEmpresa}`;
+
+    const url = `https://api.whatsapp.com/send?phone=55${numero}&text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+  }
+
+  carregarHistorico() {
+    this.osService.getHistorico(Number(this.id)).subscribe({
+      next: (response) => {
+        this.historico = response;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar histórico:', err);
       }
     });
   }

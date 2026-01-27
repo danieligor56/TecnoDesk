@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.tecnoDesk.TecnoDesk.DTO.ProdutosDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Produtos;
 import br.com.tecnoDesk.TecnoDesk.Entities.Servico;
@@ -24,12 +23,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequestMapping("api/v1/produtos")
 public class ProdutosController {
-	
+
 	@Autowired
 	ProdutoService produtoService;
-	
+
 	@PostMapping("/criarProdutos")
-	public ResponseEntity<Produtos> criarProduto(@RequestBody ProdutosDTO dto, @RequestHeader("CodEmpresa") String codEmpresa){
+	public ResponseEntity<Produtos> criarProduto(@RequestBody ProdutosDTO dto,
+			@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.criarNovoProduto(dto, codEmpresa));
 	}
 
@@ -37,21 +37,23 @@ public class ProdutosController {
 	public ResponseEntity<List<Produtos>> getMethodName(@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.listarProdutos(codEmpresa));
 	}
-	
+
 	@GetMapping("/buscarProduto/{id}")
-	public Produtos buscarClientePorID(long id,@RequestHeader("CodEmpresa") String codemp) {
-		return produtoService.buscarProdutoPorId(id,codemp);
+	public Produtos buscarClientePorID(@PathVariable Long id, @RequestHeader("CodEmpresa") String codemp) {
+		return produtoService.buscarProdutoPorId(id, codemp);
 	}
-	
+
 	@PutMapping("/alterarProduto/{id}")
-	public ResponseEntity<Produtos> alterarProduto(@PathVariable long id, @RequestBody ProdutosDTO dto, @RequestHeader("CodEmpresa") String codEmpresa) {
+	public ResponseEntity<Produtos> alterarProduto(@PathVariable long id, @RequestBody ProdutosDTO dto,
+			@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(produtoService.alterarProduto(id, dto, codEmpresa));
 	}
-	
+
 	@DeleteMapping("/deletarProduto/{id}")
-	public ResponseEntity<Void> deletarProduto(@RequestParam long id, @RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
+	public ResponseEntity<Void> deletarProduto(@PathVariable long id, @RequestHeader("CodEmpresa") String codEmpresa)
+			throws Exception {
 		produtoService.deletarProduto(id, codEmpresa);
 		return ResponseEntity.ok().build();
 	}
-	
+
 }
