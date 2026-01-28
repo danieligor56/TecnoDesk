@@ -1,28 +1,31 @@
 <div class="container">
 
   <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-    <h1 id="osH1">Colaborador</h1>       
+    <h1 id="osH1">Colaborador</h1>
   </div>
-  
+
 
   <mat-form-field appearance="standard">
     <mat-label>🔍 Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Insira alguma informação do colaborador" #input>
   </mat-form-field>
-  
-  <div>
-    <table mat-table [dataSource]="dataSource">
-  
+
+  <div class="table-container">
+    <div class="loading-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
       <ng-container matColumnDef="sequencial">
         <th mat-header-cell *matHeaderCellDef> Cod </th>
         <td mat-cell *matCellDef="let element">🆔 {{element.sequencial}} </td>
       </ng-container>
-  
+
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
         <td mat-cell *matCellDef="let element">👤 {{element.nome}} </td>
       </ng-container>
-  
+
       <ng-container matColumnDef="weight">
         <th mat-header-cell *matHeaderCellDef> Cargo/Função </th>
         <td mat-cell *matCellDef="let element">{{formatOccupations(element.ocupacao)}}</td>
@@ -36,41 +39,35 @@
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          
+
           <div class="action-icons-container">
-            <mat-icon
-              class="action-icon icon-edit"
-              (click)="openDialog($event, element.id)"
-              matTooltip="Editar colaborador"
-              matTooltipPosition="above">
+            <mat-icon class="action-icon icon-edit" (click)="openDialog($event, element.id)"
+              matTooltip="Editar colaborador" matTooltipPosition="above">
               edit
             </mat-icon>
 
-            <mat-icon
-              class="action-icon icon-delete"
-              (click)="openDelDialog($event, element.id)"
-              matTooltip="Excluir colaborador"
-              matTooltipPosition="above">
+            <mat-icon class="action-icon icon-delete" (click)="openDelDialog($event, element.id)"
+              matTooltip="Excluir colaborador" matTooltipPosition="above">
               delete
             </mat-icon>
           </div>
-          
-            
-          
+
+
+
         </td>
-        
+
       </ng-container>
-  
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  
-    <mat-paginator id="rows" paginator="paginator"[pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
+
+    <mat-paginator id="rows" paginator="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+      aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
 
-  <button (click)="criarColaboradorDialog()" color="primary" style="margin-top: 20px;width: 140px;" mat-flat-button>Novo colaborador</button>
+  <button (click)="criarColaboradorDialog()" color="primary" style="margin-top: 20px;width: 140px;" mat-flat-button>Novo
+    colaborador</button>
 
 </div>

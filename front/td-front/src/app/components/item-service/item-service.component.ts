@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ItemService } from 'src/app/models/ItemService';
 import { ItemServiceService } from 'src/app/services/item-service.service';
 import { ItemServiceCreateComponent } from './item-service-create/item-service-create.component';
@@ -15,29 +15,33 @@ import { ItemServiceCobrarhoraComponent } from './item-service-cobrarhora/item-s
   styleUrls: ['./item-service.component.css']
 })
 export class ItemServiceComponent implements OnInit {
-  servico: ItemService [] = [];
-  displayedColumns: string[] = ['id', 'progress','fruit','name','acoes' ];
+  servico: ItemService[] = [];
+  displayedColumns: string[] = ['id', 'progress', 'fruit', 'name', 'acoes'];
   dataSource = new MatTableDataSource<ItemService>(this.servico);
+  isLoading = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private itemService:ItemServiceService,
-    private dialog:MatDialog
-  ) {}
-  
+    private itemService: ItemServiceService,
+    private dialog: MatDialog
+  ) { }
+
   ngOnInit(): void {
     this.encontrarServicos();
-    }
+  }
 
-  encontrarServicos(){
+  encontrarServicos() {
+    this.isLoading = true;
     this.itemService.listServico().subscribe(response => {
-          this.servico = response;
-          this.dataSource = new MatTableDataSource<ItemService>(response);
-          this.dataSource.paginator = this.paginator;
-          
-        }
-    )
+      this.servico = response;
+      this.dataSource = new MatTableDataSource<ItemService>(response);
+      this.dataSource.paginator = this.paginator;
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
     }
+    )
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -46,47 +50,47 @@ export class ItemServiceComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    }
+  }
 
   openDialog(): void {
-      
-      const dialogRef = this.dialog.open(ItemServiceCreateComponent);
-      
-      dialogRef.afterClosed().subscribe( result=>{
-        if(result){
-          this.encontrarServicos();
-        }
-      })
-    }
-  
+
+    const dialogRef = this.dialog.open(ItemServiceCreateComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.encontrarServicos();
+      }
+    })
+  }
+
   openEditDialog(event: Event, id: string): void {
-    const dialogRef = this.dialog.open(ItemServiceUpdateComponent,{
+    const dialogRef = this.dialog.open(ItemServiceUpdateComponent, {
       data: {
-        id:id
+        id: id
       }
     });
 
-      dialogRef.afterClosed().subscribe( result =>{
-        if(result)
-          this.encontrarServicos()
-      })
-    }
-  
-  openDelDialog(event: Event, id: string){
-    const dialogRef = this.dialog.open(ItemServiceDeleteComponent,{
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        this.encontrarServicos()
+    })
+  }
+
+  openDelDialog(event: Event, id: string) {
+    const dialogRef = this.dialog.open(ItemServiceDeleteComponent, {
       data: {
-        id :id 
+        id: id
       },
       width: '420px',
     });
 
-    dialogRef.afterClosed().subscribe( result =>{
-      if(result)
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
         this.encontrarServicos()
-      })
-    }
+    })
+  }
 
-  
+
 
 }
 

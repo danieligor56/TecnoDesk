@@ -28,32 +28,32 @@
           <i *ngIf="treeCadastros" class="material-icons">arrow_drop_down</i>
         </a>
         <ul class="treeOS" *ngIf="treeCadastros">
-          <li class="tree">
-            <p routerLink="/colaborador" class="linkOs">Colaborador</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="/colaborador">
+            <p class="linkOs">Colaborador</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">account_circle</i>
           </li>
-          <li class="tree">
-            <p routerLink="/clientes" class="linkOs">Clientes</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="/clientes">
+            <p class="linkOs">Clientes</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">people</i>
           </li>
-          <li class="tree" *ngIf="segmentoEmpresa === 0">
-            <p routerLink="produtos" class="linkOs">Produtos</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" *ngIf="segmentoEmpresa === 0" routerLink="produtos">
+            <p class="linkOs">Produtos</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">inventory_2</i>
           </li>
 
-          <li class="tree" *ngIf="segmentoEmpresa === 1">
-            <p routerLink="produtos" class="linkOs">Peças</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" *ngIf="segmentoEmpresa === 1" routerLink="produtos">
+            <p class="linkOs">Peças</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">inventory_2</i>
           </li>
 
-          <li class="tree" *ngIf="segmentoEmpresa === 1">
-            <p routerLink="produtos" class="linkOs">Veiculos</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" *ngIf="segmentoEmpresa === 1" routerLink="produtos">
+            <p class="linkOs">Veiculos</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">toys</i>
           </li>
 
 
-          <li class="tree">
-            <p routerLink="/itemService" class="linkOs">Serviços</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="/itemService">
+            <p class="linkOs">Serviços</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">design_services</i>
           </li>
         </ul>
@@ -67,20 +67,20 @@
           <i *ngIf="treeos" class="material-icons">arrow_drop_down</i>
         </a>
         <ul class="treeOS" *ngIf="treeos">
-          <li class="tree">
-            <p routerLink="os/create" class="linkOs">Abrir nova OS</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="os/create">
+            <p class="linkOs">Abrir nova OS</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">add</i>
           </li>
-          <li class="tree">
-            <p routerLink="os/list" class="linkOs">Gerenciar OS</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="os/list">
+            <p class="linkOs">Gerenciar OS</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">search</i>
           </li>
-          <li class="tree">
-            <p routerLink="os-rapida/list" class="linkOs">OS Rápida</p><i style="font-size: 18px;margin-left: 3px;"
+          <li class="tree" routerLink="os-rapida/list">
+            <p class="linkOs">OS Rápida</p><i style="font-size: 18px;margin-left: 3px;"
               class="material-icons">flash_on</i>
           </li>
-          <li class="tree" *ngIf="segmentoEmpresa === 1">
-            <p routerLink="os-mecanica/entrada" class="linkOs">OS Mecânica</p><i
+          <li class="tree" *ngIf="segmentoEmpresa === 1" routerLink="os-mecanica/entrada">
+            <p class="linkOs">OS Mecânica</p><i
               style="font-size: 18px;margin-left: 3px;" class="material-icons">build</i>
           </li>
         </ul>

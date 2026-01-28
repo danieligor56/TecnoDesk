@@ -7,6 +7,7 @@ import { TecnicoEPrioridadeDTO } from '../DTO/TecnicoEPrioridadeDTO';
 import { ToastrService } from 'ngx-toastr';
 import { laudoTecnicoDTO } from '../DTO/LaudoTecnicoDTO';
 import { HistoricoOS } from '../models/HistoricoOS';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.post<Os_entrada>("http://localhost:8080/Os/criarNovaOS", os, options);
+    return this.http.post<Os_entrada>(`${environment.apiUrl}/Os/criarNovaOS`, os, options);
 
   }
 
@@ -36,7 +37,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.get<Os_entrada[]>("http://localhost:8080/Os/listarOS", options);
+    return this.http.get<Os_entrada[]>(`${environment.apiUrl}/Os/listarOS`, options);
 
   }
 
@@ -47,7 +48,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.get<Os_entrada>(`http://localhost:8080/Os/numOs?numOS=${numOs}`, options);
+    return this.http.get<Os_entrada>(`${environment.apiUrl}/Os/numOs?numOS=${numOs}`, options);;
 
   }
 
@@ -57,7 +58,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.put("http://localhost:8080/Os/alterarTecnicEprioridade", dto, options);
+    return this.http.put(`${environment.apiUrl}/Os/alterarTecnicEprioridade`, dto, options);
   }
 
   alterarStatusOS(numOs: number, stsOS: number): Observable<any> {
@@ -67,7 +68,7 @@ export class OsService {
     const options = { headers: headers }
 
     return this.http.put(
-      `http://localhost:8080/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`, {}, options);
+      `${environment.apiUrl}/Os/alterarStatusOs?numOs=${numOs}&stsOS=${stsOS}`, {}, options);
 
   }
 
@@ -77,7 +78,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.post(`http://localhost:8080/Os/salvarDiagnostico`, dto, options);
+    return this.http.post(`${environment.apiUrl}/Os/salvarDiagnostico`, dto, options);
   }
 
   createOsMecanica(os: Os_Mecanica): Observable<Os_Mecanica> {
@@ -86,7 +87,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.post<Os_Mecanica>("http://localhost:8080/Os/criarNovaOSMecanica", os, options);
+    return this.http.post<Os_Mecanica>(`${environment.apiUrl}/Os/criarNovaOSMecanica`, os, options);
   }
 
   getHistorico(osId: number): Observable<HistoricoOS[]> {
@@ -95,7 +96,7 @@ export class OsService {
     })
     const options = { headers: headers }
 
-    return this.http.get<HistoricoOS[]>(`http://localhost:8080/Os/${osId}/historico`, options);
+    return this.http.get<HistoricoOS[]>(`${environment.apiUrl}/Os/${osId}/historico`, options);
   }
 
 }
