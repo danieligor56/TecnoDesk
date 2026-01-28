@@ -26,27 +26,24 @@ public class SecConfig {
 	//
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		return httpSecurity.csrf(csrf -> csrf.disable())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(authorize -> authorize					
-			                    // Liberação do Swagger e OpenAPI
-			                    .requestMatchers(
-			                        "/v3/api-docs/**",
-			                        "/swagger-ui/**",
-			                        "/swagger-ui.html"
-			                    ).permitAll()
-						.requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-						.requestMatchers(HttpMethod.POST,"/api/v1/primeiroPasso").permitAll()
-						.requestMatchers(HttpMethod.DELETE,"/deletarColaborador").hasRole("ADMIN")
-						/* .anyRequest().authenticated() */
-						.anyRequest().permitAll()
-
-						)
-				
-				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
-				.build();
-				
+	    return httpSecurity
+	        .csrf(csrf -> csrf.disable())
+	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	        .authorizeHttpRequests(authorize -> authorize
+	            .requestMatchers(
+	                "/v3/api-docs/**",
+	                "/swagger-ui/**",
+	                "/swagger-ui.html"
+	            ).permitAll()
+	            .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+	            .requestMatchers(HttpMethod.POST,"/api/v1/primeiroPasso").permitAll()
+	            .requestMatchers(HttpMethod.DELETE,"/deletarColaborador").hasRole("ADMIN")
+	            .anyRequest().permitAll()
+	        )
+	        .addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
+	        .build();
 	}
+
 	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{

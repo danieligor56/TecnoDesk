@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export enum StatusVisita {
     AGENDADA = 'AGENDADA',
@@ -40,7 +41,7 @@ export interface VisitaTecnica {
 })
 export class VisitaTecnicaService {
 
-    private readonly API = 'http://localhost:8080/api/v1/visitas-tecnicas';
+    private readonly API = `${environment.apiUrl}/api/v1/visitas-tecnicas`;
 
     constructor(private http: HttpClient) { }
 

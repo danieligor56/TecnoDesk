@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,18 @@ export class EmpresaService {
     private http: HttpClient
   ) { }
 
-  checkCompanyExistsByDoc(doc: string): Observable<boolean>{
-   return this.http.get<boolean>(`http://localhost:8080/empresa/VerificarPorDoc?documento=${doc}`)
+  checkCompanyExistsByDoc(doc: string): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.apiUrl}/empresa/VerificarPorDoc?documento=${doc}`)
   }
 
-  buscarSegmentoEmpresa(): Observable<number>{
-     const headers = new HttpHeaders({
-          'codEmpresa':sessionStorage.getItem('CompGrpIndent')
-        })
+  buscarSegmentoEmpresa(): Observable<number> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
 
-        const options = { headers: headers }
+    const options = { headers: headers }
 
-     return this.http.get<number>('http://localhost:8080/empresa/buscarSegmentoEmpresa',options)
+    return this.http.get<number>(`${environment.apiUrl}/empresa/buscarSegmentoEmpresa`, options)
   }
 
 

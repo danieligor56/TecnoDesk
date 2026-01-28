@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Produtos } from '../models/Produtos';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProdutosService {
       'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.get<Produtos[]>("http://localhost:8080/api/v1/produtos/listarProdutos", options)
+    return this.http.get<Produtos[]>(`${environment.apiUrl}/api/v1/produtos/listarProdutos`, options)
   }
 
   encontrarPorId(id: any): Observable<Produtos> {
@@ -23,7 +24,7 @@ export class ProdutosService {
       'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.get<Produtos>(`http://localhost:8080/api/v1/produtos/buscarProduto/${id}`, options)
+    return this.http.get<Produtos>(`${environment.apiUrl}/api/v1/produtos/buscarProduto/${id}`, options)
   }
 
   criarNovoProduto(produtoDto: any): Observable<Produtos> {
@@ -31,7 +32,7 @@ export class ProdutosService {
       'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.post<Produtos>('http://localhost:8080/api/v1/produtos/criarProdutos', produtoDto, options)
+    return this.http.post<Produtos>(`${environment.apiUrl}/api/v1/produtos/criarProdutos`, produtoDto, options)
   }
 
   alterarProduto(id: number, produtoDto: any): Observable<Produtos> {
@@ -39,7 +40,7 @@ export class ProdutosService {
       'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.put<Produtos>(`http://localhost:8080/api/v1/produtos/alterarProduto/${id}`, produtoDto, options)
+    return this.http.put<Produtos>(`${environment.apiUrl}/api/v1/produtos/alterarProduto/${id}`, produtoDto, options)
   }
 
   deletarProduto(id: any): Observable<Produtos> {
@@ -47,7 +48,7 @@ export class ProdutosService {
       'CodEmpresa': sessionStorage.getItem('CompGrpIndent') || ''
     })
     const options = { headers: headers }
-    return this.http.delete<Produtos>(`http://localhost:8080/api/v1/produtos/deletarProduto/${id}`, options)
+    return this.http.delete<Produtos>(`${environment.apiUrl}/api/v1/produtos/deletarProduto/${id}`, options)
   }
 
 
