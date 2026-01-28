@@ -8,7 +8,10 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
   </mat-form-field>
 
-  <div>
+  <div class="table-container">
+    <div class="loading-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="id">

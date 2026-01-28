@@ -22,6 +22,7 @@ export class ProdutosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'preco', 'qtdEstoque', 'codigo_barras', 'categoria', 'unidadeMedida', 'acoes'];
   eNovoProduto: boolean = false;
+  isLoading = false;
   constructor(
     private produtosService: ProdutosService,
     private dialog: MatDialog,
@@ -33,11 +34,14 @@ export class ProdutosComponent implements OnInit {
   }
 
   encontrarProdutos() {
+    this.isLoading = true;
     this.produtosService.listarProdutos().subscribe(response => {
       this.produtos = response;
       this.dataSource = new MatTableDataSource<Produtos>(response);
       this.dataSource.paginator = this.paginator;
-
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
     }
     )
   }

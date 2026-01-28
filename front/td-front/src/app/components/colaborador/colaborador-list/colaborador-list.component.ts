@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Colaborador } from 'src/app/models/Colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { ColaboradorUpdateComponent } from '../colaborador-update/colaborador-update.component';
@@ -16,15 +16,16 @@ import { ColaboradorCreateComponent } from '../colaborador-create/colaborador-cr
 export class ColaboradorListComponent implements OnInit, AfterViewInit {
 
   ELEMENT_DATA: Colaborador[] = []
-  
-  displayedColumns: string[] = ['sequencial', 'name', 'weight','email','acoes'];
+
+  displayedColumns: string[] = ['sequencial', 'name', 'weight', 'email', 'acoes'];
   dataSource = new MatTableDataSource<Colaborador>(this.ELEMENT_DATA);
-  
+  isLoading = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   constructor(
     private colabService: ColaboradorService,
-    private dialog:MatDialog
+    private dialog: MatDialog
 
   ) { }
 
@@ -36,18 +37,22 @@ export class ColaboradorListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  findAll(){
+  findAll() {
+    this.isLoading = true;
     this.colabService.findAll().subscribe(resposta => {
-      this.ELEMENT_DATA= resposta;
+      this.ELEMENT_DATA = resposta;
       this.dataSource = new MatTableDataSource<Colaborador>(resposta);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = (data: Colaborador, filter: string) => {
         const filterValue = filter.trim().toLowerCase();
         return data.sequencial?.toString().includes(filterValue) ||
-               data.nome?.toLowerCase().includes(filterValue) ||
-               data.email?.toLowerCase().includes(filterValue) ||
-               data.ocupacao?.some(ocup => ocup.toString().toLowerCase().includes(filterValue));
+          data.nome?.toLowerCase().includes(filterValue) ||
+          data.email?.toLowerCase().includes(filterValue) ||
+          data.ocupacao?.some(ocup => ocup.toString().toLowerCase().includes(filterValue));
       };
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
     })
   }
 
@@ -76,39 +81,39 @@ export class ColaboradorListComponent implements OnInit, AfterViewInit {
 
 
   openDialog(event: Event, id: string): void {
-    
-    const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {   
+
+    const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {
       data: { id: id }
     });
 
-     dialogRef.afterClosed().subscribe( result => {
-        if(result)
-          this.findAll()
-      })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        this.findAll()
+    })
 
   }
 
   openDelDialog(event: Event, id: string): void {
-    
+
     const dialog = this.dialog.open(ColaboradorDeleteComponent, {
-      data: {id:id},
+      data: { id: id },
       width: '420px',
-  });
+    });
 
-    dialog.afterClosed().subscribe( result => {
-        if(result)
-          this.findAll()
-      })
+    dialog.afterClosed().subscribe(result => {
+      if (result)
+        this.findAll()
+    })
 
-}
+  }
 
- criarColaboradorDialog(){
+  criarColaboradorDialog() {
     const dialogRef = this.dialog.open(ColaboradorCreateComponent);
 
-    dialogRef.afterClosed().subscribe( result =>{
-        if(result)
-          this.findAll()
-      })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        this.findAll()
+    })
 
 
   }
