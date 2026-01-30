@@ -90,6 +90,28 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <mat-form-field appearance="outline" class="full-width-field">
+                                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
+                                                <mat-select [(ngModel)]="statusOs" name="statusOS"
+                                                    (selectionChange)="alterStsOS($event)">
+                                                    <mat-option value="0">⚪ Nova</mat-option>
+                                                    <mat-option value="1">🔵 Em andamento</mat-option>
+                                                    <mat-option value="2">🟡 Aguardando aprovação do
+                                                        orçamento</mat-option>
+                                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
+                                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
+                                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                                    <mat-option value="6">🔴 Pendente</mat-option>
+                                                    <mat-option value="7">🟢 Concluída</mat-option>
+                                                    <mat-option value="8">⚫ Cancelada</mat-option>
+                                                    <mat-option value="9">✅ Encerrada </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </section>
                             </div>
 
