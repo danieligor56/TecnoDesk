@@ -4,6 +4,10 @@ import { DashboardStats } from 'src/app/models/DashboardStats';
 import { Os_entrada } from 'src/app/models/Os-entrada';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { OsService } from 'src/app/services/os.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ClienteCreateComponent } from '../clientes/cliente-create/cliente-create.component';
+import { CriarAlterarProdutoComponent } from '../produtos/criar-alterar-produto/criar-alterar-produto.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +30,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private osService: OsService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +71,31 @@ export class HomeComponent implements OnInit {
   }
 
   novoCliente() {
-    this.router.navigate(['/cliente/create']);
+    const dialogRef = this.dialog.open(ClienteCreateComponent, {
+      width: '50rem'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadDashboardData();
+      }
+    });
   }
 
   novoProduto() {
-    this.router.navigate(['/produto/create']);
+    const dialogRef = this.dialog.open(CriarAlterarProdutoComponent, {
+      width: '50rem',
+      data: { eNovoProduto: true }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadDashboardData();
+        this.toast.success('Produto criado com sucesso');
+      }
+    });
   }
 
   abrirOS(osSequencial: number) {
-    this.router.navigate(['/os/manager', osSequencial]);
+    this.router.navigate(['/manager', osSequencial]);
   }
 
   getStatusClass(status: string): string {
