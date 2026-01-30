@@ -399,90 +399,83 @@
                         </div>
                     </div>
 
-                    <div id="orcamentoTotais">
-                        <h3>Detalhes</h3>
-                        <h2 class="labelNumOSValor">Número da OS:<b>{{Os?.sequencial}} 📋</b></h2>
-
-                        <div class="input-group">
-                            <label for="telefone">Cliente:</label>
-                            <input type="text" id="telefone" value="👤&nbsp;{{Os?.cliente?.nome}}" readonly>
-                        </div>
-                        <div style="display: flex;">
-                            <div class="input-group">
-                                <label for="telefone">Tot.Descontos.Servico</label>
-                                <input type="text" id="telefone"
-                                    value="💲&nbsp;{{ totaisNota.	valorTotalDescontoServico | number:'1.2-2' }}"
-                                    readonly>
-                            </div>
-                            &nbsp;&nbsp;
-                            <div class="input-group">
-                                <label for="telefone">Vlr.Tot.Servico</label>
-                                <input type="text" id="telefone"
-                                    value="💲&nbsp;{{ totaisNota.valorTotalServico | number:'1.2-2' }}" readonly>
-                            </div>
-
+                    <div id="orcamentoTotais" class="sidebar-card">
+                        <div class="sidebar-header">
+                            <span class="os-badge">OS #{{Os?.sequencial}}</span>
+                            <div class="status-indicator" [ngClass]="'status-' + statusOs"></div>
                         </div>
 
-                        <div style="display: flex;">
-                            <div class="input-group">
-                                <label for="telefone">Tot.Desconto.Produtos:</label>
-                                <input type="text" id="telefone"
-                                    value="💲&nbsp;{{ totaisNota.valorTotalDescontoProdutos | number:'1.2-2' }}"
-                                    readonly>
-                            </div>
-                            &nbsp;&nbsp;
-                            <div class="input-group">
-                                <label for="telefone">Vlr.Tot.Produtos:</label>
-                                <input type="text" id="telefone"
-                                    value="💲&nbsp;{{ totaisNota.valorTotalProdutos | number:'1.2-2' }}" readonly>
-                            </div>
+                        <div class="sidebar-content">
+                            <section class="sidebar-section">
+                                <label class="section-label">Cliente</label>
+                                <div class="client-info">
+                                    <mat-icon>person</mat-icon>
+                                    <span>{{Os?.cliente?.nome}}</span>
+                                </div>
+                            </section>
 
+                            <section class="sidebar-section totals-section">
+                                <label class="section-label">Resumo Financeiro</label>
+
+                                <div class="totals-grid">
+                                    <div class="total-item">
+                                        <span class="total-label">Serviços</span>
+                                        <span class="total-value">R$ {{ totaisNota.valorTotalServico | number:'1.2-2'
+                                            }}</span>
+                                        <small class="discount-label" *ngIf="totaisNota.valorTotalDescontoServico > 0">
+                                            Desc: R$ {{ totaisNota.valorTotalDescontoServico | number:'1.2-2' }}
+                                        </small>
+                                    </div>
+
+                                    <div class="total-item">
+                                        <span class="total-label">Produtos</span>
+                                        <span class="total-value">R$ {{ totaisNota.valorTotalProdutos | number:'1.2-2'
+                                            }}</span>
+                                        <small class="discount-label" *ngIf="totaisNota.valorTotalDescontoProdutos > 0">
+                                            Desc: R$ {{ totaisNota.valorTotalDescontoProdutos | number:'1.2-2' }}
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="grand-total">
+                                    <span class="total-label">Valor Total</span>
+                                    <span class="grand-total-value">R$ {{ totaisNota.valorTotalNota | number:'1.2-2'
+                                        }}</span>
+                                </div>
+                            </section>
+
+                            <section class="sidebar-section">
+                                <label class="section-label">Ações do Orçamento</label>
+                                <div class="sidebar-actions">
+                                    <button mat-flat-button color="primary" (click)="sendOrcamento()"
+                                        class="action-btn">
+                                        <mat-icon>print</mat-icon> Imprimir
+                                    </button>
+                                    <button mat-flat-button class="action-btn whatsapp-btn" (click)="enviarWhatsApp()">
+                                        <mat-icon>message</mat-icon> WhatsApp
+                                    </button>
+                                </div>
+                            </section>
+
+                            <section class="sidebar-section">
+                                <label class="section-label">Status da OS</label>
+                                <mat-form-field appearance="outline" class="status-select">
+                                    <mat-select [(ngModel)]="statusOs" name="statusOS"
+                                        (selectionChange)="alterStsOS($event)">
+                                        <mat-option value="0">⚪ Nova</mat-option>
+                                        <mat-option value="1">🔵 Em andamento</mat-option>
+                                        <mat-option value="2">🟡 Aguardando aprovação</mat-option>
+                                        <mat-option value="3">🟡 Aguardando peças</mat-option>
+                                        <mat-option value="4">🟡 Aguardando retirada</mat-option>
+                                        <mat-option value="5">🟢 Orçamento aprovado</mat-option>
+                                        <mat-option value="6">🔴 Pendente</mat-option>
+                                        <mat-option value="7">🟢 Concluída</mat-option>
+                                        <mat-option value="8">⚫ Cancelada</mat-option>
+                                        <mat-option value="9">✅ Encerrada</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </section>
                         </div>
-
-                        <div class="input-group">
-                            <label for="telefone">Valor total:</label>
-                            <input type="text" id="telefone" value="💲 {{ totaisNota.valorTotalNota | number:'1.2-2' }}"
-                                readonly>
-                        </div>
-
-
-
-
-
-
-                        <div class="input-group" style="display: flex; width: 100%; margin-bottom: .3rem;">
-                            <label for="telefone">Orçamento:</label>
-                            <div>
-                                <button mat-raised-button color="primary" id="sendOrcamento"
-                                    (click)="sendOrcamento()">🖨️ Imprimir</button>
-                            </div>
-
-                            <div>
-                                <button mat-raised-button color="primary" (click)="enviarWhatsApp()">📱 Enviar via
-                                    Whatsup</button>
-                            </div>
-
-                        </div>
-
-                        <div class="input-group">
-                            <mat-form-field appearance="fill">
-                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS"
-                                    (selectionChange)="alterStsOS($event)">
-                                    <mat-option value="0">⚪Nova</mat-option>
-                                    <mat-option value="1">🔵 Em andamento</mat-option>
-                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
-                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
-                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
-                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
-                                    <mat-option value="6">🔴 Pendente</mat-option>
-                                    <mat-option value="7">🟢 Concluída</mat-option>
-                                    <mat-option value="8">⚫ Cancelada</mat-option>
-                                    <mat-option value="9">✅ Encerrada </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-
                     </div>
 
 

@@ -261,17 +261,233 @@ img {
     color: #666;
 }
 
-#orcamentoTotais {
-    background-color: #F5F5F5;
-    padding: 10px;
-    width: 25%;
-
-
+/* Sidebar Card Refinement */
+.sidebar-card {
+    background: #ffffff !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 300px;
+    min-width: 280px;
+    padding: 0 !important;
+    overflow: hidden;
+    height: fit-content;
+    border: 1px solid #eef2f7;
 }
 
-.labelNumOSValor {
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #cbd5e1;
+}
+
+.status-0 {
+    background-color: #94a3b8;
+}
+
+/* Nova - Cinza */
+.status-1 {
+    background-color: #3b82f6;
+}
+
+/* Em andamento - Azul */
+.status-2 {
+    background-color: #eab308;
+}
+
+/* Aguardando aprovação - Amarelo */
+.status-3 {
+    background-color: #f59e0b;
+}
+
+/* Aguardando peças - Laranja */
+.status-4 {
+    background-color: #8b5cf6;
+}
+
+/* Aguardando retirada - Roxo */
+.status-5 {
+    background-color: #22c55e;
+}
+
+/* Orçamento aprovado - Verde */
+.status-6 {
+    background-color: #ef4444;
+}
+
+/* Pendente - Vermelho */
+.status-7 {
+    background-color: #10b981;
+}
+
+/* Concluída - Esmeralda */
+.status-8 {
+    background-color: #64748b;
+}
+
+/* Cancelada - Cinza Escuro */
+.status-9 {
+    background-color: #0f172a;
+}
+
+/* Encerrada - Preto */
+
+.sidebar-header {
+    background: #f8fafc;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.os-badge {
+    background: #3f51b5;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 1px;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #334155;
+    font-weight: 500;
+}
+
+.client-info mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #64748b;
+}
+
+.totals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.total-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.total-label {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.total-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.discount-label {
+    font-size: 0.65rem;
+    color: #ef4444;
+    margin-top: 4px;
+}
+
+.grand-total {
+    margin-top: 8px;
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    color: #666;
+}
+
+.grand-total-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #3f51b5;
+}
+
+.sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-btn {
+    width: 100%;
+    height: 44px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+}
+
+.whatsapp-btn {
+    background-color: #25d366 !important;
+    color: white !important;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128c7e !important;
+}
+
+.status-select {
+    width: 100%;
+}
+
+::ng-deep .status-select .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+    .sidebar-card {
+        width: 100%;
+        max-width: none;
+    }
+
+    .servico-dados {
+        flex-direction: column;
+    }
+
+    #orcamento {
+        width: 100%;
+    }
 }
 
 /* History Styles */
