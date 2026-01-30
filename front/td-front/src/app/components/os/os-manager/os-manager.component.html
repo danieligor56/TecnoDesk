@@ -298,104 +298,115 @@
         <mat-tab label="Orçamento">
             <div class="tab-content">
                 <div class="servico-dados">
-                    <div id="orcamento">
-                        <h3>Orçamento</h3>
-                        <div style="display: flex;justify-content: space-between;width: 100%;padding: 2px;">
-                            <div>
-                                <button (click)="openListaServicoDialog(Os?.sequencial)" id="buttons" mat-stroked-button
-                                    color="primary">+ Serviço</button>
-                                <button (click)="openServicoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button
-                                    color="primary">+ Serviço avulso</button>
-                                <button (click)="openListaProdutoDialog(Os?.sequencial)" id="buttons" mat-stroked-button
-                                    color="primary">+ Produto</button>
-                                <button (click)="openProdutoAvulso(Os?.sequencial)" id="buttons" mat-stroked-button
-                                    color="primary">+ Produto avulso</button>
-                                <button (click)="openKitCreateDialog(Os?.sequencial)" id="buttons" mat-stroked-button
-                                    color="primary">🔥 Montar Kit</button>
-                                <!-- <button  id="buttons"mat-stroked-button color="primary">🏷️ Desconto</button> -->
-                                <!-- <button  id="buttons"mat-stroked-button color="primary">Enviar orçamento </button> -->
+                    <div id="orcamento" class="content-card">
+                        <div class="card-header">
+                            <div class="header-info">
+                                <h3>Itens do Orçamento</h3>
+                                <span class="item-count">{{dataSource.data.length}} itens adicionados</span>
                             </div>
-
-                            <!-- <div class="valorTotal">
-                                    <div style="height: 100%;align-content: center;">
-                                        <h1 style="color: #6D706D;margin: 0;">Total: </h1>
-                                    </div>
-                                    <div style="height: 100%;background-color: #EBEBEB;">
-                                        <h1 style="color: #6D706D;margin: 0;height: 100%;width: 100%;">{{valorOrcamento}} R$💰</h1>
-                                    </div>
-                                </div> -->
+                            <div class="header-actions">
+                                <button mat-stroked-button color="primary"
+                                    (click)="openListaServicoDialog(Os?.sequencial)">
+                                    <mat-icon>build</mat-icon> + Serviço
+                                </button>
+                                <button mat-stroked-button color="primary"
+                                    (click)="openListaProdutoDialog(Os?.sequencial)">
+                                    <mat-icon>shopping_cart</mat-icon> + Produto
+                                </button>
+                                <button mat-flat-button color="accent" (click)="openKitCreateDialog(Os?.sequencial)">
+                                    <mat-icon>bolt</mat-icon> Montar Kit
+                                </button>
+                                <button [matMenuTriggerFor]="menuAvulso" mat-icon-button>
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menuAvulso="matMenu">
+                                    <button mat-menu-item (click)="openServicoAvulso(Os?.sequencial)">
+                                        <mat-icon>add</mat-icon> Serviço Avulso
+                                    </button>
+                                    <button mat-menu-item (click)="openProdutoAvulso(Os?.sequencial)">
+                                        <mat-icon>add</mat-icon> Produto Avulso
+                                    </button>
+                                </mat-menu>
+                            </div>
                         </div>
-                        <div id="orca">
-                            <h4 style="background-color: #CCCCCC;padding: 6px;color:#666;">Itens do orçamento:</h4>
 
-                            <table mat-table [dataSource]="dataSource" matSort
-                                style="background-color:#CCCCCC; width: 100%;">
+                        <div class="table-container">
+                            <table mat-table [dataSource]="dataSource" matSort class="premium-table">
 
                                 <ng-container matColumnDef="nome">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-                                    <td mat-cell *matCellDef="let servico"> {{servico.produtoOuServico === 'SERVICO' ?
-                                        '⚙️' : '📦' }} {{servico.nomeServicoAvulso}} </td>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+                                    <td mat-cell *matCellDef="let servico">
+                                        <div class="item-cell">
+                                            <mat-icon class="item-type-icon"
+                                                [ngClass]="servico.produtoOuServico === 'SERVICO' ? 'icon-service' : 'icon-product'">
+                                                {{servico.produtoOuServico === 'SERVICO' ? 'settings' : 'inventory_2'}}
+                                            </mat-icon>
+                                            <div class="item-details">
+                                                <span class="item-name">{{servico.nomeServicoAvulso}}</span>
+                                                <small class="item-category">{{servico.produtoOuServico}}</small>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="descricao">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header>
-                                        <b>Descrição</b>
-                                    </th>
-                                    <td mat-cell *matCellDef="let servico">🛠️ {{servico.descricaoServicoAvulso}} </td>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+                                    <td mat-cell *matCellDef="let servico" class="description-cell">
+                                        {{servico.descricaoServicoAvulso}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="valor">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header> Valor
-                                        Un./Hr.
-                                    </th>
-                                    <td mat-cell *matCellDef="let servico">
-                                        <ng-container *ngIf="servico.valorHoraAvulso > 0; else unidade">
-                                            💵 {{ servico.valorHoraAvulso | number:'1.2-2' }}
-                                        </ng-container>
-                                        <ng-template #unidade>
-                                            <ng-container *ngIf="servico.valorUnidadeAvulso > 0">
-                                                💵 {{ servico.valorUnidadeAvulso | number:'1.2-2' }}
-                                            </ng-container>
-                                        </ng-template>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Un. </th>
+                                    <td mat-cell *matCellDef="let servico" class="amount-cell">
+                                        {{ (servico.valorHoraAvulso || servico.valorUnidadeAvulso) | currency:'BRL' }}
                                     </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="quantidade">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Qtd.</b>
-                                    </th>
-                                    <td mat-cell *matCellDef="let servico"> {{ servico.quantidade | number:'1.2-2' }}
-                                    </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="vlrDesconto">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header>
-                                        <b>Desconto</b>
-                                    </th>
-                                    <td mat-cell *matCellDef="let servico">🏷️&nbsp;{{servico.descontoServico |
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Qtd. </th>
+                                    <td mat-cell *matCellDef="let servico" class="qty-cell"> {{ servico.quantidade |
                                         number:'1.2-2' }} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="vlrLiq">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header><b>Total
-                                            Item</b></th>
-                                    <td mat-cell *matCellDef="let servico">💰&nbsp;{{servico.valorTotal | number:'1.2-2'
-                                        }} </td>
-                                </ng-container>
-
-
-                                <ng-container matColumnDef="acoes">
-                                    <th class="custonTh" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                                    <td mat-cell *matCellDef="let servico">
-                                        <mat-icon style="color: #FFD700; margin-right: 1rem; cursor: pointer;"
-                                            (click)="openDiscountDialog(servico)">discount</mat-icon>
-                                        <mat-icon style="color: #FF7871; cursor: pointer;"
-                                            (click)="deleteItem(servico)">delete</mat-icon>
+                                <ng-container matColumnDef="vlrDesconto">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Desconto </th>
+                                    <td mat-cell *matCellDef="let servico" class="discount-cell">
+                                        <span *ngIf="servico.descontoServico > 0">-{{ servico.descontoServico |
+                                            currency:'BRL' }}</span>
+                                        <span *ngIf="!(servico.descontoServico > 0)" class="no-discount">—</span>
                                     </td>
                                 </ng-container>
+
+                                <ng-container matColumnDef="vlrLiq">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+                                    <td mat-cell *matCellDef="let servico" class="total-cell"> {{servico.valorTotal |
+                                        currency:'BRL' }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acoes">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let servico" class="actions-cell">
+                                        <button mat-icon-button color="accent" (click)="openDiscountDialog(servico)"
+                                            matTooltip="Aplicar desconto">
+                                            <mat-icon>percent</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="warn" (click)="deleteItem(servico)"
+                                            matTooltip="Remover item">
+                                            <mat-icon>delete_outline</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="premium-row"></tr>
                             </table>
 
+                            <div *ngIf="dataSource.data.length === 0" class="empty-state">
+                                <mat-icon>receipt_long</mat-icon>
+                                <p>Nenhum item adicionado ao orçamento ainda.</p>
+                                <button mat-flat-button color="primary"
+                                    (click)="openListaServicoDialog(Os?.sequencial)">Adicionar primeiro item</button>
+                            </div>
                         </div>
                     </div>
 
