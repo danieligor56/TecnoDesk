@@ -22,6 +22,8 @@ export class ItemServicelMinilistComponent implements OnInit {
   servicoContrato: OrcamentoItem;
   codOrcamento: number = 0;
   valorHorasServico: number = 0;
+  isFetching: boolean = false;
+  isInserting: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -40,11 +42,14 @@ export class ItemServicelMinilistComponent implements OnInit {
   }
 
   encontrarServicos() {
+    this.isFetching = true;
     this.itemService.listServico().subscribe(response => {
       this.servico = response;
       this.dataSource = new MatTableDataSource<ItemService>(this.servico);
       this.dataSource.paginator = this.paginator;
-
+      this.isFetching = false;
+    }, error => {
+      this.isFetching = false;
     }
     )
   }
@@ -78,6 +83,7 @@ export class ItemServicelMinilistComponent implements OnInit {
   }
 
   private executarAdicao(id: number | string, cobrarPorUnd: boolean, quantidade: number) {
+    this.isInserting = true;
     const numbOs = Number(this.data.id);
 
     this.orcamentoService.buscarPorId(numbOs).pipe(
@@ -107,6 +113,7 @@ export class ItemServicelMinilistComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error: err => {
+        this.isInserting = false;
         console.error("Erro ao adicionar serviço:", err);
       }
     });

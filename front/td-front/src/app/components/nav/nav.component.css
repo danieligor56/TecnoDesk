@@ -8,6 +8,13 @@
     color: #A8B6BF;
 }
 
+.sidenav-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
 .sidenav i {
     margin-right: .6rem;
     color: #B9C4C2;
@@ -34,13 +41,13 @@
 
 .logoSidenav {
     display: grid;
-    background-color:#070a195e;
+    background-color: #070a195e;
     height: 50px;
     text-align: center;
     color: white;
 }
 
-.logoSidenav h1{
+.logoSidenav h1 {
     margin-top: 10px;
 }
 
@@ -49,28 +56,28 @@
     position: relative;
 }
 
-.os > a {
+.os>a {
     position: relative;
     font-weight: 500;
     margin: 4px 8px;
 }
 
 /* Garantir espaço para a seta no mat-list-item */
-.os > a.mat-list-item {
+.os>a.mat-list-item {
     padding-right: 40px !important;
 }
 
-.os > a.mat-list-item .mat-list-item-content {
+.os>a.mat-list-item .mat-list-item-content {
     overflow: visible !important;
 }
 
-.os > a:hover {
+.os>a:hover {
     background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(41, 128, 185, 0.2) 100%);
     color: #ffffff;
     box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
 }
 
-.os > a i.material-icons:last-child {
+.os>a i.material-icons:last-child {
     position: absolute !important;
     right: 12px !important;
     top: 50% !important;
@@ -81,12 +88,12 @@
     z-index: 10;
 }
 
-.os > a:hover i.material-icons:last-child {
+.os>a:hover i.material-icons:last-child {
     transform: translateY(-50%) scale(1.2) !important;
 }
 
 
-.treeOS{
+.treeOS {
     list-style-type: none;
     padding: 8px 0;
     margin: 8px 0 8px 20px;
@@ -104,14 +111,16 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
-        max-height: 500px;
+        max-height: 80vh;
+        /* More flexible max-height */
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.tree{
+.tree {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -140,7 +149,7 @@
     width: 100%;
 }
 
-.tree:hover{
+.tree:hover {
     color: #ffffff;
     transform: translateX(8px);
     background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(41, 128, 185, 0.1) 100%);
@@ -175,45 +184,48 @@
     font-weight: 500;
 }
 
-a{
+a {
     margin-bottom: 5px;
 }
 
 /* Melhorias nos ícones de seta dos menus */
-.os > a .material-icons:last-child {
+.os>a .material-icons:last-child {
     opacity: 0.7;
     transition: all 0.3s ease;
 }
 
-.os > a:hover .material-icons:last-child {
+.os>a:hover .material-icons:last-child {
     opacity: 1;
     transform: scale(1.2);
 }
 
 /* Indicador visual quando menu está aberto */
-.os > a[style*="color"] .material-icons:first-child,
-.os > a:active .material-icons:first-child {
+.os>a[style*="color"] .material-icons:first-child,
+.os>a:active .material-icons:first-child {
     color: #3498db !important;
 }
 
 /* Efeito de glow no menu ativo */
-.os > a:focus {
+.os>a:focus {
     outline: none;
 }
 
-.os > a:focus-visible {
+.os>a:focus-visible {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
 }
 
 /* Ajuste para evitar que o conteúdo sobreponha o footer */
-.sidenav {
+/* Sidenav layout structure */
+.sidenav-wrapper {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 /* Melhorias no nav-list */
+/* Melhorias no nav-list */
 .nav-list {
-    padding: 8px 0 100px 0;
+    padding: 8px 0;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -221,7 +233,7 @@ a{
 }
 
 
-.nav-list > a {
+.nav-list>a {
     margin: 2px 0;
 }
 
@@ -271,10 +283,7 @@ a{
 
 /* Estilos para o footer da navegação */
 .nav-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    flex-shrink: 0;
     background-color: #1B242D;
     border-top: 1px solid #2c3e50;
     padding: 0;
@@ -316,8 +325,3 @@ a{
     display: inline-flex;
     align-items: center;
 }
-
-
-
-
-

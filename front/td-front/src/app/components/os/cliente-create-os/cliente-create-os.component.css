@@ -1,51 +1,121 @@
-.container{
-    width: 35rem;
-    margin: 1rem auto;
-    padding: 1rem 1rem 3rem 1rem;
-    border-radius: .6rem;
-}
-
-.fullWidth{
+.container {
+    max-width: 480px;
     width: 100%;
+    background: #ffffff;
+    overflow: hidden;
 }
 
-h1{
+.titPage {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    padding: 20px !important;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titPage h1 {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.titPage h1::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background-color: #ffffff;
+    margin-right: 15px;
+    border-radius: 2px;
+}
+
+/* 
+h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
     text-align: center;
-    margin-bottom: 0px;
-    background-color: #F6F6F6;
-    
+    padding: 24px;
+    margin: 0;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+} */
+
+h4 {
+    color: #4f46e5;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 24px 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.section{
-    margin-bottom: 1rem;
-    display:flex;
-    justify-content: space-between;
-    padding-left: 10px;
+form {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-img{
-    
-   height: 200px;
-}
-
-button{
-    margin-top: .7rem;
-}
-
-mat-icon{
-        opacity: .5;
-    }
-.isUser{
+.fullWidth {
     width: 100%;
 }
 
-.medPut{
-    margin-left: .5rem;
-    width: 8rem;
+.row-fields {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
-.smallPut{
-    
-    margin-left: 2rem;
-    width: 5rem;
+.medPut {
+    flex: 1 1 200px;
+}
+
+.smallPut {
+    flex: 1 1 80px;
+}
+
+mat-form-field {
+    margin-bottom: 8px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: #fbfcfd !important;
+}
+
+.save-btn {
+    height: 48px !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    margin-top: 16px !important;
+}
+
+.cancel-btn,
+.back-btn {
+    height: 48px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    margin-top: 16px !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+@media (max-width: 480px) {
+    .container {
+        border-radius: 0;
+    }
+
+    .row-fields {
+        flex-direction: column;
+        gap: 0;
+    }
 }

@@ -1,67 +1,64 @@
 <div class="containe">
-    <div>
-        <h3 class="label">Serviço avulso 🛠️</h3>
-    </div>
-    <form [formGroup]="itemOrcamentoForm">
-    
-      <mat-form-field class="example-full-width" *ngIf="isService" appearance="fill" style="margin-right: 8px;width: 100%;">
-        <mat-label>Nome serviço</mat-label>
-        <input matInput
-        formControlName="nomeServicoAvulso">
-      </mat-form-field>
-    
-      <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
-        <mat-label>Descreva o serviço</mat-label>
-        <input matInput
-        formControlName="descricaoServicoAvulso">
-        <mat-error *ngIf="itemOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
-         Informa uma descrição para o serviço. 
-        </mat-error>
-      </mat-form-field>
+  <div>
+    <h3 class="label">Serviço avulso 🛠️</h3>
+  </div>
+  <form [formGroup]="itemOrcamentoForm">
 
-      <div >
-        <h3 class="label">Valor do serviço 📊</h3>
+    <mat-form-field class="example-full-width" *ngIf="isService" appearance="fill"
+      style="margin-right: 8px;width: 100%;">
+      <mat-label>Nome serviço</mat-label>
+      <input matInput formControlName="nomeServicoAvulso">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+      <mat-label>Descreva o serviço</mat-label>
+      <input matInput formControlName="descricaoServicoAvulso">
+      <mat-error *ngIf="itemOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
+        Informa uma descrição para o serviço.
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <h3 class="label">Valor do serviço 📊</h3>
     </div>
 
     <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Valor do serviço</mat-label>
-        <input 
-        mask="separator.2" thousandSeparator="." decimalMarker=","
-        matInput type="text"   placeholder="0,00 R$"
+      <mat-label>Valor do serviço</mat-label>
+      <input mask="separator.2" thousandSeparator="." decimalMarker="," matInput type="text" placeholder="0,00 R$"
         formControlName="valorUnidadeAvulso">
-        <mat-icon class="custom-icon" matSuffix>payments</mat-icon>
-        <mat-error *ngIf="itemOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
-          Valor é <strong>obrigatório</strong>
-        </mat-error>
+      <mat-icon class="custom-icon" matSuffix>payments</mat-icon>
+      <mat-error *ngIf="itemOrcamentoForm.get('valorUnidadeAvulso')?.hasError('required')">
+        Valor é <strong>obrigatório</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-form-field" appearance="fill" style="margin-left: 1rem;">
-        <mat-label>Horas de serviço</mat-label>
-        <input matInput [(ngModel)]="radius"
-        type="number"
-        formControlName="valorHoraAvulso"
+      <mat-label>Horas de serviço</mat-label>
+      <input matInput [(ngModel)]="radius" type="number" formControlName="valorHoraAvulso"
         (click)="validaCobrarPorHora()">
     </mat-form-field>
 
-    </form>   
+  </form>
 
-    <div style="margin-bottom: 2;margin-top: 1rem; float: right;">
-      <button (click)="inserirServicoAvulso()" mat-raised-button  color="primary" style="margin-right: 4px;">Adicionar serviço</button>
-      <!-- <button (click)="validaCobrarPorHora()" (click)="cobrarPorHora()" mat-raised-button style="background-color:#3495D7; color: white; margin-right: 4px;">Cobrar por hora</button>   -->
-      <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>  
-    </div>
-    
-    <mat-error *ngIf="validarHora">
-      É necessário informar a quantidades de horas
-    </mat-error>
+  <div style="margin-bottom: 2;margin-top: 1rem; float: right;">
+    <button (click)="inserirServicoAvulso()" mat-raised-button color="primary" style="margin-right: 4px;">Adicionar
+      serviço</button>
+    <!-- <button (click)="validaCobrarPorHora()" (click)="cobrarPorHora()" mat-raised-button style="background-color:#3495D7; color: white; margin-right: 4px;">Cobrar por hora</button>   -->
+    <button (click)="closeDialog()" mat-raised-button style="background-color:#FE3636; color: white;">Cancelar</button>
+  </div>
 
-    <mat-checkbox class="example-margin" [(ngModel)]="isService" style="margin-right: 8px;">Gravar em serviços ?</mat-checkbox>
-    <div style="font-size: 12px;width: 100%;">
-        <p *ngIf="isService"><b>Caso não escolha um nome para o serviço a descrição sera utilizada como nome.</b></p>
-    </div>
-    
-    
-    
+  <mat-error *ngIf="validarHora">
+    É necessário informar a quantidades de horas
+  </mat-error>
 
-    
+  <mat-checkbox class="example-margin" [(ngModel)]="isService" style="margin-right: 8px;">Gravar em serviços
+    ?</mat-checkbox>
+  <div style="font-size: 12px;width: 100%;">
+    <p *ngIf="isService"><b>Caso não escolha um nome para o serviço a descrição sera utilizada como nome.</b></p>
+  </div>
+
+
+
+
+
 </div>

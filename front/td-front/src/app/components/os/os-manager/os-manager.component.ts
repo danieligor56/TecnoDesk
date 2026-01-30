@@ -35,6 +35,7 @@ export class OsManagerComponent implements OnInit {
   };
   [x: string]: any;
   nomeCliente: string = '';
+  isLoading: boolean = false;
   Os: Os_entrada = {
 
     id: 0,
@@ -96,6 +97,7 @@ export class OsManagerComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
+    this.isLoading = true;
     this.id = this.route.snapshot.paramMap.get('id');
     this.mapearDadosOS(this.id);
     this.getValorOrcamento(this.id)
@@ -187,8 +189,10 @@ export class OsManagerComponent implements OnInit {
 
         }
 
+        this.isLoading = false;
 
-
+      }, error => {
+        this.isLoading = false;
       })
 
 
@@ -274,6 +278,7 @@ export class OsManagerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
+        this.isBudgetLoading = true;
         this.listarItensOrcamento();
       }
 
@@ -331,7 +336,7 @@ export class OsManagerComponent implements OnInit {
         this.carregarHistorico();
       },
       error: (err) => {
-        this.toast.error("Falha na alteração da OS " + err.error.message)
+        this.toast.error(err.error.message)
       }
     });
   }

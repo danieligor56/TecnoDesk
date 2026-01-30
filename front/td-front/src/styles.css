@@ -6,21 +6,25 @@
 
 
 
-html, body { height: 100%;}
-body { 
-   margin: 0; 
-   font-family: Roboto,
-   "Helvetica Neue", sans-serif; 
+html,
+body {
+  height: 100%;
 }
 
-#osH1{
-   font-family: "Lexend", sans-serif;
-   font-style: normal;
-   font-weight: 600;
-   align-items: center;
+body {
+  margin: 0;
+  font-family: Roboto,
+    "Helvetica Neue", sans-serif;
 }
 
-.label{
+#osH1 {
+  font-family: "Lexend", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  align-items: center;
+}
+
+.label {
   width: 100%;
   font-family: "Lexend", sans-serif;
   font-weight: 600;
@@ -63,19 +67,19 @@ body {
 } */
 
 
-.mat-dialog-container{
-   padding: 0px;
-       
+.mat-dialog-container {
+  padding: 0px;
+
 }
 
-.create-cliente-os{
-  
-   color: aliceblue;
+.create-cliente-os {
+
+  color: aliceblue;
 }
 
-.containerOs{
-   
-   margin-top: 0px;    
+.containerOs {
+
+  margin-top: 0px;
 }
 
 /* Common Spinner Styles */
@@ -104,7 +108,77 @@ body {
   position: relative;
 }
 
+/* --- Skeleton Shadow (Shimmer Effect) --- */
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
 
+  100% {
+    background-position: 468px 0;
+  }
+}
 
+.skeleton-shimmer {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  display: inline-block;
+  position: relative;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  border-radius: 4px;
+}
 
+.skeleton-text {
+  height: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+}
 
+.skeleton-table-row {
+  height: 48px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+/* Semi-transparent shadow overlay for "Adding" state */
+.shadow-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  /* Extremely subtle "shadow" */
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  /* Premium "sombra" blur */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  animation: pulse-shadow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-shadow {
+  0% {
+    background-color: rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(1px);
+  }
+
+  50% {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(1px);
+  }
+}

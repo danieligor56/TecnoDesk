@@ -1,100 +1,93 @@
 <div class="container">
 
   <div class="titPage" style="padding:5px;margin-bottom: 10px;">
-    <h1 id="osH1">Ordem de serviço</h1>       
-</div>
-  
-    <mat-form-field appearance="standard" style="width: 100%;">
-      <mat-label>Filtrar</mat-label>
-      <input 
-        matInput
-        style="border: none;width: 100%;"
-        type="text" 
-        placeholder="Buscar por: Número OS, Cliente, Responsável, Situação ou Prioridade" 
-        [(ngModel)]="searchTerm" 
-        (input)="applyFilter()" />
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>       
-    
-    <div class="mat-elevation-z8">
-      
-      <table mat-table [dataSource]="dataSource">
-    
-        <ng-container matColumnDef="numOs">
-          <th mat-header-cell *matHeaderCellDef> Número OS </th>
-          <td mat-cell *matCellDef="let element">🔢<b> {{element.sequencial}}</b></td>
-        </ng-container>
+    <h1 id="osH1">Ordem de serviço</h1>
+  </div>
 
-        <ng-container matColumnDef="cliente">
-          <th mat-header-cell *matHeaderCellDef> Cliente </th>
-          <td mat-cell *matCellDef="let element">👤 {{element.cliente.nome}} </td>
-        </ng-container>
+  <mat-form-field appearance="standard" style="width: 100%;">
+    <mat-label>Filtrar</mat-label>
+    <input matInput style="border: none;width: 100%;" type="text"
+      placeholder="Buscar por: Número OS, Cliente, Responsável, Situação ou Prioridade" [(ngModel)]="searchTerm"
+      (input)="applyFilter()" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
 
-        <ng-container matColumnDef="colaborador">
-            <th mat-header-cell *matHeaderCellDef> Responsável </th>
-            <td mat-cell *matCellDef="let element">🧑‍🔧 {{element.tecnico_responsavel?.nome}} </td>
-        </ng-container>
-          
-        <ng-container matColumnDef="statusOS">
-            <th mat-header-cell *matHeaderCellDef> Situação </th>
-            <td mat-cell *matCellDef="let element"> 
-              <span [ngClass]="getStatusClass(element.statusOS)">
-                {{getStatusLabel(element.statusOS)}}
-              </span>
-            </td>
-        </ng-container>
+  <div class="mat-elevation-z8 table-container">
+    <div class="loading-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
 
-        <ng-container matColumnDef="prioridadeOS">
-            <th mat-header-cell *matHeaderCellDef> Prioridade </th>
-            <td mat-cell *matCellDef="let element"> 
-              <span [ngClass]="getPriorityClass(element.prioridadeOS)">
-                <mat-icon class="priority-icon">{{getPriorityIcon(element.prioridadeOS)}}</mat-icon>
-                {{getPriorityLabel(element.prioridadeOS)}}
-              </span>
-            </td>
-        </ng-container>
+    <table mat-table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="acoesOs">
-          <th mat-header-cell *matHeaderCellDef></th> 
-         <td class="actionsButtons" mat-cell *matCellDef="let element"> 
+      <ng-container matColumnDef="numOs">
+        <th mat-header-cell *matHeaderCellDef> Número OS </th>
+        <td mat-cell *matCellDef="let element">🔢<b> {{element.sequencial}}</b></td>
+      </ng-container>
+
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef> Cliente </th>
+        <td mat-cell *matCellDef="let element">👤 {{element.cliente.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="colaborador">
+        <th mat-header-cell *matHeaderCellDef> Responsável </th>
+        <td mat-cell *matCellDef="let element">🧑‍🔧 {{element.tecnico_responsavel?.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusOS">
+        <th mat-header-cell *matHeaderCellDef> Situação </th>
+        <td mat-cell *matCellDef="let element">
+          <span [ngClass]="getStatusClass(element.statusOS)">
+            {{getStatusLabel(element.statusOS)}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="prioridadeOS">
+        <th mat-header-cell *matHeaderCellDef> Prioridade </th>
+        <td mat-cell *matCellDef="let element">
+          <span [ngClass]="getPriorityClass(element.prioridadeOS)">
+            <mat-icon class="priority-icon">{{getPriorityIcon(element.prioridadeOS)}}</mat-icon>
+            {{getPriorityLabel(element.prioridadeOS)}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoesOs">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td class="actionsButtons" mat-cell *matCellDef="let element">
           <div class="action-icons-container">
-            <a [routerLink]="['/manager',element.sequencial]" class="action-icon-wrapper" matTooltip="Gerenciar OS" matTooltipPosition="above">
+            <a [routerLink]="['/manager',element.sequencial]" class="action-icon-wrapper" matTooltip="Gerenciar OS"
+              matTooltipPosition="above">
               <mat-icon class="action-icon icon-manage">edit_note</mat-icon>
             </a>
-            
-            <mat-icon 
-              class="action-icon icon-print" 
-              (click)="imprimirOs(element.sequencial)" 
-              matTooltip="Imprimir OS" 
+
+            <mat-icon class="action-icon icon-print" (click)="imprimirOs(element.sequencial)" matTooltip="Imprimir OS"
               matTooltipPosition="above">
               print
             </mat-icon>
 
-            <mat-icon 
-              class="action-icon icon-cancel" 
-              (click)="cancelarOs(element.sequencial)"
-              matTooltip="Cancelar OS" 
+            <mat-icon class="action-icon icon-cancel" (click)="cancelarOs(element.sequencial)" matTooltip="Cancelar OS"
               matTooltipPosition="above">
               block
             </mat-icon>
           </div>
-       </td>
-       </ng-container>
+        </td>
+      </ng-container>
 
-        
-          
-  
-       
-          
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      
-      </table>
-    
-      <mat-paginator id="rows" paginator="paginator"[pageSizeOptions]="[5, 10, 20]"
-                     showFirstLastButtons
-                     aria-label="Select page of periodic elements">
-      </mat-paginator>
-    </div>
-  
+
+
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator id="rows" paginator="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+      aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
+
+</div>

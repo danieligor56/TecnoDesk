@@ -27,6 +27,7 @@ import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.ColaboradorRespository;
 import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
 import exception.BadRequest;
@@ -51,6 +52,9 @@ public class OsService {
 
 	@Autowired
 	OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	OrcamentoItemRepository orcamentoItemRepository;
 
 	@Autowired
 	Utils utils;
@@ -178,6 +182,12 @@ public class OsService {
 						break;
 					}
 					case 2: {
+						// AGUARDANDO RESPOSTA DO CLIENTE: 
+						
+						if(orcamentoItemRepository.contarItensOrcamento(numOS, stsOs) == 0) {
+							throw new BadRequest("Não é possivel, oferecer o orçamento, pois não há itens ou serviços definidos.");							
+						}							
+						
 						os.setStatusOS(StatusOS.AGUARDANDO_RESP_ORCAMENTO);
 						orcamento.setStatusOR(StatusOR.AGUARDANDO_RESPOSTA);
 						orcamentoRepository.save(orcamento);
@@ -193,7 +203,14 @@ public class OsService {
 						break;
 					}
 					case 5: {
+						
+						if(orcamentoItemRepository.contarItensOrcamento(numOS, stsOs) == 0) {
+							throw new BadRequest("Não é possivel aprovar o orçamento pois não há produtos ou serviços definidos. ");							
+						}
+						
 						os.setStatusOS(StatusOS.ORCAMENTO_APROVADO);
+						orcamento.setStatusOR(StatusOR.APROVADO);
+						orcamentoRepository.save(orcamento);
 						break;
 					}
 					case 6: {
@@ -201,6 +218,7 @@ public class OsService {
 						break;
 					}
 					case 7: {
+						
 						os.setStatusOS(StatusOS.CONCLUIDO);
 						break;
 					}
@@ -226,7 +244,7 @@ public class OsService {
 				historicoOSService.registrar(os, "Mudou status da OS para " + os.getStatusOS().name());
 
 			} catch (Exception e) {
-				throw new BadRequestException("Não foi possível atender a requisição no momento:" + e.getMessage());
+				throw new BadRequestException( e.getMessage());
 			}
 
 		} else {
