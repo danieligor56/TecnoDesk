@@ -22,154 +22,155 @@ import { PdfService } from 'src/app/services/pdf.service';
 })
 
 export class OsCreateComponent implements OnInit {
-  
-  colaboradores:Colaborador[] = [];
-  osCreateForm:FormGroup;
-  doc:string = '';
-  nomeCliente:string = '';
-  cttPrincipalCliente:string = '';
-  enderecoCliente:string = '';
-  clientes:number = 0;
-  colaboradorOs:number = 0;
-  
-   
+
+  colaboradores: Colaborador[] = [];
+  osCreateForm: FormGroup;
+  doc: string = '';
+  nomeCliente: string = '';
+  cttPrincipalCliente: string = '';
+  enderecoCliente: string = '';
+  clientes: number = 0;
+  colaboradorOs: number = 0;
+
+
   constructor(
-    private clienteService:ClienteService,
+    private clienteService: ClienteService,
     private dialog: MatDialog,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private colaboradorService: ColaboradorService,
-    private os:OsService,
-    private toast:ToastrService,
-    private router:Router,
-    private pdfService:PdfService,
+    private os: OsService,
+    private toast: ToastrService,
+    private router: Router,
+    private pdfService: PdfService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    
+
     this.osCreateForm = this.fb.group({
-      
-      cliente:{id:0},
-      colaborador:{id:this.colaboradorOs},
-      aparelhos:[],
-      descricaoModelo:[],
-      checkList:[],
-      reclamacaoCliente:[],
-      initTest:[],
-      statusOS:[0],
-      prioridadeOS:[],
-      marcaAparelho:[],
-      snAparelho:[]
-    
+
+      cliente: { id: 0 },
+      colaborador: { id: this.colaboradorOs },
+      aparelhos: [],
+      descricaoModelo: [],
+      checkList: [],
+      reclamacaoCliente: [],
+      initTest: [],
+      statusOS: [0],
+      prioridadeOS: [],
+      marcaAparelho: [],
+      snAparelho: []
+
     });
 
     this.dropdownColaborador();
     console.log(this.colaboradorOs); // Verifique se está recebendo o valor corretamente
 
-    if(this.route.snapshot.paramMap.get('id') != null){
+    if (this.route.snapshot.paramMap.get('id') != null) {
       this.encontrarClientePorId(this.route.snapshot.paramMap.get('id'));
     }
   }
 
   encontrarClientePorId(id) {
-  this.clienteService.findByID(id).subscribe(response => {
-    if (response && response.id != null) {
-      this.doc = response.documento
-      this.nomeCliente = response.nome;
-      this.cttPrincipalCliente = response.cel1;
-      this.enderecoCliente = `${response.logradouro}, ${response.numero}.`;
+    this.clienteService.findByID(id).subscribe(response => {
+      if (response && response.id != null) {
+        this.doc = response.documento
+        this.nomeCliente = response.nome;
+        this.cttPrincipalCliente = response.cel1;
+        this.enderecoCliente = `${response.logradouro}, ${response.numero}.`;
 
-      this.osCreateForm.patchValue({
-        cliente: { id: response.id }
-      });
-    }
-  }, error => {
-    console.error('Erro ao buscar cliente:', error);
-  });
-}
+        this.osCreateForm.patchValue({
+          cliente: { id: response.id }
+        });
+      }
+    }, error => {
+      console.error('Erro ao buscar cliente:', error);
+    });
+  }
 
-  openDialogCancelarOs(){
+  openDialogCancelarOs() {
     const cancelarOs = this.dialog.open(CancelarOSComponent);
-    
+
     cancelarOs.afterClosed().subscribe(result => {
-      if(result == 'closeDAta'){
+      if (result == 'closeDAta') {
         this.apagarDadosCliente();
 
       }
     })
-  
+
   }
 
-  openDialog(){
-  const dialogRef = this.dialog.open(ClienteCreateOsComponent,{
-      data: {documento: this.doc},disableClose:true
-    }); 
-    
+  openDialog() {
+    const dialogRef = this.dialog.open(ClienteCreateOsComponent, {
+      data: { documento: this.doc }, disableClose: true
+    });
+
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'closeData'){
+      if (result == 'closeData') {
         this.apagarDadosCliente();
-        
+
       }
 
       this.buscarClientePorDoc();
-      
+
 
     })
-    
+
   }
 
-  apagarDadosCliente(){
+  apagarDadosCliente() {
     this.doc = '';
     this.nomeCliente = '';
     this.enderecoCliente = '';
     this.cttPrincipalCliente = '';
   }
 
-  cancelarCriacaoOs(){
+  cancelarCriacaoOs() {
     this.apagarDadosCliente();
 
   }
 
-  buscarClientePorDoc(){
-  debugger
-      
-    this.clienteService.encontrarClientePorDocumento(this.doc).subscribe(response =>{
-  
-      if(response.id != null){
+  buscarClientePorDoc() {
+    debugger
+
+    this.clienteService.encontrarClientePorDocumento(this.doc).subscribe(response => {
+
+      if (response && response.id != null) {
         this.nomeCliente = response.nome,
-        this.cttPrincipalCliente = response.cel1,
-        this.enderecoCliente = response.logradouro + ',' + response.numero +'.',
-        
-        this.osCreateForm.patchValue({
-          cliente: {id: response.id}
-        })
-       
-        
-        
+          this.cttPrincipalCliente = response.cel1,
+          this.enderecoCliente = response.logradouro + ',' + response.numero + '.',
+
+          this.osCreateForm.patchValue({
+            cliente: { id: response.id }
+          })
+
+      } else {
+        if (this.doc != null && this.doc != '')
+          this.openDialog();
       }
-      
-      
+
+
     }, error => {
-      if(this.doc != null && this.doc != '')
-      this.openDialog();    
+      if (this.doc != null && this.doc != '')
+        this.openDialog();
       return
     }
-  
-  
-  );
+
+
+    );
 
   }
 
-  dropdownColaborador(){
+  dropdownColaborador() {
     debugger;
     this.colaboradorService.findAll().subscribe(
       (response) => {
         this.colaboradores = response
-    }),
+      }),
 
-    (error) => {
-      console.error("Não foi possível carregar os colaboradores.")
-    }
+      (error) => {
+        console.error("Não foi possível carregar os colaboradores.")
+      }
 
   };
 
@@ -179,61 +180,61 @@ export class OsCreateComponent implements OnInit {
     });
   }
 
-  apagarOs(){
+  apagarOs() {
     this.osCreateForm.reset();
     this.apagarDadosCliente();
 
   }
 
-  openDialogSuccess(response:Os_entrada){
+  openDialogSuccess(response: Os_entrada) {
     debugger
-    const dialogRef = this.dialog.open(OsCreateSucssesComponent,{
-      data: {form: this.osCreateForm }
+    const dialogRef = this.dialog.open(OsCreateSucssesComponent, {
+      data: { form: this.osCreateForm }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-   
-      switch(result){
-       
-        case 'novaOs': this.apagarOs(); 
+
+      switch (result) {
+
+        case 'novaOs': this.apagarOs();
           break;
-        
-        case 'gerarPdf':this.pdfService.gerarPdfOsEntrada(response).subscribe((os:Blob) => {
+
+        case 'gerarPdf': this.pdfService.gerarPdfOsEntrada(response).subscribe((os: Blob) => {
           const url = window.URL.createObjectURL(os);
           const link = document.createElement('a');
           link.href = url
-          window.open(url,'_blank')
-          link.download = 'Ordem de serviço Nº: '+response.sequencial+'.pdf'
-          link.click(); 
+          window.open(url, '_blank')
+          link.download = 'Ordem de serviço Nº: ' + response.sequencial + '.pdf'
+          link.click();
         }),
-        
-        this.apagarOs();
+
+          this.apagarOs();
           break;
-        
-        case 'menu':this.router.navigate(['home']);
+
+        case 'menu': this.router.navigate(['home']);
           break;
-        
-        
+
+
       }
 
 
     })
   }
 
-  createOsEntrada(){
+  createOsEntrada() {
     debugger;
     this.os.createOsEntrada(this.osCreateForm.value).subscribe(
-      (response) => {      
-            
-            this.openDialogSuccess(response)
-          
-           },         
+      (response) => {
+
+        this.openDialogSuccess(response)
+
+      },
       (error) => {
         this.toast.error("Falha na criação da ordem de serviço, contate o suporte");
-       
-        
+
+
       }
-    ); 
+    );
   }
 
 

@@ -38,7 +38,7 @@ public class SecConfig {
 	            .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
 	            .requestMatchers(HttpMethod.POST,"/api/v1/primeiroPasso").permitAll()
 	            .requestMatchers(HttpMethod.DELETE,"/deletarColaborador").hasRole("ADMIN")
-	            .anyRequest().permitAll()
+	            .anyRequest().authenticated()
 	        )
 	        .addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class)
 	        .build();

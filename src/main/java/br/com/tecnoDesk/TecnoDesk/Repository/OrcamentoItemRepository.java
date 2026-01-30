@@ -21,5 +21,9 @@ public interface OrcamentoItemRepository extends JpaRepository<OrcamentoItem, Lo
 	
 	@Query("SELECT i FROM OrcamentoItem i WHERE i.empresa.id = :CodEmp AND i.orcamento.id = :codigoOrcamento")
 	List<OrcamentoItem> listaItens(@Param("CodEmp") long CodEmp, @Param("codigoOrcamento") long codigoOrcamento);
+	
+	@Query(value = "SELECT COUNT(*) FROM orcamento_item oi where codigo_orcamento = :codOrcamento and codigo_empresa = :codEmp",nativeQuery = true)
+	int contarItensOrcamento(long codEmp,long codOrcamento);
+	
 
 }

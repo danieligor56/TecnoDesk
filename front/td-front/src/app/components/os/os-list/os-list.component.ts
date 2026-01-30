@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Os_entrada } from 'src/app/models/Os-entrada';
 import { OsService } from 'src/app/services/os.service';
 import { PdfService } from 'src/app/services/pdf.service';
@@ -15,33 +15,38 @@ import { OsManagerComponent } from '../os-manager/os-manager.component';
 })
 
 export class OsListComponent implements OnInit {
-  ELEMENT_DATA: Os_entrada[]=[];  
+  ELEMENT_DATA: Os_entrada[] = [];
   dataSource = new MatTableDataSource<Os_entrada>(this.ELEMENT_DATA);
-  displayedColumns: string[] = ['numOs','cliente','colaborador','statusOS','prioridadeOS','acoesOs'];
+  displayedColumns: string[] = ['numOs', 'cliente', 'colaborador', 'statusOS', 'prioridadeOS', 'acoesOs'];
   filteredELEMENT_DATA: Os_entrada[] = [];
   osOne: Os_entrada;
-  
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchTerm: any;
+  isLoading = false;
 
   constructor(
-    private osService:OsService,
-    private pdfService:PdfService
+    private osService: OsService,
+    private pdfService: PdfService
 
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.findAllOS();
     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   }
 
-  findAllOS(){
+  findAllOS() {
     debugger
-    this.osService.findAllOs().subscribe( 
+    this.osService.findAllOs().subscribe(
       response => {
         this.ELEMENT_DATA = response;
         this.dataSource = new MatTableDataSource<Os_entrada>(response);
         this.dataSource.paginator = this.paginator;
+        this.isLoading = false;
+      }, error => {
+        this.isLoading = false;
       }
     )
   }
@@ -59,28 +64,27 @@ export class OsListComponent implements OnInit {
     );
   }
 
-  imprimirOs(osImp:number){
+  imprimirOs(osImp: number) {
     debugger;
-this.osService.findOsByNumOs(osImp).subscribe(response =>
-{
-  
-  this.pdfService.gerarPdfOsEntrada(response).subscribe((os:Blob) => {
-    const url = window.URL.createObjectURL(os);
-    const link = document.createElement('a');
-    link.href = url
-    window.open(url,'_blank')
-    link.download = 'Ordem de serviço Nº: '+ response.sequencial +'.pdf'
-    link.click(); 
-  });
+    this.osService.findOsByNumOs(osImp).subscribe(response => {
 
-})
+      this.pdfService.gerarPdfOsEntrada(response).subscribe((os: Blob) => {
+        const url = window.URL.createObjectURL(os);
+        const link = document.createElement('a');
+        link.href = url
+        window.open(url, '_blank')
+        link.download = 'Ordem de serviço Nº: ' + response.sequencial + '.pdf'
+        link.click();
+      });
 
+    })
 
 
-    
+
+
   }
 
-  cancelarOs(numOs: number){
+  cancelarOs(numOs: number) {
     if (confirm(`Deseja realmente cancelar a OS Nº ${numOs}?`)) {
       this.osService.alterarStatusOS(numOs, 8);
       // Aguarda um pouco para dar tempo do toast aparecer antes de recarregar
@@ -98,7 +102,7 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
 
   getStatusLabel(status: string): string {
     if (!status) return status;
-    
+
     const statusMap: { [key: string]: string } = {
       'NOVO': 'Nova',
       'EM_ANDAMENTO': 'Em Andamento',
@@ -111,7 +115,7 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
       'CANCELADA': 'Cancelada',
       'ENCERRADA': 'Encerrada'
     };
-    
+
     return statusMap[status.toUpperCase().trim()] || status;
   }
 
@@ -123,27 +127,27 @@ this.osService.findOsByNumOs(osImp).subscribe(response =>
 
   getPriorityLabel(priority: string): string {
     if (!priority) return priority;
-    
+
     const priorityMap: { [key: string]: string } = {
       'NORMAL': 'Normal',
       'URGENCIA': 'Crítica / Urgente',
       'GARANTIA': 'Garantia',
       'PRIORITARIA': 'Prioritária'
     };
-    
+
     return priorityMap[priority.toUpperCase().trim()] || priority;
   }
 
   getPriorityIcon(priority: string): string {
     if (!priority) return 'label';
-    
+
     const iconMap: { [key: string]: string } = {
       'NORMAL': 'check_circle',
       'URGENCIA': 'local_fire_department',
       'GARANTIA': 'autorenew',
       'PRIORITARIA': 'schedule'
     };
-    
+
     return iconMap[priority.toUpperCase().trim()] || 'label';
   }
 
