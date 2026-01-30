@@ -26,6 +26,8 @@ export class ProdutosMinilistComponent implements OnInit {
   servicoContrato: OrcamentoItem;
   codOrcamento: number = 0;
   valorHorasServico: number = 0;
+  isFetching: boolean = false;
+  isInserting: boolean = false;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,16 +46,15 @@ export class ProdutosMinilistComponent implements OnInit {
   }
 
   encontrarProdutos() {
-
+    this.isFetching = true;
     this.produtoService.listarProdutos().subscribe(response => {
       this.produto = response.map(p => ({ ...p, quantidade_pedida: 1 }));
       this.dataSource = new MatTableDataSource<any>(this.produto);
       this.dataSource.paginator = this.paginator;
-
+      this.isFetching = false;
+    }, error => {
+      this.isFetching = false;
     })
-
-
-
   }
 
   applyFilter(event: Event) {
@@ -97,6 +98,7 @@ export class ProdutosMinilistComponent implements OnInit {
     const quantidade = produtoSelecionado ? produtoSelecionado.quantidade_pedida : 1;
 
     const numbOs = Number(this.data.id);
+    this.isInserting = true;
 
     this.orcamentoService.buscarPorId(numbOs).pipe(
       switchMap(orcamento => {
@@ -126,6 +128,7 @@ export class ProdutosMinilistComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error: err => {
+        this.isInserting = false;
         console.error("Erro ao adicionar produto:", err);
       }
     });

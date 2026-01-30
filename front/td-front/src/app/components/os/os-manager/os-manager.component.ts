@@ -278,6 +278,7 @@ export class OsManagerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
+        this.isBudgetLoading = true;
         this.listarItensOrcamento();
       }
 

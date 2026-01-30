@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container" style="position: relative; min-height: 400px;">
+  <!-- Shadow Loading Overlay (For Inserting) -->
+  <div class="shadow-loading-overlay" *ngIf="isInserting">
+  </div>
+
   <div class="titPage" style="padding:5px;margin-bottom: 10px;">
     <h1 id="osH1">serviços</h1>
   </div>
@@ -8,9 +12,13 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar produto" #input>
   </mat-form-field>
 
-  <div>
-    <table mat-table [dataSource]="dataSource" matSort>
+  <div class="table-container">
+    <!-- Skeleton Table (For Fetching) -->
+    <div *ngIf="isFetching">
+      <div class="skeleton-shimmer skeleton-table-row" *ngFor="let i of [1,2,3,4,5]"></div>
+    </div>
 
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="!isFetching">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let servico"> 🆔 {{servico.sequencial}} </td>
@@ -26,7 +34,6 @@
         <td mat-cell *matCellDef="let servico"> 💲 {{servico.valorServicoUnidade}} R$ </td>
       </ng-container>
 
-
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor por hora </th>
         <td mat-cell *matCellDef="let servico"> 💲⌚ {{servico.valorServicoHora}} R$ </td>
@@ -41,17 +48,15 @@
               style="background-color: #2D4961;color: white;font-size: 12px;margin-right: 8px;">Cobrar por hora</button>
             <button mat-flat-button (click)="adicionarServico(servico.id,true)"
               style="background-color: #3497D9;color: white;font-size: 12px;">adicionar</button>
-
           </div>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
     </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" [hidden]="isFetching">
+    </mat-paginator>
   </div>
   <div style="display: flex;float:right;margin-top: 1rem;">
     <button (click)="openCreatServiceDialog()" mat-flat-button color="primary" style="margin-right: .2rem;">Novo
