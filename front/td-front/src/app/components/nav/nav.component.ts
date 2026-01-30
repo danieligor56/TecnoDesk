@@ -12,15 +12,15 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 })
 
 export class NavComponent implements OnInit {
-treeos:boolean = false;
-treeCadastros:boolean = false;
-segmentoEmpresa:number = 0;  
+  treeos: boolean = false;
+  treeCadastros: boolean = false;
+  segmentoEmpresa: number = 0;
 
-constructor(
-  private router: Router,
-  private authService:AuthService,
-  private toastr:ToastrService,
-  private empresaService: EmpresaService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private empresaService: EmpresaService) { }
 
   ngOnInit(): void {
     this.buscarSegmentoEmpresa()
@@ -28,38 +28,35 @@ constructor(
     //home
   }
 
-  logout(){
+  logout() {
     this.router.navigate(['login'])
     this.authService.logout();
-    this.toastr.info('Logout realizado com sucesso','logout',{timeOut:7000})
+    this.toastr.info('Logout realizado com sucesso', 'logout', { timeOut: 7000 })
   }
 
-  abrirSuporte(){
+  abrirSuporte() {
     // Aqui você pode implementar a lógica para abrir o suporte
     // Por exemplo: abrir um modal, redirecionar para uma página de suporte, etc.
-    this.toastr.info('Abrindo suporte...', 'Suporte', {timeOut: 3000});
+    this.toastr.info('Abrindo suporte...', 'Suporte', { timeOut: 3000 });
     // Exemplo: window.open('https://seu-link-de-suporte.com', '_blank');
   }
 
-  setTreeOs(){
-    if(this.treeos == true){
-      this.treeos = false;
-    }else{
-      this.treeos = true;
-    }
-    
-  }
-
-  setTreeCadastros(){
-    if(this.treeCadastros == true){
+  setTreeOs() {
+    this.treeos = !this.treeos;
+    if (this.treeos) {
       this.treeCadastros = false;
-    }else{
-      this.treeCadastros = true;
     }
   }
 
-  buscarSegmentoEmpresa(){
-    this.empresaService.buscarSegmentoEmpresa().subscribe( response => {
+  setTreeCadastros() {
+    this.treeCadastros = !this.treeCadastros;
+    if (this.treeCadastros) {
+      this.treeos = false;
+    }
+  }
+
+  buscarSegmentoEmpresa() {
+    this.empresaService.buscarSegmentoEmpresa().subscribe(response => {
       this.segmentoEmpresa = response;
     })
   }
