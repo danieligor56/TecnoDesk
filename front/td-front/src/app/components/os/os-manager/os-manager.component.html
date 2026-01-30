@@ -143,39 +143,56 @@
                         <div class="os-main-layout">
                             <div class="os-data-column">
                                 <section class="form-section">
-                                    <h4 class="section-subtitle"><mat-icon>devices</mat-icon> Especificações</h4>
+                                    <h4 class="section-subtitle"><mat-icon>devices</mat-icon> Especificações do
+                                        Equipamento</h4>
+
                                     <div class="row">
                                         <div class="input-group">
-                                            <label>Aparelho</label>
+                                            <label><mat-icon class="inline-icon">laptop_mac</mat-icon> Aparelho</label>
                                             <input type="text" [value]="Os?.aparelhos" readonly>
                                         </div>
                                         <div class="input-group">
-                                            <label>Marca</label>
+                                            <label><mat-icon class="inline-icon">branding_watermark</mat-icon>
+                                                Marca</label>
                                             <input type="text" [value]="Os?.marcaAparelho" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="input-group">
-                                            <label>Modelo</label>
+                                            <label><mat-icon class="inline-icon">model_training</mat-icon>
+                                                Modelo</label>
                                             <input type="text" [value]="Os?.descricaoModelo" readonly>
                                         </div>
                                         <div class="input-group">
-                                            <label>Número de Série</label>
+                                            <label><mat-icon class="inline-icon">qr_code_2</mat-icon> Número de Série /
+                                                SN</label>
                                             <input type="text" [value]="Os?.snAparelho" readonly>
                                         </div>
                                     </div>
                                 </section>
+
+                                <div class="info-banner">
+                                    <mat-icon>info</mat-icon>
+                                    <span>Certifique-se de que o número de série confere com o selo físico do
+                                        equipamento.</span>
+                                </div>
                             </div>
 
                             <div class="os-status-column">
                                 <section class="form-section highlight-section">
                                     <h4 class="section-subtitle"><mat-icon>assignment_turned_in</mat-icon> Check-list de
                                         Entrada</h4>
-                                    <mat-form-field appearance="outline" class="full-width-field">
-                                        <mat-label>Estado do aparelho e observações</mat-label>
-                                        <textarea matInput rows="6" readonly>{{Os?.checkList}}</textarea>
-                                    </mat-form-field>
+                                    <div class="check-list-container">
+                                        <mat-form-field appearance="outline" class="full-width-field">
+                                            <mat-label>Observações do estado físico</mat-label>
+                                            <textarea matInput rows="9" readonly
+                                                class="check-list-text">{{Os?.checkList}}</textarea>
+                                        </mat-form-field>
+                                        <div class="check-list-footer">
+                                            <mat-icon>verified</mat-icon> Documentado na recepção
+                                        </div>
+                                    </div>
                                 </section>
                             </div>
                         </div>
@@ -197,8 +214,30 @@
                     </div>
 
                     <div class="card-body-wrapper">
-                        <div class="os-main-layout">
+                        <div class="os-main-layout tight-layout">
+                            <!-- Laudo agora vem primeiro (esquerda) -->
                             <div class="os-data-column">
+                                <section class="form-section highlight-section">
+                                    <h4 class="section-subtitle"><mat-icon>psychology</mat-icon> Laudo de Diagnóstico
+                                    </h4>
+                                    <mat-form-field appearance="outline" class="full-width-field">
+                                        <mat-label>Descrição Técnica do Defeito e Solução</mat-label>
+                                        <textarea matInput rows="10"
+                                            placeholder="Descreva aqui o diagnóstico detalhado..."
+                                            [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
+                                    </mat-form-field>
+                                </section>
+
+                                <div class="action-footer">
+                                    <button mat-flat-button color="primary" (click)="updateDiagnosticoTecnico()"
+                                        class="save-btn">
+                                        <mat-icon>check_circle</mat-icon> Salvar Diagnóstico
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Contexto agora vem depois (direita) -->
+                            <div class="os-status-column">
                                 <section class="form-section">
                                     <h4 class="section-subtitle"><mat-icon>history</mat-icon> Contexto do Problema</h4>
                                     <div class="row">
@@ -214,26 +253,6 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>
-
-                            <div class="os-status-column">
-                                <section class="form-section highlight-section">
-                                    <h4 class="section-subtitle"><mat-icon>psychology</mat-icon> Laudo de Diagnóstico
-                                    </h4>
-                                    <mat-form-field appearance="outline" class="full-width-field">
-                                        <mat-label>Descrição Técnica do Defeito e Solução</mat-label>
-                                        <textarea matInput rows="8"
-                                            placeholder="Descreva aqui o diagnóstico detalhado..."
-                                            [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
-                                    </mat-form-field>
-                                </section>
-
-                                <div class="action-footer">
-                                    <button mat-flat-button color="primary" (click)="updateDiagnosticoTecnico()"
-                                        class="save-btn">
-                                        <mat-icon>check_circle</mat-icon> Salvar Diagnóstico
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
