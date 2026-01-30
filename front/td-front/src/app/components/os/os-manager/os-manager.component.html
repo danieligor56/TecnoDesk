@@ -12,285 +12,232 @@
 
 
 
-        <mat-tab label="Ordem de serviço">
-
-
-            <!-- <div style="width: 32rem; margin-left: .5rem;">
-            <mat-form-field appearance="fill" >
-                <mat-label>Status OS </mat-label>
-                <mat-select>
-                    <mat-option> CRUZEIRO </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div> -->
-
-            <div class="tab-content" style="display: flex;">
-
-
-
-                <div class="os-dados">
-
-                    <div>
-                        <h1 class="label" style="margin-bottom: .2rem;">Número da OS:<b>{{Os?.sequencial}} 📋</b></h1>
-                    </div>
-
-                    <div class="cliente-os">
-                        <h3>Cliente</h3>
-                        <!-- Primeira linha: Nome e Código -->
-                        <div class="row">
-                            <div class="input-group">
-                                <label for="cliente">Nome:</label>
-                                <input type="text" id="cliente" [value]="Os?.cliente?.nome" readonly>
-                            </div>
-                            <div class="input-group" style="width: 80px;">
-                                <label for="cod">Cod.:</label>
-                                <input type="text" id="cod" [value]="Os?.cliente?.id" readonly>
-                            </div>
-                        </div>
-
-                        <!-- Segunda linha: Endereço e Telefone -->
-                        <div class="row">
-                            <div class="input-group">
-                                <label for="telefone">Telefone:</label>
-                                <input type="text" id="telefone" [value]="Os?.cliente?.cel1" readonly>
-                            </div>
-                            <div class="input-group" style="width: 250px;">
-                                <label for="endereco">Endereço:</label>
-                                <input type="text" id="endereco"
-                                    [value]="Os?.cliente?.logradouro + ', ' + Os?.cliente?.numero" readonly>
-                            </div>
-                        </div>
-
-                        <!-- Terceira linha: Documento e Email -->
-                        <div class="row">
-                            <div class="input-group">
-                                <label for="documento">Documento:</label>
-                                <input type="text" id="documento" [value]="Os?.cliente?.documento" readonly>
-                            </div>
-                            <div class="input-group">
-                                <label for="email">Email:</label>
-                                <input type="text" id="email" [value]="Os?.cliente?.email" readonly>
-                            </div>
+        <mat-tab label="Geral">
+            <div class="tab-content standalone-tab-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Dados da Ordem de Serviço</h3>
+                            <span class="item-count">Aberta por: <b>{{Os?.colaborador?.nome}}</b></span>
                         </div>
                     </div>
 
-                    <div id="parametros-os">
-                        <h3>Parametros OS</h3>
-                        <div style="width: 250px;margin-bottom: 1rem;">
-                            <div class="input-group">
-                                <label for="telefone">Responsável pela abertura da Ordem de serviço:</label>
-                                <input type="text" id="telefone" [value]="Os?.colaborador?.nome" readonly width="80px">
-                            </div>
-                            <div style="display: flex;">
-                                <div class="input-group">
-                                    <mat-form-field appearance="legacy">
-                                        <label for="telefone">Responsável técnico:</label>
+                    <div class="card-body-wrapper">
+                        <div class="os-main-layout">
+                            <!-- Coluna da Esquerda: Cliente e Parâmetros -->
+                            <div class="os-data-column">
+                                <section class="form-section">
+                                    <h4 class="section-subtitle"><mat-icon>person</mat-icon> Dados do Cliente</h4>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Nome Completo</label>
+                                            <input type="text" [value]="Os?.cliente?.nome" readonly>
+                                        </div>
+                                        <div class="input-group mini-input">
+                                            <label>ID</label>
+                                            <input type="text" [value]="Os?.cliente?.id" readonly>
+                                        </div>
+                                    </div>
 
-                                        <mat-select [(ngModel)]="responsalveTecnico.id"
-                                            (selectionChange)="onColaboradorChange($event.value)">
-                                            <mat-option *ngFor="let colaborador of colaboradores"
-                                                [value]="colaborador.id">
-                                                {{ colaborador.nome }}
-                                            </mat-option>
-                                        </mat-select>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Telefone / WhatsApp</label>
+                                            <input type="text" [value]="Os?.cliente?.cel1" readonly>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Email</label>
+                                            <input type="text" [value]="Os?.cliente?.email" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Endereço</label>
+                                            <input type="text"
+                                                [value]="Os?.cliente?.logradouro + ', ' + Os?.cliente?.numero" readonly>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>CPF/CNPJ</label>
+                                            <input type="text" [value]="Os?.cliente?.documento" readonly>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="form-section">
+                                    <h4 class="section-subtitle"><mat-icon>settings</mat-icon> Parâmetros da OS</h4>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <mat-form-field appearance="outline" class="full-width-field">
+                                                <mat-label>Técnico Responsável</mat-label>
+                                                <mat-select [(ngModel)]="responsalveTecnico.id"
+                                                    (selectionChange)="onColaboradorChange($event.value)">
+                                                    <mat-option *ngFor="let colaborador of colaboradores"
+                                                        [value]="colaborador.id">
+                                                        {{ colaborador.nome }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="input-group">
+                                            <mat-form-field appearance="outline" class="full-width-field">
+                                                <mat-label>Prioridade</mat-label>
+                                                <mat-select [(ngModel)]="prioridadeos" name="prioridadeos">
+                                                    <mat-option value="0">📌 Normal</mat-option>
+                                                    <mat-option value="1">🔥 Crítica / Urgente</mat-option>
+                                                    <mat-option value="2">🔄 Garantia</mat-option>
+                                                    <mat-option value="3">⏱️ Prioritária</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- Coluna da Direita: Reclamação e Status -->
+                            <div class="os-status-column">
+                                <section class="form-section highlight-section">
+                                    <h4 class="section-subtitle"><mat-icon>report_problem</mat-icon> Resumo do Problema
+                                    </h4>
+
+                                    <mat-form-field appearance="outline" class="full-width-field">
+                                        <mat-label>Reclamação do Cliente</mat-label>
+                                        <textarea matInput rows="3" readonly>{{Os?.reclamacaoCliente}}</textarea>
                                     </mat-form-field>
-                                    <!-- <input type="text" id="telefone" value="" readonly> -->
-                                </div>
 
-                                <div class="input-group">
-                                    <mat-form-field appearance="legacy" style="margin-left: .5rem;">
-                                        <label>Tipo de prioridade: </label>
-                                        <mat-select [(ngModel)]="prioridadeos" name="prioridadeos">
-                                            <mat-option value=0>📌 Normal</mat-option>
-                                            <mat-option value=1>🔥 Crítica / Urgente / Emergencial</mat-option>
-                                            <mat-option value=2>🔄 Garantia</mat-option>
-                                            <mat-option value=3>⏱️ Prioridade</mat-option>
-                                        </mat-select>
+                                    <mat-form-field appearance="outline" class="full-width-field">
+                                        <mat-label>Testes Iniciais</mat-label>
+                                        <textarea matInput rows="3" readonly>{{Os?.initTest}}</textarea>
                                     </mat-form-field>
+                                </section>
+
+                                <div class="action-footer">
+                                    <button mat-flat-button color="primary" (click)="alterarTecnicoEPrioridade()"
+                                        class="save-btn">
+                                        <mat-icon>save</mat-icon> Atualizar Informações
+                                    </button>
+                                    <button mat-stroked-button color="basic" [routerLink]="['/os/list']"
+                                        class="back-btn">
+                                        <mat-icon>arrow_back</mat-icon> Voltar para Lista
+                                    </button>
                                 </div>
                             </div>
-
-
-
-
                         </div>
-
                     </div>
-
                 </div>
-
-
-                <div class="rec-cli" style="margin-left: 30px;">
-                    <h3 style="margin-bottom: 5px;">Resumo do problema</h3>
-
-                    <div>
-                        <div>
-                            <mat-form-field class="dataCli" style="width: 400px; margin-right: 10px;" appearance="fill">
-                                <mat-label>Reclamação do cliente:</mat-label>
-                                <textarea style="resize: none; height: 1 rem;" matInput placeholder=""
-                                    readonly>{{Os?.reclamacaoCliente}}</textarea>
-                            </mat-form-field>
-                        </div>
-                        <div style="margin-bottom: 2rem;">
-                            <mat-form-field class="dataCli" style="width: 400px;" appearance="fill">
-                                <mat-label>Resultado do teste inicial:</mat-label>
-                                <textarea style="resize: none; height: 8px;" matInput placeholder=""
-                                    readonly>{{Os?.initTest}}</textarea>
-                            </mat-form-field>
-                        </div>
-
-                        <!-- <div id="containerImgOsManager">
-                            <img src="/assets/img/img-manager-os.svg" alt="" id="imgOsManager">
-                        </div> -->
-
-
-                        <div>
-                            <mat-form-field appearance="fill">
-                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS"
-                                    (selectionChange)="alterStsOS($event)">
-                                    <mat-option value="0">⚪Nova</mat-option>
-                                    <mat-option value="1">🔵 Em andamento</mat-option>
-                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
-                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
-                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
-                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
-                                    <mat-option value="6">🔴 Pendente</mat-option>
-                                    <mat-option value="7">🟢 Concluída</mat-option>
-                                    <mat-option value="8">⚫ Cancelada</mat-option>
-                                    <mat-option value="9">✅ Encerrada </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <button (click)="alterarTecnicoEPrioridade()" mat-stroked-button color="primary"
-                            style="width: 100%;align-self: baseline;margin-bottom: .5rem;">Salvar</button>
-                        <button [routerLink]="['/os/list']" mat-stroked-button color="basic"
-                            style="width: 100%;align-self: baseline;">Voltar para lista</button>
-
-                    </div>
-
-
-
-
-
-                </div>
-
             </div>
         </mat-tab>
 
         <!-- Aba de Dados do Equipamento -->
 
-        <mat-tab label="Equipamento" style="overflow: none;">
-
-            <div class="tab-content" style="display: flex;">
-                <div class="equipamento-dados">
-                    <!-- <h3>Dados do Equipamento:</h3> -->
-                    <div class="equip-os">
-                        <h3 style="margin-bottom: 0px;">Equipamento</h3>
-                        <!-- Segunda linha: Endereço e Telefone  -->
-                        <div class="row">
-                            <div class="input-group">
-                                <label for="telefone">Aparelho:</label>
-                                <input type="text" id="telefone" value="{{Os?.aparelhos}}" readonly>
-                            </div>
-                            <div class="input-group" style="width: 250px;">
-                                <label for="endereco">Marca:</label>
-                                <input type="text" id="endereco" value="{{Os?.marcaAparelho}}" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-group">
-                                <label for="documento">Modelo:</label>
-                                <input type="text" id="documento" value="{{Os?.descricaoModelo}}" readonly>
-                            </div>
-                            <div class="input-group">
-                                <label for="email">Número de série:</label>
-                                <input type="text" id="email" value="{{Os?.snAparelho}}" readonly>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div>
-                                <mat-form-field class="dataCli" style="width: 500px;margin-top: 8px;" appearance="fill">
-                                    <mat-label>Estado do aparelho:</mat-label>
-                                    <textarea style="resize: none;height: 102px;" value="{{Os?.checkList}}" matInput
-                                        placeholder="" readonly></textarea>
-                                    <mat-icon matSuffix>assignment</mat-icon>
-                                </mat-form-field>
-                            </div>
+        <mat-tab label="Equipamento">
+            <div class="tab-content standalone-tab-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Dados do Equipamento</h3>
+                            <span class="item-count">Identificação e estado físico</span>
                         </div>
                     </div>
 
-                </div>
+                    <div class="card-body-wrapper">
+                        <div class="os-main-layout">
+                            <div class="os-data-column">
+                                <section class="form-section">
+                                    <h4 class="section-subtitle"><mat-icon>devices</mat-icon> Especificações</h4>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Aparelho</label>
+                                            <input type="text" [value]="Os?.aparelhos" readonly>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Marca</label>
+                                            <input type="text" [value]="Os?.marcaAparelho" readonly>
+                                        </div>
+                                    </div>
 
-                <div id="containerImgOsEquip">
-                    <img src="/assets/img/img-os-manage-equip.svg" alt="">
-                </div>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Modelo</label>
+                                            <input type="text" [value]="Os?.descricaoModelo" readonly>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Número de Série</label>
+                                            <input type="text" [value]="Os?.snAparelho" readonly>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
 
+                            <div class="os-status-column">
+                                <section class="form-section highlight-section">
+                                    <h4 class="section-subtitle"><mat-icon>assignment_turned_in</mat-icon> Check-list de
+                                        Entrada</h4>
+                                    <mat-form-field appearance="outline" class="full-width-field">
+                                        <mat-label>Estado do aparelho e observações</mat-label>
+                                        <textarea matInput rows="6" readonly>{{Os?.checkList}}</textarea>
+                                    </mat-form-field>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
         </mat-tab>
 
         <!-- Orcamento -->
         <!-- Aba de Serviço -->
         <mat-tab label="Diagnóstico">
-            <div class="tab-content">
-                <div class="servico-dados">
-                    <div id="laudoTecnico">
-
-
-                        <div>
-                            <h3>Laudo técnico</h3>
-
-                            <mat-form-field class="dataCli" appearance="fill">
-                                <mat-label>Defeito reclamado pelo cliente: </mat-label>
-                                <input disabled matInput>
-                                {{Os?.reclamacaoCliente}}
-                            </mat-form-field>
-
-                            <mat-form-field class="dataCli" appearance="fill">
-                                <mat-label>Resultado do teste inicial</mat-label>
-                                <input disabled matInput>
-                                {{Os?.initTest}}
-                            </mat-form-field>
-
-                            <mat-form-field class="fullWidth" appearance="fill">
-                                <mat-label>Diagnóstico Técnico</mat-label>
-                                <textarea matInput rows="4" style="resize: none;"
-                                    placeholder="Informe o diagnóstico técnico detalhado do equipamento, incluindo a descrição do problema identificado e, se aplicável, observações pertinentes ao reparo realizado ou recomendado"
-                                    [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
-                                <button (click)="updateDiagnosticoTecnico()" mat-flat-button color="primary"
-                                    style="align-self: baseline;margin-bottom: .5rem;">Salvar</button>
-                            </mat-form-field>
+            <div class="tab-content standalone-tab-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Diagnóstico e Laudo Técnico</h3>
+                            <span class="item-count">Parecer do especialista</span>
                         </div>
+                    </div>
 
-                        <div>
-                            <mat-form-field appearance="fill">
-                                <mat-label><b>Definir status da Ordem de serviço</b></mat-label>
-                                <mat-select [(ngModel)]="statusOs" name="statusOS"
-                                    (selectionChange)="alterStsOS($event)">
-                                    <mat-option value="0">⚪Nova</mat-option>
-                                    <mat-option value="1">🔵 Em andamento</mat-option>
-                                    <mat-option value="2">🟡 Aguardando aprovação do orçamento</mat-option>
-                                    <mat-option value="3">🟡 Aguardando peças / materiais</mat-option>
-                                    <mat-option value="4">🟡 Aguardando cliente retirar</mat-option>
-                                    <mat-option value="5">🟢 Orçamento aprovado</mat-option>
-                                    <mat-option value="6">🔴 Pendente</mat-option>
-                                    <mat-option value="7">🟢 Concluída</mat-option>
-                                    <mat-option value="8">⚫ Cancelada</mat-option>
-                                    <mat-option value="9">✅ Encerrada </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                    <div class="card-body-wrapper">
+                        <div class="os-main-layout">
+                            <div class="os-data-column">
+                                <section class="form-section">
+                                    <h4 class="section-subtitle"><mat-icon>history</mat-icon> Contexto do Problema</h4>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Queixa do Cliente</label>
+                                            <div class="readonly-text-box mini-height">{{Os?.reclamacaoCliente}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label>Resultado do Teste Inicial</label>
+                                            <div class="readonly-text-box mini-height">{{Os?.initTest}}</div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div class="os-status-column">
+                                <section class="form-section highlight-section">
+                                    <h4 class="section-subtitle"><mat-icon>psychology</mat-icon> Laudo de Diagnóstico
+                                    </h4>
+                                    <mat-form-field appearance="outline" class="full-width-field">
+                                        <mat-label>Descrição Técnica do Defeito e Solução</mat-label>
+                                        <textarea matInput rows="8"
+                                            placeholder="Descreva aqui o diagnóstico detalhado..."
+                                            [(ngModel)]="Os.laudoTecnico" name="laudo"></textarea>
+                                    </mat-form-field>
+                                </section>
+
+                                <div class="action-footer">
+                                    <button mat-flat-button color="primary" (click)="updateDiagnosticoTecnico()"
+                                        class="save-btn">
+                                        <mat-icon>check_circle</mat-icon> Salvar Diagnóstico
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
-
-
-
             </div>
         </mat-tab>
 
@@ -503,26 +450,36 @@
 
         <!-- Historico de movimentação -->
         <mat-tab label="Histórico">
-            <div class="tab-content" style="padding: 20px;">
-                <h3 style="margin-bottom: 20px; color: #555;">Linha do tempo da OS</h3>
+            <div class="tab-content standalone-tab-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Linha do Tempo da OS</h3>
+                            <span class="item-count">{{historico.length}} registros de movimentação</span>
+                        </div>
+                    </div>
 
-                <div *ngIf="historico.length === 0"
-                    style="text-align: center; color: #666; padding: 20px; background: #f9f9f9; border-radius: 8px;">
-                    <mat-icon
-                        style="font-size: 48px; height: 48px; width: 48px; margin-bottom: 10px;">history</mat-icon>
-                    <p>Nenhum histórico disponível para esta OS ainda.</p>
-                </div>
+                    <div class="card-body-wrapper">
+                        <div *ngIf="historico.length === 0" class="empty-state">
+                            <mat-icon>history</mat-icon>
+                            <p>Nenhum histórico disponível para esta OS ainda.</p>
+                        </div>
 
-                <div class="history-container">
-                    <div *ngFor="let item of historico" class="history-card">
-                        <div class="history-dot"></div>
-                        <div class="history-content">
-                            <div class="history-header">
-                                <span class="history-description">{{item.descricao}}</span>
-                                <span class="history-date">{{item.dataAlteracao}}</span>
-                            </div>
-                            <div class="history-footer">
-                                <span class="history-responsible">👤 Responsável: <b>{{item.responsavel}}</b></span>
+                        <div class="history-container" *ngIf="historico.length > 0">
+                            <div *ngFor="let item of historico" class="history-card">
+                                <div class="history-dot"></div>
+                                <div class="history-content">
+                                    <div class="history-header">
+                                        <span class="history-description">{{item.descricao}}</span>
+                                        <span class="history-date">{{item.dataAlteracao}}</span>
+                                    </div>
+                                    <div class="history-footer">
+                                        <span class="history-responsible">
+                                            <mat-icon>person</mat-icon>
+                                            Responsável: <b>{{item.responsavel}}</b>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
