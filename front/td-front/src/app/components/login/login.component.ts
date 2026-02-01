@@ -62,7 +62,8 @@ export class LoginComponent {
       this.service.anthenticate(this.cred).subscribe(resposta => {
         this.service.succesLogin(resposta.token);
         sessionStorage.setItem('usuarioNome', resposta.nomeUsuario)
-        sessionStorage.setItem('CompGrpIndent',resposta.CompGrpIndent)
+        sessionStorage.setItem('CompGrpIndent', resposta.CompGrpIndent)
+        sessionStorage.setItem('UserMailIdent', resposta.UserMailIdent)
         this.router.navigate(['']);
         // this.service.getCodEmpresa(this.cred.email).subscribe(
         //   (key) => {

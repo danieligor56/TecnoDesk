@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
+import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.UpdateLaudoTecnicoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
+import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Roles;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
@@ -29,6 +32,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
 
 @Service
 public class OsService {
@@ -59,6 +63,13 @@ public class OsService {
 
 	@Autowired
 	public HistoricoOSService historicoOSService;
+	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	EncryptionUtil secUtil;
+	
 
 	public OS_Entrada crianova(OS_EntradaDTO osDTO, String codEmpresa) {
 
@@ -167,7 +178,7 @@ public class OsService {
 
 	}
 
-	public void alterarStatusDaOS(long numOS, int stsOs, String codEmpresa) {
+	public void alterarStatusDaOS(long numOS, int stsOs, String codEmpresa, String mail) {
 		if (numOS > 0 && codEmpresa != null && stsOs <= 9) {
 			try {
 				Empresa empresa = empresaRepository
@@ -176,12 +187,19 @@ public class OsService {
 
 				Orcamento orcamento = orcamentoRepository.encontrarOcamentoPorNumOS(empresa.getId(), os.getId());
 
+				Usuarios user = usuarioRepository.findItByEmail(secUtil.decrypt(mail));
+				
 				switch (stsOs) {
 					case 0: {
 						
-						if(stsOs == 0 && os.getStatusOS() == StatusOS.NOVO) {
-							orcamento.setStatusOR(StatusOR.NOVO);
-							orcamentoRepository.save(orcamento);
+						if(stsOs == 0 && (os.getStatusOS() == StatusOS.NOVO) || os.getStatusOS() == StatusOS.CANCELADA) {
+							if(user.getRole() == Roles.ADMIN) {
+								orcamento.setStatusOR(StatusOR.NOVO);
+								orcamentoRepository.save(orcamento);
+							}
+							
+							throw new BadRequest("Somente o usuário administrador pode reabrir OS");
+							
 						}
 						os.setStatusOS(StatusOS.NOVO);
 						break;

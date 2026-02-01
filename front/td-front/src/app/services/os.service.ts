@@ -68,7 +68,8 @@ export class OsService {
 
   alterarStatusOS(numOs: number, stsOS: number): Observable<any> {
     const headers = new HttpHeaders({
-      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent'),
+      'userMail': sessionStorage.getItem('UserMailIdent')
     })
     const options = { headers: headers }
 

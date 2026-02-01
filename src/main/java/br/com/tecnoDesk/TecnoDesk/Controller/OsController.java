@@ -64,11 +64,11 @@ public class OsController {
 
 		return ResponseEntity.ok().build();
 	}
-
+	
 	@PutMapping("/alterarStatusOs")
 	public ResponseEntity alterarStatusOs(@RequestParam long numOs, int stsOS,
-			@RequestHeader("CodEmpresa") String codEmpresa) {
-		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);
+			@RequestHeader("CodEmpresa") String codEmpresa,@RequestHeader("userMail") String mail) {
+		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa, mail);
 		return ResponseEntity.ok().build();
 	}
 
