@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,24 +13,34 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSidenav = new EventEmitter<void>();
   nomeUsuario: string = this.getPrimeirosNomes(sessionStorage.getItem('usuarioNome'))
 
-  onToggleSidenav(){
+  onToggleSidenav() {
     this.toggleSidenav.emit();
   }
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  getPrimeirosNomes(nome: string): string {
-  if (!nome) return '';
+  logout() {
+    this.router.navigate(['login'])
+    this.authService.logout();
+    this.toastr.info('Logout realizado com sucesso', 'logout', { timeOut: 7000 })
+  }
 
-  return nome
-    .trim()
-    .split(' ')
-    .filter(p => p.length > 0)
-    .slice(0, 2)
-    .join(' ');
-}
+  getPrimeirosNomes(nome: string): string {
+    if (!nome) return '';
+
+    return nome
+      .trim()
+      .split(' ')
+      .filter(p => p.length > 0)
+      .slice(0, 2)
+      .join(' ');
+  }
 
 }

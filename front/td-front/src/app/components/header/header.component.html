@@ -1,18 +1,21 @@
-<div class="containerHeader mat-elevation-z4">
-    
-    <div class="menu">
-        <button id="menu" (click)="onToggleSidenav()" mat-icon-button>
+<header class="main-header mat-elevation-z3">
+    <div class="header-left">
+        <button id="menu-toggle" (click)="onToggleSidenav()" mat-icon-button class="menu-btn">
             <mat-icon>menu</mat-icon>
         </button>
-    </div>
-    
-    <div class="titleHeader">
-        <!-- <h1>Tecno Desk - Feito por técnicos para técnicos</h1> -->
-    </div>    
-    
-    <div class="wellcome">
-        <i class="material-icons">account_circle</i>
-        <h3>Olá, {{nomeUsuario}}</h3>
+        <span class="app-logo">Tecno Desk</span>
     </div>
 
-</div>
+    <div class="header-right">
+        <div class="user-profile">
+            <mat-icon class="user-icon">account_circle</mat-icon>
+            <span class="user-name">{{nomeUsuario}}</span>
+        </div>
+
+        <div class="header-divider"></div>
+
+        <button (click)="logout()" mat-icon-button color="warn" matTooltip="Sair do sistema" class="logout-btn">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </div>
+</header>
