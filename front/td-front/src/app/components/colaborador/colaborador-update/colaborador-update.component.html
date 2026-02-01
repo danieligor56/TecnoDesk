@@ -17,25 +17,25 @@
       <h4 class="full-row"><mat-icon style="font-size: 18px; vertical-align: middle;">person_add</mat-icon> Informações
         Pessoais</h4>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-12" appearance="outline">
         <mat-label>Nome Completo</mat-label>
         <input formControlName="nome" required matInput placeholder="Ex: João Silva">
         <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-6" appearance="outline">
         <mat-label>CPF ou CNPJ</mat-label>
         <input formControlName="documento" required matInput mask="000.000.000-00">
         <mat-icon matSuffix>badge</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-6" appearance="outline">
         <mat-label>Contato</mat-label>
         <input formControlName="cel1" required matInput mask="(00) 000000000">
         <mat-icon matSuffix>call</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-12" appearance="outline">
         <mat-label>E-mail</mat-label>
         <input formControlName="email" required matInput placeholder="joao@exemplo.com">
         <mat-icon matSuffix>mail</mat-icon>
@@ -57,39 +57,39 @@
       <h4 class="full-row"><mat-icon style="font-size: 18px; vertical-align: middle;">location_on</mat-icon> Localização
       </h4>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-4" appearance="outline">
         <mat-label>CEP</mat-label>
         <input formControlName="cep" matInput placeholder="00000-000" mask="00.000-000"
           (blur)="autoCep(colaboradorCreateForm.get('cep').value)">
         <mat-icon matSuffix>map</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-4" appearance="outline">
         <mat-label>UF</mat-label>
         <input formControlName="estado" matInput readonly>
       </mat-form-field>
 
-      <mat-form-field class="full-row" appearance="outline">
+      <mat-form-field class="col-4" appearance="outline">
         <mat-label>Cidade</mat-label>
         <input formControlName="cidade" matInput readonly>
       </mat-form-field>
 
-      <mat-form-field class="full-row" appearance="outline">
+      <mat-form-field class="col-12" appearance="outline">
         <mat-label>Logradouro / Rua</mat-label>
         <input formControlName="logradouro" matInput>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-4" appearance="outline">
         <mat-label>Nº</mat-label>
         <input formControlName="numero" matInput>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="col-8" appearance="outline">
         <mat-label>Bairro</mat-label>
         <input formControlName="bairro" matInput>
       </mat-form-field>
 
-      <mat-form-field class="full-row" appearance="outline">
+      <mat-form-field class="col-12" appearance="outline">
         <mat-label>Observações (opcional)</mat-label>
         <input formControlName="obs" matInput placeholder="Complemento, pontos de referência...">
       </mat-form-field>
