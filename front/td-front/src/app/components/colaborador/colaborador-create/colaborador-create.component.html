@@ -60,8 +60,8 @@
       </mat-form-field>
 
       <div class="actions full-row">
-        <button (click)="closeDialog()" class="medPut" mat-button color="warn">Cancelar</button>
-        <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" class="medPut" mat-flat-button
+        <button (click)="closeDialog()" mat-button color="warn">Cancelar</button>
+        <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" mat-flat-button
           color="primary">Próximo (Endereço)</button>
       </div>
     </form>
@@ -109,8 +109,8 @@
       </mat-form-field>
 
       <div class="actions full-row">
-        <button (click)="cadastraInfoPessoal()" class="medPut" mat-button color="warn">Voltar</button>
-        <button [disabled]="!validaCampos()" (click)="create()" class="medPut" mat-flat-button color="primary">Finalizar
+        <button (click)="cadastraInfoPessoal()" mat-button color="warn">Voltar</button>
+        <button [disabled]="!validaCampos()" (click)="create()" mat-flat-button color="primary">Finalizar
           Cadastro</button>
       </div>
     </form>

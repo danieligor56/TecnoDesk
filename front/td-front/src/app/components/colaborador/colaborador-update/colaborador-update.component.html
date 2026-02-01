@@ -42,8 +42,8 @@
       </mat-form-field>
 
       <div class="actions full-row">
-        <button (click)="this.dialogRef.close()" class="medPut" mat-button color="warn">Cancelar</button>
-        <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" class="medPut" mat-flat-button
+        <button (click)="this.dialogRef.close()" mat-button color="warn">Cancelar</button>
+        <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" mat-flat-button
           color="primary">Próximo (Endereço)</button>
       </div>
 
@@ -95,9 +95,9 @@
       </mat-form-field>
 
       <div class="actions full-row">
-        <button (click)="cadastraInfoPessoal()" class="medPut" mat-button color="warn">Voltar</button>
-        <button [disabled]="!validaCampos()" (click)="updateColaborador()" class="medPut" mat-flat-button
-          color="primary">Salvar Alterações</button>
+        <button (click)="cadastraInfoPessoal()" mat-button color="warn">Voltar</button>
+        <button [disabled]="!validaCampos()" (click)="updateColaborador()" mat-flat-button color="primary">Salvar
+          Alterações</button>
       </div>
     </form>
   </div>
