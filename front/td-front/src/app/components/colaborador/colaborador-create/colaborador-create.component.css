@@ -1,46 +1,47 @@
-.container{
+.container {
     width: 35rem;
     margin: 1rem auto;
     padding: 1rem 1rem 3rem 1rem;
     border-radius: .6rem;
 }
 
-.fullWidth{
+.fullWidth {
     width: 100%;
 }
 
 
 
-.section{
+.section {
     margin-bottom: 1rem;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     padding-left: 10px;
 }
 
-img{
-    
+img {
+
     height: 8rem;
 }
 
-button{
+button {
     margin-top: .7rem;
 }
 
-mat-icon{
-        opacity: .5;
-    }
-.isUser{
+mat-icon {
+    opacity: .5;
+}
+
+.isUser {
     width: 100%;
 }
 
-.medPut{
+.medPut {
     margin-left: .5rem;
     width: 8rem;
 }
 
-.smallPut{
-    
+.smallPut {
+
     margin-left: 2rem;
     width: 5rem;
 }
@@ -50,7 +51,7 @@ mat-icon{
     padding: 20px !important;
     border-radius: 4px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
 }
 

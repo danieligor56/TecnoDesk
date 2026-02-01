@@ -62,9 +62,11 @@ export class ClientesListComponent implements OnInit {
   }
 
   openDialog(event: Event, id: string): void {
-
     const dialogRef = this.dialog.open(ClientesUpdateComponent, {
-      data: { id: id }
+      data: { id: id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
     });
   }
 
@@ -76,7 +78,11 @@ export class ClientesListComponent implements OnInit {
   }
 
   openCreateDialog() {
-    const dialogRef = this.dialog.open(ClienteCreateComponent);
+    const dialogRef = this.dialog.open(ClienteCreateComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.findAllcli()
