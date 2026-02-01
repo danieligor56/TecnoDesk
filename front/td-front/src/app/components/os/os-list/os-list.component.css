@@ -3,7 +3,7 @@
   padding: 20px !important;
   border-radius: 4px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .titPage h1 {
@@ -28,328 +28,379 @@
 }
 
 
-th{
-    background-color: #F6F6F6;
-  }
-  
-  table {
-      width: 100%;
-      
-  }
-  
-  mat-form-field{
-    width: 100%;
-  }
-  
-  button{
-    width: 100%;
-  }
-  
- 
-  
-  #rows{
-    background-color: #F6F6F6;
-  }
-  
-  .container{
-    width: 92%;
-    margin:2rem auto;
-  }
-  /* Estilos para os botões de ação */
-  .actionsButtons {
-    text-align: center;
-    padding: 8px;
-  }
+th {
+  background-color: #F6F6F6;
+}
 
-  .action-icons-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+table {
+  width: 100%;
 
-  .action-icon-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: inherit;
-  }
+}
 
-  .action-icon {
-    font-size: 22px !important;
-    width: 22px !important;
-    height: 22px !important;
-    line-height: 22px !important;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    color: #5E5E5E;
-  }
+mat-form-field {
+  width: 100%;
+}
 
-  .action-icon:hover {
+button {
+  width: 100%;
+}
+
+
+
+#rows {
+  background-color: #F6F6F6;
+}
+
+.container {
+  width: 92%;
+  margin: 2rem auto;
+}
+
+/* Estilos para os botões de ação */
+.actionsButtons {
+  text-align: center;
+  padding: 8px;
+}
+
+.action-icons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.action-icon {
+  font-size: 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  line-height: 22px !important;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  color: #5E5E5E;
+}
+
+.action-icon:hover {
+  transform: scale(1.15);
+}
+
+/* Ícone de Gerenciar - Azul */
+.icon-manage {
+  color: #3498db !important;
+}
+
+.icon-manage:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+  color: #2980b9 !important;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Ícone de Imprimir - Cinza escuro */
+.icon-print {
+  color: #7f8c8d !important;
+}
+
+.icon-print:hover {
+  background-color: rgba(127, 140, 141, 0.1);
+  color: #34495e !important;
+  box-shadow: 0 2px 8px rgba(127, 140, 141, 0.3);
+}
+
+.icon-print:active {
+  animation: print-pulse 0.3s ease;
+}
+
+@keyframes print-pulse {
+  0% {
     transform: scale(1.15);
   }
 
-  /* Ícone de Gerenciar - Azul */
-  .icon-manage {
-    color: #3498db !important;
-  }
-
-  .icon-manage:hover {
-    background-color: rgba(52, 152, 219, 0.1);
-    color: #2980b9 !important;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-  }
-
-  /* Ícone de Imprimir - Cinza escuro */
-  .icon-print {
-    color: #7f8c8d !important;
-  }
-
-  .icon-print:hover {
-    background-color: rgba(127, 140, 141, 0.1);
-    color: #34495e !important;
-    box-shadow: 0 2px 8px rgba(127, 140, 141, 0.3);
-  }
-
-  .icon-print:active {
-    animation: print-pulse 0.3s ease;
-  }
-
-  @keyframes print-pulse {
-    0% { transform: scale(1.15); }
-    50% { transform: scale(0.95); }
-    100% { transform: scale(1.15); }
-  }
-
-  /* Ícone de Cancelar - Vermelho */
-  .icon-cancel {
-    color: #e74c3c !important;
-  }
-
-  .icon-cancel:hover {
-    background-color: rgba(231, 76, 60, 0.1);
-    color: #c0392b !important;
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
-    animation: shake-icon-cancel 0.5s ease;
-  }
-
-  @keyframes shake-icon-cancel {
-    0%, 100% { transform: translateX(0) scale(1.15); }
-    25% { transform: translateX(-3px) rotate(-5deg) scale(1.15); }
-    75% { transform: translateX(3px) rotate(5deg) scale(1.15); }
-  }
-
-  .action-icon:active {
+  50% {
     transform: scale(0.95);
   }
 
-  /* Estilos de cores para status da OS */
-  .status-badge {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    min-width: 120px;
-    color: #ffffff;
-  }
-
-  .status-NOVO {
-    background-color: #95a5a6;
-    color: #ffffff;
-  }
-
-  .status-EM_ANDAMENTO {
-    background-color: #3498db;
-    color: #ffffff;
-  }
-
-  .status-AGUARDANDO_RESP_ORCAMENTO {
-    background-color: #f39c12;
-    color: #ffffff;
-  }
-
-  .status-AGUARDANDO_PECAS {
-    background-color: #e67e22;
-    color: #ffffff;
-  }
-
-  .status-AGUARDANDO_RETIRADA {
-    background-color: #f1c40f;
-    color: #2c3e50;
-  }
-
-  .status-ORCAMENTO_APROVADO {
-    background-color: #2ecc71;
-    color: #ffffff;
-  }
-
-  .status-PENDENTE {
-    background-color: #e74c3c;
-    color: #ffffff;
-  }
-
-  .status-CONCLUIDO {
-    background-color: #27ae60;
-    color: #ffffff;
-  }
-
-  .status-CANCELADA {
-    background-color: #34495e;
-    color: #ffffff;
-  }
-
-  .status-ENCERRADA {
-    background-color: #16a085;
-    color: #ffffff;
-  }
-
-  /* Estilos de cores e ícones para prioridades da OS */
-  .priority-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: center;
-    min-width: 140px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .priority-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s;
-  }
-
-  .priority-badge:hover::before {
-    left: 100%;
-  }
-
-  .priority-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .priority-icon {
-    font-size: 18px !important;
-    width: 18px !important;
-    height: 18px !important;
-    line-height: 18px !important;
-    transition: all 0.3s ease;
-  }
-
-  /* NORMAL - Verde suave */
-  .priority-NORMAL {
-    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-    color: #ffffff;
-  }
-
-  .priority-NORMAL .priority-icon {
-    color: #ffffff;
-  }
-
-  .priority-NORMAL:hover .priority-icon {
-    transform: scale(1.1) rotate(360deg);
-  }
-
-  /* URGENCIA - Vermelho vibrante com animação */
-  .priority-URGENCIA {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: #ffffff;
-    animation: pulse-urgent 2s infinite;
-  }
-
-  .priority-URGENCIA .priority-icon {
-    color: #ffffff;
-    animation: shake-icon 1s infinite;
-  }
-
-  @keyframes pulse-urgent {
-    0%, 100% {
-      box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
-    }
-    50% {
-      box-shadow: 0 2px 16px rgba(231, 76, 60, 0.8), 0 0 20px rgba(231, 76, 60, 0.6);
-    }
-  }
-
-  @keyframes shake-icon {
-    0%, 100% { 
-      transform: translateX(0) rotate(0deg); 
-    }
-    25% { 
-      transform: translateX(-3px) rotate(-5deg) scale(1.1); 
-    }
-    75% { 
-      transform: translateX(3px) rotate(5deg) scale(1.1); 
-    }
-  }
-
-  /* GARANTIA - Azul com gradiente */
-  .priority-GARANTIA {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: #ffffff;
-  }
-
-  .priority-GARANTIA .priority-icon {
-    color: #ffffff;
-    animation: rotate-icon 3s linear infinite;
-  }
-
-  .priority-GARANTIA:hover .priority-icon {
-    animation: rotate-icon 0.5s linear infinite;
-  }
-
-  @keyframes rotate-icon {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* PRIORITARIA - Laranja vibrante */
-  .priority-PRIORITARIA {
-    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-    color: #ffffff;
-  }
-
-  .priority-PRIORITARIA .priority-icon {
-    color: #ffffff;
-  }
-
-  .priority-PRIORITARIA:hover .priority-icon {
+  100% {
     transform: scale(1.15);
-    animation: pulse-icon 1s ease-in-out infinite;
+  }
+}
+
+/* Ícone de Cancelar - Vermelho */
+.icon-cancel {
+  color: #e74c3c !important;
+}
+
+.icon-cancel:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #c0392b !important;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  animation: shake-icon-cancel 0.5s ease;
+}
+
+@keyframes shake-icon-cancel {
+
+  0%,
+  100% {
+    transform: translateX(0) scale(1.15);
   }
 
-  @keyframes pulse-icon {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1.15);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.25);
-    }
+  25% {
+    transform: translateX(-3px) rotate(-5deg) scale(1.15);
   }
-  
+
+  75% {
+    transform: translateX(3px) rotate(5deg) scale(1.15);
+  }
+}
+
+/* Ícone de Reabrir - Indigo */
+.icon-reopen {
+  color: #3f51b5 !important;
+}
+
+.icon-reopen:hover {
+  background-color: rgba(63, 81, 181, 0.1);
+  color: #303f9f !important;
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.3);
+  animation: rotate-reopen 0.6s ease;
+}
+
+@keyframes rotate-reopen {
+  from {
+    transform: rotate(0deg) scale(1.15);
+  }
+
+  to {
+    transform: rotate(-360deg) scale(1.15);
+  }
+}
+
+.action-icon:active {
+  transform: scale(0.95);
+}
+
+/* Estilos de cores para status da OS */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  min-width: 120px;
+  color: #ffffff;
+}
+
+.status-NOVO {
+  background-color: #95a5a6;
+  color: #ffffff;
+}
+
+.status-EM_ANDAMENTO {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+.status-AGUARDANDO_RESP_ORCAMENTO {
+  background-color: #f39c12;
+  color: #ffffff;
+}
+
+.status-AGUARDANDO_PECAS {
+  background-color: #e67e22;
+  color: #ffffff;
+}
+
+.status-AGUARDANDO_RETIRADA {
+  background-color: #f1c40f;
+  color: #2c3e50;
+}
+
+.status-ORCAMENTO_APROVADO {
+  background-color: #2ecc71;
+  color: #ffffff;
+}
+
+.status-PENDENTE {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.status-CONCLUIDO {
+  background-color: #27ae60;
+  color: #ffffff;
+}
+
+.status-CANCELADA {
+  background-color: #34495e;
+  color: #ffffff;
+}
+
+.status-ENCERRADA {
+  background-color: #16a085;
+  color: #ffffff;
+}
+
+/* Estilos de cores e ícones para prioridades da OS */
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  min-width: 140px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.priority-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.priority-badge:hover::before {
+  left: 100%;
+}
+
+.priority-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.priority-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+  transition: all 0.3s ease;
+}
+
+/* NORMAL - Verde suave */
+.priority-NORMAL {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: #ffffff;
+}
+
+.priority-NORMAL .priority-icon {
+  color: #ffffff;
+}
+
+.priority-NORMAL:hover .priority-icon {
+  transform: scale(1.1) rotate(360deg);
+}
+
+/* URGENCIA - Vermelho vibrante com animação */
+.priority-URGENCIA {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: #ffffff;
+  animation: pulse-urgent 2s infinite;
+}
+
+.priority-URGENCIA .priority-icon {
+  color: #ffffff;
+  animation: shake-icon 1s infinite;
+}
+
+@keyframes pulse-urgent {
+
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 2px 16px rgba(231, 76, 60, 0.8), 0 0 20px rgba(231, 76, 60, 0.6);
+  }
+}
+
+@keyframes shake-icon {
+
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateX(-3px) rotate(-5deg) scale(1.1);
+  }
+
+  75% {
+    transform: translateX(3px) rotate(5deg) scale(1.1);
+  }
+}
+
+/* GARANTIA - Azul com gradiente */
+.priority-GARANTIA {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: #ffffff;
+}
+
+.priority-GARANTIA .priority-icon {
+  color: #ffffff;
+  animation: rotate-icon 3s linear infinite;
+}
+
+.priority-GARANTIA:hover .priority-icon {
+  animation: rotate-icon 0.5s linear infinite;
+}
+
+@keyframes rotate-icon {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* PRIORITARIA - Laranja vibrante */
+.priority-PRIORITARIA {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: #ffffff;
+}
+
+.priority-PRIORITARIA .priority-icon {
+  color: #ffffff;
+}
+
+.priority-PRIORITARIA:hover .priority-icon {
+  transform: scale(1.15);
+  animation: pulse-icon 1s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.25);
+  }
+}

@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Os_entrada } from 'src/app/models/Os-entrada';
 import { OsService } from 'src/app/services/os.service';
 import { PdfService } from 'src/app/services/pdf.service';
+import { ToastrService } from 'ngx-toastr';
 import { OsManagerComponent } from '../os-manager/os-manager.component';
 
 
@@ -24,10 +25,12 @@ export class OsListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchTerm: any;
   isLoading = false;
+  showAll: boolean = false;
 
   constructor(
     private osService: OsService,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    private toast: ToastrService
 
   ) { }
 
@@ -39,7 +42,12 @@ export class OsListComponent implements OnInit {
 
   findAllOS() {
     debugger
-    this.osService.findAllOs().subscribe(
+    this.isLoading = true;
+    const request = this.showAll
+      ? this.osService.listarOsCanceladasEncerrada()
+      : this.osService.findAllOs();
+
+    request.subscribe(
       response => {
         this.ELEMENT_DATA = response;
         this.dataSource = new MatTableDataSource<Os_entrada>(response);
@@ -49,6 +57,10 @@ export class OsListComponent implements OnInit {
         this.isLoading = false;
       }
     )
+  }
+
+  toggleShowAll() {
+    this.findAllOS();
   }
 
   applyFilter(): void {
@@ -86,11 +98,29 @@ export class OsListComponent implements OnInit {
 
   cancelarOs(numOs: number) {
     if (confirm(`Deseja realmente cancelar a OS Nº ${numOs}?`)) {
-      this.osService.alterarStatusOS(numOs, 8);
-      // Aguarda um pouco para dar tempo do toast aparecer antes de recarregar
-      setTimeout(() => {
-        this.findAllOS();
-      }, 500);
+      this.osService.alterarStatusOS(numOs, 8).subscribe({
+        next: () => {
+          this.toast.success("OS cancelada com sucesso.");
+          this.findAllOS();
+        },
+        error: (err) => {
+          this.toast.error("Falha ao cancelar a OS: " + (err?.error?.message || "Erro desconhecido"));
+        }
+      });
+    }
+  }
+
+  reabrirOs(numOs: number) {
+    if (confirm(`Deseja realmente reabrir a OS Nº ${numOs}?`)) {
+      this.osService.alterarStatusOS(numOs, 0).subscribe({
+        next: () => {
+          this.toast.success("OS reaberta com sucesso.");
+          this.findAllOS();
+        },
+        error: (err) => {
+          this.toast.error("Falha ao reabrir a OS: " + (err?.error?.message || "Erro desconhecido"));
+        }
+      });
     }
   }
 
