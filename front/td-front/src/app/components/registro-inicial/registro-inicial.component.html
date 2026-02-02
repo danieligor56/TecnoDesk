@@ -17,11 +17,12 @@
             <span>Dados da Empresa</span>
           </div>
         </ng-template>
-        
+
         <form [formGroup]="firstFormGroup" class="form-content">
           <div class="document-type-section">
             <p class="section-hint">Selecione o tipo de documento:</p>
-            <mat-radio-group [(ngModel)]="documentType" [ngModelOptions]="{standalone: true}" (change)="onDocumentTypeChange()" class="radio-group">
+            <mat-radio-group [(ngModel)]="documentType" [ngModelOptions]="{standalone: true}"
+              (change)="onDocumentTypeChange()" class="radio-group">
               <mat-radio-button value="cpf" class="custom-radio">
                 <mat-icon class="radio-icon">badge</mat-icon>
                 Utilizar CPF
@@ -50,35 +51,19 @@
           <div class="form-grid">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Documento da Empresa</mat-label>
-              <input
-                *ngIf="documentType === 'cpf'"
-                (blur)="validarEmpresaExistenteDoc()"
-                formControlName="docEmpresa"
-                required
-                mask="000.000.000-00"
-                matInput
-                placeholder="000.000.000-00">
-              <input
-                *ngIf="documentType === 'cnpj'"
-                (blur)="validarEmpresaExistenteDoc()"
-                required
-                mask="00.000.000/0000-00"
-                formControlName="docEmpresa"
-                matInput
-                placeholder="00.000.000/0000-00">
+              <input *ngIf="documentType === 'cpf'" (blur)="validarEmpresaExistenteDoc()" formControlName="docEmpresa"
+                required mask="000.000.000-00" matInput placeholder="000.000.000-00">
+              <input *ngIf="documentType === 'cnpj'" (blur)="validarEmpresaExistenteDoc()" required
+                mask="00.000.000/0000-00" formControlName="docEmpresa" matInput placeholder="00.000.000/0000-00">
               <mat-icon matPrefix>badge</mat-icon>
               <mat-error>
                 <b>Por favor, informe o documento da empresa</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="full-width" *ngIf="documentType === 'cnpj'">
               <mat-label>Razão Social</mat-label>
-              <input
-                formControlName="razaoSocial"
-                required 
-                matInput 
-                placeholder="Razão social da empresa">
+              <input formControlName="razaoSocial" required matInput placeholder="Razão social da empresa">
               <mat-icon matPrefix>corporate_fare</mat-icon>
               <mat-error>
                 <b>É necessário informar a razão social</b>
@@ -87,25 +72,16 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nome Fantasia</mat-label>
-              <input
-                formControlName="nomEmpresa"
-                required 
-                matInput 
-                placeholder="Nome da sua assistência">
+              <input formControlName="nomEmpresa" required matInput placeholder="Nome da sua assistência">
               <mat-icon matPrefix>store</mat-icon>
               <mat-error>
                 <b>Por favor, informe o nome fantasia</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Email</mat-label>
-              <input 
-                matInput 
-                formControlName="mail"
-                type="email"
-                required
-                placeholder="empresa@exemplo.com">
+              <input matInput formControlName="mail" type="email" required placeholder="empresa@exemplo.com">
               <mat-icon matPrefix>email</mat-icon>
               <mat-error>
                 <b>É necessário informar um email válido</b>
@@ -114,26 +90,17 @@
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Confirmar Email</mat-label>
-              <input 
-                matInput 
-                formControlName="confirmEmail"
-                type="email"
-                required
-                placeholder="Confirme o email">
+              <input matInput formControlName="confirmEmail" type="email" required placeholder="Confirme o email">
               <mat-icon matPrefix>mark_email_read</mat-icon>
-              <mat-error *ngIf="firstFormGroup.get('confirmEmail').hasError('matching') && firstFormGroup.get('confirmEmail').touched">
+              <mat-error
+                *ngIf="firstFormGroup.get('confirmEmail').hasError('matching') && firstFormGroup.get('confirmEmail').touched">
                 <b>Os emails não coincidem</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Celular</mat-label>
-              <input 
-                mask="(00) 00000-0000" 
-                matInput 
-                formControlName="cel" 
-                placeholder="(00) 00000-0000"
-                required>
+              <input mask="(00) 00000-0000" matInput formControlName="cel" placeholder="(00) 00000-0000" required>
               <mat-icon matPrefix>phone_android</mat-icon>
               <mat-error>
                 <b>É necessário informar um número de celular</b>
@@ -142,37 +109,23 @@
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Telefone (Opcional)</mat-label>
-              <input 
-                mask="(00) 0000-0000" 
-                matInput 
-                formControlName="tel" 
-                placeholder="(00) 0000-0000">
+              <input mask="(00) 0000-0000" matInput formControlName="tel" placeholder="(00) 0000-0000">
               <mat-icon matPrefix>phone</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Site (Opcional)</mat-label>
-              <input 
-                matInput 
-                formControlName="site" 
-                placeholder="www.seusite.com.br">
+              <input matInput formControlName="site" placeholder="www.seusite.com.br">
               <mat-icon matPrefix>language</mat-icon>
             </mat-form-field>
           </div>
 
           <div class="form-actions">
-            <button 
-              routerLink="/login" 
-              mat-stroked-button 
-              class="btn-secondary">
+            <button routerLink="/login" mat-stroked-button class="btn-secondary">
               <mat-icon>arrow_back</mat-icon>
               Voltar para Login
             </button>
-            <button 
-              [disabled]="!validarPrimeiroPasso()" 
-              mat-raised-button 
-              color="primary" 
-              matStepperNext
+            <button [disabled]="!validarPrimeiroPasso()" mat-raised-button color="primary" matStepperNext
               class="btn-primary">
               Próximo
               <mat-icon>arrow_forward</mat-icon>
@@ -180,7 +133,7 @@
           </div>
         </form>
       </mat-step>
-      
+
       <!-- PASSO 2: Endereço -->
       <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>
@@ -189,63 +142,45 @@
             <span>Endereço</span>
           </div>
         </ng-template>
-        
+
         <form [formGroup]="secondFormGroup" class="form-content">
           <div class="cep-hint">
             <mat-icon>info</mat-icon>
             <p>Primeiro, insira o CEP para preencher automaticamente os demais campos</p>
           </div>
-          
+
           <div class="form-grid">
             <mat-form-field appearance="outline" class="cep-field">
               <mat-label>CEP</mat-label>
-              <input
-                (blur)="autoCep(secondFormGroup.get('cep').value)"          
-                formControlName="cep"
-                matInput 
-                placeholder="00000-000" 
-                mask="00.000-000" 
-                name="cep"
-                required>
+              <input (blur)="autoCep(secondFormGroup.get('cep').value)" formControlName="cep" matInput
+                placeholder="00000-000" mask="00.000-000" name="cep" required>
               <mat-icon matPrefix>pin_drop</mat-icon>
               <mat-error>
                 <b>CEP é obrigatório</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="small-field">
               <mat-label>Estado (UF)</mat-label>
-              <input
-                formControlName="uf"
-                matInput 
-                placeholder="UF"
-                required>
+              <input formControlName="uf" matInput placeholder="UF" required>
               <mat-icon matPrefix>map</mat-icon>
               <mat-error>
                 <b>Estado é obrigatório</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="medium-field">
               <mat-label>Cidade</mat-label>
-              <input
-                formControlName="municipio"
-                matInput 
-                placeholder="Cidade"
-                required>
+              <input formControlName="municipio" matInput placeholder="Cidade" required>
               <mat-icon matPrefix>location_city</mat-icon>
               <mat-error>
                 <b>Cidade é obrigatória</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="large-field">
               <mat-label>Logradouro</mat-label>
-              <input
-                formControlName="logra"
-                matInput 
-                placeholder="Rua, Avenida, etc."
-                required>
+              <input formControlName="logra" matInput placeholder="Rua, Avenida, etc." required>
               <mat-icon matPrefix>signpost</mat-icon>
               <mat-error>
                 <b>Logradouro é obrigatório</b>
@@ -254,12 +189,7 @@
 
             <mat-form-field appearance="outline" class="small-field">
               <mat-label>Número</mat-label>
-              <input
-                type="number"
-                formControlName="num"
-                matInput 
-                placeholder="Nº"
-                required>
+              <input type="number" formControlName="num" matInput placeholder="Nº" required>
               <mat-icon matPrefix>pin</mat-icon>
               <mat-error>
                 <b>Número é obrigatório</b>
@@ -268,11 +198,7 @@
 
             <mat-form-field appearance="outline" class="medium-field">
               <mat-label>Bairro</mat-label>
-              <input
-                formControlName="bairro"
-                matInput 
-                placeholder="Bairro"
-                required>
+              <input formControlName="bairro" matInput placeholder="Bairro" required>
               <mat-icon matPrefix>home</mat-icon>
               <mat-error>
                 <b>Bairro é obrigatório</b>
@@ -281,27 +207,17 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Complemento (Opcional)</mat-label>
-              <input 
-                formControlName="comp"
-                matInput 
-                placeholder="Apartamento, sala, etc.">
+              <input formControlName="comp" matInput placeholder="Apartamento, sala, etc.">
               <mat-icon matPrefix>description</mat-icon>
             </mat-form-field>
           </div>
-          
+
           <div class="form-actions">
-            <button 
-              mat-stroked-button 
-              matStepperPrevious
-              class="btn-secondary">
+            <button mat-stroked-button matStepperPrevious class="btn-secondary">
               <mat-icon>arrow_back</mat-icon>
               Voltar
             </button>
-            <button 
-              [disabled]="!validarSegundoPasso()" 
-              mat-raised-button 
-              color="primary" 
-              matStepperNext
+            <button [disabled]="!validarSegundoPasso()" mat-raised-button color="primary" matStepperNext
               class="btn-primary">
               Próximo
               <mat-icon>arrow_forward</mat-icon>
@@ -309,7 +225,7 @@
           </div>
         </form>
       </mat-step>
-      
+
       <!-- PASSO 3: Informações Pessoais -->
       <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>
@@ -318,16 +234,12 @@
             <span>Dados Pessoais</span>
           </div>
         </ng-template>
-        
+
         <form [formGroup]="thirdFormGroup" class="form-content">
           <div class="form-grid">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nome Completo</mat-label>
-              <input
-                formControlName="nomeCompleto"
-                required 
-                matInput 
-                placeholder="Ex: João Silva">
+              <input formControlName="nomeCompleto" required matInput placeholder="Ex: João Silva">
               <mat-icon matPrefix>person</mat-icon>
               <mat-error>
                 <b>Nome completo é obrigatório</b>
@@ -336,12 +248,7 @@
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Email</mat-label>
-              <input
-                formControlName="email"
-                type="email"
-                required
-                matInput
-                placeholder="joao@exemplo.com">
+              <input formControlName="email" type="email" required matInput placeholder="joao@exemplo.com">
               <mat-icon matPrefix>email</mat-icon>
               <mat-error>
                 <b>Email é obrigatório</b>
@@ -350,71 +257,52 @@
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Confirmar Email</mat-label>
-              <input 
-                matInput 
-                formControlName="confirmEmail" 
-                type="email"
-                required
-                placeholder="Confirme o email">
+              <input matInput formControlName="confirmEmail" type="email" required placeholder="Confirme o email">
               <mat-icon matPrefix>mark_email_read</mat-icon>
-              <mat-error *ngIf="thirdFormGroup.get('confirmEmail').hasError('matching') && thirdFormGroup.get('confirmEmail').touched">
+              <mat-error
+                *ngIf="thirdFormGroup.get('confirmEmail').hasError('matching') && thirdFormGroup.get('confirmEmail').touched">
                 <b>Os emails não coincidem</b>
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Senha</mat-label>
-              <input 
-                formControlName="pass"
-                required
-                type="password"
-                matInput 
-                placeholder="Mínimo 6 caracteres">
+              <input formControlName="pass" required type="password" matInput placeholder="Mínimo 6 caracteres">
               <mat-icon matPrefix>lock</mat-icon>
               <mat-error>
                 <b>Senha é obrigatória</b>
               </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Confirmar Senha</mat-label>
-              <input
-                formControlName="passConfirm"
-                required
-                matInput
-                type="password"
-                placeholder="Confirme sua senha">
+              <input formControlName="passConfirm" required matInput type="password" placeholder="Confirme sua senha">
               <mat-icon matPrefix>lock_outline</mat-icon>
-              <mat-error *ngIf="thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').touched">
+              <mat-error
+                *ngIf="thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').touched">
                 <b>As senhas não coincidem</b>
               </mat-error>
-              <mat-error *ngIf="!thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').invalid && thirdFormGroup.get('passConfirm').touched">
+              <mat-error
+                *ngIf="!thirdFormGroup.get('passConfirm').hasError('matching') && thirdFormGroup.get('passConfirm').invalid && thirdFormGroup.get('passConfirm').touched">
                 <b>Confirmação de senha é obrigatória</b>
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-actions">
-            <button 
-              routerLink="/login" 
-              mat-stroked-button
-              class="btn-secondary">
+            <button routerLink="/login" mat-stroked-button class="btn-secondary">
               <mat-icon>arrow_back</mat-icon>
               Voltar para Login
             </button>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="submitRegistro(stepper)"
-              [disabled]="!thirdFormGroup.valid"
-              class="btn-primary">
+            <button mat-raised-button color="primary" (click)="submitRegistro(stepper)"
+              [disabled]="!thirdFormGroup.valid" class="btn-primary">
               Finalizar Cadastro
               <mat-icon>check</mat-icon>
             </button>
           </div>
         </form>
       </mat-step>
-      
+
       <!-- PASSO 4: Concluído -->
       <mat-step>
         <ng-template matStepLabel>
@@ -423,7 +311,7 @@
             <span>Concluído</span>
           </div>
         </ng-template>
-        
+
         <div class="completion-content">
           <div class="success-icon">
             <mat-icon>check_circle</mat-icon>
@@ -431,11 +319,7 @@
           <h2>Cadastro Concluído!</h2>
           <p>Seu cadastro foi realizado com sucesso. Você pode fazer login agora.</p>
           <div class="form-actions">
-            <button 
-              routerLink="/login" 
-              mat-raised-button 
-              color="primary"
-              class="btn-primary">
+            <button routerLink="/login" mat-raised-button color="primary" class="btn-primary">
               <mat-icon>login</mat-icon>
               Ir para Login
             </button>
