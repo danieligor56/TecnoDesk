@@ -1,48 +1,121 @@
-.container{
+.container {
     width: 35rem;
     margin: 1rem auto;
     padding: 1rem 1rem 3rem 1rem;
     border-radius: .6rem;
 }
 
-.fullWidth{
+.fullWidth {
     width: 100%;
 }
 
 
 
-.section{
+.section {
     margin-bottom: 1rem;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     padding-left: 10px;
 }
 
-img{
-    
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    padding: 16px 8px;
+}
+
+.col-12 {
+    grid-column: span 12;
+}
+
+.col-8 {
+    grid-column: span 8;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+.col-4 {
+    grid-column: span 4;
+}
+
+.col-3 {
+    grid-column: span 3;
+}
+
+.full-row {
+    grid-column: 1 / -1;
+}
+
+img {
+
     height: 8rem;
 }
 
-button{
+button {
     margin-top: .7rem;
 }
 
-mat-icon{
-        opacity: .5;
-    }
-.isUser{
+mat-icon {
+    opacity: .5;
+}
+
+.isUser {
     width: 100%;
 }
 
-.medPut{
-    margin-left: .5rem;
-    width: 8rem;
+.responsive-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.smallPut{
-    
-    margin-left: 2rem;
-    width: 5rem;
+.dialog-title-custom {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    padding: 16px 24px !important;
+    color: white;
+    margin: 0;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.actions button {
+    min-width: 120px;
+    padding: 0 24px;
+}
+
+h4 {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    color: #444;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-icon {
+    opacity: 0.5;
+}
+
+@media (max-width: 600px) {
+    .responsive-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .titPage {
@@ -50,7 +123,7 @@ mat-icon{
     padding: 20px !important;
     border-radius: 4px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
 }
 

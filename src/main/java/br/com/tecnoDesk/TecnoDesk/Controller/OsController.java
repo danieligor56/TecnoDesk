@@ -1,7 +1,6 @@
 package br.com.tecnoDesk.TecnoDesk.Controller;
 
 import java.util.List;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class OsController {
 
 	@PostMapping("/criarNovaOS")
 	public ResponseEntity<OS_Entrada> criarOsEntrada(@RequestBody OS_EntradaDTO osDTO,
-			@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
+			@RequestHeader("CodEmpresa") String codEmpresa) {
 		return ResponseEntity.ok().body(osService.crianova(osDTO, codEmpresa));
 
 	}
@@ -43,6 +42,12 @@ public class OsController {
 	@GetMapping("/listarOS")
 	public ResponseEntity<List<OS_Entrada>> listarOS(@RequestHeader("CodEmpresa") String codEmpresa) throws Exception {
 		return ResponseEntity.ok().body(osService.listarOS(codEmpresa));
+	}
+
+	@GetMapping("/listarOsCanceladasEncerrada")
+	public ResponseEntity<List<OS_Entrada>> listarOsCanceladasEncerrada(@RequestHeader("CodEmpresa") String codEmpresa)
+			throws Exception {
+		return ResponseEntity.ok().body(osService.listarOsCanceladasEncerrada(codEmpresa));
 	}
 
 	@GetMapping("/numOs")
@@ -59,11 +64,11 @@ public class OsController {
 
 		return ResponseEntity.ok().build();
 	}
-
+	
 	@PutMapping("/alterarStatusOs")
 	public ResponseEntity alterarStatusOs(@RequestParam long numOs, int stsOS,
-			@RequestHeader("CodEmpresa") String codEmpresa) throws BadRequestException {
-		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa);
+			@RequestHeader("CodEmpresa") String codEmpresa,@RequestHeader("userMail") String mail) {
+		this.osService.alterarStatusDaOS(numOs, stsOS, codEmpresa, mail);
 		return ResponseEntity.ok().build();
 	}
 

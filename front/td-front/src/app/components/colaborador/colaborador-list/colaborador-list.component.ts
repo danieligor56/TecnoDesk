@@ -83,7 +83,10 @@ export class ColaboradorListComponent implements OnInit, AfterViewInit {
   openDialog(event: Event, id: string): void {
 
     const dialogRef = this.dialog.open(ColaboradorUpdateComponent, {
-      data: { id: id }
+      data: { id: id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +111,11 @@ export class ColaboradorListComponent implements OnInit, AfterViewInit {
   }
 
   criarColaboradorDialog() {
-    const dialogRef = this.dialog.open(ColaboradorCreateComponent);
+    const dialogRef = this.dialog.open(ColaboradorCreateComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result)

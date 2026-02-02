@@ -31,14 +31,19 @@ export class OsService {
   }
 
   findAllOs(): Observable<Os_entrada[]> {
-
     const headers = new HttpHeaders({
       'codEmpresa': sessionStorage.getItem('CompGrpIndent')
     })
     const options = { headers: headers }
-
     return this.http.get<Os_entrada[]>(`${environment.apiUrl}/Os/listarOS`, options);
+  }
 
+  listarOsCanceladasEncerrada(): Observable<Os_entrada[]> {
+    const headers = new HttpHeaders({
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+    })
+    const options = { headers: headers }
+    return this.http.get<Os_entrada[]>(`${environment.apiUrl}/Os/listarOsCanceladasEncerrada`, options);
   }
 
   findOsByNumOs(numOs: number): Observable<Os_entrada> {
@@ -63,7 +68,8 @@ export class OsService {
 
   alterarStatusOS(numOs: number, stsOS: number): Observable<any> {
     const headers = new HttpHeaders({
-      'codEmpresa': sessionStorage.getItem('CompGrpIndent')
+      'codEmpresa': sessionStorage.getItem('CompGrpIndent'),
+      'userMail': sessionStorage.getItem('UserMailIdent')
     })
     const options = { headers: headers }
 

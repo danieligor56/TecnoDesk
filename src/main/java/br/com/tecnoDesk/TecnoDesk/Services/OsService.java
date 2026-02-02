@@ -6,22 +6,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.apache.coyote.BadRequestException;
-import org.apache.logging.log4j.message.Message;
+import exception.BadRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
+import br.com.tecnoDesk.TecnoDesk.Component.EncryptionUtil;
 import br.com.tecnoDesk.TecnoDesk.DTO.OS_EntradaDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.TecnicoEPrioridadeDTO;
 import br.com.tecnoDesk.TecnoDesk.DTO.UpdateLaudoTecnicoDTO;
 import br.com.tecnoDesk.TecnoDesk.Entities.Empresa;
 import br.com.tecnoDesk.TecnoDesk.Entities.OS_Entrada;
 import br.com.tecnoDesk.TecnoDesk.Entities.Orcamento;
+import br.com.tecnoDesk.TecnoDesk.Entities.Usuarios;
 import br.com.tecnoDesk.TecnoDesk.Enuns.Ocupacao;
 import br.com.tecnoDesk.TecnoDesk.Enuns.PrioridadeOS;
+import br.com.tecnoDesk.TecnoDesk.Enuns.Roles;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOR;
 import br.com.tecnoDesk.TecnoDesk.Enuns.StatusOS;
 import br.com.tecnoDesk.TecnoDesk.Repository.ClienteRepository;
@@ -30,7 +32,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.EmpresaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
-import exception.BadRequest;
+import br.com.tecnoDesk.TecnoDesk.Repository.UsuarioRepository;
 
 @Service
 public class OsService {
@@ -52,7 +54,7 @@ public class OsService {
 
 	@Autowired
 	OrcamentoRepository orcamentoRepository;
-	
+
 	@Autowired
 	OrcamentoItemRepository orcamentoItemRepository;
 
@@ -61,8 +63,15 @@ public class OsService {
 
 	@Autowired
 	public HistoricoOSService historicoOSService;
+	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	EncryptionUtil secUtil;
+	
 
-	public OS_Entrada crianova(OS_EntradaDTO osDTO, String codEmpresa) throws BadRequestException {
+	public OS_Entrada crianova(OS_EntradaDTO osDTO, String codEmpresa) {
 
 		try {
 
@@ -89,7 +98,7 @@ public class OsService {
 			novoOrcamentoOS.setOs(novaOs);
 			novoOrcamentoOS.setStatusOR(StatusOR.NOVO);
 			orcamentoRepository.save(novoOrcamentoOS);
-			
+
 			historicoOSService.registrar(novaOs, "OS Aberta");
 
 			return novaOs;
@@ -103,6 +112,12 @@ public class OsService {
 	public List<OS_Entrada> listarOS(String codEmpresa) throws Exception {
 		List<OS_Entrada> oss = this.osRepository
 				.findOsByEmpresaId(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
+		return oss;
+	}
+
+	public List<OS_Entrada> listarOsCanceladasEncerrada(String codEmpresa) throws Exception {
+		List<OS_Entrada> oss = this.osRepository
+				.listarOsCanceladasEncerrada(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
 		return oss;
 	}
 
@@ -163,62 +178,108 @@ public class OsService {
 
 	}
 
-	public void alterarStatusDaOS(long numOS, int stsOs, String codEmpresa) throws BadRequestException {
+	public void alterarStatusDaOS(long numOS, int stsOs, String codEmpresa, String mail) {
 		if (numOS > 0 && codEmpresa != null && stsOs <= 9) {
 			try {
 				Empresa empresa = empresaRepository
 						.findEmpresaById(Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
 				OS_Entrada os = osRepository.findByNumOs(numOS, empresa.getId());
-				
+
 				Orcamento orcamento = orcamentoRepository.encontrarOcamentoPorNumOS(empresa.getId(), os.getId());
 
+				Usuarios user = usuarioRepository.findItByEmail(secUtil.decrypt(mail));
+				
 				switch (stsOs) {
 					case 0: {
+						
+						if(stsOs == 0 && (os.getStatusOS() == StatusOS.NOVO) || os.getStatusOS() == StatusOS.CANCELADA) {
+							if(user.getRole() == Roles.ADMIN) {
+								orcamento.setStatusOR(StatusOR.NOVO);
+								orcamentoRepository.save(orcamento);
+							}
+							
+							throw new BadRequest("Somente o usuário administrador pode reabrir OS");
+							
+						}
 						os.setStatusOS(StatusOS.NOVO);
 						break;
 					}
 					case 1: {
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
 						os.setStatusOS(StatusOS.EM_ANDAMENTO);
 						break;
 					}
 					case 2: {
-						// AGUARDANDO RESPOSTA DO CLIENTE: 
-						
-						if(orcamentoItemRepository.contarItensOrcamento(numOS, stsOs) == 0) {
-							throw new BadRequest("Não é possivel, oferecer o orçamento, pois não há itens ou serviços definidos.");							
-						}							
-						
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+						// AGUARDANDO RESPOSTA DO CLIENTE:
+
+						if (orcamentoItemRepository.contarItensOrcamento(empresa.getId(), orcamento.getId()) == 0) {
+							throw new BadRequest(
+									"Não é possivel, oferecer o orçamento, pois não há itens ou serviços definidos.");
+						}
+
 						os.setStatusOS(StatusOS.AGUARDANDO_RESP_ORCAMENTO);
 						orcamento.setStatusOR(StatusOR.AGUARDANDO_RESPOSTA);
 						orcamentoRepository.save(orcamento);
-						
+
 						break;
 					}
 					case 3: {
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
 						os.setStatusOS(StatusOS.AGUARDANDO_PECAS);
 						break;
 					}
 					case 4: {
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
 						os.setStatusOS(StatusOS.AGUARDANDO_RETIRADA);
 						break;
 					}
 					case 5: {
-						
-						if(orcamentoItemRepository.contarItensOrcamento(numOS, stsOs) == 0) {
-							throw new BadRequest("Não é possivel aprovar o orçamento pois não há produtos ou serviços definidos. ");							
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
+						if (orcamentoItemRepository.contarItensOrcamento(empresa.getId(), orcamento.getId()) == 0) {
+							throw new BadRequest(
+									"Não é possivel aprovar o orçamento pois não há produtos ou serviços definidos. ");
 						}
-						
+
 						os.setStatusOS(StatusOS.ORCAMENTO_APROVADO);
 						orcamento.setStatusOR(StatusOR.APROVADO);
 						orcamentoRepository.save(orcamento);
 						break;
 					}
 					case 6: {
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
 						os.setStatusOS(StatusOS.PENDENTE);
 						break;
 					}
 					case 7: {
-						
+
+						if (os.getStatusOS() == StatusOS.ENCERRADA || os.getStatusOS() == StatusOS.CANCELADA)
+							throw new BadRequest(
+									"O.s cancelada ou encerrada, para reabrir a OS, marque a opção Encerradas e reabra a OS. ");
+
 						os.setStatusOS(StatusOS.CONCLUIDO);
 						break;
 					}
@@ -233,6 +294,10 @@ public class OsService {
 						LocalDateTime now = LocalDateTime.now();
 						os.setDataEncerramento(formatter.format(now));
 						os.setStatusOS(StatusOS.ENCERRADA);
+
+						orcamento.setStatusOR(StatusOR.ENCERRADO);
+						orcamentoRepository.save(orcamento);
+
 						break;
 					}
 					default:
@@ -244,11 +309,11 @@ public class OsService {
 				historicoOSService.registrar(os, "Mudou status da OS para " + os.getStatusOS().name());
 
 			} catch (Exception e) {
-				throw new BadRequestException( e.getMessage());
+				throw new BadRequest(e.getMessage());
 			}
 
 		} else {
-			throw new BadRequestException("Você não forneceu parametros suficientes para a requisição");
+			throw new BadRequest("Você não forneceu parametros suficientes para a requisição");
 		}
 	}
 
@@ -257,9 +322,13 @@ public class OsService {
 		try {
 			var os = this.osRepository.findByNumOs(dto.numOS, Long.valueOf(decriptService.decriptCodEmp(codEmpresa)));
 
+			if (os == null) {
+				throw new BadRequest("OS não encontrada.");
+			}
+
 			if (os.getStatusOS() == StatusOS.CANCELADA || os.getStatusOS() == StatusOS.CONCLUIDO
 					|| os.getStatusOS() == StatusOS.ENCERRADA) {
-				throw new BadRequestException("Status da OS não permite que o campo seja preenchido.");
+				throw new BadRequest("Status da OS não permite que o campo seja preenchido.");
 			}
 
 			os.setLaudoTecnico(dto.laudo);
@@ -268,7 +337,7 @@ public class OsService {
 			historicoOSService.registrar(os, "Atualizou laudo técnico");
 
 		} catch (Exception e) {
-			throw new Exception("Não foi possível atender a requisição nesse momento: " + e);
+			throw new BadRequest("Não foi possível atender a requisição nesse momento: " + e.getMessage());
 		}
 	}
 

@@ -102,7 +102,11 @@ export class OsCreateComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(ClienteCreateOsComponent, {
-      data: { documento: this.doc }, disableClose: true
+      data: { documento: this.doc },
+      disableClose: true,
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {

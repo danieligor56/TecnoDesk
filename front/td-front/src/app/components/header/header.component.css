@@ -1,30 +1,83 @@
-.containerHeader{
-    background-color:#673AB7;
-    height: 30px;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    align-items: center;
-    color:aliceblue;
-   
-}
-
-.menu{
-    height: 100%;
-}
-
-.wellcome{
-
-    justify-content: end;
+.main-header {
+    background: linear-gradient(135deg, #673AB7, #512DA8);
+    height: 60px;
+    padding: 0 20px;
     display: flex;
-    color: #ececee;
-    
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.wellcome i{
-    margin-right:5px;
-    margin-top: 3.4px;
-    color: #EBEFF2;
-    
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
+.menu-btn {
+    color: white;
+}
+
+.app-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.user-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+}
+
+.user-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.header-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 4px;
+}
+
+.logout-btn {
+    color: #ffcdd2;
+    /* Light red/pink for better contrast on purple */
+    transition: transform 0.2s;
+}
+
+.logout-btn:hover {
+    transform: scale(1.1);
+    color: #ff8a80;
+}
+
+@media (max-width: 600px) {
+    .app-logo {
+        display: none;
+    }
+}

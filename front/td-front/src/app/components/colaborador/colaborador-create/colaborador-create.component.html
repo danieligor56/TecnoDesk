@@ -1,145 +1,118 @@
+<h2 mat-dialog-title class="dialog-title-custom">Cadastrar colaborador</h2>
 
-<div class="container">
-   
-    
-    <div class="titPage" style="padding:5px; margin-bottom: 10px;">
-      <h1 id="osH1">Cadastrar colaborador</h1>      
-    </div>
-    
-   
-    <section class="section">
-        
-        <mat-checkbox [(ngModel)]="this.isTecnico" (blur)="setOcupacao()" name="isTec" class="example-margin" color="primary">Técnico</mat-checkbox>
-        <mat-checkbox [(ngModel)]="this.isAtendente" name="isAtend"  class="example-margin" color="primary">Atendente</mat-checkbox>
-        <mat-checkbox [(ngModel)]="this.isGestor" name="isGest" class="example-margin" color="primary">Gestor</mat-checkbox>
-        
-        <mat-checkbox [(ngModel)]="this.isUsuario" name="check" class="example-margin" (click)="returnToSetSenha()" color="primary">Usuário</mat-checkbox> 
-      </section>
-      
-      <form [formGroup]="colaboradorCreateForm" *ngIf="form2"   class="form2">
-        <h4>Endereco:</h4>
+<mat-dialog-content class="mat-typography">
+  <div class="responsive-container">
+    <!-- Cargos / Acesso -->
+    <h4 class="full-row"><mat-icon style="font-size: 18px; vertical-align: middle;">admin_panel_settings</mat-icon>
+      Cargos / Acesso</h4>
+    <section class="section full-row" style="margin-bottom: 24px; display: flex; gap: 16px; flex-wrap: wrap;">
+      <mat-checkbox [(ngModel)]="this.isTecnico" (blur)="setOcupacao()" name="isTec"
+        color="primary">Técnico</mat-checkbox>
+      <mat-checkbox [(ngModel)]="this.isAtendente" name="isAtend" color="primary">Atendente</mat-checkbox>
+      <mat-checkbox [(ngModel)]="this.isGestor" name="isGest" color="primary">Gestor</mat-checkbox>
+      <mat-checkbox [(ngModel)]="this.isUsuario" name="check" (click)="returnToSetSenha()"
+        color="primary">Usuário</mat-checkbox>
+    </section>
 
-        <mat-form-field  class="fullWidth" appearance="fill">
-          <mat-label>Cep</mat-label>
-          <input
-          formControlName="cep"
-          matInput placeholder="00.000-000" mask="00.000-000" name="cep" (blur)="autoCep(colaboradorCreateForm.get('cep').value)">
-        </mat-form-field>
+    <!-- FORM STEP 1: Informações Pessoais -->
+    <form [formGroup]="colaboradorCreateForm" *ngIf="form1" name="form1" class="responsive-grid">
+      <h4 class="full-row"><mat-icon style="font-size: 18px; vertical-align: middle;">person_add</mat-icon> Informações
+        Pessoais</h4>
 
-        <mat-form-field class="fullWidth" appearance="standard">
-          <mat-label>Cidade</mat-label>
-          <input
-          formControlName="cidade"
-          matInput placeholder="">
-        </mat-form-field>
-
-        <mat-form-field class="smallPut" appearance="standard">
-          <mat-label>Estado</mat-label>
-          <input
-          formControlName="estado"
-          matInput placeholder="">
-        </mat-form-field>
-
-        <mat-form-field class="medPut" appearance="fill">
-          <mat-label>numero</mat-label>
-          <input
-          formControlName="numero"
-          matInput placeholder="">
-        </mat-form-field>
-
-        <mat-form-field class="medPut" appearance="fill">
-          <mat-label>Bairro:</mat-label>
-          <input
-          formControlName="bairro"
-          matInput placeholder="">
-        </mat-form-field>
-
-        <mat-form-field class="medPut" appearance="fill">
-          <mat-label>OBS:</mat-label>
-          <input formControlName="obs" matInput placeholder="">
-        </mat-form-field>
-
-        <mat-form-field class="fullWidth" appearance="fill">
-          <mat-label>logradouro</mat-label>
-          <input
-          formControlName="logradouro"
-          matInput placeholder="">
-        </mat-form-field>
-
-        <button [disabled]="!validaCampos()"  (click)="create()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Salvar colaborador</button>
-      <button  (click)="cadastraInfoPessoal()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Voltar</button>
-  
-      </form>
-      
-      <form [formGroup]="colaboradorCreateForm" *ngIf="form1" name="form1" class="form">
-      <h4>Informações pessoais:</h4>
-
-      <mat-form-field class="fullWidth" appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input
-        formControlName="nome"
-        required 
-        matInput placeholder="Exp: João">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Nome Completo</mat-label>
+        <input formControlName="nome" required matInput placeholder="Ex: João Silva">
         <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
 
-      <mat-form-field class="fullWidth" appearance="fill">
-        <mat-label>CPF/CNPJ</mat-label>
-        <input
-        formControlName="documento"
-        required
-        matInput placeholder="Exp: xxx.xxx.xxx-xx" mask="000.000.000.00">
+      <mat-form-field class="col-6" appearance="outline">
+        <mat-label>CPF ou CNPJ</mat-label>
+        <input formControlName="documento" required matInput mask="000.000.000-00">
         <mat-icon matSuffix>badge</mat-icon>
       </mat-form-field>
 
-      <mat-form-field class="fullWidth" appearance="fill">
+      <mat-form-field class="col-6" appearance="outline">
         <mat-label>Contato</mat-label>
-        <input
-        formControlName="cel1"
-        required
-        matInput placeholder="(xx)xxxxxxxxx" mask="(00)000000000">
+        <input formControlName="cel1" required matInput mask="(00) 000000000">
         <mat-icon matSuffix>call</mat-icon>
       </mat-form-field>
 
-      <mat-form-field class="fullWidth" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input 
-        formControlName="email"
-        required
-        matInput placeholder="joao@exemplo.com">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input formControlName="email" required matInput placeholder="joao@exemplo.com">
         <mat-icon matSuffix>mail</mat-icon>
       </mat-form-field>
 
-      <mat-form-field *ngIf="isUsuario" class="fullWidth" id="senha" name="senha" appearance="fill">
+      <mat-form-field *ngIf="isUsuario" class="col-6" appearance="outline">
         <mat-label>Senha</mat-label>
-        <input 
-        formControlName="senha"
-        required
-        type="password"
-        matInput placeholder="Insira sua senha"  >
+        <input formControlName="senha" required type="password" matInput placeholder="Crie uma senha">
         <mat-icon matSuffix>password</mat-icon>
       </mat-form-field>
-      
-      <mat-form-field *ngIf="isUsuario" id="confirmasenha" name="confirmaSenha"class="fullWidth"  appearance="fill">
-        <mat-label>Confirme sua senha</mat-label>
-         <input
-          formControlName="confirmaSenha"
-          required
-          matInput
-          type="password"
-          placeholder="Insira a senha novamente">
-         <mat-icon matSuffix>password</mat-icon>
-         <mat-error *ngIf="colaboradorCreateForm.get('confirmaSenha').invalid && colaboradorCreateForm.get('confirmaSenha').touched">
-          Confirmação de senha é obrigatória e deve coincidir com a senha.
+
+      <mat-form-field *ngIf="isUsuario" class="col-6" appearance="outline">
+        <mat-label>Confirme a senha</mat-label>
+        <input formControlName="confirmaSenha" required matInput type="password" placeholder="Repita a senha">
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error
+          *ngIf="colaboradorCreateForm.get('confirmaSenha').invalid && colaboradorCreateForm.get('confirmaSenha').touched">
+          As senhas devem coincidir.
         </mat-error>
       </mat-form-field>
 
-
-      <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" class="fullWidth mat-elevation-z4" mat-flat-button color="primary">Gravar</button>
-      <button (click)="closeDialog()" class="fullWidth mat-elevation-z4" mat-flat-button color="warn">Cancelar</button>
-    
+      <div class="actions full-row">
+        <button (click)="closeDialog()" mat-button color="warn">Cancelar</button>
+        <button [disabled]="!validaCampos()" (click)="cadastrarEndereco(); setOcupacao()" mat-flat-button
+          color="primary">Próximo (Endereço)</button>
+      </div>
     </form>
 
-    
-</div>
- 
+    <!-- FORM STEP 2: Endereço -->
+    <form [formGroup]="colaboradorCreateForm" *ngIf="form2" class="responsive-grid">
+      <h4 class="full-row"><mat-icon style="font-size: 18px; vertical-align: middle;">location_on</mat-icon> Localização
+      </h4>
+
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>CEP</mat-label>
+        <input formControlName="cep" matInput placeholder="00000-000" mask="00.000-000"
+          (blur)="autoCep(colaboradorCreateForm.get('cep').value)">
+        <mat-icon matSuffix>map</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>UF</mat-label>
+        <input formControlName="estado" matInput readonly>
+      </mat-form-field>
+
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input formControlName="cidade" matInput readonly>
+      </mat-form-field>
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Logradouro / Rua</mat-label>
+        <input formControlName="logradouro" matInput>
+      </mat-form-field>
+
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>Nº</mat-label>
+        <input formControlName="numero" matInput>
+      </mat-form-field>
+
+      <mat-form-field class="col-8" appearance="outline">
+        <mat-label>Bairro</mat-label>
+        <input formControlName="bairro" matInput>
+      </mat-form-field>
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Observações (opcional)</mat-label>
+        <input formControlName="obs" matInput placeholder="Complemento, pontos de referência...">
+      </mat-form-field>
+
+      <div class="actions full-row">
+        <button (click)="cadastraInfoPessoal()" mat-button color="warn">Voltar</button>
+        <button [disabled]="!validaCampos()" (click)="create()" mat-flat-button color="primary">Finalizar
+          Cadastro</button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

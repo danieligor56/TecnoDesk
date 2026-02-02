@@ -4,13 +4,19 @@
     <h1 id="osH1">Ordem de serviço</h1>
   </div>
 
-  <mat-form-field appearance="standard" style="width: 100%;">
-    <mat-label>Filtrar</mat-label>
-    <input matInput style="border: none;width: 100%;" type="text"
-      placeholder="Buscar por: Número OS, Cliente, Responsável, Situação ou Prioridade" [(ngModel)]="searchTerm"
-      (input)="applyFilter()" />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+  <div class="filter-container" style="display: flex; align-items: center; gap: 20px;">
+    <mat-form-field appearance="standard" style="flex: 1;">
+      <mat-label>Filtrar</mat-label>
+      <input matInput style="border: none;width: 100%;" type="text"
+        placeholder="Buscar por: Número OS, Cliente, Responsável, Situação ou Prioridade" [(ngModel)]="searchTerm"
+        (input)="applyFilter()" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="showAll" (change)="toggleShowAll()">
+      Mostrar canceladas/encerradas
+    </mat-checkbox>
+  </div>
 
   <div class="mat-elevation-z8 table-container">
     <div class="loading-overlay" *ngIf="isLoading">
@@ -67,9 +73,16 @@
               print
             </mat-icon>
 
-            <mat-icon class="action-icon icon-cancel" (click)="cancelarOs(element.sequencial)" matTooltip="Cancelar OS"
+            <mat-icon *ngIf="element.statusOS !== 'CANCELADA' && element.statusOS !== 'ENCERRADA'"
+              class="action-icon icon-cancel" (click)="cancelarOs(element.sequencial)" matTooltip="Cancelar OS"
               matTooltipPosition="above">
               block
+            </mat-icon>
+
+            <mat-icon *ngIf="element.statusOS === 'CANCELADA' || element.statusOS === 'ENCERRADA'"
+              class="action-icon icon-reopen" (click)="reabrirOs(element.sequencial)" matTooltip="Reabrir OS"
+              matTooltipPosition="above">
+              settings_backup_restore
             </mat-icon>
           </div>
         </td>

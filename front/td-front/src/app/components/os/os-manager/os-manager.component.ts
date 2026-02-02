@@ -336,7 +336,7 @@ export class OsManagerComponent implements OnInit {
         this.carregarHistorico();
       },
       error: (err) => {
-        this.toast.error(err.error.message)
+        this.toast.error(err?.error?.message || 'Falha ao atualizar status da OS')
       }
     });
   }
@@ -353,7 +353,7 @@ export class OsManagerComponent implements OnInit {
         this.carregarHistorico();
       },
       error: (err) => {
-        this.toast.error(err.error.message)
+        this.toast.error(err?.error?.message || 'Falha ao preencher diagnóstico')
       }
     })
 

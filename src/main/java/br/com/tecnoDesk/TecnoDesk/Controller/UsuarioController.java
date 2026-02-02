@@ -64,8 +64,8 @@ public class UsuarioController {
 			httpSession.setAttribute("CodEmpresa", codEmp);
 
 			return ResponseEntity.ok()
-					.body(new LoginResponseDTO(token, usuario.getNomeCompleto(), secUtil.encrypt(codEmp)));
-
+					.body(new LoginResponseDTO(token, usuario.getNomeCompleto(), secUtil.encrypt(codEmp), secUtil.encrypt(usuario.getEmail())));
+		
 		} catch (Exception e) {
 			throw new NotFound("Usuário não encontrado", e);
 		}

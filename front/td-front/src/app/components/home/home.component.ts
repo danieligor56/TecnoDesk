@@ -72,7 +72,9 @@ export class HomeComponent implements OnInit {
 
   novoCliente() {
     const dialogRef = this.dialog.open(ClienteCreateComponent, {
-      width: '50rem'
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: 'auto'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

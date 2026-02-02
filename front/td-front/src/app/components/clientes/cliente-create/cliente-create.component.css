@@ -1,81 +1,81 @@
-.container{
-    width: 35rem;
-    margin: 1rem auto;
-    border-radius: .6rem;
-    display: flex;
-}
-
-.fullWidth{
+.responsive-container {
+    max-width: 800px;
     width: 100%;
+    margin: 0 auto;
 }
 
-/* h1{
-    text-align: center;
-    margin-bottom: 0px;
-    background-color: #F6F6F6;
-    
-} */
-
-.section{
-    margin-bottom: 1rem;
-    display:flex;
-    justify-content: space-between;
-    padding-left: 10px;
-}
-
-img{
-    
-   /* height: 200px; */
-}
-
-button{
-    margin-top: .7rem;
-}
-
-mat-icon{
-        opacity: .5;
-    }
-.isUser{
-    width: 100%;
-}
-
-.medPut{
-    margin-left: .5rem;
-    width: 8rem;
-}
-
-.smallPut{
-    
-    margin-left: 2rem;
-    width: 5rem;
-}
-
-.titPage {
+.dialog-title-custom {
     background: linear-gradient(to right, #2c3e50, #3498db);
-    padding: 20px !important;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-}
-
-.titPage h1 {
-    color: #ffffff;
-    font-size: 24px;
+    padding: 16px 24px !important;
+    color: white;
     margin: 0;
     font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
 }
 
-.titPage h1::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 24px;
-    background-color: #ffffff;
-    margin-right: 15px;
-    border-radius: 2px;
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    padding: 16px 8px;
+}
+
+.col-12 {
+    grid-column: span 12;
+}
+
+.col-8 {
+    grid-column: span 8;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+.col-4 {
+    grid-column: span 4;
+}
+
+.col-3 {
+    grid-column: span 3;
+}
+
+.full-row {
+    grid-column: 1 / -1;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.actions button {
+    min-width: 120px;
+}
+
+h4 {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    color: #444;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-icon {
+    opacity: 0.5;
+}
+
+@media (max-width: 600px) {
+    .responsive-grid {
+        grid-template-columns: 1fr;
+    }
 }
