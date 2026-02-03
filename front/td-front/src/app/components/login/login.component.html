@@ -5,61 +5,43 @@
         <h1 class="login-title">Tecno Desk</h1>
         <h2 class="login-subtitle">Bem vindo!</h2>
         <h3 class="login-instruction">Faça seu login</h3>
-      
+
         <div class="login-form-container">
           <form id="form-login" (ngSubmit)="logar()">
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>E-mail</mat-label>
-              <input
-                [formControl]="email"
-                required
-                [(ngModel)]="cred.email"
-                name="email"
-                matInput
-                type="email"
-                placeholder="seuemail@email.com"
-                aria-label="E-mail">
+              <input [formControl]="email" required [(ngModel)]="cred.email" name="email" matInput type="email"
+                placeholder="seuemail@email.com" aria-label="E-mail">
               <mat-icon matSuffix>person</mat-icon>
               <mat-error *ngIf="email.invalid && email.touched">
                 É necessário informar um email válido.
               </mat-error>
             </mat-form-field>
-      
+
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>Senha</mat-label>
-              <input
-                [formControl]="pass"
-                required
-                [(ngModel)]="cred.pass"
-                name="password"
-                type="password"
-                matInput
-                placeholder="Digite sua senha"
-                aria-label="Senha">
+              <input [formControl]="pass" required [(ngModel)]="cred.pass" name="password" type="password" matInput
+                placeholder="Digite sua senha" aria-label="Senha">
               <mat-icon matSuffix>password</mat-icon>
               <mat-error *ngIf="pass.invalid && pass.touched">
                 É necessário informar uma senha.
               </mat-error>
             </mat-form-field>
-      
-            <button
-              type="submit"
-              [disabled]="!validaInput()"
-              class="full-width login-button mat-elevation-z4"
-              mat-stroked-button
-              color="white">
+
+            <button type="submit" [disabled]="!validaInput()" class="full-width login-button mat-elevation-z4"
+              mat-stroked-button color="white">
               Login
             </button>
           </form>
         </div>
-      
+
         <div class="login-help" style="margin-top: 8px;">
           <a href="registroInicial" role="button" style="margin-right: 6px;">Primeiro acesso</a>
-          <a href="#" class="help-link" role="button">Precisa de ajuda?</a>
+          <a (click)="abrirSuporte()" class="help-link" role="button" style="cursor: pointer;">Precisa de ajuda?</a>
         </div>
       </ng-container>
 
-     
+
     </div>
   </div>
 </div>

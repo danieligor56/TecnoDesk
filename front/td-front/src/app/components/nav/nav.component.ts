@@ -35,10 +35,12 @@ export class NavComponent implements OnInit {
   }
 
   abrirSuporte() {
-    // Aqui você pode implementar a lógica para abrir o suporte
-    // Por exemplo: abrir um modal, redirecionar para uma página de suporte, etc.
-    this.toastr.info('Abrindo suporte...', 'Suporte', { timeOut: 3000 });
-    // Exemplo: window.open('https://seu-link-de-suporte.com', '_blank');
+    const phoneNumber = '5585988584985'; // Número do WhatsApp do suporte
+    const message = 'Olá, preciso de suporte técnico.'; // Mensagem padrão
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+    this.toastr.info('Abrindo WhatsApp...', 'Suporte', { timeOut: 3000 });
   }
 
   setTreeOs() {

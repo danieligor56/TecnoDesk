@@ -168,7 +168,7 @@ export class RegistroInicialComponent implements OnInit {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
       // Sanitize tel field to remove mask characters if empty
       const telValue = this.firstFormGroup.get('tel').value;
-      const sanitizedTel = telValue && telValue.trim().replace(/[^0-9]/g, '').length > 0 ? telValue : '';
+      const sanitizedTel = telValue && telValue.trim().replace(/[^0-9]/g, '').length > 0 ? telValue : null;
 
       const dto: EmpresaUsuarioDTO = {
         razaoSocial: this.firstFormGroup.get('razaoSocial').value || '',
@@ -177,12 +177,12 @@ export class RegistroInicialComponent implements OnInit {
         mail: this.firstFormGroup.get('mail').value,
         cel: this.firstFormGroup.get('cel').value,
         tel: sanitizedTel,
-        site: this.firstFormGroup.get('site').value || '',
+        site: this.firstFormGroup.get('site').value || null,
         segmento: parseInt(this.firstFormGroup.get('segmento').value),
         cep: this.secondFormGroup.get('cep').value,
         logra: this.secondFormGroup.get('logra').value,
         num: parseInt(this.secondFormGroup.get('num').value),
-        comp: this.secondFormGroup.get('comp').value || '',
+        comp: this.secondFormGroup.get('comp').value || null,
         bairro: this.secondFormGroup.get('bairro').value,
         municipio: this.secondFormGroup.get('municipio').value,
         uf: this.secondFormGroup.get('uf').value,
