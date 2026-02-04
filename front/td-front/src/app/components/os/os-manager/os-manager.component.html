@@ -7,7 +7,8 @@
         <h1 id="osH1">Ordem de serviço</h1>
     </div>
 
-    <mat-tab-group mat-align-tabs="start" animationDuration="500ms" style="overflow: hidden;">
+    <mat-tab-group mat-align-tabs="start" animationDuration="500ms" style="overflow: hidden;"
+        (selectedTabChange)="onTabChange($event)">
 
 
 
@@ -330,7 +331,8 @@
                                                 {{servico.produtoOuServico === 'SERVICO' ? 'settings' : 'inventory_2'}}
                                             </mat-icon>
                                             <div class="item-details">
-                                                <span class="item-name">{{servico.nomeServicoAvulso}}</span>
+                                                <span class="item-name"
+                                                    [matTooltip]="servico.nomeServicoAvulso">{{servico.nomeServicoAvulso}}</span>
                                                 <small class="item-category">{{servico.produtoOuServico}}</small>
                                             </div>
                                         </div>

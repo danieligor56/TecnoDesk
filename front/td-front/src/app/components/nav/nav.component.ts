@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
+import { MatDrawer } from '@angular/material/sidenav';
+import { SidenavService } from 'src/app/services/sidenav.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,6 +14,7 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 })
 
 export class NavComponent implements OnInit {
+  @ViewChild('drawer') drawer: MatDrawer;
   treeos: boolean = false;
   treeCadastros: boolean = false;
   segmentoEmpresa: number = 0;
@@ -20,12 +23,25 @@ export class NavComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService,
-    private empresaService: EmpresaService) { }
+    private empresaService: EmpresaService,
+    private sidenavService: SidenavService) { }
 
   ngOnInit(): void {
     this.buscarSegmentoEmpresa()
     this.router.navigate(['home'])
-    //home
+
+    // Subscribe to sidenav service events
+    this.sidenavService.sidenavClose$.subscribe(() => {
+      this.drawer.close();
+    });
+
+    this.sidenavService.sidenavOpen$.subscribe(() => {
+      this.drawer.open();
+    });
+
+    this.sidenavService.sidenavToggle$.subscribe(() => {
+      this.drawer.toggle();
+    });
   }
 
   logout() {
@@ -35,10 +51,12 @@ export class NavComponent implements OnInit {
   }
 
   abrirSuporte() {
-    // Aqui você pode implementar a lógica para abrir o suporte
-    // Por exemplo: abrir um modal, redirecionar para uma página de suporte, etc.
-    this.toastr.info('Abrindo suporte...', 'Suporte', { timeOut: 3000 });
-    // Exemplo: window.open('https://seu-link-de-suporte.com', '_blank');
+    const phoneNumber = '5585988584985'; // Número do WhatsApp do suporte
+    const message = 'Olá, preciso de suporte técnico.'; // Mensagem padrão
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+    this.toastr.info('Abrindo WhatsApp...', 'Suporte', { timeOut: 3000 });
   }
 
   setTreeOs() {

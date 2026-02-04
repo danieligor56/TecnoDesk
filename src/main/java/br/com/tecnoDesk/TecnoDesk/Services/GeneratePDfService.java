@@ -34,6 +34,7 @@ import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoItemRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OrcamentoRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRapidaRepository;
 import br.com.tecnoDesk.TecnoDesk.Repository.OsRepository;
+import exception.BadRequest;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,8 @@ public class GeneratePDfService {
 
 	@Autowired
 	OsRapidaRepository osRapidaRepository;
+	
+	
 
 	public byte[] gerarPdfOsentrada(OS_Entrada osFront, String codEmpresa) throws Exception {
 
@@ -567,7 +570,11 @@ public class GeneratePDfService {
 			if (orcamento == null) {
 				throw new Exception("Orçamento não encontrado para esta OS");
 			}
-
+			
+			if(orcamentoItemRepository.contarItensOrcamento(empresa.getId(), orcamento.getId()) == 0) {
+				throw new BadRequest("Não é possível gerar um PDF, pois não há produtos ou serviços no orçamento");
+			}
+			
 			List<OrcamentoItem> itens = orcamentoItemRepository.listaItens(empresa.getId(), orcamento.getId());
 
 			TotaisNotaDTO totais = orcamentoService.calcularValorOrcamento(orcamento.getId(), codEmpresa);

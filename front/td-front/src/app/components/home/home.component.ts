@@ -100,6 +100,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/manager', osSequencial]);
   }
 
+  irParaOsRapida() {
+    this.router.navigate(['/os-rapida/list']);
+  }
+
   getStatusClass(status: string): string {
     const statusMap: { [key: string]: string } = {
       'NOVO': 'status-novo',

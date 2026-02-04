@@ -84,4 +84,12 @@ export class LoginComponent {
   voltarParaLogin(): void {
     this.mostrarCadastro = false;
   }
+
+  abrirSuporte(): void {
+    const phoneNumber = '5585988584985'; // Número do WhatsApp do suporte
+    const message = 'Olá, preciso de ajuda.'; // Mensagem padrão
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+  }
 }

@@ -24,6 +24,9 @@ import { KitCreateComponent } from '../../kits/kit-create/kit-create.component';
 import { PdfService } from 'src/app/services/pdf.service';
 import { HistoricoOS } from 'src/app/models/HistoricoOS';
 
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { SidenavService } from 'src/app/services/sidenav.service';
+
 @Component({
   selector: 'app-os-manager',
   templateUrl: './os-manager.component.html',
@@ -80,10 +83,6 @@ export class OsManagerComponent implements OnInit {
   historico: HistoricoOS[] = [];
 
 
-
-
-
-
   constructor(
     private osService: OsService,
     private route: ActivatedRoute,
@@ -91,7 +90,8 @@ export class OsManagerComponent implements OnInit {
     private dialog: MatDialog,
     private orcamentoService: OrcamentoService,
     private toast: ToastrService,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    private sidenavService: SidenavService
 
   ) { }
 
@@ -470,7 +470,20 @@ export class OsManagerComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao gerar PDF:', err);
-        this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
+        if (err.error instanceof Blob) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            try {
+              const errorBody = JSON.parse(e.target.result);
+              this.toast.error(errorBody.message || 'Erro ao gerar PDF do orçamento');
+            } catch (parseError) {
+              this.toast.error('Erro ao gerar PDF do orçamento (Erro desconhecido)');
+            }
+          };
+          reader.readAsText(err.error);
+        } else {
+          this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
+        }
       }
     });
   }
@@ -512,6 +525,13 @@ export class OsManagerComponent implements OnInit {
         console.error('Erro ao carregar histórico:', err);
       }
     });
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    // If the selected tab is 'Orçamento', close the sidenav
+    if (event.tab.textLabel === 'Orçamento') {
+      this.sidenavService.close();
+    }
   }
 
 }
