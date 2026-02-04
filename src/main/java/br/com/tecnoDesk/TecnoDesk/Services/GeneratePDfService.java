@@ -572,7 +572,7 @@ public class GeneratePDfService {
 			}
 			
 			if(orcamentoItemRepository.contarItensOrcamento(empresa.getId(), orcamento.getId()) == 0) {
-				throw new BadRequest("Não é possível gerar um orçamento, pois não há produtos ou serviços no orçamento");
+				throw new BadRequest("Não é possível gerar um PDF, pois não há produtos ou serviços no orçamento");
 			}
 			
 			List<OrcamentoItem> itens = orcamentoItemRepository.listaItens(empresa.getId(), orcamento.getId());

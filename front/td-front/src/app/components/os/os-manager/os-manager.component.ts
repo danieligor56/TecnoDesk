@@ -470,7 +470,20 @@ export class OsManagerComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao gerar PDF:', err);
-        this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
+        if (err.error instanceof Blob) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            try {
+              const errorBody = JSON.parse(e.target.result);
+              this.toast.error(errorBody.message || 'Erro ao gerar PDF do orçamento');
+            } catch (parseError) {
+              this.toast.error('Erro ao gerar PDF do orçamento (Erro desconhecido)');
+            }
+          };
+          reader.readAsText(err.error);
+        } else {
+          this.toast.error('Erro ao gerar PDF do orçamento: ' + (err.error?.message || 'Erro desconhecido'));
+        }
       }
     });
   }
